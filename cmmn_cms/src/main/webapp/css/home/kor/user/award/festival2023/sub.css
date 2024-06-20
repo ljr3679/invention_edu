@@ -1,0 +1,516 @@
+@charset "UTF-8";
+
+/* sub_top */
+.sub_top {margin: 0 0 ;}
+.contents_view {padding-top:75px;}
+.sub_top_tit {padding:60px 0; font-size:2.2em; font-weight:500; text-align:center;}
+
+/* 서브페이지 기본틀 */
+.sub_cont {width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 0 0; font-family: 'Noto Sans KR';}
+.sub_cont .main_title {font-family: 'GmarketSans'; font-weight: 500; font-size: 40px; line-height: 60px; color: #000000; text-align: center;}
+.header {position: absolute; top: 0; right: 0; left: 0;}
+.header .gnb_header {padding: 30px 5px;}
+.header .gnb_header .logo {position: absolute; left: 0; top: 0;}
+.header .gnb_header .logo a img {width: 300px;}
+.header .gnb_header .gnb {display: flex;}
+.header .gnb_header .title_box {display: none;}
+.sitemap_btn {top: 26px; margin: 0;}
+
+
+/* 창의발명교육 홍보관 */
+.promotion_cont {}
+.promotion_cont > .title {font-family: 'CoreDream'; font-weight: 500; font-size: 30px; line-height: 46px; color: #000000; text-align: center; word-break: keep-all;}
+.promotion_cont .title .ft_c {position: relative; color: #fa8100;}
+.promotion_cont .title .ft_c:before {display: block; content: ''; position: absolute; bottom: 0; left: 0; right: 0; width: 100%; height: 13px; background-color: rgba(250, 129, 0, 0.2);}
+.promotion_cont .info_list_area {margin: 43px 0 0;}
+.promotion_cont .info_list_area .list {font-size: 0;}
+.promotion_cont .info_list_area .list li {display: inline-block; width: 33.3333%;}
+.promotion_cont .info_list_area .list li .box {text-align: center;}
+.promotion_cont .info_list_area .list li .box .img_box {display: inline-block; width: 201px; height: 201px; box-shadow: 3px 3px 29px rgba(0, 0, 0, 0.11); border-radius: 50%; background-position: center; background-repeat: no-repeat;}
+.promotion_cont .info_list_area .list li.icon1 .box .img_box {background-image: url("/images/home/kor/user/award/festival2022/pro_icon1.png");}
+.promotion_cont .info_list_area .list li.icon2 .box .img_box {background-image: url("/images/home/kor/user/award/festival2022/pro_icon2.png");}
+.promotion_cont .info_list_area .list li.icon3 .box .img_box {background-image: url("/images/home/kor/user/award/festival2022/pro_icon3.png");}
+.promotion_cont .info_list_area .list li .box .txt_box {margin: 22px 0 0;}
+.promotion_cont .info_list_area .list li .box .txt_box .txt {font-weight: 300; font-size: 18px; line-height: 26px; color: #000000;}
+.promotion_cont .info_list_area .list li .box .txt_box .tit {font-weight: 500; font-size: 18px; line-height: 26px; color: #000000;}
+.promotion_cont .design_img_list_area {margin: 103px 0 0;}
+.promotion_cont .design_img_list_area .title {padding: 0 0 0 14px; background-image: url("/images/home/kor/user/award/festival2022/tit_icon01.png"); background-position: left center; background-repeat: no-repeat; font-weight: 400; font-size: 17px; line-height: 24px; color: #000000;}
+.promotion_cont .design_img_list_area .list_box {margin: 22px 0 0;}
+.promotion_cont .design_img_list_area .list_box > ul {font-size: 0;}
+.promotion_cont .design_img_list_area .list_box:last-child > ul {margin: 16px 0 0;}
+.promotion_cont .design_img_list_area .list_box > ul > li {}
+.promotion_cont .design_img_list_area .list_box.box2 > ul > li {display: inline-block; width: calc(33.3333% - 10.6666px); margin: 0 16px 0 0;}
+.promotion_cont .design_img_list_area .list_box.box2 > ul > li:last-child {margin: 0;}
+
+/* 공통 틀 */
+.com_cont {overflow: hidden;}
+.com_cont .title_cont {}
+.com_cont .title_cont .box {position: relative; padding: 0 0 123px;}
+.com_cont .title_cont .box .img_box {}
+.com_cont .title_cont .box .img_box img {}
+.com_cont .title_cont .box .title_area {display: inline-block; position: absolute; bottom: 0; left: 50%; width: 100%; max-width: 1020px; padding: 41px 10px; background-color: #ffffff; font-size: 0; text-align: center; transform: translate(-50%, 0); border-radius: 50px;}
+.com_cont .title_cont .box .title_area .title_inner {display: inline-block; position: relative; padding: 9px 40px 0;}
+.com_cont .title_cont .box .title_area .title_inner:before {display: block; content: ''; position: absolute; top: 0; left: 0; width: 24px; height: 21px; background-image: url("/images/home/kor/user/award/sub/tit_area_icon01.png"); background-repeat: no-repeat;}
+.com_cont .title_cont .box .title_area .title_inner:after {display: block; content: ''; position: absolute; bottom: 0; right: 0; width: 24px; height: 21px; background-image: url("/images/home/kor/user/award/sub/tit_area_icon02.png"); background-repeat: no-repeat;}
+.com_cont .title_cont .box .title_area .title_inner .title {font-family: 'CoreDream'; font-weight: 700; font-size: 36px; line-height: 48px; color: #222222; word-break: keep-all;}
+.com_cont.ft_c1 .title_cont .box .title_area .title_inner .title .ft_c {color: #fa8100;} /* 오렌지 */
+.com_cont.ft_c1 {color: #fa8100;}
+.com_cont.ft_c1 .ft_c1 {color: #fa8100;}
+.com_cont.ft_c2 .title_cont .box .title_area .title_inner .title .ft_c {color: #42b8d5;} /* 밝은 파랑 */
+.com_cont.ft_c2 .title_cont .box .title_area .title_inner .title .ft_c2 {color: #146fae;} /* 진한 파랑 */
+.com_cont.ft_c2 .ft_c {color: #42b8d5;}
+.com_cont.ft_c3 .title_cont .box .title_area .title_inner .title .ft_c {color: #5f94e2;} /* 연한 파랑 */
+.com_cont.ft_c3 .ft_c {color: #5f94e2;}
+.com_cont .title_cont .box .title_area .text {margin: 26px 0 0; font-family: 'CoreDream'; font-weight: 400; font-size: 22px; line-height: 1.6; color: #000000; word-break: keep-all;}
+
+.com_cont .info_list_cont {margin: 22px 0 0;}
+.com_cont .info_list_cont > .list {}
+.com_cont .info_list_cont > .list > li {margin: 100px 0 0;}
+.com_cont .info_list_cont > .list > li:first-child {margin: 0;}
+.com_cont .info_list_cont > .list > li .box {font-family: 'CoreDream';}
+.com_cont .info_list_cont > .list > li .box > .title {font-family: 'CoreDream'; font-weight: 500; font-size: 32px; line-height: 48px; color: #222222;}
+.com_cont .info_list_cont > .list > li .box > .imp {    font-size: 26px;font-weight: 500;color: #40973f;margin-top: 20px;}
+.com_cont .info_list_cont > .list > li .box > .text {margin: 10px 0 0; font-weight: 400; font-size: 17px; line-height: 26px; color: #000000; word-break: keep-all;}
+.com_cont .info_list_cont > .list > li .box > .video_box {margin: 40px 0 0;}
+.com_cont .info_list_cont > .list > li .box > .video_box iframe {width: 100%; height: 720px;}
+.com_cont .info_list_cont > .list > li .box .com_list_area {margin: 41px 0 0;}
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list {font-size: 0;}
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li {display: inline-block; width: 33.3333%; border-right: 1px solid #e9e9e9;vertical-align: top;}
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li:last-child {border: none;}
+/* 학생 창의력 챔피언 대회 */
+
+/* 학생 창의력 챔피언 대회 */
+.com_cont .info_list_cont > .list > li .box .com_list_area.sty2 > .list {font-size: 0;display: flex;flex-wrap:wrap;gap:20px;}
+.com_cont .info_list_cont > .list > li .box .com_list_area.sty2 > .list > li {flex:1 1 48%; margin: 0 0 0 0; border-right: none; vertical-align: top;margin-bottom:40px;}
+.com_cont .info_list_cont > .list > li .box .com_list_area.sty2 > .list > li:last-child {margin: 0;}
+/* // 학생 창의력 챔피언 대회 */
+/* // YIP */
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area {display: block; text-align: center;}
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .img_box {display: inline-block; width: 136px; height: 136px; background-color: #f7f7f7; border-radius: 50%; background-position: center; background-size: 104px 86px; background-repeat: no-repeat;}
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li.icon1 .area .img_box {background-image: url("/images/home/kor/user/award/festival2022/cha_icon01.png");}
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li.icon2 .area .img_box {background-image: url("/images/home/kor/user/award/festival2022/cha_icon02.png");}
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li.icon3 .area .img_box {background-image: url("/images/home/kor/user/award/festival2022/cha_icon03.png");}
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .tit {margin: 19px 0 0;  font-weight: 500; font-size: 24px; line-height: 30px; color: #000000;}
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .txt {margin: 2px 0 0; font-weight: 300; font-size: 17px; line-height: 30px; color: #000000;height:60px;}
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .link {display: inline-block; margin: 29px 0 0; padding: 0 18px; background-color: #222222; text-align: center; border-radius: 20px;}
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .link .text {display: inline-block; background-position: right center; background-repeat: no-repeat; font-weight: 300; font-size: 17px; line-height: 43px; color: #ffffff; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; -ms-transition: all 0.3s; -o-transition: all 0.3s; transition: all 0.3s;}
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .link:hover .text, .com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .link:focus .text {padding: 0 16px 0 0; background-image: url("/images/home/kor/user/award/festival2022/btn_icon1.png");}
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .video_box {width: 100%; margin: 17px 0 0;}
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area > .text {padding: 0 0 0 14px; background-image: url("/images/home/kor/user/award/festival2022/tit_icon01.png"); background-position: left center; background-repeat: no-repeat; font-weight: 400; font-size: 17px; line-height: 24px; color: #000000; text-align: left;}
+/* YIP */
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li > .text {display: block; padding: 0 0 0 14px; background-image: url("/images/home/kor/user/award/common/tit_icon02.png"); background-position: left center; background-repeat: no-repeat; font-weight: 400; font-size: 17px; line-height: 24px; color: #000000; text-align: center;}
+/* // YIP */
+/* YIP아이디어 경진대회 */
+.com_cont .info_list_cont > .list > li .box .award_area {overflow: hidden; margin: 34px 0 0;}
+.com_cont .info_list_cont > .list > li .box .award_area .list {font-size: 0;} 
+.com_cont .info_list_cont > .list > li .box .award_area .list li {display: inline-block; width: calc(25% - 12.75px); margin: 0 17px 0 0; vertical-align: top;}
+.com_cont .info_list_cont > .list > li .box .award_area .list li:last-child {margin: 0;}
+.com_cont .info_list_cont > .list > li .box .award_area .list li .box {display: block; border: 1px solid #ececec;}
+.com_cont .info_list_cont > .list > li .box .award_area .list li .box .sort {font-family: 'CoreDream'; font-weight: 700; font-size: 16px; line-height: 33px; color: #ffffff; text-align: center;}
+.com_cont .info_list_cont > .list > li .box .award_area .list li.bg01 .box .sort {background-color: #ff3918;}
+.com_cont .info_list_cont > .list > li .box .award_area .list li.bg02 .box .sort {background-color: #ffb618;}
+.com_cont .info_list_cont > .list > li .box .award_area .list li .box .info_box {padding: 13px 15px 21px 13px;}
+.com_cont .info_list_cont > .list > li .box .award_area .list li .box .info_box .img_box {display: table; table-layout: fixed; width: 100%; max-width: 277px; height: 158px;}
+.com_cont .info_list_cont > .list > li .box .award_area .list li .box .info_box .img_box .img_inner {display: table-cell; width: 100%; height: 158px; vertical-align: middle; text-align: center;background-repeat: no-repeat;background-size: cover;background-position: cover;}
+.com_cont .info_list_cont > .list > li .box .award_area .list li .box .info_box .img_box .img_inner img {display: inline-block;width:100%;opacity:0;}
+.com_cont .info_list_cont > .list > li .box .award_area .list li .box .info_box .text_box {padding: 0 7px 0 15px;}
+.com_cont .info_list_cont > .list > li .box .award_area .list li .box .info_box .text_box .title {height: 54px; margin: 9px 0 0; font-family: 'CoreDream'; font-weight: 500; font-size: 18px; line-height: 27px; color: #000000; word-break: keep-all; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
+.com_cont .info_list_cont > .list > li .box .award_area .list li .box .info_box .text_box .name {display: inline-block; position: relative; margin: 7px 0 0; padding: 0 0 0 54px; font-weight: 400; font-size: 16px; line-height: 24px; color: #4c4c4c; word-break: keep-all;}
+.com_cont .info_list_cont > .list > li .box .award_area .list li .box .info_box .text_box .name .name_tit {position: absolute; left: 0; top: 0;}
+
+/* YIP아이디어 경진대회 VIEW */
+.view_cont {padding: 0 0 56px; border-bottom: 1px solid #b0b0b0;}
+.view_cont .view_top {display: table; table-layout: fixed; width: 100%;}
+.view_cont .view_top .img_slide {position: relative; display: table-cell; width: 440px; height: 320px; vertical-align: middle;}
+.view_cont .view_top .img_slide #slide_list {}
+.view_cont .view_top .img_slide #slide_list .slick-list {}
+.view_cont .view_top .img_slide #slide_list .slick-list .slick-track {margin: 0 -25px; padding: 0 25px;}
+.view_cont .view_top .img_slide #slide_list .slick-list .slick-track li {margin: 0 11px;}
+.view_cont .view_top .img_slide #slide_list .slick-list .slick-track li .img_box {display: table; table-layout: fixed; width: 100%; max-width: 440px; height: 364px;}
+.view_cont .view_top .img_slide #slide_list .slick-list .slick-track li .img_box .img_inner {display: table-cell; width: 100%; height: 100%;vertical-align: middle; text-align: center;}
+.view_cont .view_top .img_slide #slide_list .slick-list .slick-track li .img_box .img_inner img {display: inline-block; box-shadow: 0px 5px 18px 0px rgba(0, 0, 0, 0.1);}
+.view_cont .view_top .img_slide #slide_list .slick-list .slick-track li .img_box .img_inner iframe {display: inline-block;}
+.view_cont .view_top .img_slide #slide_list .slick-dots {display: none !important;}
+.view_cont .view_top .img_slide .play_box {}
+.view_cont .view_top .img_slide .play_box .nav {position: absolute; top: 50%; width: 17px; height: 32px; margin: -16px 0 0; background-position: 0 0; background-size: cover; background-repeat: no-repeat;}
+.view_cont .view_top .img_slide .play_box .nav.prev {left: 15px; background-image: url("/images/home/kor/user/award/festival2022/slide_prev.png");}
+.view_cont .view_top .img_slide .play_box .nav.next {right: 15px; background-image: url("/images/home/kor/user/award/festival2022/slide_next.png");}
+.view_cont .view_top .img_slide .nav_box {position: absolute; left: 50%; bottom: 16px; transform: translate(-50%,0);}
+.view_cont .view_top .img_slide .nav_box .num {font-weight: 400; font-size: 14px; line-height: 21px; color: #2f2f2f;}
+.view_cont .view_top .img_slide .nav_box .num .now {font-size: 18px; line-height: 27px; color: #ed2121;}
+.view_cont .view_top .img_slide .nav_box .num .total {}
+.view_cont .view_top .info_box {display: table-cell; width: 100%; padding: 36px 0 0 85px;}
+.view_cont .view_top .info_box .title {font-family: 'CoreDream'; font-weight: 700; font-size: 26px; line-height: 39px; color: #000000; word-break: keep-all;}
+.view_cont .view_top .info_box .title .ft_c {color: #ffb618;} 
+.view_cont .view_top .info_box .info_list {}
+.view_cont .view_top .info_box .info_list .list {display:flex;gap:20px;}
+.view_cont .view_top .info_box .info_list .list li {flex:1 1 auto;position: relative; margin:  0 0;  font-family: 'CoreDream'; font-weight: 400; font-size: 18px; line-height: 27px; color: #2f2f2f;border-right:1px solid #efefef;}
+.view_cont .view_top .info_box .info_list .list li:first-child {margin: 0;}
+.view_cont .view_top .info_box .info_list .list li:last-child {border:0;}
+.view_cont .view_top .info_box .info_list .list li .tit {position: absolute; left: 0; top: 0; font-size: 17px; line-height: 26px; color: #000000;}
+.view_cont .view_btm {margin: 55px 0 0; padding: 19px 0 0; border-top: 2px solid #000000;}
+.view_cont .view_btm .text_list {}
+.view_cont .view_btm .text_list .list {}
+.view_cont .view_btm .text_list .list > li {margin: 63px 0 0;}
+.view_cont .view_btm .text_list .list li:first-child {margin: 0;}
+.view_cont .view_btm .text_list .list li .box {}
+.view_cont .view_btm .text_list .list li .box .title {font-family: 'CoreDream'; font-weight: 400; font-size: 20px; line-height: 30px; color: #000000;}	
+.view_cont .view_btm .text_list .list li .box .text {margin: 8px 0 0; font-weight: 400; font-size: 17px; line-height: 1.8; color: #000000; word-break: keep-all;}	
+.view_cont .view_btm .text_list .list li .box .img_box {display: table; table-layout: fixed; width: 100%; max-width: 696px; height: 391px; margin: 0 auto;}
+.view_cont .view_btm .text_list .list li .box .img_box .img_inner {display: table-cell; width: 100%; vertical-align: middle; text-align: center;}
+.view_cont .view_btm .text_list .list li .box .img_box .img_inner img {display: inline-block;}
+.view_cont .view_btm .text_list .list li .box .img_box .img_inner iframe {display: inline-block;}
+
+.drawing_view {}
+.drawing_view .label span {display: inline-block; font-weight: 500; background-color: #dfeaf9;border-radius: 30px;line-height: 2;padding:0 15px;font-size: 18px;color:#5f94e2;}
+.drawing_view .label {margin-bottom: 20px;}
+.drawing_view .img_inner {display: inline-block;vertical-align: top;margin-right: 20px;}
+
+/* YIP(청소년발명가프로그램) */
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area.sty2 {padding: 50px 21px 63px 35px;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list {font-size: 0;display:flex;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li {display: inline-block; position: relative;  margin: 0 10px 0 0; text-align: center; vertical-align: top;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li:last-child {margin: 0;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li:last-child .box {padding:0;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box {position: relative; padding: 0 18px 0 0;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box:before {display: block; content: ""; position: absolute; right: 0; top: 75px; width: 6px; height: 9px; background-image: url("/images/home/kor/user/award/common/step_arrow.png"); background-position: 0 0; background-repeat: no-repeat;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li:last-child .box:before {display: none;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .step {display: inline-block; border-radius: 12px; padding: 0 15px; background-color: #fa8100; font-weight: 400; font-size: 14px; line-height: 26px; color: #ffffff;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .tit_area {display: table; table-layout: fixed; width: 100%; height: 70px; margin: 18px 0 0;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .tit_area .tit {display: table-cell; width: 100%; padding: 0 18px; vertical-align: middle; text-align: center; font-weight: 400; font-size: 16px; line-height: 24px; color: #000000; word-break: keep-all;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li.bg01 .box .tit_area .tit {background-color: #fff0e9;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li.bg02 .box .tit_area .tit {background-color: #f4f4f4;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .text_box {display: table; table-layout: fixed; width: 100%; height: 150px; margin: 6px 0 0; border-radius: 8px;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li.bg01 .box .text_box {background-color: #fff0e9;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li.bg02 .box .text_box {background-color: #f4f4f4;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .text_box .text_box_inner {display: table-cell; width: 100%; height: 100%; vertical-align: middle; text-align: center;padding: 10px 17px 19px;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .text_box .text_box_inner .text {font-weight: 400; font-size: 16px; line-height: 24px; color: #000000; word-break: keep-all;min-height:50px;} 
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .text_box .text_box_inner .day {position: relative; margin: 6px 0 0; padding: 14px 0 0; font-weight: 400; font-size: 16px; line-height: 24px; color: #000000;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .text_box .text_box_inner .day:before {display: block; content: ""; position: absolute; left: 0; top: 0; width: 100%; max-width: 117px; height: 1px; background-image: url("/images/home/kor/user/award/festival2022/yip_dot.png"); background-position: 0 0; background-repeat: no-repeat;}
+.com_cont .info_list_cont > .list > li .box .img_list_box {margin: 30px 0 0;}
+.com_cont .info_list_cont > .list > li .box .img_list_box .list {font-size: 0;}
+.com_cont .info_list_cont > .list > li .box .img_list_box .list li {display: inline-block; width: calc(33.3333% - 23.3333px); margin: 0 35px 0 0; text-align: center; vertical-align: top;}
+.com_cont .info_list_cont > .list > li .box .img_list_box .list li:last-child {margin: 0;}
+.com_cont .info_list_cont > .list > li .box .img_list_box .list li .img_box {}
+.com_cont .info_list_cont > .list > li .box .img_list_box .list li .text {display: inline-block; position: relative; margin: 9px 0 0; padding: 0 0 0 19px; font-weight: 400; font-size: 15px; line-height: 23px; color: #545353; text-align: center; word-break: keep-all;}
+.com_cont .info_list_cont > .list > li .box .img_list_box .list li .text:before {display: block; content: ""; position: absolute; top: 7px; left: 0; width: 13px; height: 8px; background-image: url("/images/home/kor/user/award/festival2022/tit_icon02.png"); background-position: 0 0; background-repeat: no-repeat;}
+
+
+.award-list-wrap {border-top: 2px solid #5f94e2;}
+.award-list-wrap .award_block{display: flex;padding:35px 0;border-bottom: 1px solid #ddd;}
+
+.flex-area {display: flex;flex-wrap: wrap;}
+.flex-area dl {flex:1 1 50%;}
+.flex-area dl dt, .flex-area dl dd {display: inline-block;letter-spacing: -1px;padding:5px 0;}
+
+.award_info_area .label {border:1px solid #5f94e2;border-radius: 15px;color: #5f94e2;font-size: 14px;display: inline-block;padding:0 10px;}
+.award_info_area .team_title {font-size: 24px;font-weight: 500;padding:10px 0 15px 0;}
+
+.award_block {display: block;}
+.award_block:hover {background-color: #f7f7f7;}
+.award_block:focus {outline:none;border: 0;}
+.award_block .img_area {margin:0 15px;}
+.award_block .img_area span {height:160px;width:250px;display: inline-block;border:1px solid #e2e2e2;background-size: cover;background-position: center;text-indent: -99999px;}
+
+/* 대한민국학생발명전시회 수상작 전시 */
+.com_tab_cont {}
+.com_tab_cont .tab_list {display: -webkit-flex; display: -moz-flex; display: -ms-flex; display: -o-flex; display: flex; justify-content: space-around;}
+.com_tab_cont .tab_list li {width: 100%; border-right: 1px solid #eaeaea;}
+.com_tab_cont .tab_list li:last-child {border: none;}
+.com_tab_cont .tab_list li .tab_btn_box {display: table; width: 100%; table-layout: fixed;}
+.com_tab_cont .tab_list li .tab_btn_box .tab_btn {display: table-cell; width: 100%; height: 48px; vertical-align: middle; text-align: center; }
+.com_tab_cont .tab_list li .tab_btn_box .tab_btn .text {display: block; font-family: 'CoreDream'; font-weight: 500; font-size: 15px; line-height: 22px; color: #1a1a1a; word-break: keep-all;}
+.com_tab_cont .tab_list li .tab_btn_box.on .tab_btn .text  {color: #ffffff;}
+
+/* 스크롤바 tab */
+.com_tab_cont.tab-03 { width: 100%; max-width: 1280px;}
+.com_tab_cont.tab-03 .tab_list {display: block;}
+.com_tab_cont.tab-03 .tab_list li {display: inline-block; width: 250px;}
+.com_tab_cont.tab-02 { width: 100%; max-width: 1280px;}
+.com_tab_cont.tab-02 .tab_list {display: block;}
+.com_tab_cont.tab-02 .tab_list li {display: inline-block; width: 250px;}
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {background-color: #004ea2;}
+
+.com_tab_cont .slt_tab {display: none;}
+
+.com_list_cont {margin: 50px 0 0;}
+.com_list_cont .top_box {overflow: hidden;}
+.com_list_cont .top_box .fl {float: left;}
+.com_list_cont .top_box .fr {float: right;}
+.com_list_cont .top_box .slt_data {display: inline-block; border: 1px solid #d4d4d4; padding: 0 35px 0 15px; background-color: #ffffff; background-image: url("/images/home/kor/user/award/festival2022/slt_arr.png"); background-position: right 15px center; background-repeat: no-repeat; font-weight: 300; font-size: 16px; line-height: 36px; color: #191919;}
+.com_list_cont .com_list_box {margin: 14px 0 0; border-top: 2px solid #1a1a1a; padding: 32px 0 70px;}
+.com_list_cont .com_list_box > .list {font-size: 0;}
+.com_list_cont .com_list_box > .list > li {display: inline-block; width: calc(25% - 25.5px); margin: 0 34px 53px 0;}
+.com_list_cont .com_list_box > .list > li:nth-last-child(-n+4) {margin: 0 34px 0 0;}
+.com_list_cont .com_list_box > .list > li:nth-child(4n) {margin: 0 0 53px 0;}
+.com_list_cont .com_list_box > .list > li:last-child {margin: 0;}
+.com_list_cont .com_list_box > .list > li .box {display: block;}
+.com_list_cont .com_list_box > .list > li .box .img_box {display: table; position: relative; width: 100%; table-layout: fixed;}
+.com_list_cont .com_list_box > .list > li .box .img_box .inner_box {display: table-cell; width: 100%; height: 167px; background-color: #f3f3f3; vertical-align: middle; text-align: center;}
+.com_list_cont .com_list_box > .list > li .box .img_box .inner_box img {display: inline-block; height: 100%;}
+.com_list_cont .com_list_box > .list > li .box .img_box > .data {display: inline-block; position: absolute; top: 0; left: 0; padding: 0 9px; font-family: 'CoreDream'; font-weight: 700; font-size: 12px; line-height: 24px; color: #ffffff; background-color: #ffd618;}
+.com_list_cont .com_list_box > .list > li .box .text_box {margin: 15px 0 0;}
+.com_list_cont .com_list_box > .list > li .box .text_box .title {height: 52px; font-family: 'CoreDream'; font-weight: 500; font-size: 18px; line-height: 26px; color: #000000; word-break: keep-all; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; word-wrap: break-word;}
+.com_list_cont .com_list_box > .list > li .box .text_box .info_list {margin: 7px 0 0;}
+.com_list_cont .com_list_box > .list > li .box .text_box .info_list > .list {font-size: 0;}
+.com_list_cont .com_list_box > .list > li .box .text_box .info_list > .list > li {display: inline-block; position: relative; margin: 0 9px 0 0; padding: 0 9px 0 0; font-weight: 300; font-size: 16px; line-height: 26px; color: #4c4c4c;}
+.com_list_cont .com_list_box > .list > li .box .text_box .info_list > .list > li:after {display: block; content: ''; position: absolute; top: 50%; right: 0; width: 1px; height: 13px; margin: -7px 0 0; background-color: #d9d9d9;}
+.com_list_cont .com_list_box > .list > li .box .text_box .info_list > .list > li:last-child {margin: 0; padding: 0;}
+.com_list_cont .com_list_box > .list > li .box .text_box .info_list > .list > li:last-child:after {display: none;}
+.com_list_cont .com_list_box > .list > li .box .text_box .data2 {margin: 9px 0 0; font-weight: 300; font-size: 16px; line-height: 26px; color: #a0a0a0;}
+
+
+/* 발명교육센터 */
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .box_img {display: table; table-layout: fixed; width: 100%; height: 354px; margin: 17px 0 0; border: 1px solid #eeeeee;}
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .box_img .inner_img {display: table-cell; width: 100%; height: 100%; vertical-align: middle; text-align: center;}
+.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .box_img .inner_img img {display: inline-block;}
+
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area {border: 1px solid #ebebeb; padding: 37px 110px 32px;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list {font-size: 0;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li {display: inline-block; position: relative; width: 33%; padding: 0 20px; vertical-align: top;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li:after {display: block; content: ''; position: absolute; top: 74px; right: 0; width: 14px; height: 24px; background-image: url("/images/home/kor/user/award/festival2022/step_icon_01.png"); background-size: contain; background-repeat: no-repeat;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li:last-child:after {display: none;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li:first-child {padding: 0 20px 0 0;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li:last-child {padding: 0;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li:nth-child(3n) {padding: 0 45px 0 20px;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li:last-child .step_box:after {display: none;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li .step_box {display: table; table-layout: fixed; position: relative; width: 100%; margin: 0 auto; background-size: 160px; background-position: center center; background-repeat: no-repeat;}
+
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li.step01 .step_box {background-image: url("/images/home/kor/user/award/festival2022/step_img01.png");}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li.step02 .step_box {background-image: url("/images/home/kor/user/award/festival2022/step_img02.png");}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li.step03 .step_box {background-image: url("/images/home/kor/user/award/festival2022/step_img03.png");}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li.step04 .step_box {background-image: url("/images/home/kor/user/award/festival2022/step_img04.png");}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li .step_box .box {display: table-cell; width: 100%; height: 170px; vertical-align: middle; text-align: center;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li .step_box .box .txt {font-weight:400; font-size: 16px; line-height: 24px; color: #000000;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li .step_box .box .step {display: block; color: #afafaf;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li .txt_box {position: relative; margin: 12px 0 0; padding: 29px 0 0;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li .txt_box:before {display: block; content: ''; position: absolute; top: 0; right: 50%; width: 3px; height: 19px; margin: 0 -2px 0 0; background-image: url("/images/home/kor/user/award/festival2022/step_icon_02.png"); background-repeat: no-repeat;}
+.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li .txt_box .txt {font-weight: 400; font-size: 16px; line-height: 24px; color: #000000; text-align: center; word-break: keep-all;}
+
+.benefit_list {display:flex;justify-content: center;gap:15px;}
+.benefit_list li {flex: 0 0 15.66%;text-align: center;word-break:keep-all;font-size: 15px;letter-spacing: -1px; }
+.benefit_list li > div:before {content:'';display: block;width:100px;height:100px;margin:0 auto;border-radius:50%;background-color: #f6f6f6;background-position: center;background-repeat: no-repeat;margin-bottom: 15px;}
+.benefit_list li .benefit1:before {background-image:url(/images/home/kor/user/award/festival2022/benefit1.png);}
+.benefit_list li .benefit2:before {background-image:url(/images/home/kor/user/award/festival2022/benefit2.png);}
+.benefit_list li .benefit3:before {background-image:url(/images/home/kor/user/award/festival2022/benefit3.png);}
+.benefit_list li .benefit4:before {background-image:url(/images/home/kor/user/award/festival2022/benefit4.png);}
+.benefit_list li .benefit5:before {background-image:url(/images/home/kor/user/award/festival2022/benefit5.png);}
+.benefit_list li .benefit6:before {background-image:url(/images/home/kor/user/award/festival2022/benefit6.png);}
+
+
+/* 체험프로그램 */
+.program_box {}
+.program_box .list {font-size: 0;}
+.program_box .list li {display: inline-block; width: calc(50% - 15.5px); margin: 32px 31px 0 0; vertical-align: top;}
+.program_box .list li:nth-child(-n+2) {margin: 0 31px 0 0;}
+.program_box .list li:nth-child(2n) {margin: 32px 0 0;}
+.program_box .list li:nth-child(2) {margin: 0;}
+.program_box .list li .box {position: relative; display: table; table-layout: fixed; width: 100%; height: 247px; background-position: center center; background-size: cover; background-repeat: no-repeat;}
+.program_box .list li.bg01 .box {background-image: url("/images/home/kor/user/award/festival2022/program_bg01.jpg");}
+.program_box .list li.bg02 .box {background-image: url("/images/home/kor/user/award/festival2022/program_bg02.jpg");}
+.program_box .list li.bg03 .box {background-image: url("/images/home/kor/user/award/festival2022/program_bg03.jpg");}
+.program_box .list li.bg04 .box {background-image: url("/images/home/kor/user/award/festival2022/program_bg04.jpg");}
+.program_box .list li.bg01 .box:hover, .program_box .list li .box:focus {background-color: rgba(255, 111, 108, 0.95);}
+.program_box .list li .box .info_text {position: relative; display: table-cell; width: 100%; height: 100%; vertical-align: middle; text-align: center; z-index: 999;}
+.program_box .list li .box .info_text .title {font-family: 'CoreDream'; font-weight: 500; font-size: 32px; line-height: 48px; color: #ffffff; text-shadow: 5px 8px 27px rgba(0, 0, 0, 0.61);}
+.program_box .list li .box .info_text .text {font-weight: 500; font-size: 24px; line-height: 36px; color: #ffffff; text-shadow: 5px 8px 27px rgba(0, 0, 0, 0.61);}
+.program_box .list li .box  .info_text:before {display: block; content: ""; position: absolute; left: 0; top: 0; width: 0; height: 247px; background-color: rgba(255, 111, 108, 0.95); z-index: -1;}
+.program_box .list li .box:hover .info_text:before, .program_box .list li .box:focus .info_text:before {width: 100%;}
+
+
+.com_program_view_cont {}
+.com_program_view_cont > .box {}
+.com_program_view_cont > .box > .title_area {padding: 43px 10px 35px; background-color: #ff6f6c; text-align: center;}
+.com_program_view_cont > .box > .title_area > .title {font-weight: 700; font-size: 32px; line-height: 48px; color: #ffffff;}
+.com_program_view_cont > .box > .title_area > .title > .ft_c {color: #212121;}
+.com_program_view_cont > .box > .info_list_area {position: relative; background-color: #f7f7f7;}
+.com_program_view_cont > .box > .info_list_area > .info_list {padding: 0 153px;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li {position: relative; padding: 49px 0 51px;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li:before {display: block; content: ''; position: absolute; top: 0; left: 0; right: 0; width: 100%; height: 1px; background-image: url("/images/home/kor/user/award/festival2022/prog_line.png");}
+.com_program_view_cont > .box > .info_list_area > .info_list > li:first-child:before {display: none;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box {}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box {}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 {display: -webkit-flex; display: -moz-flex; display: -ms-flex; display: -o-flex; display: flex; justify-content: space-around;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li {width: 25%; border-right: 1px solid #e6e6e6; padding: 0 6px; text-align: center; vertical-align: top;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li:last-child {border: none;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li > .inner_box {}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li > .inner_box > .one {width: 122px; height: 122px; margin: 0 auto; padding: 31px 5px 35px; background-color: #ffffff; text-align: center; border-radius: 50%; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li > .inner_box > .one > .text {display: block; padding: 29px 0 0; background-position: top center; background-repeat: no-repeat; font-weight: 500; font-size: 18px; line-height: 27px; color: #282828;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li.icon1 > .inner_box > .one > .text {background-image: url("/images/home/kor/user/award/festival2022/prog_icon01.png");}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li.icon2 > .inner_box > .one > .text {background-image: url("/images/home/kor/user/award/festival2022/prog_icon02.png");}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li.icon3 > .inner_box > .one > .text {background-image: url("/images/home/kor/user/award/festival2022/prog_icon03.png");}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li.icon4 > .inner_box > .one > .text {background-image: url("/images/home/kor/user/award/festival2022/prog_icon04.png");}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li > .inner_box > .text_box {position: relative; margin: 18px 0 0; padding: 15px 0 0;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li > .inner_box > .text_box:before {display: block; content: ''; position:absolute; top: 0; left: 50%; width: 22px; height: 1px; margin: 0 0 0 -11px; background-color: #000000;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li > .inner_box > .text_box > .text {font-weight: 300; font-size: 17px; line-height: 26px; color: #6c6c6c; word-break: keep-all;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont {margin: 56px 0 0; border-top: 2px solid #000000; padding: 56px 76px 0;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide {background-color: #e5e5e5;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide .slick-list {}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide .slick-list .slick-track {}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide .slick-list .slick-track li {}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide .slick-list .slick-track li .img_box {display: table; width: 100%; table-layout: fixed;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide .slick-list .slick-track li .img_box .inner_box {display: table-cell; height: 547px; vertical-align: middle; text-align: center;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide .slick-list .slick-track li .img_box .inner_box img {display: inline-block;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide .slick-arrow {position: absolute; top: 50%; width: 54px; height: 76px; margin: -38px 0 0; background-color: rgba(0, 0, 0, 0.3); background-position: center; background-repeat: no-repeat; text-indent: -9999px; z-index: 1; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; -ms-transition: all 0.3s; -o-transition: all 0.3s; transition: all 0.3s;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide .slick-arrow:hover, .com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide .slick-arrow:focus {background-color: #000000;}	
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide .slick-arrow.slick-prev {left: 0; background-image: url("/images/home/kor/user/award/festival2022/prog_prev.png");}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide .slick-arrow.slick-next {right: 0; background-image: url("/images/home/kor/user/award/festival2022/prog_next.png");}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide .slick-dots {display: none !important;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .nav_box {display: inline-block; position: absolute; bottom: 75px; left: 50%; margin: 0 0 0 -36px; padding: 0 20px; background-color: rgba(0, 0, 0, 0.75); border-radius: 20px;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .nav_box .num {font-weight: 400; font-size: 18px; line-height: 33px; color: #ffffff;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .nav_box .num .now {color: #ed2121;}
+.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .nav_box .num .total {}
+
+
+/* 10-05 대통령상 */
+.com_list_cont .title_area {width: 100%; max-width: 1140px; margin: 30px auto 0; text-align: center;}
+.com_list_cont .title_area .title_box {display: inline-block; position: relative; padding: 0 150px; text-align: center;}
+.com_list_cont .title_area .title_box:before {display: block; content: ""; position: absolute; left: 0; top: 0; width: 96px; height: 154px; background-image: url("/images/home/kor/user/award/festival2022/award_left.png"); background-position: 0 0; background-repeat: no-repeat;}
+.com_list_cont .title_area .title_box:after {display: block; content: ""; position: absolute; right: 0; top: 0; width: 96px; height: 154px; background-image: url("/images/home/kor/user/award/festival2022/award_right.png"); background-position: 0 0; background-repeat: no-repeat;}
+.com_list_cont .title_area .title_box .sub_tit {display: inline-block; position: relative; padding: 10px 0 7px 80px; font-family: "CoreDream"; font-weight: 500; font-size: 28px; line-height: 42px; color: #d89b1f;}
+.com_list_cont .title_area .title_box .sub_tit:before {display: block; content: ""; position: absolute; left: 0; top: 0; width: 58px; height: 59px; background-image: url("/images/home/kor/user/award/festival2022/award_icon.png"); background-position: 0 0; background-repeat: no-repeat;}
+.com_list_cont .title_area .title_box .title {margin: 15px 0 0; font-family: "CoreDream"; font-weight: 700; font-size: 36px; line-height: 54px; color: #1a1a1a; word-break: keep-all;}
+.com_list_cont .title_area .title_box .text {margin: 4px 0 0; font-family: "CoreDream"; font-weight: 400; font-size: 22px; line-height: 33px; color: #1a1a1a;}
+.com_list_cont .con_area {position: relative; margin: 45px 0 0; padding: 0 75px 140px; text-align: center; background-image: url("/images/home/kor/user/award/common/award_bg.png"); background-size: 100% 276px; background-position: center bottom; background-repeat: no-repeat;}
+.com_list_cont .con_area .video_box {display: table; table-layout: fixed; width: 100%; max-width: 1130px; margin: auto; text-align: center;}
+.com_list_cont .con_area .video_box .video_inner {display: table-cell; width: 100%; height: 640px; vertical-align: middle; text-align: center;}
+.com_list_cont .con_area .video_box .video_inner iframe {height: 100%; box-shadow: 2px 2px 51px 0px rgba(0, 0, 0, 0.22);}
+.btn_wrap {margin: 57px 0 0; text-align: center;}
+.btn_wrap .view_btn {display: inline-block; border-radius: 12px; border: 1px solid #1a1a1a; padding: 0 54px; background-color: #ffffff;}
+.btn_wrap .view_btn .text {position: relative; font-weight: 400; font-size: 24px; line-height: 82px; color: #1a1a1a;}
+.btn_wrap .view_btn .text:before {display: block; content: ""; position: absolute; right: 0; top: 50%; width: 0; height: 9px; margin: -4px 0 0; background-image: url("/images/home/kor/user/award/common/view_icon.png"); background-position: 0 0; background-repeat: no-repeat;  }
+
+.btn_wrap .view_btn:hover, .btn_wrap .view_btn:focus {background-color: #1a1a1a; padding: 0 45px 0 54px; transition: all 0.3s;}
+.btn_wrap .view_btn:hover .text, .btn_wrap .view_btn:focus .text {padding: 0 38px 0 0; color: #ffffff;}
+.btn_wrap .view_btn:hover .text:before, .btn_wrap .view_btn:focus .text:before {width: 32px; transition: all 0.3s;}
+
+.view_cont .view_top {max-width: 1280px; margin: 0 auto;}
+.view_cont .view_top .img_slide {display:block;max-width: 1280px;background:#000;text-align:center;margin: 0 auto;width: 100%;height: 600px;max-height: 100%;margin-bottom: 20px;}
+.view_cont .view_top .img_slide #slide_list li {}
+.view_cont .view_top .img_slide #slide_list li .img_box {max-width: 1280px; height: 291px;}
+.view_cont .view_top .img_slide #slide_list li .img_box .img_inner {height: 291px;}
+.view_cont .view_top .img_slide #slide_list li .img_box .img_inner iframe {display: inline-block;}
+.view_cont .title_box {border-bottom: 1px solid #e5e5e5; margin: 0 0 30px; padding: 0 0 30px; text-align: center;}
+.view_cont .title_box .title {font-family: "CoreDream"; font-weight: 700; font-size: 32px; line-height: 48px; color: #212121; word-break: keep-all;}
+.view_cont .title_box.award .title {display: inline-block; position: relative; padding: 11px 0 10px 96px; }
+.view_cont .title_box.award .title:before {display: block; content: ""; position: absolute; left: 0; top: 0; width: 75px; height: 69px; background-image: url("/images/home/kor/user/award/common/award_icon2.png"); background-position: 0 0; background-repeat: no-repeat;}
+.view_cont .title_box .title .ft_c {font-weight: 700; color: #f4c137;}
+.view_cont .view_btm .text_list .list li .box .title {display: inline-block;  font-size:32px; color: #139ccd;font-weight:500;margin-bottom:30px;letter-spacing:-1px;}
+.view_cont .view_top .info_box {display: inline-block;max-width: 1280px;text-align: left;padding: 40px 0;border-top:2px solid #5f94e2;}
+.view_cont .view_top .info_box .info_list .list li {text-align: center;vertical-align: top;}
+.view_cont .view_top .info_box .info_list .list li .tit {position:static;padding: 0 0 0 0;display:block;margin-bottom:15px;font-weight: 500;}
+.view_cont .view_top .info_box .info_list .list li .tit:before {display: block; content: "";  width: 40px; height: 40px; background-position: center; background-repeat: no-repeat;margin:0 auto;margin-bottom: 10px}
+.view_cont .view_top .info_box .info_list .list li.icon01 .tit:before {background-image: url("/images/home/kor/user/award/festival2022/ico_award_sub1.png");}
+.view_cont .view_top .info_box .info_list .list li.icon02 .tit:before {background-image: url("/images/home/kor/user/award/festival2022/ico_award_sub2.png");}
+.view_cont .view_top .info_box .info_list .list li.icon03 .tit:before {background-image: url("/images/home/kor/user/award/festival2022/ico_award_sub3.png");}
+.view_cont .view_top .info_box .info_list .list li.icon04 .tit:before {background-image: url("/images/home/kor/user/award/festival2022/ico_award_sub4.png");}
+.view_cont .view_top .info_box .info_list .list li.icon05 .tit:before {background-image: url("/images/home/kor/user/award/festival2022/ico_award_sub5.png");}
+.view_cont .view_top .info_box .info_list .list li.icon06 .tit:before {background-image: url("/images/home/kor/user/award/common/award_view_icon06.png");}
+
+
+.com_list_cont .com_list_box2 {margin: 15px 0 0;}
+.com_list_cont .com_list_box2 > .list {font-size: 0;}
+.com_list_cont .com_list_box2 > .list > li {display: inline-block; width: calc(33.3333% - 28.6666px); margin: 60px 43px 0 0; vertical-align: top;}
+.com_list_cont .com_list_box2 > .list > li:nth-child(-n+3) {margin: 0 43px 0 0;}
+.com_list_cont .com_list_box2 > .list > li:nth-child(3n) {margin: 60px 0 0;}
+.com_list_cont .com_list_box2 > .list > li:nth-child(3) {margin: 0;}
+.com_list_cont .com_list_box2 > .list > li .box {}
+.com_list_cont .com_list_box2 > .list > li .box .img_wrap {padding: 0 24px 44px; background-image: url("/images/home/kor/user/award/common/award_bg.png"); background-size: 100% 83px; background-position: center bottom; background-repeat: no-repeat; text-align: center;}
+.com_list_cont .com_list_box2 > .list > li .box .img_wrap .img_box {display: table; table-layout: fixed; width: 100%; max-width: 349px; margin: 0 auto;}
+.com_list_cont .com_list_box2 > .list > li .box .img_wrap .img_box .inner_box {display: table-cell; width: 100%; height: 197px;}
+.com_list_cont .com_list_box2 > .list > li .box .img_wrap .img_box .inner_box img {box-shadow: 2px 2px 21px 0px rgba(0, 0, 0, 0.22);}
+.com_list_cont .com_list_box2 > .list > li .box .text_box {margin: 20px 0 0;}
+.com_list_cont .com_list_box2 > .list > li .box .text_box .title {font-family: "CoreDream"; font-weight: 700; font-size: 18px; line-height: 27px; color: #1a1a1a; text-align: center; word-break: keep-all;}
+.com_list_cont .com_list_box2 > .list > li .box .text_box .info_list {}
+.com_list_cont .com_list_box2 > .list > li .box .text_box .info_list .list {}
+.com_list_cont .com_list_box2 > .list > li .box .text_box .info_list .list li {font-family: "CoreDream"; font-weight: 400; font-size: 18px; line-height: 27px; color: #1a1a1a; text-align: center;}
+.com_list_cont .com_list_box2 > .list > li .btn_wrap {margin: 39px 0 0;}
+.com_list_cont .com_list_box2 > .list > li .btn_wrap .view_btn {width: 100%; max-width: 255px; margin: 0 auto; padding: 0 0 0 39px;}
+.com_list_cont .com_list_box2 > .list > li .btn_wrap .view_btn .text {padding: 0 43px 0 0; font-size: 18px; line-height: 62px;}
+
+.com_list_cont .com_list_box2 > .list > li .btn_wrap .view_btn:hover, .com_list_cont .com_list_box2 > .list > li .btn_wrap .view_btn:focus {padding: 0 32px 0 39px;}
+
+/* 2022 */
+
+
+.view_cont .view_btm {
+    margin-top: 0;
+    border-top: 1px solid #ddd;
+    padding-top: 80px;
+}
+.title_box:before {
+    content: '';
+    display: inline-block;
+    width: 90px;
+    height: 110px;
+    background-image: url(/images/home/kor/user/award/festival2022/award_left.png);
+}
+.title_box:after {
+    content: '';
+    display: inline-block;
+    width: 90px;
+    height: 110px;
+    background-image: url(/images/home/kor/user/award/festival2022/award_right.png);
+}
+.title_box .title span:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    width: 110px;
+    height: 6px;
+    background-image: url(/images/home/kor/user/award/festival2022/line_left.png);
+}
+.title_box .title span:after {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    width: 110px;
+    height: 6px;
+    background-image: url(/images/home/kor/user/award/festival2022/line_right.png);
+}
+.title_box .title span {
+    display: block;
+    font-size: 22px;
+}
+.title_box .title {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.title_box.sub:before {
+    background-image: url(/images/home/kor/user/award/festival2022/award_left2.png);
+}
+.title_box.sub:after {
+    background-image: url(/images/home/kor/user/award/festival2022/award_right2.png);
+}
+.view_cont .title_box.sub .title .ft_c {color:#b2b2b2;}
+.title_box.sub .title span:before {
+    content: '';
+    background-image: url(/images/home/kor/user/award/festival2022/line_left2.png);
+}
+.title_box.sub .title span:after {
+    background-image: url(/images/home/kor/user/award/festival2022/line_right2.png);
+}
+.view_cont .title_box.sub {border:0;}
+
+.ci_img {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.flex_list_box {
+    display: flex;
+    gap: 20px;
+}
+.flex_list_box > div .title {
+    margin-bottom: 20px;
+}
+.flex_list_box > div {
+    flex: 1 1 auto;
+}
+
+.img_view {margin-top: 80px;}
+.img_view ul {display: flex;gap:20px;}
+.img_view ul li {flex:1 1 32%;}

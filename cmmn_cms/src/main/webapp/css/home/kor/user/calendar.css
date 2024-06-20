@@ -1,0 +1,221 @@
+@charset "UTF-8";
+
+
+/* datepicker design */
+.datepicker table{width:100%;}
+.datepicker-dropdown{width:250px; padding:0;}
+.datepicker-dropdown:after{border:0 6px 6px; border-style:solid; border-color:transparent transparent #6c57a4;}
+.datepicker table{table-layout:fixed;}
+.datepicker thead tr:nth-child(2){height:40px; background:#6c57a4;}
+.datepicker thead tr:nth-child(3){height:40px;}
+.datepicker thead tr:nth-child(3) th{border-bottom:1px solid #ddd;}
+.datepicker thead tr:nth-child(3) th:nth-child(1){color:#c82333;}
+.datepicker thead tr:nth-child(3) th:nth-child(7){color:#007bff;}
+.datepicker td,
+.datepicker th{border-radius:0;}
+.datepicker .datepicker-switch,
+.datepicker .prev,
+.datepicker .next,
+.datepicker tfoot tr th{color:#fff; font-size:15px;}
+.datepicker .datepicker-switch:hover,
+.datepicker .prev:hover,
+.datepicker .next:hover,
+.datepicker tfoot tr th:hover{background:#6c57a4;}
+.datepicker tbody td{height:30px;}
+.datepicker tbody td:nth-child(1):not(.old):not(.new){color:#c82333;}
+.datepicker tbody td:nth-child(1):not(.old):not(.new) span.month{color:#111;}
+.datepicker tbody td:nth-child(1):not(.old):not(.new).active{color:#fff;}
+.datepicker tbody td:nth-child(7):not(.old):not(.new){color:#007bff;}
+.datepicker tbody td:nth-child(7):not(.old):not(.new).active{color:#fff;}
+.datepicker table tr td span.active:active,
+.datepicker table tr td span.active:hover:active,
+.datepicker table tr td span.active.disabled:active,
+.datepicker table tr td span.active.disabled:hover:active,
+.datepicker table tr td span.active.active,
+.datepicker table tr td span.active:hover.active,
+.datepicker table tr td span.active.disabled.active,
+.datepicker table tr td span.active.disabled:hover.active{background:#6c57a4;}
+
+
+.board-list{width:100%; border-top:2px solid #6c57a4; margin:0 0 90px;}
+.board-list thead th{height:60px; font-size:16px; color:#444; font-weight:500; text-align:center; vertical-align:middle; border-bottom:1px solid #eee}
+.board-list tbody th,
+.board-list tbody td{font-size:16px; color:#444; height:60px; border-bottom:1px solid #eee; text-align:center;}
+.board-list tbody th{font-weight:500;}
+.board-list tbody td{font-weight:300;}
+
+.board-list tbody td.bgpurple{background-color:#6c57a4; font-weight:500;}
+.board-list tbody td.bgred{background-color:#ec6b63; font-weight:500;}
+.board-list tbody td.bgblue{background-color:#3d7ade; font-weight:500;}
+.board-list tbody td.bgorange{background-color:#f6901e; font-weight:500;}
+.board-list tbody td.bggreen{background-color:#00b345; font-weight:500;}
+.board-list tbody td.bggray{background-color:#888; font-weight:500;}
+
+
+.board-list tbody td.e1{color:#ec6b63; font-weight:500;}
+.board-list tbody td.e2{color:#00b345; font-weight:500;}
+.board-list tbody td.e3{color:#00b345; font-weight:500;}
+.board-list tbody td.end{color:#aaa; font-weight:500;}
+
+.board-list tbody td a{display:block; text-align:left; padding:0 10px;}
+.board-list tbody td a.apply-link{text-align:center; color:#4171e0; font-weight:500;}
+.board-list tbody td a.apply-link.end{color:#999;}
+.board-list tbody td a.course-link{text-align:center; display:flex; align-items:center; justify-content:center;}
+.board-list tbody td a.course-link::after{content:''; display:block; min-width:12px; height:12px; background:url('/resources/kcpi/subpage/images/mypage-icons_27.png') no-repeat 0 0; margin-left:10px;}
+.board-list tbody td a.course-link.disabled{color:#8c8c8c;}
+.board-list tbody td a.course-btn{display:inline-flex; width:75px; height:30px; border-radius:3px; border:1px solid #ddd; justify-content:center; align-items:center; font-weight:500; color:#8c8c8c; padding:0;}
+.board-list tbody td a.course-btn.disabled{background:#f8f8f8; color:#555;}
+
+.board-list tbody td .survey{display:inline-flex; color:#6c57a4; font-weight:500; text-align:center; align-items:center; padding:0;}
+.board-list tbody td .survey.disabled{color:#8c8c8c;}
+.board-list tbody td .survey.disabled::after{content:''; display:block; min-width:12px; height:12px; background:url('/resources/kcpi/subpage/images/mypage-icons_27.png') no-repeat 0 0; margin-left:10px;}
+
+.board-list tbody td a.tooltipItem{display:inline-flex; align-items:center; position:relative;}
+.board-list tbody td a.tooltipItem::after{content:''; display:block; width:18px; height:18px; background:url('/resources/kcpi/subpage/images/mypage-icons_22.png') no-repeat 0 0; margin-left:10px; transition:all .4s;}
+.board-list tbody td a.tooltipItem:hover::after{background-image:url('/resources/kcpi/subpage/images/mypage-icons_25.png');}
+.board-list tbody td a.tooltipItem.disabled::after{display:none;}
+
+.board-list tbody td .tooltipItem__info{position:absolute; top:calc(100% + 10px); left:calc(50% + 20px); transform:translateX(-50%); display:flex; align-items:center; justify-content:center; width:230px; height:60px; border:1px solid #ddd; box-shadow:5px 5px 8px rgba(0,0,0,.06); background:#fff; border-radius:5px; z-index:9;}
+.board-list tbody td .tooltipItem__info::before,
+.board-list tbody td .tooltipItem__info::after{content:''; display:block; position:absolute; left:50%; transform:translateX(-50%); border-style:solid;}
+.board-list tbody td .tooltipItem__info::before{top:-11px; border-width:0 6px 10px 6px; border-color:transparent transparent #ddd transparent;}
+.board-list tbody td .tooltipItem__info::after{top:-10px; border-width:0 5px 10px 5px; border-color:transparent transparent #fff transparent;}
+.board-list tbody td .tooltipItem__info i{display:block; width:18px; height:18px; background:url('/resources/kcpi/subpage/images/mypage-icons_32.png') no-repeat 0 0; margin-right:10px;}
+
+.board-list tbody td .division{display:inline-flex; align-items:center;}
+.board-list tbody td .division:not(:last-child){margin-right:10px;}
+.board-list tbody td .division:not(:last-child)::after{content:''; display:block; width:1px; height:13px; background:#aaa; margin-left:10px;}
+
+.board-list tbody .notice td,
+.board-list tbody .notice th{background:#f7f7f7;}
+.board-list__file{display:block; width:10px; height:20px; background:url('/resources/kcpi/subpage/images/board-list-icons_15.png') no-repeat 0 0; margin:0 auto; text-indent:-9999px; overflow:hidden;}
+
+.board-list.examin thead th{height:45px;}
+.board-list.examin thead th span{display:block; text-align:center;}
+.board-list.examin tbody td.score span{display:block; text-align:center; border-right:1px solid #ddd;}
+.board-list.examin tbody td.total{color:#6c57a4; font-weight:500;}
+
+
+.edu-calendar{}
+.edu-calendar__title{margin:0 0 20px;}
+.edu-calendar__title .title{display:flex; justify-content:center; align-items:center; margin:0 0 70px;}
+.edu-calendar__title .title a{display:block; width:9px; height:16px; background-repeat:no-repeat; background-position:0 0; text-indent:-9999px; overflow:hidden;}
+.edu-calendar__title .title a.prev{background-image:url('/images/home/kor/user/gclass/edu-calendar-icons_03.png');}
+.edu-calendar__title .title a.next{background-image:url('/images/home/kor/user/gclass/edu-calendar-icons_05.png');}
+.edu-calendar__title .title p{font-size:30px; color:#111; font-weight:500; margin:0 65px; line-height:1;}
+.edu-calendar__title .items{display:flex; justify-content:space-between; align-items:flex-end;}
+
+.edu-calendar__tab{display:flex;}
+.edu-calendar__tab a{height:35px; border:1px solid #ddd; padding:0 10px; font-size:18px; color:#999; font-weight:500; display:flex; align-items:center; border-radius:3px;}
+.edu-calendar__tab a:not(:last-child){margin-right:10px;}
+.edu-calendar__tab a::before{content:''; display:block; background-repeat:no-repeat; background-position:0 0; margin-right:10px;}
+.edu-calendar__tab a.calendar::before{width:17px; height:19px; background-image:url('/images/home/kor/user/gclass/edu-calendar-icons_10.png');}
+.edu-calendar__tab a.list::before{width:16px; height:12px; background-image:url('/images/home/kor/user/gclass/edu-calendar-icons_18.png');}
+.edu-calendar__tab a.active{border-color:#6c57a4; color:#6c57a4;}
+.edu-calendar__tab a.active.calendar::before{background-image:url('/images/home/kor/user/gclass/edu-calendar-icons_17.png');}
+.edu-calendar__tab a.active.list::before{background-image:url('/images/home/kor/user/gclass/edu-calendar-icons_13.png');}
+
+.edu-calendar__category{display:none; align-items:center;}
+.edu-calendar__category.active{display:flex;}
+.edu-calendar__category p{font-size:18px; color:#444; font-weight:300; display:flex; align-items:center; line-height:1;}
+.edu-calendar__category p:not(:last-child){margin-right:30px;}
+.edu-calendar__category p::before{content:''; display:block; width:20px; height:12px; background-size: cover; background-repeat: no-repeat; border-radius:3px; margin-right:10px;}
+.edu-calendar__category p.purple::before{background-image: url(/images/home/kor/user/gclass/web_mark_icon01.png);}
+.edu-calendar__category p.red::before{background-image: url(/images/home/kor/user/gclass/web_mark_icon02.png);}
+.edu-calendar__category p.orange::before{background-image: url(/images/home/kor/user/gclass/web_mark_icon03.png);}
+.edu-calendar__category p.green::before{background-image: url(/images/home/kor/user/gclass/web_mark_icon04.png);}
+.edu-calendar__category p.blue::before{background-image: url(/images/home/kor/user/gclass/web_mark_icon05.png);}
+.edu-calendar__category p.gray::before{background-image: url(/images/home/kor/user/gclass/web_mark_icon06.png);}
+.edu-calendar__category p.black::before{background-image: url(/images/home/kor/user/gclass/web_mark_icon07.png);}
+
+
+
+.edu-calendar__item{display:none;}
+.edu-calendar__item.active{display:block;}
+
+.edu-calendar__item .contents-tab{margin:0 0 30px;}
+
+
+#calendar{}
+#calendar .datapicker{}
+#calendar .datepicker-inline{width:100%; padding:0;}
+#calendar .datepicker-days{}
+#calendar .datepicker-days table{width:100%; table-layout:fixed;}
+#calendar .datepicker-days table thead{}
+#calendar .datepicker-days .infoWrap{display:none;}
+/*
+#calendar .datepicker-days .infoWrap .datepicker-switch{text-align:center; font-size:30px; color:#111; font-weight:500; line-height:1;}
+#calendar .datepicker-days .infoWrap th a{display:inline-block; width:9px; height:16px; background-repeat:no-repeat; background-position:0 0; text-indent:9999px; overflow:hidden;}
+#calendar .datepicker-days .infoWrap th.prev{text-align:right;}
+#calendar .datepicker-days .infoWrap th.prev a{background-image:url('/resources/kcpi/subpage/images/edu-calendar-icons_03.png');}
+#calendar .datepicker-days .infoWrap th.next{text-align:left;}
+#calendar .datepicker-days .infoWrap th.next a{background-image:url('/resources/kcpi/subpage/images/edu-calendar-icons_05.png');}
+*/
+#calendar .datepicker-days .control td{padding-bottom:20px;}
+
+#calendar .datepicker-days thead tr:last-child th{border-width:2px 1px 1px; border-style:solid; border-color:#6c57a4 #ddd #ddd; background:#f8f8f8; height:60px; font-size:18px; color:#444; font-weight:500; text-align:center;}
+#calendar .datepicker-days tbody td{border-width:0 1px 1px; border-style:solid; border-color:#ddd; height:150px; padding:20px; vertical-align:top; font-size:18px; color:#444; font-weight:300; text-align:left; cursor:default;}
+#calendar .datepicker-days tbody td.active{background:transparent;}
+#calendar .datepicker-days tbody td.active:hover{background:#eee;}
+#calendar .datepicker-days tbody td.old,
+#calendar .datepicker-days tbody td.new{color:#ddd;}
+
+#calendar .datepicker-days tbody td ul{}
+#calendar .datepicker-days tbody td > ul > li{display:flex; align-items:center; line-height:1; padding-left:25px; flex-wrap:wrap;}
+#calendar .datepicker-days tbody td > ul > li > a,
+#calendar .datepicker-days tbody td > ul > li > .end{position:relative;}
+#calendar .datepicker-days tbody td > ul > li > a::before,
+#calendar .datepicker-days tbody td > ul > li > .end::before{content:''; position:absolute; top:5px; left:-25px; display:block; width:20px; height:12px; background-size: cover; background-repeat: no-repeat; border-radius:3px; margin-right:10px;}
+#calendar .datepicker-days tbody td .purple::before{background-image: url('/images/home/kor/user/gclass/web_mark_icon01.png');}
+#calendar .datepicker-days tbody td .red::before{background-image: url('/images/home/kor/user/gclass/web_mark_icon02.png');}
+#calendar .datepicker-days tbody td .remote::before{background-image: url('/images/home/kor/user/gclass/web_mark_icon03.png');}
+#calendar .datepicker-days tbody td .e1::before{background-image: url('/images/home/kor/user/gclass/web_mark_icon03.png');}
+#calendar .datepicker-days tbody td .presentation::before{background-image: url('/images/home/kor/user/gclass/web_mark_icon04.png');}
+#calendar .datepicker-days tbody td .e2::before{background-image: url('/images/home/kor/user/gclass/web_mark_icon04.png');}
+#calendar .datepicker-days tbody td .blue::before{background-image: url('/images/home/kor/user/gclass/web_mark_icon05.png');}
+#calendar .datepicker-days tbody td .end::before{background-image: url('/images/home/kor/user/gclass/web_mark_icon06.png');}
+#calendar .datepicker-days tbody td .training::before{background-image: url('/images/home/kor/user/gclass/web_mark_icon07.png');}
+#calendar .datepicker-days tbody td .e3::before{background-image: url('/images/home/kor/user/gclass/web_mark_icon07.png');}
+#calendar .datepicker-days tbody td li:not(:last-child){margin-bottom:10px;}
+
+#calendar .datepicker-days tbody td > ul > li > a,
+#calendar .datepicker-days tbody td > ul > li > p{display:block; width:100%;}
+#calendar .datepicker-days tbody td > ul > li > a:hover .subject{text-decoration:underline; text-underline-position:under;}
+#calendar .datepicker-days tbody td > ul > li .wrap{display:flex; flex-wrap:wrap; width:100%; float:none; margin:0; height:auto; line-height:1;}
+#calendar .datepicker-days tbody td > ul > li p{cursor:default;}
+#calendar .datepicker-days tbody td > ul > li a{cursor:pointer;}
+
+#calendar .datepicker table tr td span{cursor:inherit;font-size:11pt;}
+#calendar .datepicker table tr td span .charge{color:#000;}
+
+#calendar .datepicker-days tbody td .subject{display:block;  font-size:16px; font-weight:500; color:#444; line-height:1.2; /*white-space:nowrap; overflow:hidden; text-overflow:ellipsis; */width:100%; float: none; margin: 0; border-radius: 0; height: auto; flex-wrap:wrap;}
+#calendar .datepicker-days tbody td .subject ul{flex-wrap:wrap; margin-top:10px; width:100%; padding-left:5px; margin-bottom:0;}
+#calendar .datepicker-days tbody td .subject ul li::before{min-width:4px;}
+#calendar .datepicker-days tbody td .e1 .subject{color:#ac0000;}
+#calendar .datepicker-days tbody td .e2 .subject{color:#00ac00;}
+#calendar .datepicker-days tbody td .e3 .subject{color:#000000;}
+#calendar .datepicker-days tbody td .end{/* pointer-events:none; */}
+#calendar .datepicker-days tbody td .end .subject{color:#acacac;}
+#calendar .datepicker-days tbody td .time{display:block; width:100%; margin-top:4px; font-size:16px; font-weight:200; color:#8c8c8c; line-height:1; float: none; margin: 0; border-radius: 0; height: auto;}
+#calendar .datepicker-days tbody td ul .category{position:relative;}
+#calendar .datepicker-days tbody td ul .category a.active + .calendarPop{overflow:visible; opacity:1; visibility:visible; }
+#calendar .datepicker-days tbody td .calendarPop{overflow:hidden; opacity:0; visibility:hidden; position:absolute; left:150px; width:340px; min-height:135px; padding:20px 20px 70px; background-color:#fff; border-radius:5px; border:1px solid #ddd; z-index:999; box-shadow:4px 4px 16px rgba(0,0,0,.1); transition:overflow .4s, opacity .4s, visibility .4s;}
+#calendar .datepicker-days tbody td:nth-child(7) .calendarPop{right:0; left:auto;}
+#calendar .datepicker-days tbody td .calendarPop__list{}
+#calendar .datepicker-days tbody td .calendarPop__list li{display:flex; align-items:center; line-height:1; font-size:16px; font-weight:200; color:#444; font-weight:500;}
+#calendar .datepicker-days tbody td .calendarPop__list li::before{content:''; display:block; min-width:19px; margin-right:10px; background-repeat:no-repeat; background-position:center center;}
+#calendar .datepicker-days tbody td .calendarPop__list li:not(:last-child){margin-bottom:15px;}
+#calendar .datepicker-days tbody td .calendarPop__list .date{font-weight:300;}
+#calendar .datepicker-days tbody td .calendarPop__list .date::before{height:19px; background-image:url('/images/home/kor/user/gclass/edu-calendar-icons_17.png');}
+#calendar .datepicker-days tbody td .calendarPop__list .type::before{height:14px; background-image:url('/images/home/kor/user/gclass/edu-calendar-icons_13.png');}
+#calendar .datepicker-days tbody td .calendarPop__list .subject::before{height:19px; background-image:url('/images/home/kor/user/gclass/edu-calendar-icons_29.png');}
+#calendar .datepicker-days tbody td .calendarPop__subList{margin-top:20px;}
+#calendar .datepicker-days tbody td .calendarPop__subList li{font-size:16px; color:#8c8c8c; line-height:1;}
+#calendar .datepicker-days tbody td .calendarPop__subList li:not(:last-child){margin-bottom:10px;}
+
+
+#calendar .datepicker-days tbody td .calendarPop .apply{position:absolute; right:20px; bottom:20px; font-size:15px; font-weight:500; color:#fff; line-height:1; background-color:#6c57a4; border-radius:5px; display:flex; align-items:center; justify-content:center; width:90px; height:35px;}
+#calendar .datepicker-days tbody td .calendarPop .close{position:absolute; right:20px; top:20px; overflow:hidden; text-indent:-9999px; width:14px; height:14px; background:url('/images/home/kor/user/gclass/ico_cal_close.jpg') no-repeat;;}
+
+.calendar-items-wrap{display:none;}
+

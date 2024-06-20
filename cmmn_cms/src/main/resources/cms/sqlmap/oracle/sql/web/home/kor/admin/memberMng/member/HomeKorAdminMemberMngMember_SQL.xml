@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminMemberMngMember_SQL">
+
+	<select id="HomeKorAdminMemberMngMember_SQL.selectMemberDataList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminMemberMngMember_SQL.selectMemberDataList */
+	SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT 
+							T1.no,
+							T1.id,
+							T1.name,
+							T1.email,
+							T1.sso_no
+						FROM 
+							site_account T1
+						<where>
+							T1.account																	= 'U'
+							<if test='searchKeyword != ""'>
+								<choose>
+									<when test='searchValue3 == "0"'>
+								AND
+								(
+											T1.id														LIKE '%' || #{searchKeyword} || '%'
+								OR			T1.name														LIKE '%' || #{searchKeyword} || '%'
+								OR			T1.sso_no													LIKE '%' || #{searchKeyword} || '%'
+								)
+									</when>
+									<when test='searchValue3 == "1"'>
+								AND			T1.id														LIKE '%' || #{searchKeyword} || '%'
+									</when>
+									<when test='searchValue3 == "2"'>
+								AND			T1.name														LIKE '%' || #{searchKeyword} || '%'
+									</when>
+									<when test='searchValue3 == "3"'>
+								AND			T1.sso_no													LIKE '%' || #{searchKeyword} || '%'
+									</when>
+								</choose>
+							</if>
+						</where>
+						ORDER BY T1.no DESC
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminMemberMngMember_SQL.selectMemberDataListCnt" parameterType="vo" resultType="int">
+	/* HomeKorAdminMemberMngMember_SQL.selectMemberDataListCnt */
+		SELECT 
+			COUNT(1)
+		FROM 
+			site_account T1
+		<where>
+			T1.account																	= 'U'
+			<if test='searchKeyword != ""'>
+				<choose>
+					<when test='searchValue3 == "0"'>
+				AND
+				(
+							T1.id														LIKE '%' || #{searchKeyword} || '%'
+				OR			T1.name														LIKE '%' || #{searchKeyword} || '%'
+				OR			T1.sso_no													LIKE '%' || #{searchKeyword} || '%'
+				)
+					</when>
+					<when test='searchValue3 == "1"'>
+				AND			T1.id														LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test='searchValue3 == "2"'>
+				AND			T1.name														LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test='searchValue3 == "3"'>
+				AND			T1.sso_no													LIKE '%' || #{searchKeyword} || '%'
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	 <select id="HomeKorAdminMemberMngMember_SQL.selectMemberData" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminMemberMngMember_SQL.selectMemberData */
+		SELECT 
+			T1.no AS no,
+			T2.site_account_ref AS site_account_ref,
+			T2.no AS member_no,
+			T1.use_at AS use_at,
+			T1.account AS account,
+			T1.site_code AS site_code,
+			T1.id AS id,
+			T1.pw AS pw,
+			T1.name AS name,
+			T2.phone AS phone,
+			T2.email AS email,
+			T2.kipa,
+			TO_CHAR(T2.reg_date, 'YYYY-MM-DD HH24:MI:SS') AS reg_date,
+			TO_CHAR(T2.acs_date, 'YYYY-MM-DD HH24:MI:SS') AS acs_date
+		FROM 
+			site_account T1 
+		JOIN 
+			tb_member T2
+		ON 
+			T1.no 									= T2.site_account_ref
+		<where>
+		AND			T1.no							= #{idx}
+		</where>
+	</select>
+	
+</mapper>

@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+
+
+
+@media screen and (max-width:1280px){
+	
+}
+
+@media screen and (max-width:1080px){ 
+    /*공통*/
+    body {font-size: 15px;}
+
+    .ft_s19 {font-size: 17px;}
+    .ft_s21 {font-size: 18px;}
+
+    .img_box.ma30 {margin: 0 0 20px 0;}
+    /*공통*/
+    .webzine_cont .title_area {margin: 0 0 50px 0;}
+
+    .webzine_cont .view_cont_area .text_list_box {margin: 0 0 30px 0;}
+    .webzine_cont .view_cont_area .text_list_box > .list > li {margin: 0 0 40px 0;}
+    .webzine_cont .view_cont_area .text_list_box > .list > li .text.ma30 {margin: 0 0 20px 0;}
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_box.ma30 {margin: 0 0 20px 0;}
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_box.ma40 {margin: 0 0 30px 0;}
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_box.ma80 {margin: 0 0 60px 0;}
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_box .title {margin: 0 0 30px 0;}
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_box .title.icon {padding: 0 0 0 22px;}
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_box .sub_title {margin: 0 0 10px 0;}
+
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_list_area > .list > li {margin: 0 0 25px 0;}
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_list_area > .list > li > .text_box .title {font-size: 18px;}
+
+    .webzine_cont .view_cont_area .text_list_box.sty2 > .list > li {margin: 0 0 20px 0;}
+    .webzine_cont .view_cont_area .text_list_box.sty2 > .list > li > .title {margin: 0 0 10px 0; font-size: 16px;}
+
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_bg_box {padding: 35px 30px;}
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_bg_box .title {margin: 0 0 25px 0; font-size: 18px;}
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_bg_box > .text_list_area > .list > li {margin: 0 0 10px 0;}
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_bg_box > .text_list_area > .list > li > .text.icon01 {padding: 0 0 0 18px;}
+
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_list_area.sty2 > .list > li > .text_box {padding: 10px;}
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_list_area.sty2 > .list > li > .text_box .text {font-size: 15px;}
+
+    /*테이블*/
+    .table_box.ma30 {margin: 0 0 20px 0;}
+    .table_box .table_title {font-size: 13px;}
+    .table_box table thead tr th {padding: 10px;}
+    .table_box table thead tr th > .text_list_area > .list > li > .text {font-size: 15px;}
+    .table_box table thead tr th > .text_list_area > .list > li > .text.icon01 {padding: 0 0 0 22px;}
+    .table_box table thead tr th > .text_list_area > .list > li > .text.icon02 {padding: 0 0 0 28px;}
+    .table_box table tbody tr td {padding: 5px;}
+    .table_box table tbody tr td.pa80 {padding: 5px; text-align: center;}
+    .table_box table tbody tr td > .text_list_area > .list > li > .text {font-size: 15px;}
+    .table_box table tbody tr td > .text_list_area > .list > li > .text.icon01 {padding: 0 0 0 13px;}
+    .table_box table tbody tr td > .text_list_area > .list > li > .text.icon02 {padding: 0 0 0 22px;}
+
+    .table_box table tbody tr td > .text_list_area > .list > li > .text_list_area2 > .list > li > .text {font-size: 15px;}
+    .table_box table tbody tr td > .text_list_area > .list > li > .text_list_area2 > .list > li > .text.icon01 {padding: 0 0 0 13px;}
+    .table_box table tbody tr td > .text_list_area > .list > li > .text_list_area2 > .list > li > .text.icon02 {padding: 0 0 0 22px;}
+    .table_box table tbody tr td > .text_list_area > .list > li > .text_list_area2 > .list > li > .text.icon03 {padding: 0 0 0 18px;}
+    .table_box table tbody tr td > .text_list_area > .list > li > .text_list_area2 > .list > li > .text .icon.sty2 {left: 8px;}
+
+    /*테이블*/
+}
+
+@media screen and (max-width:767px){
+    /*공통*/
+    .webzine_cont .title_area {margin: 0 0 35px 0;}
+    .webzine_cont .title_area .type {margin: 0 0 22px 0; padding: 0 30px; font-size: 18px; line-height: 40px;}
+    .webzine_cont .title_area .title {font-size: 28px; line-height: 42px;}
+
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_box .title {font-size: 20px; line-height: 24px;}
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_box .title.sty2 {font-size: 22px;}
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_box .sub_title {font-size: 19px;}
+
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_list_area > .list > li > .text_box .title {font-size: 18px;}
+
+    .webzine_cont .view_cont_area .text_list_box.sty2 > .list > li > .text_box .title {font-size: 19px;}
+
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_bg_box {padding: 30px 25px;}
+    .webzine_cont .view_cont_area .text_list_box > .list > li > .text_bg_box .title {font-size: 16px;}
+
+    /*테이블*/
+    .table_box {margin: 20px 0 0; overflow-x: scroll;}
+    .table_box .table_title {text-align: left;}
+    .table_box table {width: 767px;}
+    /*테이블*/
+}
+
+@media screen and (max-width:480px){
+    .ma_t30 {margin: 30px 0 0 0;}
+
+	.img_list_area .list li {width: 100%}
+
+    .img_list_area.sty2 .list {flex-wrap: wrap; background-color: #f7f7f7;}
+    .img_list_area.sty2 .list li {width: 50%}
+    .img_list_area.sty2.w100 .list li {width: 100%}
+    .img_list_area.sty2.w50 .list li {width: 50%}
+
+    .img_list_area.w25 .list li {width: 50%;}
+
+}

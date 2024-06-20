@@ -1,0 +1,153 @@
+@charset 'UTF-8';
+
+/* Teacher Pool --------------------------------------------------------- */	
+	.imp {color:#ff0000;display: inline-block;margin-right:5px;} 
+	.write_pool {
+		padding: 40px 20px; 
+	}
+	.write_pool > div {margin-bottom:25px;}
+	.write_pool > div:last-child {margin-bottom:0;}
+	.write_pool .person-title {
+		font-family: 'S-CoreDream-5Medium';
+	}
+	
+	.info_form_wrap * {
+		font-family: 'S-CoreDream-4regular'
+	}
+	
+	.info_form_wrap {
+		border-top: 1px solid #000
+	}
+	.info_form_wrap .radio_area {margin-right:15px;}
+	
+	.info_form_wrap dl {
+		display: flex;
+		/* gap: 10px; */
+		border-bottom: 1px solid #ddd;
+		margin: 0;
+	}
+	
+	.info_form_wrap dl dt,
+	.info_form_wrap dl dd {
+		display: block;
+		align-items:center;
+		flex-wrap:wrap;
+		min-height:60px;
+		font-size: 15px;
+		padding: 10px 15px;
+	}
+	
+	.info_form_wrap dl dt {
+		flex:0 0 auto;
+		width: 170px;
+		background-color: #f7f7f7;
+		border-right: 1px solid #ddd;
+	}
+	.info_form_wrap dl dd {
+		flex:1 1 auto;
+	}
+	
+	.info_form_wrap.v2 dl dt {
+	width: 300px;
+	
+	}
+	.info_form_wrap.v3 dl dt {
+	width: 300px;
+	}
+	.info_form_wrap dl dt a {margin-left:5px;}
+	
+	.info_form_wrap input[type="text"],
+	.info_form_wrap select {
+		height: 40px;
+		border: 1px solid #ddd;
+		padding:0 10px;
+	}
+	
+	.info_form_wrap textarea {
+		width:100%;
+		border: 1px solid #ddd;
+	}
+	.info_form_wrap input[readonly] {background:#f7f7f7;outline:none;}
+	.tel_form {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 10px;
+	}
+	
+	.tel_form input {
+		width: 80px;
+	}
+	
+	.info_form_wrap button {
+		height: 40px;
+		padding: 0 15px;
+	}
+	
+	.email_form {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 10px;
+	}
+	
+	.email_form input,
+	.email_form select {
+		width: 120px;
+	}
+	
+	.education_from {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 10px;
+		margin: 5px 0;
+	}
+	input.tc {text-align:center;}
+	.education_from select {
+		width: 120px;
+	}
+	
+	.done_wrap {
+	  text-align: center;
+	  padding-top: 50px;
+	}
+	.done_wrap:before {
+	  content: "";
+	  display: block;
+	  width: 100%;
+	  height: 300px;
+	  background-image: url("/images/common/done_mesg.png");
+	  background-repeat: no-repeat;
+	  background-position: center;
+	}
+	.done_wrap .done_mesg {
+		font-family: 'S-CoreDream-5Medium';
+	  background-color: #F7F7F7;
+	  display: inline-block;
+	  padding: 25px 20px;
+	  width: 100%;
+	  max-width: 940px;
+	  margin-bottom: 20px;
+	  font-weight: bold;
+	}
+	.done_wrap .done_mesg .txt_big {
+	  color: #2E6BC6;
+	  font-size: 35px;
+	  font-weight: 500;
+	  letter-spacing:-2px;
+	}
+	.done_wrap .done_mesg .txt_min {
+	  font-size: 22px; 
+	  letter-spacing:-1px;
+		font-family: 'S-CoreDream-4regular';
+	  font-weight:bold;
+	}
+	.done_wrap .done_mesg .txt_min span {color:#27a5cd;}
+	.done_wrap .guide_mesg {
+	  font-size: 17px;
+	}
+	.done_wrap a {
+	  padding: 15px 30px;
+	  font-size: 19px;
+	}	

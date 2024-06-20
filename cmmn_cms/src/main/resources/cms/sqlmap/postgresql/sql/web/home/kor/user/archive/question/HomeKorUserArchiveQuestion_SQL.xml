@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorUserArchiveQuestion_SQL">
+
+	<insert id="HomeKorUserArchiveQuestion_SQL.insertHomeKorUserArchiveQuestion" parameterType="vo">
+	/* HomeKorUserArchiveQuestion_SQL.insertHomeKorUserArchiveQuestion */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_center_question_seq.NEXTVAL AS idx
+		</selectKey>
+		INSERT INTO tb_center_question
+		(			
+					no,
+					type_at,
+					use_at,
+					name,
+					email,
+					title,
+					content,
+					agreement,
+					register,
+					reg_date
+		)
+					VALUES
+		(			
+					#{idx},
+					'A',
+					'N',
+					#{paramKey2},
+					#{paramKey1},
+					#{paramKey3},
+					#{paramKey4},
+					#{paramKey5},
+					#{usr_idx},
+					SYSDATE
+		)
+	</insert>
+	
+</mapper>

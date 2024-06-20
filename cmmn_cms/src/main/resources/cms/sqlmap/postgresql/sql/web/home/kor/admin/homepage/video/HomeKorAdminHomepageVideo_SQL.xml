@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminHomepageVideo_SQL">
+
+	<!-- <select id="HomeKorAdminHomepageVideo_SQL.selectHomeKorAdminHomepageVideoList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepageVideo_SQL.selectHomeKorAdminHomepageVideoList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.open_at,
+							T1.title,
+							T1.url,
+							T1.sort,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_video T1
+						<where>
+						<if test='searchValue1 != ""'>
+						AND			T1.use_at														= #{searchValue1}
+						</if>
+						<if test='searchKeyword != ""'>
+						AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+						</if>
+						</where>
+						ORDER BY T1.reg_date DESC, T1.no DESC 
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select> -->
+	
+	<select id="HomeKorAdminHomepageVideo_SQL.selectHomeKorAdminHomepageVideoListCnt" parameterType="vo" resultType="int">
+		/* HomeKorAdminHomepageVideo_SQL.selectHomeKorAdminHomepageVideoListCnt */
+		SELECT 
+			COUNT(1)
+		FROM
+			tb_video T1
+		<where>
+		AND			T1.no															= '1'
+		</where>
+	</select>
+
+	<select id="HomeKorAdminHomepageVideo_SQL.selectHomeKorAdminHomepageVideo" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepageVideo_SQL.selectHomeKorAdminHomepageVideo */
+		SELECT
+			T1.no,
+			T1.open_at1,
+			T1.title1,
+			T1.url1,
+			T1.open_at2,
+			T1.title2,
+			T1.url2,
+			T1.open_at3,
+			T1.title3,
+			T1.url3,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register
+		FROM
+			tb_video T1
+		<where>
+		AND			T1.no															= '1'
+		</where>
+		<!-- LIMIT 1 -->
+	</select>
+	
+	<insert id="HomeKorAdminHomepageVideo_SQL.insertHomeKorAdminHomepageVideo" parameterType="vo">
+	/* HomeKorAdminHomepageVideo_SQL.insertHomeKorAdminHomepageVideo */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_video_seq.NEXTVAL AS idx
+		</selectKey>
+		INSERT INTO tb_video
+		(			
+					no,
+					open_at1,
+					title1,
+					url1,
+					open_at2,
+					title2,
+					url2,
+					open_at3,
+					title3,
+					url3,
+					register,
+					reg_date
+		)
+					VALUES
+		(			
+					'1',
+					#{paramKey1},
+					#{paramKey2},
+					#{paramKey3},
+					#{paramKey4},
+					#{paramKey5},
+					#{paramKey6},
+					#{paramKey7},
+					#{paramKey8},
+					#{paramKey9},
+					#{adm_idx},
+					SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorAdminHomepageVideo_SQL.updateHomeKorAdminHomepageVideo" parameterType="vo">
+		/* HomeKorAdminHomepageVideo_SQL.updateHomeKorAdminHomepageVideo */
+		UPDATE tb_video SET 
+			   	open_at1																= #{paramKey1},
+				title1																	= #{paramKey2},
+				url1																	= #{paramKey3},
+				open_at2																= #{paramKey4},
+				title2																	= #{paramKey5},
+				url2																	= #{paramKey6},
+				open_at3																= #{paramKey7},
+				title3																	= #{paramKey8},
+				url3																	= #{paramKey9},
+			   	mod_date																= SYSDATE,  
+			   	modifier																= #{adm_idx}        
+		<where>
+		AND no 																			= '1'
+		</where>	   
+		          
+	</update>
+	
+	<!-- <delete id="HomeKorAdminHomepageVideo_SQL.deleteHomeKorAdminHomepageVideo" parameterType="vo">
+	/* HomeKorAdminHomepageVideo_SQL.deleteHomeKorAdminHomepageVideo */
+		DELETE FROM tb_video
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminHomepageVideo_SQL.deleteHomeKorAdminHomepageVideoList" parameterType="vo">
+		/* HomeKorAdminHomepageVideo_SQL.deleteHomeKorAdminHomepageVideoList */
+		DELETE FROM tb_video
+		<where>
+			<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete> -->
+	
+</mapper>

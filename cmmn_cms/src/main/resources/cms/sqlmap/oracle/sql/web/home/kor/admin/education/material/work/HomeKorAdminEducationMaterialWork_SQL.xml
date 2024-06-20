@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminEducationMaterialWork_SQL">
+
+	<select id="HomeKorAdminEducationMaterialWork_SQL.selectHomeKorAdminEducationMaterialWorkList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminEducationMaterialWork_SQL.selectHomeKorAdminEducationMaterialWorkList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.type_ref,
+							T1.title,
+							T2.data_name AS type_name,
+							(SELECT FT.attach_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_name,
+							(SELECT FT.attach_re_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_re_name,
+							(SELECT FT.extension FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_extension,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_work T1
+						LEFT OUTER JOIN 
+							cms_category_data T2
+						ON  T1.type_ref																= T2.no
+						<where>
+						<if test='searchValue1 != ""'>
+						AND			T1.use_at														= #{searchValue1}
+						</if>
+						<if test='searchValue2 != ""'>
+						AND			T1.type_ref														= #{searchValue2}
+						</if>
+						<if test='searchKeyword != ""'>
+						AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+						</if>
+						</where>
+						ORDER BY	T1.reg_date DESC, T1.no DESC 
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminEducationMaterialWork_SQL.selectHomeKorAdminEducationMaterialWorkListCnt" parameterType="vo" resultType="int">
+		/* HomeKorAdminEducationMaterialWork_SQL.selectHomeKorAdminEducationMaterialWorkListCnt */
+		SELECT 
+			COUNT(1)
+		FROM 
+			tb_work T1
+		LEFT OUTER JOIN 
+			cms_category_data T2
+		ON  T1.type_ref																= T2.no
+		<where>
+		<if test='searchValue1 != ""'>
+		AND			T1.use_at														= #{searchValue1}
+		</if>
+		<if test='searchValue2 != ""'>
+		AND			T1.type_ref														= #{searchValue2}
+		</if>
+		<if test='searchKeyword != ""'>
+		AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		</where>
+	</select>
+
+	<select id="HomeKorAdminEducationMaterialWork_SQL.selectHomeKorAdminEducationMaterialWork" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminEducationMaterialWork_SQL.selectHomeKorAdminEducationMaterialWork */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.type_ref,
+			T1.title,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register
+		FROM
+			tb_work T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+		<!-- LIMIT 1 -->
+	</select>
+	
+	<insert id="HomeKorAdminEducationMaterialWork_SQL.insertHomeKorAdminEducationMaterialWork" parameterType="vo">
+	/* HomeKorAdminEducationMaterialWork_SQL.insertHomeKorAdminEducationMaterialWork */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_work_seq.NEXTVAL AS idx FROM dual
+		</selectKey>
+		INSERT INTO tb_work
+		(			
+					no,
+					use_at,
+					type_ref,
+					title,
+					register,
+					reg_date
+		)
+					VALUES
+		(			
+					#{idx},
+					#{paramKey1},
+					#{paramKey2},
+					#{paramKey3},
+					#{adm_idx},
+					SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorAdminEducationMaterialWork_SQL.updateHomeKorAdminEducationMaterialWork" parameterType="vo">
+		/* HomeKorAdminEducationMaterialWork_SQL.updateHomeKorAdminEducationMaterialWork */
+		UPDATE tb_work SET 
+			   	use_at																	= #{paramKey1},
+				type_ref																= #{paramKey2},
+				title																	= #{paramKey3},
+			   	mod_date																= SYSDATE,  
+			   	modifier																= #{adm_idx}        
+		<where>
+		AND no 																		= #{idx}
+		</where>	   
+		          
+	</update>
+	
+	<delete id="HomeKorAdminEducationMaterialWork_SQL.deleteHomeKorAdminEducationMaterialWork" parameterType="vo">
+	/* HomeKorAdminEducationMaterialWork_SQL.deleteHomeKorAdminEducationMaterialWork */
+		DELETE FROM tb_work
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminEducationMaterialWork_SQL.deleteHomeKorAdminEducationMaterialWorkList" parameterType="vo">
+		/* HomeKorAdminEducationMaterialWork_SQL.deleteHomeKorAdminEducationMaterialWorkList */
+		DELETE FROM tb_work
+		<where>
+			<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete>
+	
+</mapper>

@@ -1,0 +1,287 @@
+article {
+	display: block;
+	flex-direction: column;
+}
+
+.progress-bar {
+	background-color: black;
+}
+
+.question {
+	display: none;
+}
+
+.txt_link {
+	border: 0;
+	background: transparent;
+	display: block;
+	width: 100%;
+	text-align: right;
+}
+
+.resultcontent {
+	font-weight: bold;
+}
+
+.resultbox {
+	border: 0;
+	/* margin-bottom: 30px; */
+	/* background: #fff; */
+	/* box-shadow: 5px 5px 10px rgba(0,0,0,0.1); */
+	padding: 20px;
+	/* border-radius: 10px; */
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
+.resultbox:last-child {
+	border:0;
+}
+
+@font-face {
+	font-family: 'SUITE-Regular';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'TheJamsil5Bold';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+	font-weight: 700;
+	font-style: normal;
+}
+
+button,
+input,
+a,
+body {
+	font-family: 'SUITE-Regular';
+}
+
+body, html {height:100%;}
+
+body {
+
+	background-color: #4876EF;
+	background-image: url(../images/test/bg_icons.png);
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.phone_body {
+	position: absolute;
+	max-width: 700px;
+	left: calc(50% - 350px);
+	width: 100%;
+	bottom: 0;
+	padding: 30px 30px 0 30px;
+	margin: 0 auto;
+	background-color: #fff;
+	border-radius: 30px 30px 0 0;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+.phone_body .top_area {
+	margin-bottom: 20px
+}
+
+.phone_body .view {
+	background-color: #efefef;
+	padding: 70px 30px;
+	text-align: center;
+	border-radius: 25px 25px 0 0;
+	min-height: 81vh;
+	display: flex;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.02);
+	justify-content: center;
+}
+
+.view .title {
+	margin-bottom: 30px;
+}
+
+.view .title h1 {
+	font-size: 32px;
+	font-family: 'TheJamsil5Bold';
+}
+
+.view h2 {
+	font-size: 25px;
+	word-break:keep-all;
+	margin-bottom: 30px;
+	font-family: 'TheJamsil5Bold';
+	letter-spacing: -1px;
+}
+
+.view h3 {
+	font-size: 25px;
+	word-break:keep-all;
+	margin-bottom: 30px;
+	font-family: 'TheJamsil5Bold';
+	letter-spacing: -1px;
+}
+
+.btn {
+	padding: 15px 30px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	font-size: 19px;
+	letter-spacing: -1px;
+	cursor: pointer;
+}
+
+.btn.btn_base {
+	background-color: #B20D0D;
+	color: #fff;
+}
+
+.btn.btn_select {
+	width: 80%;
+	margin-top: 30px;
+	background: #CCCCCC;
+	color: #000;
+	font-weight: bold;
+	min-width: 300px;
+}
+
+.btn.btn_select:hover {
+	background-color: #162C63;
+	color: #fff;
+}
+.body_bg {font-size:0;line-height: 0;}
+.bg_character1 {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-580px)
+}
+
+.bg_character2 {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(250px)
+}
+
+.bg_character2 {}
+
+.hide {
+	text-indent: -99999px;
+	font-size: 0;
+	opacity: 0;
+	height: 0;
+}
+
+.xxx {
+	display:none;
+	font-size: 30px;
+	position: absolute;
+	right: 30px;
+	top: 30px;
+	border: 0;
+	background-color: transparent;
+	height: 50px;
+	width: 50px;
+}
+
+
+.scroll_box {
+	max-height: 46vh;
+	min-height:30vh;
+	overflow: auto;
+	margin-bottom: 20px;
+	background: #fff;
+	padding: 20px;
+	border-radius: 20px;
+}
+
+
+@media all and (max-width:1400px) {
+		
+	.bg_character1 {
+		left: 0;
+		transform: none;
+	}
+	
+	.bg_character2 {
+	    right: 0;
+	    transform: none;
+	    left: auto;
+	}
+				
+	.bg_character1 img {
+		height:15vw;
+	}
+	
+	.bg_character2 img {
+		height:15vw;
+	}
+		
+}
+
+@media all and (max-width:720px) {
+	.phone_body {
+	    position: absolute;
+	    /* max-width: 700px; */
+	    left: 0;
+	    width: 100%;
+	    bottom: 0;
+	    padding: 25px;
+	    margin: 0 auto;
+	    background-color: #fff;
+	    border-radius: 0;
+	    margin: 0 auto;
+	}
+	.phone_body .top_area {
+	    border-bottom: 1px solid #ddd;
+	    padding-bottom: 15px;
+	    margin: 0;
+	}
+	.phone_body .top_area  .logo img {height:35px;}
+	.xxx {
+	    font-size: 25px;
+	    right: 30px;
+	    top: 30px;
+	    height: 30px;
+	    width: 30px;
+	}
+	.btn.btn_base {font-size:17px;}
+	.phone_body .view {
+	    text-align: center;
+	    padding:30px 0 0  !important;
+	    background:transparent;
+	    min-height: calc(100vh - 94px);
+    	box-shadow: none;
+	}
+	.view .title h1 {
+	    font-size: 8vw;
+	    font-family: 'TheJamsil5Bold';
+	    word-break: keep-all;
+	}
+	
+	.btn {padding:10px 30px;}
+	.phone_body .view > div {padding:0;
+    width: 100%;}
+    .btn.btn_select {min-width:auto;margin-bottom:10px;margin-top:0;font-size:5vw;word-break:keep-all;width:100%;}
+    .view h2 {
+    margin-bottom: 10vw;
+    font-size: 6.5vw;}
+    
+    .resultbox {padding:15px 0;line-height: 1.4;font-size:15px;}
+    
+    .scroll_box {
+	    max-height: 55vh;
+	    overflow: auto;
+	    margin-bottom: 20px;
+	    background: #f1f1f1;
+	    padding: 12px;
+	    border-radius: 10px;
+	}
+	
+	.resultcontent {font-size:19px;}
+}

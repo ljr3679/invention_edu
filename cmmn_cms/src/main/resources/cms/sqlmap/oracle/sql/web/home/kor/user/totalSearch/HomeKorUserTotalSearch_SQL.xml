@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorUserTotalSearch_SQL">
+
+	<select id="HomeKorUserTotalSearch_SQL.selectHomeKorUserTotalSearchList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserTotalSearch_SQL.selectHomeKorUserTotalSearchList */
+		SELECT
+			Z.*
+		FROM
+			(
+			SELECT
+				ROWNUM AS RNUM,
+				X.*
+			FROM
+				(   
+				SELECT
+					T.*
+					FROM 
+                        (
+							SELECT
+								UN.*
+								FROM
+								(
+								SELECT
+								(
+								    SELECT 
+								    		T4.menu_title 
+								    FROM  
+								    		cms_menu T2 
+								    LEFT OUTER JOIN 
+								    		cms_menu T4 
+								    ON 
+								    		T2.parent 																			= T4.no
+								    <where> 
+								    AND 	T2.no 																				= T1.parent
+								    AND 	T2.use_at 																			= 'Y'
+								    AND 	T2.use_gbn 																			= 'U'
+								    AND 	T2.delete_at 																		= 'N'
+								    AND 	T2.session_at 																		= 'A'
+								    AND 	T4.use_at 																			= 'Y'
+								    AND 	T4.use_gbn 																			= 'U'
+								    AND 	T4.delete_at 																		= 'N'
+								    AND 	T4.session_at 																		= 'A'
+								    </where>
+								) AS parent_title1,
+								(
+								    SELECT 
+								    		T2.menu_title 
+								    FROM  
+								    		cms_menu T2 
+								    <where> 
+								    AND		T2.no 																				= T1.parent
+								    AND 	T2.use_at														 					= 'Y'
+								    AND 	T2.use_gbn 																			= 'U'
+								    AND 	T2.delete_at 																		= 'N'
+								    AND 	T2.session_at 																		= 'A'
+								    </where>
+								) AS parent_title,
+								T1.menu_title AS menu_title, 
+								T1.no AS menu_no, 
+								T1.uri AS menu_uri, 
+								T3.no, 
+								T3.title, 
+								TO_CHAR(T3.impt_start_date, 'YYYY-MM-DD') AS start_date, 
+								TO_CHAR(T3.impt_end_date, 'YYYY-MM-DD') AS end_date, 
+								TO_CLOB(T3.text_field1) AS content,
+								TO_CHAR(T3.reg_date, 'YYYY-MM-DD') AS reg_date
+								FROM 
+								    cms_board_data T3
+								LEFT OUTER JOIN
+								    cms_menu T1 
+								ON  T1.board_code 																				= T3.board_code
+								<where> 
+								AND		T1.use_at 																				= 'Y'
+								AND 	T1.use_gbn 																				= 'U'
+								AND 	T1.delete_at 																			= 'N'
+								AND 	T1.session_at 																			= 'A'
+								AND 	T1.menu_type 																			= 'B'
+								AND 	T1.depth																				!= 1
+								AND 	T3.use_at																				= 'Y'
+								</where>
+							UNION ALL
+								SELECT
+									(
+									SELECT 
+										sub2.menu_title 
+									FROM 
+										cms_menu sub 
+									LEFT OUTER JOIN 
+										cms_menu sub1 
+									ON 	sub.parent = sub1.no
+									LEFT OUTER JOIN
+										cms_menu sub2
+									ON	sub2.no = sub1.parent 
+									WHERE sub.no = 111
+									) AS parent_title1,
+									(SELECT sub1.menu_title FROM cms_menu sub LEFT OUTER JOIN cms_menu sub1 ON sub.parent = sub1.no <where> sub.no = 111 </where>) AS parent_title,
+									(SELECT sub.menu_title FROM cms_menu sub <where> sub.no = 111 </where>) AS menu_title,
+									111 AS menu_no,
+									(SELECT sub.uri FROM cms_menu sub <where> sub.no = 111 </where>) AS menu_uri,
+									T1.no,
+									T1.title,
+									TO_CHAR(T1.start_date, 'YYYY-MM-DD') AS start_date, 
+									TO_CHAR(T1.end_date, 'YYYY-MM-DD') AS end_date,
+									T1.content,
+									TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date
+								FROM
+									tb_announce T1
+								) UN
+						<where>
+						<if test='searchKeyword != ""'>
+						AND
+						(		UN.menu_title																			LIKE '%' || #{searchKeyword} || '%'
+						OR		UN.title																				LIKE '%' || #{searchKeyword} || '%'
+						OR		UN.content																				LIKE '%' || #{searchKeyword} || '%'
+						) 
+						</if>
+						</where>
+						ORDER BY 
+						(CASE
+							WHEN <![CDATA[UN.start_date <= TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <= UN.end_date]]>
+							THEN 1
+							ELSE 2
+						END) ASC, UN.reg_date DESC ,  UN.no DESC
+					) T
+                    <where>
+                    AND		1																						<![CDATA[=]]> 1
+                    </where>
+				) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorUserTotalSearch_SQL.selectHomeKorUserTotalSearchListCnt" parameterType="vo" resultType="int">
+	/* HomeKorUserTotalSearch_SQL.selectHomeKorUserTotalSearchListCnt */
+		SELECT
+			COUNT(1)
+		FROM 
+		    cms_board_data T3
+		LEFT OUTER JOIN
+		    cms_menu T1 
+		ON  T1.board_code 																				= T3.board_code
+		<where>
+		AND		T1.use_at 																				= 'Y'
+		AND 	T1.use_gbn 																				= 'U'
+		AND 	T1.delete_at 																			= 'N'
+		AND 	T1.session_at 																			= 'A'
+		AND 	T1.menu_type 																			= 'B'
+		AND 	T1.depth																				!= '1'
+		<if test='searchKeyword != ""'>
+		AND
+		(		T1.menu_title																			LIKE '%' || #{searchKeyword} || '%'
+		OR		T3.title																				LIKE '%' || #{searchKeyword} || '%'
+		OR		T3.textarea_field1																		LIKE '%' || #{searchKeyword} || '%'
+		)
+		</if>
+		</where>
+	</select>
+	
+</mapper>

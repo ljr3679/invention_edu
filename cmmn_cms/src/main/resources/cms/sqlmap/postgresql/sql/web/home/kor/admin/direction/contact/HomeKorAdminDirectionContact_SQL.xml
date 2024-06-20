@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminDirectionContact_SQL">
+
+	<select id="HomeKorAdminDirectionContact_SQL.selectHomeKorAdminDirectionContactList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminDirectionContact_SQL.selectHomeKorAdminDirectionContactList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.page_at,
+							T1.title,
+							T1.content,
+							T1.name,
+							T1.email,
+							T1.agreement,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_contact T1
+						<where>
+						<if test='tabPos != ""'>
+						AND			T1.page_at														= #{tabPos}
+						</if>
+						<if test='searchValue1 != ""'>
+						AND			T1.use_at														= #{searchValue1}
+						</if>
+						<if test='searchKeyword != ""'>
+							<choose>
+								<when test='searchValue3 == "0"'>
+							AND
+							(
+										T1.name														LIKE '%' || #{searchKeyword} || '%'
+							OR			T1.title													LIKE '%' || #{searchKeyword} || '%'
+							OR			T1.content													LIKE '%' || #{searchKeyword} || '%'
+							)
+								</when>
+								<when test='searchValue3 == "1"'>
+							AND			T1.name														LIKE '%' || #{searchKeyword} || '%'
+								</when>
+								<when test='searchValue3 == "2"'>
+							AND			T1.title													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+								<when test='searchValue3 == "3"'>
+							AND			T1.content													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+							</choose>
+						</if>
+						</where>
+						ORDER BY T1.reg_date DESC, T1.no DESC
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminDirectionContact_SQL.selectHomeKorAdminDirectionContactListCnt" parameterType="vo" resultType="int">
+		/* HomeKorAdminDirectionContact_SQL.selectHomeKorAdminDirectionContactListCnt */
+		SELECT 
+			COUNT(1)
+		FROM tb_contact T1
+		 <where>
+		 <if test='tabPos != ""'>
+		AND			T1.page_at														= #{tabPos}
+		</if>
+		<if test='searchValue1 != ""'>
+		AND			T1.use_at														= #{searchValue1}
+		</if>
+		<if test='searchKeyword != ""'>
+			<choose>
+				<when test='searchValue3 == "0"'>
+			AND
+			(
+						T1.name														LIKE '%' || #{searchKeyword} || '%'
+			OR			T1.title													LIKE '%' || #{searchKeyword} || '%'
+			OR			T1.content													LIKE '%' || #{searchKeyword} || '%'
+			)
+				</when>
+				<when test='searchValue3 == "1"'>
+			AND			T1.name														LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test='searchValue3 == "2"'>
+			AND			T1.title													LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test='searchValue3 == "3"'>
+			AND			T1.content													LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</if>
+		</where>
+	</select>
+
+	<select id="HomeKorAdminDirectionContact_SQL.selectHomeKorAdminDirectionContact" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminDirectionContact_SQL.selectHomeKorAdminDirectionContact */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.page_at,
+			T1.title,
+			T1.content,
+			T1.name,
+			T1.email,
+			T1.agreement,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register
+		FROM
+			tb_contact T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+		<!-- LIMIT 1 -->
+	</select>
+	
+	<insert id="HomeKorAdminDirectionContact_SQL.insertHomeKorAdminDirectionContact" parameterType="vo">
+	/* HomeKorAdminDirectionContact_SQL.insertHomeKorAdminDirectionContact */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_contact_seq.NEXTVAL AS idx
+		</selectKey>
+		INSERT INTO tb_contact
+		(			
+					no,
+					use_at,
+					title,
+					content,
+					name,
+					page_at,
+					email,
+					register,
+					reg_date
+		)
+					VALUES
+		(			
+					#{idx},
+					#{paramKey1},
+					#{paramKey2},
+					#{paramKey3},
+					#{paramKey4},
+					#{tabPos},
+					#{paramKey7},
+					#{adm_idx},
+					SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorAdminDirectionContact_SQL.updateHomeKorAdminDirectionContact" parameterType="vo">
+		/* HomeKorAdminDirectionContact_SQL.updateHomeKorAdminDirectionContact */
+		UPDATE tb_contact SET 
+			   use_at																= #{paramKey1},
+			   mod_date																= SYSDATE,  
+			   modifier																= #{adm_idx}        
+		<where>
+		AND no 																		= #{idx}
+		</where>	   
+		          
+	</update>
+	
+	<delete id="HomeKorAdminDirectionContact_SQL.deleteHomeKorAdminDirectionContact" parameterType="vo">
+	/* HomeKorAdminDirectionContact_SQL.deleteHomeKorAdminDirectionContact */
+		DELETE FROM tb_contact
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminDirectionContact_SQL.deleteHomeKorAdminDirectionContactList" parameterType="vo">
+		/* HomeKorAdminDirectionContact_SQL.deleteHomeKorAdminDirectionContactList */
+		DELETE FROM tb_contact
+		<where>
+			<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete>
+	
+</mapper>

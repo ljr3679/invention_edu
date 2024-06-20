@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="CmsMenuMng">
+	
+	<select id="CmsMenuMng.selectMenuURICheck" parameterType="egovMap" resultType="int">
+	/* CmsMenuMng.selectMenuURICheck */
+		SELECT
+			COUNT(1)
+		FROM
+			cms_menu
+		<where>
+		AND			no 						!= #{idx}
+		AND			uri						= #{uri}
+		AND			delete_at				= 'N'
+		</where>
+		
+	</select>
+	
+	<select id="CmsMenuMng.selectMenuMaxSort" parameterType="vo" resultType="egovMap">
+	/* CmsMenuMng.selectMenuMaxSort */
+		SELECT
+			IFNULL((SELECT depth FROM cms_menu WHERE no = #{paramKey10}), 0)+1 AS depth,
+			IFNULL(MAX(T1.sort), 0) + 1 AS sort
+		FROM
+			cms_menu T1
+		<where>
+		AND			T1.parent				= #{paramKey10}
+		AND			T1.use_gbn				= #{paramKey13}
+		AND			T1.site_code			= #{searchValue1}
+		AND			T1.lang_code			= #{searchValue2}
+		AND			T1.delete_at			= 'N'
+		</where>
+	
+	</select>
+	
+	<insert id="CmsMenuMng.insertChildMenuData" parameterType="vo">
+	/* CmsMenuMng.insertChildMenuData */
+		INSERT INTO cms_menu
+		(
+			use_at,
+			<if test='paramKey2 != ""'>gnb_view_at,</if>
+			session_at,
+			tab_at,
+			menu_title,
+			menu_type,
+			<choose>
+				<when test='paramKey4 == "D"'>uri,</when>
+				<when test='paramKey4 == "C" or paramKey4 == "B"'>uri, board_code, skin,</when>
+				<when test='paramKey4 == "L"'>uri, link_type, link_url,</when>
+			</choose>
+			parent,
+			depth,
+			sort,
+			use_gbn,
+			site_code,
+			lang_code,
+			<if test='searchValue3 != ""'>cms_at,</if>
+			delete_at,
+			register,
+			reg_date
+		)
+			VALUES
+		(
+			#{paramKey1},
+			<if test='paramKey2 != ""'>#{paramKey2},</if>
+			#{paramKey15},
+			#{paramKey16},
+			#{paramKey3},
+			#{paramKey4},
+			<choose>
+				<when test='paramKey4 == "D"'>#{paramKey5},</when>
+				<when test='paramKey4 == "C" or paramKey4 == "B"'>#{paramKey5}, #{paramKey6}, #{paramKey7},</when>
+				<when test='paramKey4 == "L"'>#{paramKey5}, #{paramKey8}, #{paramKey9},</when>
+			</choose>
+			#{paramKey10},
+			#{paramKey11},
+			#{paramKey12},
+			#{paramKey13},
+			#{searchValue1},
+			#{searchValue2},
+			<if test='searchValue3 != ""'>#{searchValue3},</if>
+			'N',
+			#{adm_idx},
+			NOW()
+		)
+		
+		<selectKey resultType="vo" keyProperty="idx" order="AFTER">
+        	SELECT LAST_INSERT_ID() AS idx
+    	</selectKey>       
+	</insert>
+	
+	<select id="CmsMenuMng.selectInsertMenuData" parameterType="str" resultType="egovMap">
+	/* CmsMenuMng.selectInsertMenuData */
+		SELECT
+			no,
+			use_at,
+			gnb_view_at,
+			session_at,
+			tab_at,
+			menu_title,
+			menu_type,
+			uri,
+			link_type,
+			link_url,
+			board_code,		
+			skin,	
+			parent,
+			depth,
+			sort,
+			cms_at
+		FROM
+			cms_menu
+		<where>
+		AND			no						= #{idx}
+		</where>
+	</select>
+	
+	<update id="CmsMenuMng.updateMenuListDeleteData" parameterType="vo">
+	/* CmsMenuMng.updateMenuListDeleteData */
+	<if test='paramKeyList1 != null'>
+		UPDATE cms_menu SET
+					delete_at				= 'Y',
+					modifier				= #{adm_idx},
+					mod_date				= NOW()
+		<where>
+			<foreach collection="paramKeyList1" open="no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</if>
+	</update>
+	
+	<update id="CmsMenuMng.updateMenuDeleteSort" parameterType="str">
+	/* CmsMenuMng.updateMenuDeleteSort */
+		UPDATE 
+			cms_menu T1 
+		RIGHT OUTER JOIN 
+			cms_menu T2 
+		ON				1							= 1
+		AND 			T1.parent					= T2.parent
+		AND				T1.depth					= T2.depth
+		AND				T1.use_gbn					= T2.use_gbn
+		AND				T1.site_code				= T2.site_code
+		AND				T1.lang_code				= T2.lang_code
+		SET
+						T2.sort 					= 
+		CASE
+			WHEN 		T1.no 						!= T2.no
+				THEN 	T2.sort - 1
+				WHEN 	T1.no 						= T2.no
+				THEN 	0
+		END
+		<where>
+<![CDATA[
+		AND				T1.no						= #{idx}
+		AND				T1.sort						<= T2.sort
+]]>	
+		</where>
+	</update>
+	
+	<update id="CmsMenuMng.updateMenuData" parameterType="vo">
+	/* CmsMenuMng.updateMenuData */
+		UPDATE cms_menu SET
+					use_at					= #{paramKey1},
+				<if test='paramKey2 != ""'>
+					gnb_view_at				= #{paramKey2},
+				</if>	
+					session_at				= #{paramKey15},
+					tab_at					= #{paramKey16},
+			<choose>
+				<when test='paramKey4 == "D"'>
+					uri						= #{paramKey5},
+				</when>
+				<when test='paramKey4 == "C" or paramKey4 == "B"'>
+					board_code				= #{paramKey6}, 
+					skin					= #{paramKey7},
+				</when>
+				<when test='paramKey4 == "L"'>
+					link_type				= #{paramKey8}, 
+					link_url				= #{paramKey9},
+				</when>
+			</choose>
+					menu_title				= #{paramKey3},
+					menu_type				= #{paramKey4},
+					modifier				= #{adm_idx},
+					mod_date				= NOW()
+		<where>
+		AND			no						= #{idx}
+		</where>
+	</update>
+	
+	<update id="CmsMenuMng.updateDragMenuMove" parameterType="vo">
+	/* CmsMenuMng.updateDragMenuMove */
+		UPDATE cms_menu SET
+					parent					= #{paramKey11},
+					depth					= #{paramKey12}
+		<where>
+		AND			no						= #{paramKey10}
+		</where>
+	</update>
+	
+	<update id="CmsMenuMng.updateDragMenuChildrenDepth" parameterType="vo">
+	/* CmsMenuMng.updateDragMenuChildrenDepth */
+	<if test='paramKeyList4 != null'>
+		UPDATE cms_menu SET
+					depth					=  depth + #{paramKey14}
+		<where>
+			<foreach collection="paramKeyList4" open="no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</if>
+	</update>
+	
+	<update id="CmsMenuMng.updateDragMenuSortOrder" parameterType="vo">
+	/* CmsMenuMng.updateDragMenuSortOrder */
+	<if test='paramKeyList3 != null'>
+		UPDATE cms_menu SET
+					sort					=
+		<foreach collection="paramKeyList3" open="(CASE" close="END)," item="item">
+			WHEN	no						= #{item.idx}
+			THEN	#{item.index} 
+		</foreach>
+					modifier				= #{adm_idx},
+					mod_date				= NOW()
+		<where>
+			<foreach collection="paramKeyList3" open="no IN (" close=")" separator="," item="item">
+				#{item.idx}
+			</foreach>
+		</where>
+	</if>
+	</update>
+	
+	<select id="CmsMenuMng.selectBoardMngDataList" resultType="egovMap">
+	/* CmsMenuMng.selectBoardMngDataList */
+		SELECT
+			board_code,
+			title
+		FROM
+			cms_board
+		ORDER BY reg_date DESC
+	</select>
+	
+	<select id="CmsMenuMng.selectContentsMngDataList" resultType="egovMap">
+	/* CmsMenuMng.selectContentsMngDataList */
+		SELECT
+			board_code,
+			title
+		FROM
+			cms_contents
+		ORDER BY reg_date DESC
+	</select>
+	
+</mapper>

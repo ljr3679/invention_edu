@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="Common">
+
+	<select id="Common.selectCategoryAllDataList" parameterType="str" resultType="egovMap">
+	/* Common.selectCategoryAllDataList */
+		SELECT
+			T1.*,
+			(SELECT COUNT(1) FROM cms_category_data T2 WHERE T1.no = T2.parent AND T2.parent != 0) AS children,
+			NVL((SELECT T2.sort FROM cms_category_data T2 WHERE T2.no = T1.parent), sort) AS parentSort
+		FROM
+			cms_category_data T1
+		<where>
+		AND			T1.category_code							= #{code}
+		</where>
+		ORDER BY
+			parentSort ASC,
+			CASE
+				WHEN parent = 0
+				THEN 1
+				ELSE 2
+			END ASC,
+			sort ASC
+	</select>
+
+	<select id="Common.selectCategoryParentDataList" parameterType="str" resultType="egovMap">
+	/* Common.selectCategoryParentDataList */
+		SELECT
+			T1.*,
+			(SELECT COUNT(1) FROM cms_category_data T2 WHERE T1.no = T2.parent AND T2.parent != 0) AS children,
+			NVL((SELECT T2.sort FROM cms_category_data T2 WHERE T2.no = T1.parent), sort) AS parentSort
+		FROM
+			cms_category_data T1
+		<where>
+		AND			T1.category_code							= #{code}
+		AND			T1.parent									= 0
+		</where>
+		ORDER BY
+			parentSort ASC,
+			CASE
+				WHEN parent = 0
+				THEN 1
+				ELSE 2
+			END ASC,
+			sort ASC
+	</select>
+	
+	<select id="Common.selectCategoryChildrenDataList" parameterType="egovMap" resultType="egovMap">
+	/* Common.selectCategoryChildrenDataList */
+		SELECT
+			T1.*,
+			(SELECT COUNT(1) FROM cms_category_data T2 WHERE T1.no = T2.parent AND T2.parent != 0) AS children,
+			NVL((SELECT T2.sort FROM cms_category_data T2 WHERE T2.no = T1.parent), sort) AS parentSort
+		FROM
+			cms_category_data T1
+		<where>
+		<choose>
+			<when test='parent != null and parent != ""'>
+		AND			T1.parent									= #{parent}
+			</when>
+			<otherwise>
+		AND			T1.parent									= 	(
+																		SELECT
+																			ST.*
+																		FROM
+																			(
+																				SELECT 
+																					T2.no 
+																				FROM 
+																					cms_category_data T2 
+																				<where> 
+																				AND		T2.category_code 				= #{category} 
+																				AND 	T2.parent 						= 0 
+																				</where>
+																				ORDER BY T2.sort ASC	
+																			) ST
+																		 <where>
+																		 AND			ROWNUM							= 1
+																		 </where>
+																	)			
+			</otherwise>
+		</choose>
+		AND			T1.parent									!= 0
+		</where>
+		ORDER BY
+			parentSort ASC,
+			CASE
+				WHEN parent = 0
+				THEN 1
+				ELSE 2
+			END ASC,
+			sort ASC
+	</select>
+	
+	<select id="Common.selectCMSBoardContentData" parameterType="str" resultType="egovMap">
+	/* Common.selectCMSBoardContentData */
+		SELECT
+			*
+		FROM
+			cms_contents
+		<where>
+		AND			board_code									= #{boardCode}
+		</where>
+	</select>
+	
+	<select id="Common.selectUserMainFooterList" parameterType="vo" resultType="egovMap">
+	/* Common.selectUserMainFooterList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.open_at,
+							T1.title,
+							T1.url,
+							T1.sort,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register,
+							TO_CHAR(T1.mod_date, 'YYYY-MM-DD') AS mod_date,
+							T1.modifier
+						FROM
+							tb_footer T1
+						<where>
+						AND			T1.use_at														= 'Y'
+						</where>
+						ORDER BY T1.sort ASC, T1.reg_date DESC, T1.no DESC
+					) X
+			) Z
+	</select>
+	
+	<select id="Common.selectUserDataCnt" parameterType="EgovMap" resultType="int">
+		/* Common.selectUserDataCnt */
+		SELECT 
+			COUNT(1)
+		FROM
+			site_account T1
+		<where>
+		AND	T1.sso_no											= #{no}
+		</where>
+	</select>
+	
+	<insert id="Common.insertUserData" parameterType="EgovMap">
+	/* Common.insertUserData */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT site_account_seq.NEXTVAL AS idx FROM dual
+		</selectKey>
+		INSERT INTO site_account
+		(			
+					no,
+					use_at,
+					account,
+					site_code,
+					id,
+					name,
+					email,
+					sso_no
+		)
+					VALUES
+		(			
+					#{idx},
+					'Y',
+					'U',
+					'[home]',
+					#{id},
+					#{name},
+					#{email},
+					#{no}
+		)
+	</insert>
+	
+	<update id="Common.updateUserData" parameterType="EgovMap">
+		/* Common.updateUserData */
+		UPDATE site_account SET 
+			id												= #{id},
+			name											= #{name},
+			email											= #{email}   
+		<where>
+		AND sso_no 											= #{no}
+		</where>	   
+	</update>
+	
+</mapper>

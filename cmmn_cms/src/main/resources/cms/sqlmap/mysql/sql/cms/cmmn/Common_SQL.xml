@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="Common">
+
+	<select id="Common.selectCategoryAllDataList" parameterType="str" resultType="egovMap">
+	/* Common.selectCategoryAllDataList */
+		SELECT
+			T1.*,
+			(SELECT COUNT(1) FROM cms_category_data T2 WHERE T1.no = T2.parent AND T2.parent != 0) AS children,
+			IFNULL((SELECT T2.sort FROM cms_category_data T2 WHERE T2.no = T1.parent), sort) AS parentSort
+		FROM
+			cms_category_data T1
+		<where>
+		AND			T1.category_code							= #{code}
+		</where>
+		ORDER BY
+			parentSort ASC,
+			CASE
+				WHEN parent = 0
+				THEN 1
+				ELSE 2
+			END ASC,
+			sort ASC
+	</select>
+
+	<select id="Common.selectCategoryParentDataList" parameterType="str" resultType="egovMap">
+	/* Common.selectCategoryParentDataList */
+		SELECT
+			T1.*,
+			(SELECT COUNT(1) FROM cms_category_data T2 WHERE T1.no = T2.parent AND T2.parent != 0) AS children,
+			IFNULL((SELECT T2.sort FROM cms_category_data T2 WHERE T2.no = T1.parent), sort) AS parentSort
+		FROM
+			cms_category_data T1
+		<where>
+		AND			T1.category_code							= #{code}
+		AND			T1.parent									= 0
+		</where>
+		ORDER BY
+			parentSort ASC,
+			CASE
+				WHEN parent = 0
+				THEN 1
+				ELSE 2
+			END ASC,
+			sort ASC
+	</select>
+	
+	<select id="Common.selectCategoryChildrenDataList" parameterType="egovMap" resultType="egovMap">
+	/* Common.selectCategoryChildrenDataList */
+		SELECT
+			T1.*,
+			(SELECT COUNT(1) FROM cms_category_data T2 WHERE T1.no = T2.parent AND T2.parent != 0) AS children,
+			IFNULL((SELECT T2.sort FROM cms_category_data T2 WHERE T2.no = T1.parent), sort) AS parentSort
+		FROM
+			cms_category_data T1
+		<where>
+		<choose>
+			<when test='parent != null and parent != ""'>
+		AND			T1.parent									= #{parent}
+			</when>
+			<otherwise>
+		AND			T1.parent									= 	(
+																		SELECT 
+																			T2.no 
+																		FROM 
+																			cms_category_data T2 
+																		<where> 
+																		AND		T2.category_code 				= #{category} 
+																		AND 	T2.parent 						= 0 
+																		</where>
+																		ORDER BY T2.sort ASC 
+																		LIMIT 1
+																	)			
+			</otherwise>
+		</choose>
+		AND			T1.parent									!= 0
+		</where>
+		ORDER BY
+			parentSort ASC,
+			CASE
+				WHEN parent = 0
+				THEN 1
+				ELSE 2
+			END ASC,
+			sort ASC
+	</select>
+	
+	<select id="Common.selectCMSBoardContentData" parameterType="str" resultType="egovMap">
+	/* Common.selectCMSBoardContentData */
+		SELECT
+			*
+		FROM
+			cms_contents
+		<where>
+		AND			board_code									= #{boardCode}
+		</where>
+	</select>
+	
+</mapper>

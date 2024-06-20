@@ -1,0 +1,131 @@
+fieldset {
+	border: 1px solid gray;
+	padding: 4px;
+	border-radius: 2px;
+	margin-left: 8px;
+	display: block;
+	margin-inline-start: 2px;
+	margin-inline-end: 2px;
+	padding-block-start: 0.35em;
+	padding-inline-start: 0.75em;
+	padding-inline-end: 0.75em;
+	padding-block-end: 0.625em;
+	min-inline-size: min-content;
+	border-width: 2px;
+	border-style: groove;
+	border-color: threedface;
+	border-image: initial;
+}
+fieldset legend {
+	padding-left: 6px;
+	padding-right: 6px;
+}
+legend {
+    display: block;
+    padding-inline-start: 2px;
+    padding-inline-end: 2px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+}
+fieldset.category {
+	float: left;
+}
+#category_container {
+	width: 300px;
+	height: 500px;
+	border-spacing: 0;
+    border-collapse: collapse;
+	border: 2px solid #5e5e5e;
+	overflow: hidden;
+    overflow-y: auto;
+}
+#category_container > div {
+    height: 40px;
+    line-height: 40px;
+	text-align: center;
+}
+#category_container > div > a {
+	cursor: pointer;
+}
+#category_container li {
+	list-style-type: none;
+	border: 1.5px solid gray;
+    margin: 5px;
+    border-radius: 5px;
+}
+#category_container > ul > li > a {
+	cursor: pointer;
+	display: block;
+    padding: 5px 40px 5px 20px;
+	margin: 5px;
+}
+#category_container > ul > li:hover {
+	background-color: gray;
+}
+#category_container > ul > li > a:hover{
+	color: white;
+}
+#category_container > ul > li.on {
+	background-color: gray;
+}
+#category_container > ul > li.on > a{
+	cursor: pointer;
+	color: white;
+	background: url(/images/cmmn/admin/arr_right_w.png) 90% center no-repeat;
+}
+
+#options_container {
+	height: 500px;
+	border-spacing: 0;
+    border-collapse: collapse;
+	border: 2px solid #5e5e5e;
+	padding: 10px;
+}
+#options_container > fieldset {
+	height: 100%;
+} 
+fieldset.tree {
+	float: left;
+	width: 300px;
+}
+#options_tree {
+	height: 95%;
+	overflow: hidden;
+    overflow-y: auto;
+}
+#options_tree > ul > li {
+	list-style-type: circle;
+	margin: 5px 0 5px 10%;
+}
+#options_tree > ul > li > a{
+	cursor: pointer;
+}
+#options_tree > ul > li > ul > li {
+	list-style-type: circle;
+	margin: 5px 0 5px 10%;
+}
+#options_tree > ul > li > ul > li {
+	cursor: pointer;
+}
+.board_write {
+	border: 2px solid #5e5e5e;
+}
+#cate_data_pos {
+	min-width: 150px;
+}
+#cate_data_txt, #cate_name, #data_name, #data_sort {
+	width: 100%;
+}
+.tree_btn_area {
+	margin-top: 20px;	
+}
+
+.tree_btn_area > .right {
+	float: right;
+}
+
+#layer_content {
+	width: 500px;
+}

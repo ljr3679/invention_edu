@@ -1,0 +1,398 @@
+/* 에디터 삽입 컨텐츠 리셋스타일 제거. */
+.editor_view {
+	font: initial; 
+	font-size: initial;
+}
+
+.editor_view * {
+	font: inherit; 
+	font-size: inherit; 
+	max-width: 100%;
+}
+
+.editor_view [dir=rtl] dd {
+	margin: 0 40px 0 0;
+}
+
+.editor_view [dir=rtl] menu {
+	padding: 0 30pt 0 0;
+}
+
+.editor_view [dir=rtl] ol {
+	padding: 0 30pt 0 0;
+}
+
+.editor_view [dir=rtl] ul {
+	padding: 0 30pt 0 0;
+}
+
+.editor_view a {
+	color: #06C;
+	text-decoration: underline;
+}
+
+.editor_view a:visited {
+	color: #80080;
+}
+
+.editor_view address {
+	display: block;
+	font-style: italic;
+}
+
+.editor_view b {
+	font-weight: bold;
+}
+
+.editor_view bdo {
+	direction: rtl;
+	unicode-bidi: bidi-override;
+}
+
+.editor_view blockquote {
+	display: block;
+	margin: 1em 40px;
+}
+
+.editor_view button {
+	background-color: #F0F0F0;
+	border-width: 3px;
+	box-sizing: border-box;
+	font-family: sans-serif;
+	font-size: 10pt;
+	overflow: hidden;
+	padding: 1px 8px;
+	text-align: center;
+	zoom: 1;
+}
+
+.editor_view caption {
+	display: table-caption;
+	text-align: center;
+	zoom: 1;
+}
+
+.editor_view cite {
+	font-style: italic;
+}
+
+.editor_view code {
+	font-family: monospace;
+	font-size: 10pt;
+}
+
+.editor_view col {
+	box-sizing: border-box;
+	display: table-column;
+}
+
+.editor_view colgroup {
+	box-sizing: border-box;
+	display: table-column-group;
+}
+
+.editor_view dd {
+	display: block;
+	margin: 0 0 0 40px;
+}
+
+.editor_view del {
+	text-decoration: line-through;
+}
+
+.editor_view dfn {
+	font-style: italic;
+}
+
+.editor_view div {
+	display: block;
+}
+
+.editor_view dl {
+	display: block;
+	margin: 1em 0;
+}
+
+.editor_view dt {
+	display: block;
+}
+
+.editor_view em {
+	font-style: italic;
+}
+
+.editor_view embed {
+	zoom: 1;
+}
+
+.editor_view fieldset {
+	border-style: groove;
+	border-width: 2px;
+	display: block;
+	margin: 0 2px;
+	padding: 0 2px 3px;
+	zoom: 1;
+}
+
+.editor_view form {
+	display: block;
+}
+
+.editor_view h1 {
+	display: block;
+	font-size: 2em;
+	font-weight: bold;
+	margin: 0.67em 0;
+	page-break-after: avoid;
+}
+
+.editor_view h2 {
+	display: block;
+	font-size: 1.5em;
+	font-weight: bold;
+	margin: 0.83em 0;
+	page-break-after: avoid;
+}
+
+.editor_view h3 {
+	display: block;
+	font-size: 1.17em;
+	font-weight: bold;
+	margin: 1em 0;
+	page-break-after: avoid;
+}
+
+.editor_view h4 {
+	display: block;
+	font-size: 1em;
+	font-weight: bold;
+	margin: 1.33em 0;
+	page-break-after: avoid;
+}
+
+.editor_view h5 {
+	display: block;
+	font-size: 0.83em;
+	font-weight: bold;
+	margin: 1.67em 0;
+	page-break-after: avoid;
+}
+
+.editor_view h6 {
+	display: block;
+	font-size: 0.67em;
+	font-weight: bold;
+	margin: 2.33em 0;
+	page-break-after: avoid;
+}
+
+.editor_view head {
+	display: none;
+}
+
+.editor_view hr {
+	border-style: inset;
+	border-width: 1px;
+	display: block;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+	overflow: hidden;
+	text-align: center;
+	zoom: 1;
+}
+
+.editor_view i {
+	font-style: italic;
+}
+
+.editor_view img {
+	zoom: 1;
+}
+
+.editor_view input {
+	background-color: #FFF;
+	border-width: 2px;
+	font-family: sans-serif;
+	font-size: 10pt;
+	overflow: hidden;
+	padding: 1px;
+	zoom: 1;
+}
+
+.editor_view ins {
+	text-decoration: underline;
+}
+
+.editor_view kbd {
+	font-family: monospace;
+	font-size: 10pt;
+}
+
+.editor_view legend {
+	padding: 0 2px;
+	zoom: 1;
+}
+
+.editor_view li {
+	display: list-item;
+}
+
+.editor_view menu {
+	display: block;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: disc;
+	margin: 1em 0;
+	padding: 0 0 0 30pt;
+}
+
+.editor_view object {
+	zoom: 1;
+}
+
+.editor_view ol {
+	display: block;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: decimal;
+	margin: 1em 0;
+	padding: 0 0 0 30pt;
+}
+
+.editor_view ol > li {
+	list-style-type:decimal;
+}
+
+.editor_view optgroup {
+	font-family: sans-serif;
+	font-size: 10pt;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.editor_view option {
+	font-family: sans-serif;
+	font-size: 10pt;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.editor_view p {
+	display: block;
+	margin: 1em 0;
+}
+
+.editor_view pre {
+	display: block;
+	font-family: monospace;
+	font-size: 10pt;
+	margin: 1em 0;
+	white-space: pre-line;
+}
+
+.editor_view rp {
+	font-size: 6pt;
+}
+
+.editor_view rt {
+	display: ruby-text;
+	font-size: 6pt;
+}
+
+.editor_view ruby {
+	display: ruby;
+}
+
+.editor_view samp {
+	font-family: monospace;
+	font-size: 10pt;
+}
+
+.editor_view script {
+	display: none;
+	zoom: 1;
+}
+
+.editor_view select {
+	background-color: #FFF;
+	border-width: 1px;
+	box-sizing: border-box;
+	font-family: sans-serif;
+	font-size: 10pt;
+	overflow: hidden;
+	zoom: 1;
+}
+
+.editor_view small {
+	font-size: 0.83em;
+}
+
+.editor_view strong {
+	font-weight: bold;
+}
+
+.editor_view style {
+	display: none;
+	zoom: 1;
+}
+
+.editor_view sub {
+	font-size: 0.83em;
+}
+
+.editor_view sup {
+	font-size: 0.83em;
+}
+
+.editor_view textarea {
+	background-color: #FFF;
+	border-width: 1px;
+	font-family: monospace;
+	font-size: 10pt;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	padding: 2px;
+	white-space: pre-wrap;
+	zoom: 1;
+}
+
+.editor_view ul {
+	display: block;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: disc;
+	margin: 1em 0;
+	padding: 0 0 0 30pt;
+}
+
+.editor_view ul > li {
+	list-style-type:disc;
+}
+
+.editor_view var {
+	font-style: italic;
+}
+
+.editor_view table,
+.editor_view caption, 
+.editor_view tbody, 
+.editor_view tfoot, 
+.editor_view thead, 
+.editor_view tr, 
+.editor_view th, 
+.editor_view td {
+	border-collapse: separate;
+}
+
+.editor_view th, 
+.editor_view td {
+	padding: 1px;
+}
+
+
+
+@media screen and (max-width:640px){
+	.editor_view table {
+		width: 100% !important;
+	}
+}

@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminInventorMeisterAnnounce_SQL">
+
+	<select id="HomeKorAdminInventorMeisterAnnounce_SQL.selectHomeKorAdminInventorMeisterAnnounceList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminInventorMeisterAnnounce_SQL.selectHomeKorAdminInventorMeisterAnnounceList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.type_ref,
+							T1.year_ref,
+							T2.data_name AS year_name,
+							CASE
+								WHEN <![CDATA[ TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') < TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') ]]>
+								THEN 'A' <!-- 모집대기 -->
+								WHEN <![CDATA[ TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') 
+								AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') ]]>
+								THEN 'B' <!-- 모집중 -->
+								WHEN <![CDATA[ TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') < TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') ]]>
+								THEN 'C' <!-- 모집완료 -->
+							END AS mojib_at,
+							T1.title,
+							(SELECT COUNT(1) FROM tb_announce_apply T3 <where>T3.announce_ref = T1.no</where> ) AS apply_cnt,
+							TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') AS start_date,
+							TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') AS end_date,
+							T1.content,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register,
+							TO_CHAR(T1.mod_date, 'YYYY-MM-DD') AS mod_date,
+							T1.modifier
+						FROM
+							tb_announce T1							
+						LEFT OUTER JOIN 
+							cms_category_data T2
+						ON  T1.year_ref																= T2.no
+						<where>
+						<if test='searchValue1 != ""'>
+						AND			T1.use_at														= #{searchValue1}
+						</if>
+						<if test='searchValue2 != ""'>
+						AND			T1.type_ref														= #{searchValue2}
+						</if>
+						<if test='searchKeyword != ""'>
+							<choose>
+								<when test='searchValue3 == "0"'>
+							AND
+							(
+										T1.title													LIKE '%' || #{searchKeyword} || '%'
+							OR			T1.content													LIKE '%' || #{searchKeyword} || '%'
+							)
+								</when>
+								<when test='searchValue3 == "1"'>
+							AND			T1.title													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+								<when test='searchValue3 == "2"'>
+							AND			T1.content													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+							</choose>
+						</if>
+						</where>
+						ORDER BY T1.reg_date DESC, T1.no DESC
+					) X
+			) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminInventorMeisterAnnounce_SQL.selectHomeKorAdminInventorMeisterAnnounceListCnt" parameterType="vo" resultType="int">
+	/* HomeKorAdminInventorMeisterAnnounce_SQL.selectHomeKorAdminInventorMeisterAnnounceListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			tb_announce T1
+		<where>
+		<if test='searchValue1 != ""'>
+		AND			T1.use_at														= #{searchValue1}
+		</if>
+		<if test='searchValue2 != ""'>
+		AND			T1.type_ref														= #{searchValue2}
+		</if>
+		<if test='searchKeyword != ""'>
+			<choose>
+				<when test='searchValue3 == "0"'>
+			AND
+			(
+						T1.title													LIKE '%' || #{searchKeyword} || '%'
+			OR			T1.content													LIKE '%' || #{searchKeyword} || '%'
+			)
+				</when>
+				<when test='searchValue3 == "1"'>
+			AND			T1.title													LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test='searchValue3 == "2"'>
+			AND			T1.content													LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</if>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminInventorMeisterAnnounce_SQL.selectHomeKorAdminInventorMeisterAnnounce" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminInventorMeisterAnnounce_SQL.selectHomeKorAdminInventorMeisterAnnounce */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.type_ref,
+			T1.year_ref,
+			CASE
+				WHEN <![CDATA[ TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') < TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') ]]>
+				THEN 'A' <!-- 모집대기 -->
+				WHEN <![CDATA[ TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') 
+				AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') ]]>
+				THEN 'B' <!-- 모집중 -->
+				WHEN <![CDATA[ TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') < TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') ]]>
+				THEN 'C' <!-- 모집완료 -->
+			END AS mojib_at,
+			T1.title,
+			TO_CHAR(T1.start_date, 'YYYY-MM-DD') AS start_date,
+			TO_CHAR(T1.end_date, 'YYYY-MM-DD') AS end_date,
+			TO_CHAR(T1.start_date, 'HH24') AS start_hour,
+			TO_CHAR(T1.end_date, 'HH24') AS end_hour,
+			TO_CHAR(T1.start_date, 'MI') AS start_min,
+			TO_CHAR(T1.end_date, 'MI') AS end_min,
+			T1.content,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register,
+			TO_CHAR(T1.mod_date, 'YYYY-MM-DD') AS mod_date,
+			T1.modifier
+		FROM
+			tb_announce T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+	</select>
+	
+	<insert id="HomeKorAdminInventorMeisterAnnounce_SQL.insertHomeKorAdminInventorMeisterAnnounce" parameterType="vo">
+	/* HomeKorAdminInventorMeisterAnnounce_SQL.insertHomeKorAdminInventorMeisterAnnounce */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_announce_seq.NEXTVAL AS idx FROM dual
+		</selectKey>
+		INSERT INTO tb_announce
+		(
+					no,
+					use_at,
+					type_ref,
+					year_ref,
+					title,
+					start_date,
+					end_date,
+					content,
+					register,
+					reg_date
+					
+		)
+					VALUES
+		(
+					#{idx},
+					#{paramKey1},
+					#{paramKey2},
+					#{paramKey3},
+					#{paramKey4},
+					TO_DATE(#{paramKey5} || ' ' || #{paramKey8} || ':' || #{paramKey9},'YYYY-MM-DD HH24:MI'),
+					TO_DATE(#{paramKey6} || ' ' || #{paramKey10} || ':' || #{paramKey11},'YYYY-MM-DD HH24:MI'),
+					#{paramKey7},
+					#{adm_idx},
+					SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorAdminInventorMeisterAnnounce_SQL.updateHomeKorAdminInventorMeisterAnnounce" parameterType="vo">
+	/* HomeKorAdminInventorMeisterAnnounce_SQL.updateHomeKorAdminInventorMeisterAnnounce */
+		UPDATE tb_announce SET
+				use_at																= #{paramKey1},
+				type_ref															= #{paramKey2},
+				year_ref															= #{paramKey3},
+				title																= #{paramKey4},
+				start_date															= TO_DATE(#{paramKey5} || ' ' || #{paramKey8} || ':' || #{paramKey9},'YYYY-MM-DD HH24:MI'),
+				end_date															= TO_DATE(#{paramKey6} || ' ' || #{paramKey10} || ':' || #{paramKey11},'YYYY-MM-DD HH24:MI'),
+				content																= #{paramKey7},
+				modifier															= #{adm_idx},
+				mod_date															= SYSDATE
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</update>
+	
+	<delete id="HomeKorAdminInventorMeisterAnnounce_SQL.deleteHomeKorAdminInventorMeisterAnnounce" parameterType="vo">
+	/* HomeKorAdminInventorMeisterAnnounce_SQL.deleteHomeKorAdminInventorMeisterAnnounce */
+		DELETE FROM tb_announce
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminInventorMeisterAnnounce_SQL.deleteHomeKorAdminInventorMeisterAnnounceList" parameterType="vo">
+		/* HomeKorAdminInventorMeisterAnnounce_SQL.deleteHomeKorAdminInventorMeisterAnnounceList */
+		DELETE FROM tb_announce
+		<where>
+			<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete> 
+	
+						<!--                    접수현황                                         -->
+						<!--                    접수현황                                         -->
+						<!--                    접수현황                                         -->
+	
+	<select id="HomeKorAdminInventorMeisterAnnounce_SQL.selectHomeKorAdminInventorMeisterAnnounceApplyList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminInventorMeisterAnnounce_SQL.selectHomeKorAdminInventorMeisterAnnounceApplyList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.announce_ref,
+							T1.pw,
+							T1.idea_name,
+							T1.team_name,
+							T1.idea_gubun,
+							T1.idea_gubun_text,
+							T1.school,
+							T1.school_type,
+							T1.zip_code,
+							T1.address,
+							T1.address_detail,
+							T1.team_user_name1,
+							TO_CHAR(T1.team_user_birth_day1, 'YYYY-MM-DD HH24:MI') AS team_user_birth_day1,
+							T1.team_user_grade1,
+							T1.team_user_sex1,
+							T1.team_user_phone1,
+							T1.team_user_email1,
+							T1.team_user_name2,
+							TO_CHAR(T1.team_user_birth_day2, 'YYYY-MM-DD HH24:MI') AS team_user_birth_day2,
+							T1.team_user_grade2,
+							T1.team_user_sex2,
+							T1.team_user_phone2,
+							T1.team_user_email2,
+							T1.team_user_name3,
+							TO_CHAR(T1.team_user_birth_day3, 'YYYY-MM-DD HH24:MI') AS team_user_birth_day3,
+							T1.team_user_grade3,
+							T1.team_user_sex3,
+							T1.team_user_phone3,
+							T1.team_user_email3,
+							T1.teacher_name,
+							TO_CHAR(T1.teacher_birth_day, 'YYYY-MM-DD HH24:MI') AS teacher_birth_day,
+							T1.teacher_subject,
+							T1.teacher_sex,
+							T1.teacher_phone,
+							T1.teacher_email,
+							T1.use_at,
+							T1.apply_number,
+							T2.title,
+							TO_CHAR(T2.start_date, 'YYYY-MM-DD') AS start_date,
+							TO_CHAR(T2.end_date, 'YYYY-MM-DD') AS end_date
+							FROM
+								tb_announce_apply T1
+							LEFT OUTER JOIN
+								tb_announce T2
+							ON	T1.announce_ref															= T2.no
+						<where>
+						AND			T1.announce_ref													= #{idx}
+						<if test='searchValue4 != ""'>
+						AND			T1.use_at														= #{searchValue4}
+						</if>
+						<if test='searchValue5 != ""'>
+						AND			T1.idea_gubun													= #{searchValue5}
+						</if>
+						<if test='searchValue6 != ""'>
+						AND			T1.school_type													= #{searchValue6}
+						</if>
+						<if test='searchKeyword2 != ""'>
+							<choose>
+								<when test='searchValue7 == "0"'>
+							AND
+							(
+										T1.apply_number												LIKE '%' || #{searchKeyword2} || '%'
+							OR			T1.idea_name												LIKE '%' || #{searchKeyword2} || '%'
+							OR			T1.team_name												LIKE '%' || #{searchKeyword2} || '%'
+							OR			T1.team_user_name1											LIKE '%' || #{searchKeyword2} || '%'
+							OR			T1.school													LIKE '%' || #{searchKeyword2} || '%'
+							)
+								</when>
+								<when test='searchValue7 == "1"'>
+							AND			T1.apply_number												LIKE '%' || #{searchKeyword2} || '%'
+								</when>
+								<when test='searchValue7 == "2"'>
+							AND			T1.idea_name												LIKE '%' || #{searchKeyword2} || '%'
+								</when>
+								<when test='searchValue7 == "3"'>
+							AND			T1.team_name												LIKE '%' || #{searchKeyword2} || '%'
+								</when>
+								<when test='searchValue7 == "4"'>
+							AND			T1.team_user_name1											LIKE '%' || #{searchKeyword2} || '%'
+								</when>
+								<when test='searchValue7 == "5"'>
+							AND			T1.school													LIKE '%' || #{searchKeyword2} || '%'
+								</when>
+							</choose>
+						</if>
+						</where>
+						ORDER BY T1.reg_date DESC, T1.no DESC
+					) X
+			) Z
+		<where>
+		<if test='pagingYn == "Y"'>
+		<![CDATA[ AND Z.RNUM > #{firstIndex2} AND ROWNUM <= #{recordCountPerPage2} ]]>
+		</if>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminInventorMeisterAnnounce_SQL.selectHomeKorAdminInventorMeisterAnnounceApplyListCnt" parameterType="vo" resultType="int">
+	/* HomeKorAdminInventorMeisterAnnounce_SQL.selectHomeKorAdminInventorMeisterAnnounceApplyListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			tb_announce_apply T1
+		<where>
+		AND			T1.announce_ref													= #{idx}
+		<if test='searchValue4 != ""'>
+		AND			T1.use_at														= #{searchValue4}
+		</if>
+		<if test='searchValue5 != ""'>
+		AND			T1.idea_gubun													= #{searchValue5}
+		</if>
+		<if test='searchValue6 != ""'>
+		AND			T1.school_type													= #{searchValue6}
+		</if>
+		<if test='searchKeyword2 != ""'>
+			<choose>
+				<when test='searchValue7 == "0"'>
+			AND
+			(
+						T1.apply_number												LIKE '%' || #{searchKeyword2} || '%'
+			OR			T1.idea_name												LIKE '%' || #{searchKeyword2} || '%'
+			OR			T1.team_name												LIKE '%' || #{searchKeyword2} || '%'
+			OR			T1.team_user_name1											LIKE '%' || #{searchKeyword2} || '%'
+			OR			T1.school													LIKE '%' || #{searchKeyword2} || '%'
+			)
+				</when>
+				<when test='searchValue7 == "1"'>
+			AND			T1.apply_number												LIKE '%' || #{searchKeyword2} || '%'
+				</when>
+				<when test='searchValue7 == "2"'>
+			AND			T1.idea_name												LIKE '%' || #{searchKeyword2} || '%'
+				</when>
+				<when test='searchValue7 == "3"'>
+			AND			T1.team_name												LIKE '%' || #{searchKeyword2} || '%'
+				</when>
+				<when test='searchValue7 == "4"'>
+			AND			T1.team_user_name1											LIKE '%' || #{searchKeyword2} || '%'
+				</when>
+				<when test='searchValue7 == "5"'>
+			AND			T1.school													LIKE '%' || #{searchKeyword2} || '%'
+				</when>
+			</choose>
+		</if>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminInventorMeisterAnnounce_SQL.selectHomeKorAdminInventorMeisterAnnounceApply" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminInventorMeisterAnnounce_SQL.selectHomeKorAdminInventorMeisterAnnounceApply */
+		SELECT
+			T1.no,
+			T1.announce_ref,
+			T1.pw,
+			T1.idea_name,
+			T1.team_name,
+			T1.idea_gubun,
+			T1.idea_gubun_text,
+			T1.school,
+			T1.school_type,
+			T1.zip_code,
+			T1.address,
+			T1.address_detail,
+			T1.team_user_name1,
+			TO_CHAR(T1.team_user_birth_day1, 'YYYY-MM-DD') AS team_user_birth_day1,
+			T1.team_user_grade1,
+			T1.team_user_sex1,
+			T1.team_user_phone1,
+			T1.team_user_email1,
+			T1.team_user_name2,
+			TO_CHAR(T1.team_user_birth_day2, 'YYYY-MM-DD') AS team_user_birth_day2,
+			T1.team_user_grade2,
+			T1.team_user_sex2,
+			T1.team_user_phone2,
+			T1.team_user_email2,
+			T1.team_user_name3,
+			TO_CHAR(T1.team_user_birth_day3, 'YYYY-MM-DD') AS team_user_birth_day3,
+			T1.team_user_grade3,
+			T1.team_user_sex3,
+			T1.team_user_phone3,
+			T1.team_user_email3,
+			T1.teacher_name,
+			TO_CHAR(T1.teacher_birth_day, 'YYYY-MM-DD') AS teacher_birth_day,
+			T1.teacher_subject,
+			T1.teacher_sex,
+			T1.teacher_phone,
+			T1.teacher_email,
+			T1.use_at,
+			T1.apply_number,
+			T2.title,
+			TO_CHAR(T2.start_date, 'YYYY-MM-DD') AS start_date,
+			TO_CHAR(T2.end_date, 'YYYY-MM-DD') AS end_date
+		FROM
+			tb_announce_apply T1
+		LEFT OUTER JOIN
+			tb_announce T2
+		ON	T1.announce_ref															= T2.no
+		<where>
+		AND			T1.no															= #{idx2}
+		</where>
+	</select>
+	
+	<update id="HomeKorAdminInventorMeisterAnnounce_SQL.updateHomeKorAdminInventorMeisterAnnounceApply" parameterType="vo">
+	/* HomeKorAdminInventorMeisterAnnounce_SQL.updateHomeKorAdminInventorMeisterAnnounceApply */
+		UPDATE tb_announce_apply SET
+				use_at																= #{paramKey1}
+		<where>
+		AND			no																= #{idx2}
+		</where>
+	</update>
+	
+</mapper>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="CmsAccountMng">
+
+	<sql id="searchOption">
+		<if test='searchValue1 != ""'>
+	AND			use_at 						= #{searchValue1}
+		</if>
+		<if test='searchKeyword != ""'>
+			<choose>
+				<when test='searchValue2 == "0"'>
+	AND			
+	(
+				id							LIKE '%' || #{searchKeyword} || '%'
+	OR			name						LIKE '%' || #{searchKeyword} || '%'
+	OR			menu_authority_name			LIKE '%' || #{searchKeyword} || '%'
+	)
+				</when>
+				<when test='searchValue2 == "1"'>
+	AND			id							LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test='searchValue2 == "2"'>
+	AND			name						LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test='searchValue2 == "3"'>
+	AND			menu_authority_name			LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</if>
+	</sql> 
+	
+	<select id="CmsAccountMng.selectAccountDataList" parameterType="vo" resultType="egovMap">
+	/* CmsAccountMng.selectAccountDataList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							no,
+							use_at,
+							id,
+							name,
+							menu_authority_name,
+							TO_CHAR(reg_date, 'YYYY-MM-DD') AS reg_date,
+							reg_date AS sort_date
+						FROM
+							cms_admin_view
+						<where>
+							<include refid="searchOption"/>
+						</where>
+						ORDER BY sort_date DESC	
+					) X
+			) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="CmsAccountMng.selectAccountDataListCnt" parameterType="vo" resultType="int">
+	/* CmsAccountMng.selectAccountDataList */
+		SELECT
+			COUNT(1)
+		FROM
+			cms_admin_view
+		<where>
+			<include refid="searchOption"/>
+		</where>
+	</select>
+	
+	<select id="CmsAccountMng.selectAuthorityNameList" parameterType="vo" resultType="egovMap">
+	/* CmsAccountMng.selectAuthorityNameList */
+		SELECT
+			no,
+			title,
+			reg_date AS order_date
+		FROM
+			cms_menu_authority
+		ORDER BY order_date ASC
+	</select>
+	
+	<select id="CmsAccountMng.selectAdminIdCheck" parameterType="str" resultType="int">
+	/* CmsAccountMng.selectAdminIdCheck */
+		SELECT
+				count(1)
+		FROM
+				site_account
+		<where>
+		AND			id								= #{id}
+		</where>
+	</select>	
+	
+	 <select id="CmsAccountMng.selectAccountData" parameterType="vo" resultType="egovMap">
+	/* CmsAccountMng.selectAccountData */
+		SELECT 
+			T1.use_at,
+			T1.id,
+			T1.pw,
+			T1.name,
+			T1.account,
+			T1.site_code,
+			T1.menu_authority_no,
+			T1.phone,
+			T1.email,
+			(SELECT	T2.id FROM site_account T2 WHERE T2.no = T1.register AND ROWNUM = 1) AS register_id,
+			(SELECT	T2.name FROM site_account T2 WHERE T2.no = T1.register AND ROWNUM = 1) AS register_name,
+			(SELECT	T2.id FROM site_account T2 WHERE T2.no = T1.modifier AND ROWNUM = 1) AS modifier_id,
+			(SELECT	T2.name FROM site_account T2 WHERE T2.no = T1.modifier AND ROWNUM = 1) AS modifier_name,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD HH24:MI:SS') AS reg_date,
+			TO_CHAR(T1.mod_date, 'YYYY-MM-DD HH24:MI:SS') AS mod_date
+		FROM 
+			cms_admin_view T1
+		<where>
+		AND			T1.no							= #{idx}
+		</where>
+	</select>
+	
+	
+	<insert id="CmsAccountMng.insertAccountData" parameterType="vo">
+	/* CmsAccountMng.insertAccountData */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT site_account_seq.NEXTVAL AS idx
+		</selectKey>
+	
+		INSERT INTO site_account
+		(
+			no,
+			use_at,
+			id,
+			pw,
+			name,
+			account,
+			site_code
+		)
+			VALUES
+		(
+			#{idx},
+			#{paramKey1},
+			#{paramKey2},
+			#{paramKey3},
+			#{paramKey4},
+			#{paramKey20},
+			#{paramKey21}
+		)
+	</insert>
+	
+	<insert id="CmsAccountMng.insertAdminInfoData" parameterType="vo">
+	/* CmsAccountMng.insertAdminInfoData */
+		INSERT INTO cms_admin_info
+		(
+			no,
+			site_account_ref,
+			cms_menu_authority_ref,
+			authority,
+			phone,
+			email,
+			register,
+			reg_date
+		)
+			VALUES
+		(
+			cms_admin_info_seq.NEXTVAL,
+			#{idx},
+			#{paramKey5},
+			#{paramKey20},
+			#{paramKey6},
+			#{paramKey7},
+			#{adm_idx},
+			SYSDATE
+		)
+	</insert>
+	
+	
+	<update id="CmsAccountMng.updateAccountData" parameterType="vo">
+	/* CmsAccountMng.updateAccountData */
+		UPDATE site_account SET
+					use_at							= #{paramKey1},
+					<if test='paramKey3 != ""'>
+					pw								= #{paramKey3},
+					</if>
+					name							= #{paramKey4},
+					account							= #{paramKey20},
+					site_code						= #{paramKey21}
+		<where>
+		AND			no								= #{idx}
+		</where>
+	</update>
+	
+	<update id="CmsAccountMng.updateAdminInfoData" parameterType="vo">
+	/* CmsAccountMng.updateAdminInfoData */
+		UPDATE cms_admin_info SET
+					cms_menu_authority_ref			= #{paramKey5},
+					phone							= #{paramKey6},
+					email							= #{paramKey7},
+					authority						= #{paramKey20},
+					modifier						= #{adm_idx},
+					mod_date						= SYSDATE
+		<where>
+		AND			site_account_ref				= #{idx}
+		</where>
+	</update>
+	
+	<delete id="CmsAccountMng.deleteAccountDataList" parameterType="vo">
+	/* CmsAccountMng.deleteAccountDataList */
+		DELETE FROM site_account
+		<where>
+		<choose>
+			<when test='paramKeyList1 != null'>
+				<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+					#{idx}
+				</foreach>
+			</when>
+			<otherwise>
+		AND			1								= 2
+			</otherwise>
+		</choose>
+		</where>
+	</delete>
+	
+	<delete id="CmsAccountMng.deleteAccountSubDataList" parameterType="vo">
+	/* CmsAccountMng.deleteAccountSubDataList */
+		DELETE FROM cms_admin_info
+		<where>
+		<choose>
+			<when test='paramKeyList1 != null'>
+				<foreach collection="paramKeyList1" open="AND site_account_ref IN (" close=")" separator="," item="idx">
+					#{idx}
+				</foreach>
+			</when>
+			<otherwise>
+		AND			1								= 2
+			</otherwise>
+		</choose>
+		</where>
+	</delete>
+	
+</mapper>

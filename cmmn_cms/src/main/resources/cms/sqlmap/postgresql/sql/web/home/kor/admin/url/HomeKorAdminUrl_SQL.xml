@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminUrl_SQL">
+
+	<select id="HomeKorAdminUrl_SQL.selectHomeKorAdminUrlList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminUrl_SQL.selectHomeKorAdminUrlList */
+	
+	
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(	
+						SELECT
+							T1.URL_MNGNO,
+							T1.TITLE,
+							T1.URL_NM,
+							T1.URL_ORG,
+							T1.USE_YN,
+							T1.IN_DT,
+							T1.IN_ID,
+							T1.IN_NAME,
+							T1.CNT
+						FROM TB_URL_INFO T1
+						<where>
+							<if test='searchKeyword != ""'>
+								<choose>
+									<when test='searchValue1 == "0"'>
+											AND (
+												T1.TITLE LIKE '%' || #{searchKeyword} || '%'
+												OR T1.URL_NM LIKE '%' || #{searchKeyword} ||'%'
+												OR T1.URL_ORG LIKE '%' || #{searchKeyword} ||'%'
+												)								
+									</when>
+									<when test='searchValue1 == "1"'>
+										AND T1.TITLE LIKE '%' || #{searchKeyword} || '%'
+									</when>
+									<when test='searchValue1 == "2"'>
+										AND T1.URL_NM LIKE '%' || #{searchKeyword} || '%'
+									</when>
+									<when test='searchValue1 == "3"'>
+										AND T1.URL_ORG LIKE '%' || #{searchKeyword} || '%'
+									</when>
+								</choose>
+							</if>
+						</where>	
+						ORDER BY T1.URL_MNGNO DESC
+						) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+
+	</select>
+	
+	<select id="HomeKorAdminUrl_SQL.selectHomeKorAdminUrlListCnt" parameterType="vo" resultType="int">
+		/* HomeKorAdminUrl_SQL.selectHomeKorAdminUrlListCnt */
+		SELECT 
+			COUNT(1)
+		FROM TB_URL_INFO T1
+	 	<where>
+			<if test='searchKeyword != ""'>
+				<choose>
+					<when test='searchValue1 == "0"'>
+							AND (
+								T1.TITLE LIKE '%' || #{searchKeyword} || '%'
+								OR T1.URL_NM LIKE '%' || #{searchKeyword} ||'%'
+								OR T1.URL_ORG LIKE '%' || #{searchKeyword} ||'%'
+								)								
+					</when>
+					<when test='searchValue1 == "1"'>
+						AND T1.TITLE LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test='searchValue1 == "2"'>
+						AND T1.URL_NM LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test='searchValue1 == "3"'>
+						AND T1.URL_ORG LIKE '%' || #{searchKeyword} || '%'
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+
+	<select id="HomeKorAdminUrl_SQL.selectHomeKorAdminUrl" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminUrl_SQL.selectHomeKorAdminUrl */
+		SELECT
+			T1.URL_MNGNO,
+			T1.TITLE,
+			T1.URL_NM,
+			T1.URL_ORG,
+			T1.USE_YN,
+			T1.IN_DT,
+			T1.IN_ID,
+			T1.IN_NAME,
+			T1.CNT
+		FROM TB_URL_INFO T1
+		<where>
+		AND			T1.URL_MNGNO															= #{idx}
+		</where>
+		<!-- LIMIT 1 -->
+	</select>
+	
+	<insert id="HomeKorAdminUrl_SQL.insertHomeKorAdminUrl" parameterType="vo">
+	/* HomeKorAdminUrl_SQL.insertHomeKorAdminUrl */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT NVL(MAX(URL_MNGNO), 0) + 1 AS idx FROM TB_URL_INFO
+		</selectKey>
+		INSERT INTO tb_url_info
+		(			
+					url_mngno,
+					title,
+					url_nm,
+					url_org,
+					use_yn,
+					in_dt,
+					in_id,
+					in_name,
+					cnt
+		)
+					VALUES
+		(			
+					#{idx},
+					#{paramKey1},
+					#{paramKey2},
+					#{paramKey3},
+					'Y',
+					SYSDATE,
+					'',
+					'',
+					0
+		)
+	</insert>
+	
+	<update id="HomeKorAdminUrl_SQL.updateHomeKorAdminUrl" parameterType="vo">
+		/* HomeKorAdminUrl_SQL.updateHomeKorAdminUrl */
+		UPDATE tb_url_info SET 
+			   title																= #{paramKey1},
+			   url_nm																= #{paramKey2},  
+			   url_org																= #{paramKey3}     
+		<where>
+		AND url_mngno 																		= #{idx}
+		</where>	   
+		          
+	</update>
+	
+	<delete id="HomeKorAdminUrl_SQL.deleteHomeKorAdminUrl" parameterType="vo">
+	/* HomeKorAdminUrl_SQL.deleteHomeKorAdminUrl */
+		DELETE FROM tb_url_info
+		<where>
+		AND			url_mngno																= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminUrl_SQL.deleteHomeKorAdminUrlList" parameterType="vo">
+		/* HomeKorAdminUrl_SQL.deleteHomeKorAdminUrlList */
+		DELETE FROM tb_url_info
+		<where>
+			<foreach collection="paramKeyList1" open="AND url_mngno IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete>
+
+	<select id="HomeKorAdminUrl_SQL.selectUrlInfoCheckUrlNm" resultType="egovMap">
+		SELECT
+			T1.URL_MNGNO,
+			T1.TITLE,
+			T1.URL_NM,
+			T1.URL_ORG,
+			T1.USE_YN,
+			T1.IN_DT,
+			T1.IN_ID,
+			T1.IN_NAME,
+			T1.CNT
+		FROM TB_URL_INFO T1
+		WHERE T1.URL_NM = #{paramKey2}
+	</select>
+
+
+	
+</mapper>

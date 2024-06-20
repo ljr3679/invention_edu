@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Properties>
+<!-- 	<Property name="loggerLvl">ERROR</Property> -->
+<!--   	<Property name="loggerLvl">INFO</Property> -->
+ 	<Property name="loggerLvl">DEBUG</Property> 
+	</Properties>
+	
+	<Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %5p [%c] %m%n" />
+        </Console>
+    </Appenders>
+	  
+	<Loggers>
+		<Logger name="java.sql" level="${loggerLvl}" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<logger name="jdbc.audit" level="ERROR" additivity="false">
+			<appender-ref ref="console"/>
+		</logger>
+		<logger name="jdbc.resultset" level="ERROR" additivity="false">
+			<appender-ref ref="console"/>
+		</logger>
+		<logger name="jdbc.resultSettable" level="${loggerLvl}" additivity="false">
+			<appender-ref ref="console"/>
+		</logger>
+		<Logger name="egovframework" level="ERROR" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="jdbc.sqltiming" level="ERROR" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="org.springframework" level="ERROR" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="org.apache.ibatis" level="${loggerLvl}" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Root level="${loggerLvl}">
+			<AppenderRef ref="console" />
+		</Root>
+	</Loggers>
+	
+</Configuration>

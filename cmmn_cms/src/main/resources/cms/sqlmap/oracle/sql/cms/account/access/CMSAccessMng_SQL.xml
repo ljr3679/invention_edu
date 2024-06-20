@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="CmsAccessMng">
+
+	<select id="CmsAccessMng.selectAccessDataList" parameterType="vo" resultType="egovMap">
+	/* CmsAccessMng.selectAccessDataList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.ip,
+							T1.account,
+							T2.id,
+							T2.name,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.reg_date AS sort_date
+						FROM
+							cms_ip_list T1,
+							cms_admin_view T2
+						<where>
+						AND			T1.account									= T2.no
+						</where>
+						ORDER BY sort_date DESC	
+					) X
+			) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="CmsAccessMng.selectAccessDataListCnt" parameterType="vo" resultType="int">
+	/* CmsAccessMng.selectAccessDataListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			cms_ip_list T1,
+			cms_admin_view T2
+		<where>
+		AND			T1.account									= T2.no
+		</where>
+	</select>
+	
+	<select id="CmsAccessMng.selectIpStatus" parameterType="vo" resultType="str">
+		/* CmsAccessMng.selectIpStatus */
+		SELECT 
+			status 
+		FROM 
+			cms_ip_status
+		<where>
+		AND			site										= #{siteCode}
+		</where>
+	</select>
+	
+	<insert id="CmsAccessMng.insertAndUpdateIpAccessStatusData" parameterType="vo">
+	/* CmsAccessMng.insertAndUpdateIpAccessStatusData */
+		MERGE INTO cms_ip_status USING dual ON (site = #{siteCode})			 
+		WHEN MATCHED THEN
+		UPDATE SET
+					status										= #{paramKey1},
+					modifier									= #{adm_idx},
+					mod_date									= SYSDATE
+		WHEN NOT MATCHED THEN
+		INSERT
+		(
+			site,
+			status
+		)
+			VALUES
+		(
+			#{siteCode},
+			#{paramKey1}
+		)
+	</insert>
+	
+	<select id="CmsAccessMng.selectAdminAccountDataList" parameterType="vo" resultType="egovMap">
+	/* CmsAccessMng.selectAdminAccountDataList */
+		SELECT
+			no,
+			id,
+			name,
+			reg_date
+		FROM
+			cms_admin_view
+		<where>
+		AND			use_at										= 'Y'
+		</where>
+		ORDER BY reg_date DESC
+	</select>
+	
+	<select id="CmsAccessMng.selectAccessData" parameterType="vo" resultType="egovMap">
+	/* CmsAccessMng.selectAccessData */
+		SELECT
+			T1.no,
+			T1.ip,
+			T1.account,
+			T2.id AS register_id,
+			T2.name AS register_name,
+			T3.id AS modifier_id,
+			T3.name AS modifier_name,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD HH24:MI:SS') AS reg_date,
+			TO_CHAR(T1.mod_date, 'YYYY-MM-DD HH24:MI:SS') AS mod_date
+		FROM
+			cms_ip_list T1
+		LEFT OUTER JOIN
+			cms_admin_view T2
+		ON			T1.register										= T2.no
+		LEFT OUTER JOIN
+			cms_admin_view T3
+		ON			T1.modifier										= T3.no
+		<where>
+		AND			T1.no											= #{idx}
+		</where>
+	</select>
+	
+	<insert id="CmsAccessMng.insertAccessData" parameterType="vo">
+	/* CmsAccessMng.insertAccessData */
+		INSERT INTO cms_ip_list
+		(
+			no,
+			ip,
+			account,
+			register,
+			reg_date
+		)
+			VALUES
+		(
+			cms_ip_list_seq.NEXTVAL,
+			#{paramKey1},
+			#{paramKey2},
+			#{adm_idx},
+			SYSDATE
+		)
+	</insert>
+	
+	<update id="CmsAccessMng.updateAccessData" parameterType="vo">
+	/* CmsAccessMng.updateAccessData */
+		UPDATE cms_ip_list SET
+					ip								= #{paramKey1},
+					account							= #{paramKey2},
+					modifier						= #{adm_idx},
+					mod_date						= SYSDATE
+		<where>
+		AND			no								= #{idx}
+		</where>
+	</update>
+	
+	<delete id="CmsAccessMng.deleteAccessDataList" parameterType="vo">
+	/* CmsAccessMng.deleteAccessDataList */
+		DELETE FROM cms_ip_list
+		<where>
+		<choose>
+			<when test='paramKeyList1 != null'>
+				<foreach collection="paramKeyList1" open="no IN (" close=")" separator="," item="idx">
+					#{idx}
+				</foreach>
+			</when>
+			<otherwise>
+		AND			1								= 2
+			</otherwise>
+		</choose>
+		</where>
+	</delete>
+	
+</mapper>

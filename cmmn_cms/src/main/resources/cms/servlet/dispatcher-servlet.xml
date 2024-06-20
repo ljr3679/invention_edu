@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+		
+    <context:component-scan base-package="cms,web">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+    </context:component-scan>
+    
+    <bean class="cms.config.CustomHandlerMapping"/>
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="webBindingInitializer">
+			<bean class="cms.config.EgovBindingInitializer" />
+		</property>
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>*/*;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+				<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
+			    	<property name="supportedMediaTypes">
+			    		<list>
+			    			<value>*/*</value>
+			    		</list>
+			    	</property>
+			    </bean>
+				<bean class="org.springframework.http.converter.ResourceHttpMessageConverter">
+					<property name="supportedMediaTypes">
+			    		<list>
+			    			<value>*/*</value>
+			    		</list>
+			    	</property>
+				</bean>
+				<bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+	
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" />
+<!--     <mvc:annotation-driven/> -->
+    	
+    <aop:aspectj-autoproxy />
+    
+    <mvc:interceptors>
+	    <mvc:interceptor>
+	    	<mvc:mapping path="/cmsManager/*.do"/>
+	    	<mvc:mapping path="/cmsManager/**/*.do"/>
+	    	<mvc:mapping path="/cmsManager/*.act"/>
+	    	<mvc:mapping path="/cmsManager/**/*.act"/>
+			
+			<mvc:exclude-mapping path="/fileDownload.do"/>
+    		<mvc:exclude-mapping path="/**/excelDownload.do"/>
+    		
+    		<mvc:exclude-mapping path="/images/**/loader.do"/>
+    		<mvc:exclude-mapping path="/sm/editor/single/fileUpload.do"/>
+    		<mvc:exclude-mapping path="/sm/editor/multi/fileUpload.do"/>
+    		<mvc:exclude-mapping path="/common/**"/>
+    		
+			<mvc:exclude-mapping path="/cmsManager/cms/entrance.do"/>
+			<mvc:exclude-mapping path="/cmsManager/cms/noSession.act"/>
+			<mvc:exclude-mapping path="/cmsManager/cms/login.act"/>
+			
+			<mvc:exclude-mapping path="/cmsManager/**/excelDownload.do"/>
+			
+	    	<bean class="cms.interceptor.AdmGlobalsInterceptor"/>
+	    </mvc:interceptor>
+	    
+	    <mvc:interceptor>
+    		<mvc:mapping path="/home/kor/*.do"/>
+    		<mvc:mapping path="/home/kor/**/*.do"/>
+    		<mvc:mapping path="/home/kor/*.act"/>
+    		<mvc:mapping path="/home/kor/**/*.act"/>
+    		
+    		<mvc:exclude-mapping path="/cmsManager/*.do"/>
+    		<mvc:exclude-mapping path="/cmsManager/**/*.do"/>
+    		<mvc:exclude-mapping path="/cmsManager/*.act"/>
+    		<mvc:exclude-mapping path="/cmsManager/**/*.act"/>
+
+    		<mvc:exclude-mapping path="/fileDownload.do"/>
+    		<mvc:exclude-mapping path="/**/excelDownload.do"/>
+    		
+    		<mvc:exclude-mapping path="/**/folder.act"/>
+    		<mvc:exclude-mapping path="/images/**/loader.do"/>
+    		<mvc:exclude-mapping path="/sm/editor/single/fileUpload.do"/>
+    		<mvc:exclude-mapping path="/sm/editor/multi/fileUpload.do"/>
+    		<mvc:exclude-mapping path="/common/**"/>
+    		
+    		<mvc:exclude-mapping path="/url/ctr/*.do"/>
+    		
+    		<mvc:exclude-mapping path="/welcome.do"/>
+    		
+    		<mvc:exclude-mapping path="/home/kor/award/festival*/exhibition/inc/list.ajax"/>
+	
+    		<bean class="cms.interceptor.UsrGlobalsInterceptor"/>
+	    </mvc:interceptor>
+    </mvc:interceptors>
+    
+    <bean class="cms.config.SimpleMappingException">
+        <property name="defaultErrorView" value="cms/error"/>
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.springframework.dao.DataAccessException">cms/error</prop>
+                <prop key="org.springframework.transaction.TransactionException">cms/error</prop>
+                <prop key="egovframework.rte.fdl.cmmn.exception.EgovBizException">cms/error</prop>
+                <prop key="org.springframework.security.AccessDeniedException">cms/error</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+<!--         <property name="maxUploadSize" value="260000000" /> -->
+<!--         <property name="maxInMemorySize" value="260000000" /> -->
+    </bean>
+    
+
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="1" p:viewClass="org.springframework.web.servlet.view.JstlView" p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>
+	    
+    <!-- For Pagination Tag -->
+    <bean id="imageRenderer" class="cms.config.EgovImgPaginationRenderer"/>
+    <bean id="userRenderer" class="cms.config.EgovUserPaginationRenderer"/>
+
+    <bean id="paginationManager" class="egovframework.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager">
+        <property name="rendererType">
+            <map>
+                <entry key="image" value-ref="imageRenderer"/>
+                <entry key="user" value-ref="userRenderer"/>
+            </map>
+        </property>
+    </bean>
+    
+</beans>

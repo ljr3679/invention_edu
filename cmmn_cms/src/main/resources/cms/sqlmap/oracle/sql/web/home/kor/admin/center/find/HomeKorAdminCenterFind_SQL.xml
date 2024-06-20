@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminCenterFind_SQL">
+
+	<select id="HomeKorAdminCenterFind_SQL.selectHomeKorAdminCenterFindList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminCenterFind_SQL.selectHomeKorAdminCenterFindList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.region_ref,
+							T1.title,
+							T1.agency,
+							T1.zipcode,
+							T1.address,
+							T1.address_detail,
+							T1.phone,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_center_find T1
+						<where>
+						<if test='searchValue1 != ""'>
+						AND			T1.region_ref													= #{searchValue1}
+						</if>
+						<if test='searchValue2 != ""'>
+						AND			T1.use_at														= #{searchValue2}
+						</if>
+						<if test='searchKeyword != ""'>
+							<choose>
+								<when test='searchValue3 == "0"'>
+							AND
+							(
+										T1.title													LIKE '%' || #{searchKeyword} || '%'
+							OR			T1.agency													LIKE '%' || #{searchKeyword} || '%'
+							OR			T1.address													LIKE '%' || #{searchKeyword} || '%'
+							)
+								</when>
+								<when test='searchValue3 == "1"'>
+							AND			T1.title													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+								<when test='searchValue3 == "2"'>
+							AND			T1.agency													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+								<when test='searchValue3 == "3"'>
+							AND			T1.address													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+							</choose>
+						</if>
+						</where>
+						ORDER BY T1.reg_date DESC, T1.no DESC
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminCenterFind_SQL.selectHomeKorAdminCenterFindListCnt" parameterType="vo" resultType="int">
+	/* HomeKorAdminCenterFind_SQL.selectHomeKorAdminCenterFindListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			tb_center_find T1
+		<where>
+			<if test='searchValue1 != ""'>
+			AND			T1.region_ref													= #{searchValue1}
+			</if>
+			<if test='searchValue2 != ""'>
+			AND			T1.use_at														= #{searchValue2}
+			</if>
+			<if test='searchKeyword != ""'>
+				<choose>
+					<when test='searchValue3 == "0"'>
+				AND
+				(
+							T1.title													LIKE '%' || #{searchKeyword} || '%'
+				OR			T1.agency													LIKE '%' || #{searchKeyword} || '%'
+				OR			T1.address													LIKE '%' || #{searchKeyword} || '%'
+				)
+					</when>
+					<when test='searchValue3 == "1"'>
+				AND			T1.title													LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test='searchValue3 == "2"'>
+				AND			T1.agency													LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test='searchValue3 == "3"'>
+				AND			T1.address													LIKE '%' || #{searchKeyword} || '%'
+					</when>
+				</choose>
+			</if>
+			</where>
+	</select>
+
+	<select id="HomeKorAdminCenterFind_SQL.selectHomeKorAdminCenterFind" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminCenterFind_SQL.selectHomeKorAdminCenterFind */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.region_ref,
+			T1.title,
+			T1.agency,
+			T1.zipcode,
+			T1.address,
+			T1.address_detail,
+			T1.latitute,
+			T1.longitute,
+			T1.phone,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register
+		FROM
+			tb_center_find T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+	</select>
+	
+	<insert id="HomeKorAdminCenterFind_SQL.insertHomeKorAdminCenterFind" parameterType="vo">
+	/* HomeKorAdminCenterFind_SQL.insertHomeKorAdminCenterFind */
+		<selectKey resultType="vo" keyProperty="idx2" order="BEFORE">
+			SELECT tb_center_find_seq.NEXTVAL AS idx2 FROM dual
+		</selectKey>
+		INSERT INTO tb_center_find
+		(
+					no,
+					region_ref,
+					title,
+					agency,
+					zipcode,
+					address,
+					address_detail,
+					latitute,
+					longitute,
+					phone,
+					use_at,
+					register,
+					reg_date
+		)
+					VALUES
+		(
+					#{idx2},
+					#{paramKey1},
+					#{paramKey2},
+					#{paramKey3},
+					#{paramKey4},
+					#{paramKey5},
+					#{paramKey6},
+					#{paramKey10},
+					#{paramKey11},
+					#{paramKey7},
+					#{paramKey8},
+					#{adm_idx},
+					sysdate
+		)
+	</insert>
+	
+	<update id="HomeKorAdminCenterFind_SQL.updateHomeKorAdminCenterFind" parameterType="vo">
+	/* HomeKorAdminCenterFind_SQL.updateHomeKorAdminCenterFind */
+		UPDATE tb_center_find SET
+				region_ref															= #{paramKey1},
+				title																= #{paramKey2},
+				agency																= #{paramKey3},
+				zipcode																= #{paramKey4},
+				address																= #{paramKey5},
+				address_detail														= #{paramKey6},
+				latitute															= #{paramKey10},
+				longitute															= #{paramKey11},
+				phone														    	= #{paramKey7},
+				use_at														    	= #{paramKey8},
+				modifier															= #{adm_idx},
+				mod_date															= sysdate
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</update>
+	
+	<delete id="HomeKorAdminCenterFind_SQL.deleteHomeKorAdminCenterFind" parameterType="vo">
+	/* HomeKorAdminCenterFind_SQL.deleteHomeKorAdminCenterFind */
+		DELETE FROM tb_center_find
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminCenterFind_SQL.deleteHomeKorAdminCenterFindList" parameterType="vo">
+		/* HomeKorAdminCenterFind_SQL.deleteHomeKorAdminCenterFindList */
+		DELETE FROM tb_center_find
+		<where>
+			<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete> 
+	
+</mapper>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminHomepageWindow_SQL">
+
+	<select id="HomeKorAdminHomepageWindow_SQL.selectHomeKorAdminHomepageWindowList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepageWindow_SQL.selectHomeKorAdminHomepageWindowList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.title,
+							TO_CHAR(T1.start_date, 'YYYY-MM-DD') AS start_date,
+							TO_CHAR(T1.end_date, 'YYYY-MM-DD') AS end_date,
+							T1.horizontal_width,
+							T1.vertical_width,
+							T1.x_location,
+							T1.y_location,
+							T1.content,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register,
+							TO_CHAR(T1.mod_date, 'YYYY-MM-DD') AS mod_date,
+							T1.modifier
+						FROM
+							tb_window T1
+						<where>
+						<if test='searchValue1 != ""'>
+						AND			T1.use_at														= #{searchValue1}
+						</if>
+						<if test='searchKeyword != ""'>
+						AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+						</if>
+						</where>
+						ORDER BY T1.reg_date DESC, T1.no DESC
+					) X
+			) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminHomepageWindow_SQL.selectHomeKorAdminHomepageWindowListCnt" parameterType="vo" resultType="int">
+	/* HomeKorAdminHomepageWindow_SQL.selectHomeKorAdminHomepageWindowListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			tb_window T1
+		<where>
+		<if test='searchValue1 != ""'>
+		AND			T1.use_at														= #{searchValue1}
+		</if>
+		<if test='searchKeyword != ""'>
+		AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		</where>
+	</select>
+
+	<select id="HomeKorAdminHomepageWindow_SQL.selectHomeKorAdminHomepageWindow" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepageWindow_SQL.selectHomeKorAdminHomepageWindow */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.title,
+			TO_CHAR(T1.start_date, 'YYYY-MM-DD') AS start_date,
+			TO_CHAR(T1.end_date, 'YYYY-MM-DD') AS end_date,
+			T1.horizontal_width,
+			T1.vertical_width,
+			T1.x_location,
+			T1.y_location,
+			T1.content,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register,
+			TO_CHAR(T1.mod_date, 'YYYY-MM-DD') AS mod_date,
+			T1.modifier
+		FROM
+			tb_window T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+	</select>
+	
+	<insert id="HomeKorAdminHomepageWindow_SQL.insertHomeKorAdminHomepageWindow" parameterType="vo">
+	/* HomeKorAdminHomepageWindow_SQL.insertHomeKorAdminHomepageWindow */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_window_seq.NEXTVAL AS idx
+		</selectKey>
+		INSERT INTO tb_window
+		(
+					no,
+					use_at,
+					title,
+					start_date,
+					end_date,
+					horizontal_width,
+					vertical_width,
+					x_location,
+					y_location,
+					content,
+					register,
+					reg_date
+					
+		)
+					VALUES
+		(
+					#{idx},
+					#{paramKey1},
+					#{paramKey2},
+					TO_DATE(#{paramKey3}, 'YYYY-MM-DD'),
+					TO_DATE(#{paramKey4}, 'YYYY-MM-DD'),
+					#{paramKey5},
+					#{paramKey6},
+					#{paramKey7},
+					#{paramKey8},
+					#{paramKey9},
+					#{adm_idx},
+					SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorAdminHomepageWindow_SQL.updateHomeKorAdminHomepageWindow" parameterType="vo">
+	/* HomeKorAdminHomepageWindow_SQL.updateHomeKorAdminHomepageWindow */
+		UPDATE tb_window SET
+				use_at																= #{paramKey1},
+				title																= #{paramKey2},
+				start_date															= TO_DATE(#{paramKey3}, 'YYYY-MM-DD'),
+				end_date															= TO_DATE(#{paramKey4}, 'YYYY-MM-DD'),
+				horizontal_width													= #{paramKey5},
+				vertical_width														= #{paramKey6},
+				x_location															= #{paramKey7},
+				y_location															= #{paramKey8},
+				content																= #{paramKey9},
+				modifier															= #{adm_idx},
+				mod_date															= SYSDATE
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</update>
+	
+	<delete id="HomeKorAdminHomepageWindow_SQL.deleteHomeKorAdminHomepageWindow" parameterType="vo">
+	/* HomeKorAdminHomepageWindow_SQL.deleteHomeKorAdminHomepageWindow */
+		DELETE FROM tb_window
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminHomepageWindow_SQL.deleteHomeKorAdminHomepageWindowList" parameterType="vo">
+		/* HomeKorAdminHomepageWindow_SQL.deleteHomeKorAdminHomepageWindowList */
+		DELETE FROM tb_window
+		<where>
+			<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete> 
+	
+</mapper>

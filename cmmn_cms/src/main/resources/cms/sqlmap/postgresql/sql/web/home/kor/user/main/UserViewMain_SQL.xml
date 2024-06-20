@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorUserMain_SQL">
+	
+	<select id="HomeKorUserMain_SQL.selectUserMainVisualList" parameterType="vo" resultType="egovMap">
+		/* HomeKorUserMain_SQL.selectUserMainVisualList */
+		SELECT
+			Z.*
+		FROM
+			(
+			SELECT
+				ROWNUM AS RNUM,
+				X.*
+			FROM
+				(   
+				SELECT
+					T.*
+					FROM 
+                        (
+						SELECT
+                            T1.no,
+                            T1.use_at,
+                            T1.open_at,
+                            T1.period_at,
+                            TO_CHAR(T1.start_date, 'YYYY-MM-DD') AS start_date,
+                            TO_CHAR(T1.end_date, 'YYYY-MM-DD') AS end_date,
+                            CASE
+                                WHEN T1.period_at = 'A'
+                                THEN 'A' 
+                                WHEN (T1.period_at = 'B')
+                                AND <![CDATA[ TO_CHAR(T1.start_date, 'YYYY-MM-DD') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+                                AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <= TO_CHAR(T1.end_date, 'YYYY-MM-DD') ]]>
+                                THEN 'B' 
+                            END AS mojib_at,
+                            T1.type_title,
+                            T1.title,
+                            T1.content,
+                            T1.url,
+                            T1.sort,
+                            (SELECT FT.attach_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_name,
+	        				(SELECT FT.attach_re_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_re_name,
+	        				(SELECT FT.extension FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_extension,
+                            TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+                            T1.register
+                            FROM
+                                tb_visual T1
+                            <where>
+                            AND		T1.use_at														= 'Y'
+                            </where>
+                            ORDER BY T1.sort ASC
+                        ) T
+                        <where>
+                        AND		1																	<![CDATA[=]]> 1
+                        AND     ROWNUM     															<![CDATA[<=]]> 5
+                        AND 
+                        ( 
+                            T.mojib_at = 'A'
+                            OR T.mojib_at ='B'
+                        )
+                        </where>
+					) X
+		) Z
+	</select>
+	
+	<select id="HomeKorUserMain_SQL.selectUserMainVideo" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserMain_SQL.selectUserMainVideo */
+		SELECT
+			T1.no,
+			T1.open_at1,
+			T1.title1,
+			T1.url1,
+			T1.open_at2,
+			T1.title2,
+			T1.url2,
+			T1.open_at3,
+			T1.title3,
+			T1.url3,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register
+		FROM
+			tb_video T1
+		<where>
+		AND			T1.no															= '1'
+		</where>
+	</select>
+	
+	<select id="HomeKorUserMain_SQL.selectUserMainPopupList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserMain_SQL.selectUserMainPopupList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.type_at,
+							T1.open_at,
+							T1.url,
+							(SELECT FT.attach_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_name,
+	        				(SELECT FT.attach_re_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_re_name,
+	        				(SELECT FT.extension FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_extension,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_popup T1
+						<where>
+						AND			T1.type_at														= 'C'
+						AND			T1.use_at														= 'Y'
+						</where>
+						ORDER BY T1.reg_date DESC, T1.no DESC 
+					) X
+		) Z
+	</select>
+	
+	<select id="HomeKorUserMain_SQL.selectUserMainPopup" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserMain_SQL.selectUserMainPopup */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.open_at,
+			T1.type_at,
+			T1.url,
+			(SELECT FT.attach_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_name,
+    		(SELECT FT.attach_re_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_re_name,
+    		(SELECT FT.extension FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_extension,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register
+		FROM
+			tb_popup T1
+		<where>
+		AND			T1.use_at														= 'Y'
+		<if test='searchValue1 != ""'>    <!-- 고정영역  A:고정영역1 B:고정영역2 -->
+		AND			T1.type_at														= #{searchValue1}
+		AND			ROWNUM 															= 1
+		</if>
+		<if test='idx != ""'>
+		AND			T1.no															= #{idx}
+		</if> 
+		</where>
+	</select>
+	
+	<select id="HomeKorUserMain_SQL.selectUserMainPressList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserMain_SQL.selectUserMainPressList */
+	SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+					SELECT 
+						T1.no,
+						T1.board_code,
+						T1.title,
+						TO_CHAR(T1.impt_start_date, 'YYYY-MM-DD') AS impt_start_date,
+						TO_CHAR(T1.impt_end_date, 'YYYY-MM-DD') AS impt_end_date,
+						T1.use_at,
+						T1.text_field1 AS link,
+						T2.menu_title AS menu_title,
+					    T2.no AS menu_no,
+				    	T2.uri AS menu_uri,
+					    T2.use_gbn,
+						TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+						TO_CHAR(T1.reg_date, 'YYYY') AS reg_year,
+						TO_CHAR(T1.reg_date, 'MM') AS reg_month,
+						TO_CHAR(T1.reg_date, 'DD') AS reg_day
+					FROM
+						cms_board_data T1
+					LEFT OUTER JOIN
+						cms_menu T2
+					ON 	T1.board_code																				= T2.board_code
+					<where>
+					AND		T1.use_at																				= 'Y'
+					AND		T1.board_code 																			= '4C6JDg2X'
+					AND		T2.use_at 																				= 'Y'
+					AND 	T2.use_gbn 																				= 'U'
+					AND 	T2.delete_at 																			= 'N'
+					AND 	T2.session_at 																			= 'A'
+					AND 	T2.menu_type 																			= 'B'
+					AND 	T2.depth																				!= '1'
+					</where>
+					ORDER BY 
+					(CASE
+						WHEN <![CDATA[TO_CHAR(T1.impt_start_date, 'YYYY-MM-DD') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <= TO_CHAR(T1.impt_end_date, 'YYYY-MM-DD')]]>
+						THEN 1
+						ELSE 2
+					END) ASC, TO_CHAR(T1.reg_date, 'YYYY-MM-DD') DESC ,  T1.no DESC
+					) X
+					<where>
+                    AND		1																	<![CDATA[=]]> 1
+                    AND     ROWNUM     															<![CDATA[<=]]> 5
+                    </where>
+		) Z
+	</select>
+	
+	<select id="HomeKorUserMain_SQL.selectUserMainNoticeList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserMain_SQL.selectUserMainNoticeList */
+	SELECT
+	    T1.menu_title AS menu_title,
+	    T1.no AS menu_no,
+    	T1.uri AS menu_uri,
+	    T1.use_gbn,
+	    T3.board_code,
+	    T3.no, 
+	    T3.title, 
+	    TO_CHAR(T3.impt_start_date, 'YYYY-MM-DD') AS impt_start_date,
+	    TO_CHAR(T3.impt_end_date, 'YYYY-MM-DD') AS impt_end_date,
+	    T3.use_at,
+	    T3.text_field1,
+	    TO_CHAR(T3.reg_date, 'YYYY-MM-DD') AS reg_date,
+	    TO_CHAR(T3.reg_date, 'YYYY') AS reg_year,
+	    TO_CHAR(T3.reg_date, 'MM') AS reg_month, 
+	    TO_CHAR(T3.reg_date, 'DD') AS reg_day
+	FROM 
+			cms_board_data T3
+	LEFT OUTER JOIN
+			cms_menu T1
+	ON 
+			T1.board_code 																			= T3.board_code 
+	<where> 
+	AND		T1.use_at 																				= 'Y'
+	AND 	T1.use_gbn 																				= 'U'
+	AND 	T1.delete_at 																			= 'N'
+	AND 	T1.session_at 																			= 'A'
+	AND 	T1.menu_type 																			= 'B'
+	AND 	T1.depth																				!= '1'
+	<if test='searchValue1 != ""'>
+	AND	 	T1.board_code 																			= #{searchValue1}
+	</if>
+	<if test='searchValue1 == ""'>
+	AND
+	(	 	
+	<!-- AND		T1.board_code 																			= 'DO98LiL1' 
+	OR		T1.board_code 																			= '26qwm721'
+	OR		T1.board_code 																			= 'Hfjzcju8'
+	OR		T1.board_code 																			= '602C19m4'
+	OR		T1.board_code 																			= 'P0429v46' -->
+			T1.board_code 																			= '584go9P5' <!-- 117 [창의발명인재양성] - [직업계고 발명특허교육] -->
+	OR		T1.board_code 																			= '55ahFyCx' <!-- 86  [대회/전시/행사] - [학생창의력챔피언대회] -->
+																												 <!-- [차세대영재기업인선발] -->
+	OR		T1.board_code 																			= '87T63739' <!-- 109 [창의발명인재양성] - [IP-MeisterProgram] -->
+	OR		T1.board_code 																			= '0Hoa86By' <!-- 106 [창의발명인재양성] - [YIP(청소년발명가프로그램)] -->
+	OR		T1.board_code 																			= 'OuOM32UM' <!-- 95  [대회/전시/행사] - [발명교육대상] -->
+	OR		T1.board_code 																			= 'I61GX6jC' <!-- 99  [대회/전시/행사] - [전국교원발명교육연구대회] -->
+	OR		T1.board_code 																			= '12655iR5' <!-- 77  [대회/전시/행사] - [대한민국 학생발명전시회] -->
+	OR		T1.board_code 																			= 'x26S2qpI' <!-- 121 [지식재산기반 차세대영재기업인] -->
+	)
+	</if>
+	</where>
+	ORDER BY 
+	(CASE
+		WHEN <![CDATA[TO_CHAR(T3.impt_start_date, 'YYYY-MM-DD') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <= TO_CHAR(T3.impt_end_date, 'YYYY-MM-DD')]]>
+		THEN 1
+		ELSE 2
+	END) ASC, TO_CHAR(T3.reg_date, 'YYYY-MM-DD') DESC ,  T3.no DESC
+	</select>
+	
+	<select id="HomeKorUserMain_SQL.selectUserMainNoticeAllList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserMain_SQL.selectUserMainNoticeAllList */
+	SELECT
+			Z.*
+		FROM
+			(
+			SELECT
+				ROWNUM AS RNUM,
+				X.*
+			FROM
+				(   
+				SELECT
+					T.*
+					FROM 
+                        (
+						SELECT
+						    T1.menu_title AS menu_title,
+						    T1.no AS menu_no,
+					    	T1.uri AS menu_uri,
+						    T1.use_gbn,
+						    T3.board_code,
+						    T3.no, 
+						    T3.title, 
+						    TO_CHAR(T3.impt_start_date, 'YYYY-MM-DD') AS impt_start_date,
+						    TO_CHAR(T3.impt_end_date, 'YYYY-MM-DD') AS impt_end_date,
+						    T3.use_at,
+						    T3.text_field1,
+						    TO_CHAR(T3.reg_date, 'YYYY-MM-DD') AS reg_date,
+						    TO_CHAR(T3.reg_date, 'YYYY') AS reg_year,
+						    TO_CHAR(T3.reg_date, 'MM') AS reg_month, 
+						    TO_CHAR(T3.reg_date, 'DD') AS reg_day
+						FROM 
+								cms_board_data T3
+						LEFT OUTER JOIN
+								cms_menu T1
+						ON 
+								T1.board_code 																			= T3.board_code 
+						<where> 
+						AND		T1.use_at 																				= 'Y'
+						AND 	T1.use_gbn 																				= 'U'
+						AND 	T1.delete_at 																			= 'N'
+						AND 	T1.session_at 																			= 'A'
+						AND 	T1.menu_type 																			= 'B'
+						AND 	T1.depth																				!= '1'
+						AND
+						(	 	
+								T1.board_code 																			= 'DO98LiL1' <!-- 공통 자료실 통합공지-->
+						OR		T1.board_code 																			= '26qwm721' <!-- 초·중·고 발명교육 선도학교 -->
+						OR		T1.board_code 																			= 'Hfjzcju8' <!-- 종합교육연수원 -->
+						OR		T1.board_code 																			= '602C19m4' <!-- 발명교사인증제 -->
+						OR		T1.board_code 																			= 'P0429v46' <!-- 찾아가는 발명체험교실 -->
+						OR		T1.board_code 																			= '584go9P5' <!-- 117 [창의발명인재양성] - [직업계고 발명특허교육] -->
+						OR		T1.board_code 																			= '55ahFyCx' <!-- 86  [대회/전시/행사] - [학생창의력챔피언대회] -->
+																																	 <!-- [차세대영재기업인선발] -->
+						OR		T1.board_code 																			= '87T63739' <!-- 109 [창의발명인재양성] - [IP-MeisterProgram] -->
+						OR		T1.board_code 																			= '0Hoa86By' <!-- 106 [창의발명인재양성] - [YIP(청소년발명가프로그램)] -->
+						OR		T1.board_code 																			= 'OuOM32UM' <!-- 95  [대회/전시/행사] - [발명교육대상] -->
+						OR		T1.board_code 																			= 'I61GX6jC' <!-- 99  [대회/전시/행사] - [전국교원발명교육연구대회] -->
+						OR		T1.board_code 																			= '12655iR5' <!-- 77  [대회/전시/행사] - [대한민국 학생발명전시회] -->
+						OR		T1.board_code 																			= 'x26S2qpI' <!-- 121 [지식재산기반 차세대영재기업인] -->
+						)
+						AND T1.no != '651' <!-- 통합공지 제외(중복)-->
+						</where>
+						ORDER BY 
+						(CASE
+							WHEN <![CDATA[TO_CHAR(T3.impt_start_date, 'YYYY-MM-DD') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <= TO_CHAR(T3.impt_end_date, 'YYYY-MM-DD')]]>
+							THEN 1
+							ELSE 2
+						END) ASC, TO_CHAR(T3.reg_date, 'YYYY-MM-DD') DESC ,  T3.no DESC
+					) T
+                        <where>
+                        AND		1																	<![CDATA[=]]> 1
+                        AND     ROWNUM     															<![CDATA[<=]]> 5
+                        </where>
+			) X
+	) Z
+	</select>
+	
+</mapper>
+	

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
+	<!-- [80 - 443] SSL Redirection 적용 시 주석 제거 -->
+	<!-- 
+	<security-constraint>   
+		<web-resource-collection>      
+			<web-resource-name>SSL Forward</web-resource-name>      
+			<url-pattern>/*</url-pattern>   
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>   
+		<user-data-constraint>      
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>   
+		</user-data-constraint>
+	</security-constraint> 
+  -->
+	
+	<!-- httpHeaderSecurity 외부참조보안필터 CUSTOM VERSION-->
+	<filter>
+		<filter-name>httpHeaderSecurityCustom</filter-name>
+		<filter-class>cms.filter.SecurityFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>httpHeaderSecurityCustom</filter-name>
+		<url-pattern>*</url-pattern>
+	</filter-mapping>
+	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Restricted methods</web-resource-name>
+			<url-pattern>/*</url-pattern>
+			<http-method>PUT</http-method>
+			<http-method>DELETE</http-method>
+			<http-method>OPTIONS</http-method>
+			<http-method>TRACE</http-method>
+		</web-resource-collection>
+		<auth-constraint /> 
+	</security-constraint>
+	
+	<!-- 커스텀 EL -->
+	<jsp-config>
+    	<taglib>
+	        <taglib-uri>cms/tld/el-functions.tld</taglib-uri>
+	        <taglib-location>/WEB-INF/custom-tags/el-functions.tld</taglib-location>    
+	    </taglib>
+	</jsp-config>
+
+	
+	<!-- 인코딩 필터 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+	    	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	    <init-param>
+	      <param-name>encoding</param-name>
+	      <param-value>UTF-8</param-value>
+	    </init-param>
+	    <init-param>
+	      <param-name>forceEncoding</param-name>
+	      <param-value>true</param-value>
+	    </init-param>
+	</filter>
+	<filter-mapping>
+	    <filter-name>encodingFilter</filter-name>
+	    <url-pattern>*</url-pattern>
+	</filter-mapping>
+	
+	<!-- HTTP TAG 필터 -->
+	<filter>
+	    <filter-name>HTMLTagFilter</filter-name>
+		<filter-class>egovframework.rte.ptl.mvc.filter.HTMLTagFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>HTMLTagFilter</filter-name>
+	    <url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	
+	<!-- 공통 폼 SITEMESH 필터 -->
+	<filter>
+	    <filter-name>sitemesh</filter-name>
+	    <filter-class>org.sitemesh.config.ConfigurableSiteMeshFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>sitemesh</filter-name>
+	    <url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+	<!-- request 파라메터 정보 필터 -->
+	<filter>
+	    <filter-name>ParamsInfoFilter</filter-name>
+	    <filter-class>cms.filter.ParamsInfoFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>ParamsInfoFilter</filter-name>
+	    <url-pattern>*.act</url-pattern>
+	</filter-mapping>
+	
+	<!-- static data load 필터 -->
+	<filter>
+	    <filter-name>StaticDataLoader</filter-name>
+	    <filter-class>cms.filter.StaticDataLoader</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>StaticDataLoader</filter-name>
+	    <url-pattern>*</url-pattern>
+	</filter-mapping>
+	
+	<!-- spring context path 설정 -->
+	<listener>
+	    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<context-param>
+	    <param-name>contextConfigLocation</param-name>
+	    <param-value>classpath*:cms/context/context-*.xml</param-value>
+	</context-param>
+	
+	<!-- request context listener 설정 -->
+	<listener>  
+	    <listener-class>cms.config.SessionConfigListener</listener-class>
+	</listener>
+	
+	<!-- session listener -->
+	<listener>  
+	    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	
+	<!-- mapping pattern 설정 -->
+	<servlet>
+    	<servlet-name>action</servlet-name>
+    	<servlet-class>cms.config.CustomDispatcherServlet</servlet-class>
+    	<init-param>
+      		<param-name>contextConfigLocation</param-name>
+      		<param-value>classpath*:cms/servlet/dispatcher-servlet.xml</param-value>
+    	</init-param>
+    	<load-on-startup>1</load-on-startup>
+  	</servlet>
+  	<servlet-mapping>
+    	<servlet-name>action</servlet-name>
+    	<url-pattern>*.do</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+	    <servlet-name>action</servlet-name>
+    	<url-pattern>*.act</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+    	<servlet-name>action</servlet-name>
+	    <url-pattern>*.ajax</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+	    <url-pattern>*.error</url-pattern>
+	</servlet-mapping>
+	
+	<!-- welcome 페이지 설정 -->
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	
+	<!-- servlet 보안 설정 -->
+	<login-config>
+    	<auth-method>BASIC</auth-method>
+  	</login-config>
+	
+	<!-- Exception 설정 -->
+	<error-page>
+	    <exception-type>java.lang.Throwable</exception-type>
+	    <location>/common/error/throwable.error</location>
+	</error-page>
+	<error-page>
+	    <exception-type>java.lang.Exception</exception-type>
+	    <location>/common/error/exception.error</location>
+	</error-page>
+	<error-page>
+	    <error-code>404</error-code>
+	    <location>/common/error/404.error</location>
+	</error-page>
+	<error-page>
+	    <error-code>403</error-code>
+	    <location>/common/error/403.error</location>
+	</error-page>
+	<error-page>
+	    <error-code>500</error-code>
+	    <location>/common/error/500.error</location>
+	</error-page>
+	<error-page>
+	    <error-code>503</error-code>
+	    <location>/common/error/503.error</location>
+	</error-page>
+	<error-page>
+	    <error-code>400</error-code>
+	    <location>/common/error/400.error</location>
+	</error-page>
+	<error-page>
+	    <error-code>405</error-code>
+	    <location>/common/error/405.error</location>
+	</error-page>
+	
+	<!-- SESSION 시간 설정 -->
+	<session-config>
+	    <session-timeout>600</session-timeout>
+	    <tracking-mode>COOKIE</tracking-mode>
+	</session-config>
+</web-app>

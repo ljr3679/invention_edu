@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorUserInventorMeisterAnnounceSQL">
+
+	<select id="HomeKorUserInventorMeisterAnnounceSQL.selectHomeKorUserInventorMeisterAnnounceList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserInventorMeisterAnnounceSQL.selectHomeKorUserInventorMeisterAnnounceList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.year_ref,
+							(SELECT sub.data_name FROM cms_category_data sub WHERE sub.no = T1.year_ref) AS year_name,
+							T1.title,
+							TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') AS start_date,
+							TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') AS end_date,
+							CASE
+								WHEN <![CDATA[ TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') < TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') ]]>
+								THEN 'A' <!-- 모집예정 -->
+								WHEN <![CDATA[ TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') 
+								AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') ]]>
+								THEN 'B' <!-- 모집중 -->
+								WHEN <![CDATA[ TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') < TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') ]]>
+								THEN 'C' <!-- 모집완료 -->
+							END AS mojib_at,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date
+						FROM
+							tb_announce T1
+						<where>
+						AND			T1.use_at														= 'Y'
+						<if test='searchValue1 != ""'>
+						AND			T1.year_ref														= #{searchValue1}
+						</if>
+						<if test='searchValue2 != ""'>
+						AND	(CASE
+								WHEN <![CDATA[ TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') < TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') ]]>
+								THEN 'A' <!-- 모집예정 -->
+								WHEN <![CDATA[ TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') 
+								AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') ]]>
+								THEN 'B' <!-- 모집중 -->
+								WHEN <![CDATA[ TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') < TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') ]]>
+								THEN 'C' <!-- 모집완료 -->
+							END)																	= #{searchValue2}
+						</if>
+						<if test='searchKeyword != ""'>
+							AND	(T1.title															LIKE '%' || #{searchKeyword} || '%'
+								OR			
+								T1.content															LIKE '%' || #{searchKeyword} || '%')
+						</if>
+						</where>
+						ORDER BY T1.reg_date DESC, T1.no DESC
+					) X
+			) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorUserInventorMeisterAnnounceSQL.selectHomeKorUserInventorMeisterAnnounceListCnt" parameterType="vo" resultType="int">
+	/* HomeKorUserInventorMeisterAnnounceSQL.selectHomeKorUserInventorMeisterAnnounceListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			tb_announce T1
+		<where>
+		AND			T1.use_at														= 'Y'
+		<if test='searchValue1 != ""'>
+		AND			T1.year_ref														= #{searchValue1}
+		</if>
+		<if test='searchValue2 != ""'>
+		AND	(CASE
+				WHEN <![CDATA[ TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') < TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') ]]>
+				THEN 'A' <!-- 모집예정 -->
+				WHEN <![CDATA[ TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') 
+				AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') ]]>
+				THEN 'B' <!-- 모집중 -->
+				WHEN <![CDATA[ TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') < TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') ]]>
+				THEN 'C' <!-- 모집완료 -->
+			END)																	= #{searchValue2}
+		</if>
+		<if test='searchKeyword != ""'>
+			AND	(T1.title															LIKE '%' || #{searchKeyword} || '%'
+				OR			
+				T1.content															LIKE '%' || #{searchKeyword} || '%')
+		</if>
+		</where>
+	</select>
+	
+	<select id="HomeKorUserInventorMeisterAnnounceSQL.selectHomeKorUserInventorMeisterAnnounce" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserInventorMeisterAnnounceSQL.selectHomeKorUserInventorMeisterAnnounce */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.type_ref,
+			T1.year_ref,
+			CASE
+				WHEN <![CDATA[ TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') < TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') ]]>
+				THEN 'A' <!-- 모집대기 -->
+				WHEN <![CDATA[ TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') 
+				AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') ]]>
+				THEN 'B' <!-- 모집중 -->
+				WHEN <![CDATA[ TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') < TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') ]]>
+				THEN 'C' <!-- 모집완료 -->
+			END AS mojib_at,
+			T1.title,
+			TO_CHAR(T1.start_date, 'YYYY-MM-DD') AS start_date,
+			TO_CHAR(T1.end_date, 'YYYY-MM-DD') AS end_date,
+			T1.content,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register,
+			(SELECT sub.name FROM site_account sub WHERE sub.no = T1.register) AS register_name
+		FROM
+			tb_announce T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+	</select>
+	
+	<select id="HomeKorUserInventorMeisterAnnounceSQL.selectHomeKorUserInventorMeisterAnnounceRow" parameterType="vo" resultType="int">
+	/* HomeKorUserInventorMeisterAnnounceSQL.selectHomeKorUserInventorMeisterAnnounceRow */
+		SELECT
+				Z.RNUM
+		FROM
+				(
+				SELECT
+						X.no,
+						ROWNUM AS RNUM
+				  FROM
+				  		(
+				  			SELECT
+								T1.no
+							FROM
+								tb_announce T1
+							<where>
+							AND			T1.use_at														= 'Y'
+							<if test='searchValue1 != ""'>
+							AND			T1.year_ref														= #{searchValue1}
+							</if>
+							<if test='searchValue2 != ""'>
+							AND	(CASE
+									WHEN <![CDATA[ TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') < TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') ]]>
+									THEN 'A' <!-- 모집예정 -->
+									WHEN <![CDATA[ TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') 
+									AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') ]]>
+									THEN 'B' <!-- 모집중 -->
+									WHEN <![CDATA[ TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') < TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') ]]>
+									THEN 'C' <!-- 모집완료 -->
+								END)																	= #{searchValue2}
+							</if>
+							<if test='searchKeyword != ""'>
+								AND	(T1.title															LIKE '%' || #{searchKeyword} || '%'
+									OR			
+									T1.content															LIKE '%' || #{searchKeyword} || '%')
+							</if>
+							</where>
+							ORDER BY T1.reg_date DESC, T1.no DESC
+				  		)X
+				)Z
+		<where>
+		AND			Z.no														= #{idx}
+		</where>
+	</select>
+	
+	<select id="HomeKorUserInventorMeisterAnnounceSQL.selectHomeKorUserInventorMeisterAnnouncePrevNextList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserInventorMeisterAnnounceSQL.selectHomeKorUserInventorMeisterAnnouncePrevNextList */
+		SELECT
+				Z.no,
+				Z.title,
+				Z.RNUM AS pos
+		FROM
+				(
+					SELECT
+							X.no,
+							X.title,
+							ROWNUM AS RNUM
+					  FROM
+					  		(
+					  			SELECT
+									T1.no,
+									T1.title
+								FROM
+									tb_announce T1
+								<where>
+								AND			T1.use_at														= 'Y'
+								<if test='searchValue1 != ""'>
+								AND			T1.year_ref														= #{searchValue1}
+								</if>
+								<if test='searchValue2 != ""'>
+								AND	(CASE
+										WHEN <![CDATA[ TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') < TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') ]]>
+										THEN 'A' <!-- 모집예정 -->
+										WHEN <![CDATA[ TO_CHAR(T1.start_date, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') 
+										AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') ]]>
+										THEN 'B' <!-- 모집중 -->
+										WHEN <![CDATA[ TO_CHAR(T1.end_date, 'YYYY-MM-DD HH24:MI') < TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') ]]>
+										THEN 'C' <!-- 모집완료 -->
+									END)																	= #{searchValue2}
+								</if>
+								<if test='searchKeyword != ""'>
+									AND	(T1.title															LIKE '%' || #{searchKeyword} || '%'
+										OR			
+										T1.content															LIKE '%' || #{searchKeyword} || '%')
+								</if>
+								</where>
+								ORDER BY T1.reg_date DESC, T1.no DESC
+					  		)X
+				)Z
+		 <where>
+		AND
+		(
+					Z.RNUM														= #{pos}-1
+		OR			Z.RNUM														= #{pos}
+		OR			Z.RNUM														= #{pos}+1
+		)
+		</where>
+	</select>
+	
+	<insert id="HomeKorUserInventorMeisterAnnounceSQL.insertHomeKorUserInventorMeisterAnnounceApply" parameterType="vo">
+	/* HomeKorUserInventorMeisterAnnounceSQL.insertHomeKorUserInventorMeisterAnnounceApply */
+		<selectKey resultType="vo" keyProperty="idx2" order="BEFORE">
+			SELECT tb_announce_apply_seq.NEXTVAL AS idx2 FROM dual
+		</selectKey>
+		INSERT INTO tb_announce_apply
+		(
+			no,
+			announce_ref,
+			pw,
+			idea_name,
+			team_name,
+			idea_gubun,
+			<if test='paramKey35 != ""'>
+			idea_gubun_text,
+			</if>
+			school,
+			school_type,
+			zip_code,
+			address,
+			address_detail,
+			team_user_name1,
+			team_user_birth_day1,
+			team_user_grade1,
+			team_user_sex1,
+			team_user_phone1,
+			team_user_email1,
+			<if test='paramKey15 != ""'>
+			team_user_name2,
+			</if>
+			<if test='paramKey16 != ""'>
+			team_user_birth_day2,
+			</if>
+			<if test='paramKey17 != ""'>
+			team_user_grade2,
+			</if>
+			<if test='paramKey18 != ""'>
+			team_user_sex2,
+			</if>
+			<if test='paramKey19 != ""'>
+			team_user_phone2,
+			</if>
+			<if test='paramKey20 != ""'>
+			team_user_email2,
+			</if>
+			<if test='paramKey21 != ""'>
+			team_user_name3,
+			</if>
+			<if test='paramKey22 != ""'>
+			team_user_birth_day3,
+			</if>
+			<if test='paramKey23 != ""'>
+			team_user_grade3,
+			</if>
+			<if test='paramKey24 != ""'>
+			team_user_sex3,
+			</if>
+			<if test='paramKey25 != ""'>
+			team_user_phone3,
+			</if>
+			<if test='paramKey26 != ""'>
+			team_user_email3,
+			</if>
+			teacher_name,
+			teacher_birth_day,
+			teacher_subject,
+			teacher_sex,
+			teacher_phone,
+			teacher_email,
+			reg_date,
+			apply_number,
+			use_at
+		)
+		VALUES
+		(
+			#{idx2},
+			#{idx},
+			#{paramKey1},
+			#{paramKey2},
+			#{paramKey3},
+			#{paramKey4},
+			<if test='paramKey35 != ""'>
+			#{paramKey35},
+			</if>
+			#{paramKey33},
+			#{paramKey5},
+			#{paramKey6},
+			#{paramKey7},
+			#{paramKey8},
+			#{paramKey9},
+			TO_DATE(#{paramKey10}, 'YYYY-MM-DD'),
+			#{paramKey11},
+			#{paramKey12},
+			#{paramKey13},
+			#{paramKey14},
+			<if test='paramKey15 != ""'>
+			#{paramKey15},
+			</if>
+			<if test='paramKey16 != ""'>
+			TO_DATE(#{paramKey16}, 'YYYY-MM-DD'),
+			</if>
+			<if test='paramKey17 != ""'>
+			#{paramKey17},
+			</if>
+			<if test='paramKey18 != ""'>
+			#{paramKey18},
+			</if>
+			<if test='paramKey19 != ""'>
+			#{paramKey19},
+			</if>
+			<if test='paramKey20 != ""'>
+			#{paramKey20},
+			</if>
+			<if test='paramKey21 != ""'>
+			#{paramKey21},
+			</if>
+			<if test='paramKey22 != ""'>
+			TO_DATE(#{paramKey22}, 'YYYY-MM-DD'),
+			</if>
+			<if test='paramKey23 != ""'>
+			#{paramKey23},
+			</if>
+			<if test='paramKey24 != ""'>
+			#{paramKey24},
+			</if>
+			<if test='paramKey25 != ""'>
+			#{paramKey25},
+			</if>
+			<if test='paramKey26 != ""'>
+			#{paramKey26},
+			</if>
+			#{paramKey27},
+			TO_DATE(#{paramKey28}, 'YYYY-MM-DD'),
+			#{paramKey29},
+			#{paramKey30},
+			#{paramKey31},
+			#{paramKey32},
+			SYSDATE,
+			CONCAT(CONCAT(TO_CHAR(SYSDATE, 'YYYYMMDD'), '-'),LPAD(#{idx2}, 8, '0')),
+			'A'
+		)
+	</insert>
+	
+	<select id="HomeKorUserInventorMeisterAnnounceSQL.selectHomeKorUserInventorMeisterAnnounceApply" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserInventorMeisterAnnounceSQL.selectHomeKorUserInventorMeisterAnnounceApply */
+		SELECT
+			T1.no,
+			T1.announce_ref,
+			T1.idea_name,
+			T1.team_name,
+			T1.idea_gubun,
+			T1.idea_gubun_text,
+			T1.school,
+			T1.school_type,
+			T1.zip_code,
+			T1.address,
+			T1.address_detail,
+			T1.team_user_name1,
+			TO_CHAR(T1.team_user_birth_day1, 'YYYY-MM-DD') AS team_user_birth_day1,
+			T1.team_user_grade1,
+			T1.team_user_sex1,
+			T1.team_user_phone1,
+			T1.team_user_email1,
+			T1.team_user_name2,
+			TO_CHAR(T1.team_user_birth_day2, 'YYYY-MM-DD') AS team_user_birth_day2,
+			T1.team_user_grade2,
+			T1.team_user_sex2,
+			T1.team_user_phone2,
+			T1.team_user_email2,
+			T1.team_user_name3,
+			TO_CHAR(T1.team_user_birth_day3, 'YYYY-MM-DD') AS team_user_birth_day3,
+			T1.team_user_grade3,
+			T1.team_user_sex3,
+			T1.team_user_phone3,
+			T1.team_user_email3,
+			T1.teacher_name,
+			TO_CHAR(T1.teacher_birth_day, 'YYYY-MM-DD') AS teacher_birth_day,
+			T1.teacher_subject,
+			T1.teacher_sex,
+			T1.teacher_phone,
+			T1.teacher_email,
+			T1.use_at,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.apply_number,
+			T2.title,
+			TO_CHAR(T2.start_date, 'YYYY-MM-DD') AS start_date,
+			TO_CHAR(T2.end_date, 'YYYY-MM-DD') AS end_date,
+			CASE
+				WHEN <![CDATA[ TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') < TO_CHAR(T2.start_date, 'YYYY-MM-DD HH24:MI') ]]>
+				THEN 'A' <!-- 모집대기 -->
+				WHEN <![CDATA[ TO_CHAR(T2.start_date, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') 
+				AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') <= TO_CHAR(T2.end_date, 'YYYY-MM-DD HH24:MI') ]]>
+				THEN 'B' <!-- 모집중 -->
+				WHEN <![CDATA[ TO_CHAR(T2.end_date, 'YYYY-MM-DD HH24:MI') < TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') ]]>
+				THEN 'C' <!-- 모집완료 -->
+			END AS mojib_at
+		FROM
+			tb_announce_apply T1
+		LEFT OUTER JOIN
+			tb_announce T2
+		ON T2.no 				= T1.announce_ref
+		<where>
+		AND	T1.no				= 	#{idx}
+		</where>
+	</select>
+	
+	<select id="HomeKorUserInventorMeisterAnnounceSQL.selectHomeKorUserInventorMeisterAnnounceApplyNumber" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserInventorMeisterAnnounceSQL.selectHomeKorUserInventorMeisterAnnounceApplyNumber */
+		SELECT
+			T1.apply_number
+		FROM
+			tb_announce_apply T1
+		<where>
+		AND	T1.no	= 	#{idx2}
+		</where>
+	</select>
+	
+	<select id="HomeKorUserInventorMeisterAnnounceSQL.selectHomeKorUserInventorMeisterAnnounceApplyNo" parameterType="egovMap" resultType="egovMap">
+	/* HomeKorUserInventorMeisterAnnounceSQL.selectHomeKorUserInventorMeisterAnnounceApplyNo */
+		SELECT
+			T1.no
+		FROM
+			tb_announce_apply T1
+		<where>
+		AND	T1.pw				= 	#{pw}
+		AND	T1.apply_number		= 	#{number}
+		</where>
+	</select>
+	
+	<update id="HomeKorUserInventorMeisterAnnounceSQL.updateHomeKorUserInventorMeisterAnnounceApplyUseAt" parameterType="egovMap">
+		/* HomeKorUserInventorMeisterAnnounceSQL.updateHomeKorUserInventorMeisterAnnounceApplyUseAt */
+		UPDATE tb_announce_apply SET 
+			use_at																	= 'C'
+		<where>
+		AND no 																			= #{idx}
+		</where>	   
+	</update>
+	
+	<update id="HomeKorUserInventorMeisterAnnounceSQL.updateHomeKorUserInventorMeisterAnnounceApply" parameterType="egovMap">
+		/* HomeKorUserInventorMeisterAnnounceSQL.updateHomeKorUserInventorMeisterAnnounceApply */
+		UPDATE tb_announce_apply SET 
+			idea_name										= #{paramKey2},
+			team_name										= #{paramKey3},
+			idea_gubun										= #{paramKey4},
+			<if test='paramKey35 != ""'>
+			idea_gubun_text									= #{paramKey35},
+			</if>
+			school											= #{paramKey33},
+			school_type										= #{paramKey5},
+			zip_code										= #{paramKey6},
+			address											= #{paramKey7},
+			address_detail									= #{paramKey8},
+			team_user_name1									= #{paramKey9},
+			team_user_birth_day1							= TO_DATE(#{paramKey10}, 'YYYY-MM-DD'),
+			team_user_grade1								= #{paramKey11},
+			team_user_sex1									= #{paramKey12},
+			team_user_phone1								= #{paramKey13},
+			team_user_email1								= #{paramKey14},
+			<if test='paramKey15 != ""'>
+			team_user_name2									= #{paramKey15},
+			</if>
+			<if test='paramKey16 != ""'>
+			team_user_birth_day2							= TO_DATE(#{paramKey16}, 'YYYY-MM-DD'),
+			</if>
+			<if test='paramKey17 != ""'>
+			team_user_grade2								= #{paramKey17},
+			</if>
+			<if test='paramKey18 != ""'>
+			team_user_sex2									= #{paramKey18},
+			</if>
+			<if test='paramKey19 != ""'>
+			team_user_phone2								= #{paramKey19},
+			</if>
+			<if test='paramKey20 != ""'>
+			team_user_email2								= #{paramKey20},
+			</if>
+			<if test='paramKey21 != ""'>
+			team_user_name3									= #{paramKey21},
+			</if>
+			<if test='paramKey22 != ""'>
+			team_user_birth_day3							= TO_DATE(#{paramKey22}, 'YYYY-MM-DD'),
+			</if>
+			<if test='paramKey23 != ""'>
+			team_user_grade3								= #{paramKey23},
+			</if>
+			<if test='paramKey24 != ""'>
+			team_user_sex3									= #{paramKey24},
+			</if>
+			<if test='paramKey25 != ""'>
+			team_user_phone3								= #{paramKey25},
+			</if>
+			<if test='paramKey26 != ""'>
+			team_user_email3								= #{paramKey26},
+			</if>
+			teacher_name									= #{paramKey27},
+			teacher_birth_day								= TO_DATE(#{paramKey28}, 'YYYY-MM-DD'),
+			teacher_subject									= #{paramKey29},
+			teacher_sex										= #{paramKey30},
+			teacher_phone									= #{paramKey31},
+			teacher_email									= #{paramKey32}
+		<where>
+		AND no 												= #{idx}
+		</where>	   
+	</update>
+</mapper>

@@ -1,0 +1,44 @@
+@charset 'UTF-8';
+
+
+		.business_inquiry_area {text-align: center;}
+		.business_inquiry_area .mail_address_box {margin: 0 0 40px 0; font-size: 0;}
+		.business_inquiry_area .mail_address_box .txt_icon_area {display: inline-block; padding: 134px 0 0 0; background-image: url('/images/editor/20230626/202306261143379054/png/loader.do'); background-position: top center; background-repeat: no-repeat;}
+		.business_inquiry_area .mail_address_box .txt_icon_area .txt {min-width: 352px; padding: 16px 0; border: 1px solid #dddddd; font-weight: 500; font-size: 20px; line-height: 30px; color: #000000;}
+		.business_inquiry_area .txt_box {margin: 0 0 60px 0;}
+		.business_inquiry_area .txt_box .txt {font-weight: 500; font-size: 20px; line-height: 30px; color: #000000;}
+		.business_inquiry_area .txt_box .txt.ft_s {font-size: 16px; line-height: 24px; color: #757575;}
+		.business_inquiry_area .btn_list_box {}
+		.business_inquiry_area .btn_list_box ul {font-size: 0;}
+		.business_inquiry_area .btn_list_box ul li {display: inline-block; margin: 0 23px 0 0;}
+		.business_inquiry_area .btn_list_box ul li:last-child {margin: 0;}
+		.business_inquiry_area .btn_list_box ul li .btn {display: block; padding: 0 55px; font-weight: 500; font-size: 16px; line-height: 51px;}
+		.business_inquiry_area .btn_list_box ul li .btn.paste {background-color: #efefef; color: #000000;}
+		.business_inquiry_area .btn_list_box ul li .btn.outlook {background-color: #55a0d6; color: #ffffff;}
+
+		@media screen and (max-width: 1280px) {
+			.business_inquiry_area .mail_address_box {margin: 0 0 30px 0;}
+			.business_inquiry_area .mail_address_box .txt_icon_area {padding: 100px 0 0 0; background-size: 69px auto;}
+			.business_inquiry_area .mail_address_box .txt_icon_area .txt {min-width: 312px; padding: 10px 0; font-size: 18px; line-height: 27px;}
+			.business_inquiry_area .txt_box {margin: 0 0 40px 0;}
+			.business_inquiry_area .txt_box .txt {font-size: 18px; line-height: 27px;}
+			.business_inquiry_area .txt_box .txt.ft_s {font-size: 14px; line-height: 21px;}
+			.business_inquiry_area .btn_list_box ul li {margin: 0 15px 0 0;}
+			.business_inquiry_area .btn_list_box ul li .btn {padding: 0 45px; font-size: 14px; line-height: 46px;}
+		}
+
+		@media screen and (max-width: 1080px) {
+			.business_inquiry_area .mail_address_box {margin: 0 0 20px 0;}
+			.business_inquiry_area .mail_address_box .txt_icon_area {padding: 70px 0 0 0; background-size: 46px auto;}
+			.business_inquiry_area .mail_address_box .txt_icon_area .txt {min-width: 272px; font-size: 16px; line-height: 24px;}
+			.business_inquiry_area .txt_box {margin: 0 0 25px 0;}
+			.business_inquiry_area .txt_box .txt {font-size: 16px; line-height: 24px;}
+			.business_inquiry_area .txt_box .txt.ft_s {font-size: 12px;}
+			.business_inquiry_area .btn_list_box ul li {margin: 0 10px 0 0;}
+			.business_inquiry_area .btn_list_box ul li .btn {padding: 0 35px; font-size: 12px; line-height: 40px;}
+		}
+
+		@media screen and (max-width: 767px) {
+			.business_inquiry_area .mail_address_box {margin: 0 0 10px 0;}
+			.business_inquiry_area .txt_box {margin: 0 0 10px 0;}
+		}

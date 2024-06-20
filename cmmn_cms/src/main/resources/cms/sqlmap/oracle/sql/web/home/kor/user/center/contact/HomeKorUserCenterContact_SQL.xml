@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorUserCenterContactSQL">
+	<insert id="HomeKorUserCenterContactSQL.insertHomeKorUserCenterContact" parameterType="vo">
+	/* HomeKorUserCenterContactSQL.insertHomeKorUserCenterContact */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_contact_seq.NEXTVAL AS idx FROM dual
+		</selectKey>
+		INSERT INTO tb_contact
+		(			
+					no,
+					name,
+					email,
+					title,
+					content,
+					agreement,
+					register,
+					use_at,
+					page_at,
+					reg_date
+		)
+					VALUES
+		(			
+					#{idx},
+					#{paramKey2},
+					#{paramKey1},
+					#{paramKey3},
+					#{paramKey4},
+					#{paramKey5},
+					#{usr_idx},
+					'N',
+					#{tabPos},
+					SYSDATE
+		)
+	</insert>
+</mapper>

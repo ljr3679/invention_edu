@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorUserAwardFestival2022Exhibition_SQL">
+
+	<select id="HomeKorUserAwardFestival2022Exhibition_SQL.selectHomeKorUserAwardFestival2022ExhibitionList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserAwardFestival2022Exhibition_SQL.selectHomeKorUserAwardFestival2022ExhibitionList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.year,
+							T1.parent_ref,
+							(SELECT T2.data_name FROM cms_category_data T2 <where>T2.no = T1.parent_ref</where>) AS parent_name,
+							T1.type_ref,
+							(SELECT T2.data_name FROM cms_category_data T2 <where>T2.no = T1.type_ref</where>) AS type_name,
+							T1.school_ref,
+							(SELECT T2.data_name FROM cms_category_data T2 <where>T2.no = T1.school_ref</where>) AS school_type_name,
+							T1.tech_ref,
+							(SELECT T2.data_name FROM cms_category_data T2 <where>T2.no = T1.tech_ref</where>) AS tech_name,
+							(SELECT FT.attach_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_name,
+	        				(SELECT FT.attach_re_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_re_name,
+	        				(SELECT FT.extension FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_extension,
+							T1.school_name,
+							T1.teacher,
+							T1.winner,
+							T1.title,
+							T1.intention,
+							T1.content,
+							T1.purpose,
+							T1.youtube,
+							T1.register,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.modifier,
+							TO_CHAR(T1.mod_date, 'YYYY-MM-DD') AS mod_date
+						FROM
+							tb_festival T1
+						<where>
+						<if test='searchValue1 != ""'>
+						AND			T1.year															= #{searchValue1}
+						</if>
+						<if test='searchValue2 != ""'>
+						AND			T1.parent_ref													= #{searchValue2}
+						</if>
+						<if test='searchValue3 != ""'>
+						AND			T1.type_ref														= #{searchValue3}
+						</if>
+						<if test='searchValue4 != ""'>
+						AND			T1.tech_ref														= #{searchValue4}
+						</if>
+						</where>
+						ORDER BY T1.reg_date DESC, T1.no DESC
+					) X
+			) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorUserAwardFestival2022Exhibition_SQL.selectHomeKorUserAwardFestival2022ExhibitionListCnt" parameterType="vo" resultType="int">
+	/* HomeKorUserAwardFestival2022Exhibition_SQL.selectHomeKorUserAwardFestival2022ExhibitionListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			tb_festival T1
+		<where>
+		<if test='searchValue1 != ""'>
+		AND			T1.year															= #{searchValue1}
+		</if>
+		<if test='searchValue2 != ""'>
+		AND			T1.parent_ref													= #{searchValue2}
+		</if>
+		<if test='searchValue3 != ""'>
+		AND			T1.type_ref														= #{searchValue3}
+		</if>
+		<if test='searchValue4 != ""'>
+		AND			T1.tech_ref														= #{searchValue4}
+		</if>
+		</where>
+	</select>
+	
+	<select id="HomeKorUserAwardFestival2022Exhibition_SQL.selectHomeKorUserAwardFestival2022ExhibitionBasicData" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserAwardFestival2022Exhibition_SQL.selectHomeKorUserAwardFestival2022ExhibitionBasicData */
+		SELECT
+			TT.*
+		FROM
+			(
+				SELECT
+					T1.no,
+					T1.use_at,
+					T1.year,
+					(SELECT T2.data_name FROM cms_category_data T2 <where>T2.no = T1.parent_ref</where>) AS parent_name,
+					T1.type_ref,
+					(SELECT T2.data_name FROM cms_category_data T2 <where>T2.no = T1.type_ref</where>) AS type_name,
+					T1.school_ref,
+					(SELECT T2.data_name FROM cms_category_data T2 <where>T2.no = T1.school_ref</where>) AS school_type_name,
+					T1.tech_ref,
+					(SELECT T2.data_name FROM cms_category_data T2 <where>T2.no = T1.tech_ref</where>) AS tech_name,
+					T1.school_name,
+					T1.teacher,
+					T1.winner,
+					T1.title,
+					T1.intention,
+					T1.content,
+					T1.purpose,
+					T1.youtube,
+					TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+					T1.register,
+					TO_CHAR(T1.mod_date, 'YYYY-MM-DD') AS mod_date,
+					T1.modifier
+				FROM
+					tb_festival T1
+				<where>
+				AND			T1.year													= #{searchValue1}
+				AND			T1.parent_ref											= #{searchValue2}
+				</where>
+				ORDER BY T1.no DESC
+			) TT
+		<where>
+		AND			ROWNUM															= 1
+		</where>
+	</select>
+
+	<select id="HomeKorUserAwardFestival2022Exhibition_SQL.selectHomeKorUserAwardFestival2022Exhibition" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserAwardFestival2022Exhibition_SQL.selectHomeKorUserAwardFestival2022Exhibition */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.year,
+			T1.parent_ref,
+			(SELECT T2.data_name FROM cms_category_data T2 <where>T2.no = T1.parent_ref</where>) AS parent_name,
+			T1.type_ref,
+			(SELECT T2.data_name FROM cms_category_data T2 <where>T2.no = T1.type_ref</where>) AS type_name,
+			T1.school_ref,
+			(SELECT T2.data_name FROM cms_category_data T2 <where>T2.no = T1.school_ref</where>) AS school_type_name,
+			T1.tech_ref,
+			(SELECT T2.data_name FROM cms_category_data T2 <where>T2.no = T1.tech_ref</where>) AS tech_name,
+			T1.school_name,
+			T1.teacher,
+			T1.winner,
+			T1.title,
+			T1.intention,
+			T1.content,
+			T1.purpose,
+			T1.youtube,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register,
+			TO_CHAR(T1.mod_date, 'YYYY-MM-DD') AS mod_date,
+			T1.modifier
+		FROM
+			tb_festival T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+	</select>
+	
+</mapper>

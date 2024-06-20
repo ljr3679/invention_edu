@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="UrlInfo_SQL">
+
+	<select id="UrlInfo_SQL.selectUrlInfo" resultType="egovMap">
+		SELECT
+			T1.URL_MNGNO,
+			T1.TITLE,
+			T1.URL_NM,
+			T1.URL_ORG,
+			T1.USE_YN,
+			T1.IN_DT,
+			T1.IN_ID,
+			T1.IN_NAME,
+			T1.CNT
+		FROM TB_URL_INFO T1
+		WHERE T1.URL_MNGNO = #{idx}::integer
+	</select>
+
+	<select id="UrlInfo_SQL.selectUrlInfoByUrlNm" resultType="egovMap">
+		SELECT
+			T1.URL_MNGNO,
+			T1.TITLE,
+			T1.URL_NM,
+			T1.URL_ORG,
+			T1.USE_YN,
+			T1.IN_DT,
+			T1.IN_ID,
+			T1.IN_NAME,
+			T1.CNT
+		FROM TB_URL_INFO T1
+		WHERE T1.URL_NM = #{paramKey1}
+		AND NVL(T1.USE_YN,'Y') = 'Y'
+	</select>
+
+	<select id="UrlInfo_SQL.selectUrlInfoCheckUrlNm" resultType="egovMap">
+		SELECT
+			T1.URL_MNGNO,
+			T1.TITLE,
+			T1.URL_NM,
+			T1.URL_ORG,
+			T1.USE_YN,
+			T1.IN_DT,
+			T1.IN_ID,
+			T1.IN_NAME,
+			T1.CNT
+		FROM TB_URL_INFO T1
+		WHERE T1.URL_NM = #{paramKey1}
+	</select>
+
+
+	<update id="UrlInfo_SQL.updateUrlCnt" parameterType="vo">
+		UPDATE TB_URL_INFO
+		SET CNT = NVL(CNT,0) + 1
+		WHERE URL_MNGNO = #{idx}::integer
+	</update>
+
+
+</mapper>

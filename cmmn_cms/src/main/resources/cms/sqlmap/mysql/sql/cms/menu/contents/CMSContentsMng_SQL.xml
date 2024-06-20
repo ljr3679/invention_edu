@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="CmsContentsMng">
+
+	<sql id="TABLE">
+		cms_contents T1
+	LEFT OUTER JOIN
+		cms_admin_view T2
+	ON	T1.register							= T2.no
+	LEFT OUTER JOIN
+		cms_admin_view T3
+	ON	T1.modifier							= T3.no
+	</sql>
+
+	<select id="CmsContentsMng.selectContentsDataList" parameterType="vo" resultType="egovMap">
+	/* CmsContentsMng.selectContentsDataList */
+		SELECT
+			T1.board_code,
+			T1.title,
+			T2.id AS register_id,
+			T2.name AS register_name,
+			DATE_FORMAT(T1.reg_date,'%Y-%m-%d') AS reg_date,
+			T1.reg_date AS sort 
+		FROM
+			<include refid="TABLE"/>
+		<where>
+			<if test='searchKeyword != ""'>
+		AND			T1.title						LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+		</where>
+		ORDER BY sort DESC
+		LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+	
+	<select id="CmsContentsMng.selectContentsListDataCnt" parameterType="vo" resultType="int">
+	/* CmsContentsMng.selectContentsListDataCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			<include refid="TABLE"/>
+		<where>
+			<if test='searchKeyword != ""'>
+		AND			T1.title						LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+		</where>
+	</select>
+	
+	<select id="CmsContentsMng.selectContentsData" parameterType="vo" resultType="egovMap">
+	/* CmsContentsMng.selectContentsData */
+		SELECT
+			T1.board_code,
+			T1.title,
+			T1.contents,
+			T2.id AS register_id,
+			T2.name AS register_name,
+			T3.id AS modifier_id,
+			T3.name AS modifier_name,
+			DATE_FORMAT(T1.reg_date,'%Y-%m-%d %h:%i:%s') AS reg_date,
+			DATE_FORMAT(T1.mod_date,'%Y-%m-%d %h:%i:%s') AS mod_date
+		FROM
+			<include refid="TABLE"/>
+		<where>
+		AND			T1.board_code					= #{board_code}
+		</where>
+	</select>
+	
+	<select id="CmsContentsMng.selectCheckBoardKey" parameterType="str" resultType="int">
+	/* CmsContentsMng.selectCheckBoardKey */
+		SELECT
+			COUNT(1)
+		FROM
+			cms_contents
+		<where>
+		AND			board_code						= #{board_code}
+		</where>
+	</select>
+	
+	<insert id="CmsContentsMng.insertAndUpdateContentsData" parameterType="vo">
+	/* CmsContentsMng.insertAndUpdateContentsData */
+		INSERT INTO cms_contents
+		(
+			board_code,
+			title,
+			contents,
+			register,
+			reg_date
+		)
+			VALUES
+		(
+			#{board_code},
+			#{title},
+			#{paramKey1},
+			#{adm_idx},
+			NOW()
+		)
+		ON DUPLICATE KEY
+		UPDATE
+					title							= #{title},
+					contents						= #{paramKey1},
+					modifier						= #{adm_idx},
+					mod_date						= NOW()
+	</insert>
+	
+	<select id="CmsContentsMng.selectContentsDataUseAtList" parameterType="str" resultType="egovMap">
+	/* CmsContentsMng.selectContentsDataUseAtList */
+	<if test='paramKeyList1 != null'>
+		SELECT
+			menu_title
+		FROM
+			cms_menu
+		<where>
+		AND			delete_at						= 'N'
+		AND			menu_type						= 'C'
+		<foreach collection="paramKeyList1" open="AND board_code IN (" close=")" separator="," item="board_code">
+			#{board_code}
+		</foreach>
+		</where>
+	</if>
+	</select>
+	
+	<delete id="CmsContentsMng.deleteContentsData">
+	/* CmsContentsMng.deleteContentsData */
+	<if test='paramKeyList1 != null'>
+		DELETE FROM cms_contents
+		<where>
+			<foreach collection="paramKeyList1" open="board_code IN (" close=")" separator="," item="board_code">
+				#{board_code}
+			</foreach>
+		</where>
+	</if>
+	</delete>
+	
+</mapper>

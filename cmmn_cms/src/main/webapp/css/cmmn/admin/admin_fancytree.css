@@ -1,0 +1,88 @@
+fieldset {
+	margin-left: 8px;
+}
+fieldset.tree {
+	float: left;
+}
+div#tree{
+	width: 400px;
+	border-spacing: 0;
+    border-collapse: collapse;
+	border: 2px solid #5e5e5e;
+}
+div.menu_tree_viewer {
+	width: 400px;
+	border-spacing: 0;
+    border-collapse: collapse;
+	border: 2px solid #5e5e5e;
+}
+ul.fancytree-container {
+	border: none;
+	height: 550px;
+	overflow: auto;
+}
+fieldset.options {
+}
+div#options ul {
+	padding: 4px;
+	margin: 0px;
+	font-size: 90%;
+}
+div#options ul li {
+	list-style-type: none;
+}
+fieldset {
+	border: 1px solid gray;
+	padding: 4px;
+	border-radius: 2px;
+	
+	display: block;
+	margin-inline-start: 2px;
+	margin-inline-end: 2px;
+	padding-block-start: 0.35em;
+	padding-inline-start: 0.75em;
+	padding-inline-end: 0.75em;
+	padding-block-end: 0.625em;
+	min-inline-size: min-content;
+	border-width: 2px;
+	border-style: groove;
+	border-color: threedface;
+	border-image: initial;
+}
+fieldset legend {
+	padding-left: 6px;
+	padding-right: 6px;
+}
+legend {
+    display: block;
+    padding-inline-start: 2px;
+    padding-inline-end: 2px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+}
+
+.board_write {
+	border: 2px solid #5e5e5e;
+}
+
+.tree_btn_area {
+	margin-top: 20px;	
+}
+
+.tree_btn_area > .right {
+	float: right;
+}
+
+#tree_language_title {
+	margin-bottom: 10px;
+}
+
+#tree_language_title .active {
+	color: #2196f3;
+	font-weight: bold;
+}
+#tree_language_title a:not(:first-child) {
+	margin-left: 20px;
+}

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminHomepageFooter_SQL">
+
+	<select id="HomeKorAdminHomepageFooter_SQL.selectHomeKorAdminHomepageFooterList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepageFooter_SQL.selectHomeKorAdminHomepageFooterList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.open_at,
+							T1.title,
+							T1.url,
+							T1.sort,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register,
+							TO_CHAR(T1.mod_date, 'YYYY-MM-DD') AS mod_date,
+							T1.modifier
+						FROM
+							tb_footer T1
+						<where>
+						<if test='searchValue1 != ""'>
+						AND			T1.use_at														= #{searchValue1}
+						</if>
+						<if test='searchKeyword != ""'>
+						AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+						</if>
+						</where>
+						ORDER BY T1.reg_date DESC, T1.no DESC
+					) X
+			) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminHomepageFooter_SQL.selectHomeKorAdminHomepageFooterListCnt" parameterType="vo" resultType="int">
+	/* HomeKorAdminHomepageFooter_SQL.selectHomeKorAdminHomepageFooterListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			tb_footer T1
+		<where>
+		<if test='searchValue1 != ""'>
+		AND			T1.use_at														= #{searchValue1}
+		</if>
+		<if test='searchKeyword != ""'>
+		AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		</where>
+	</select>
+
+	<select id="HomeKorAdminHomepageFooter_SQL.selectHomeKorAdminHomepageFooter" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepageFooter_SQL.selectHomeKorAdminHomepageFooter */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.open_at,
+			T1.title,
+			T1.url,
+			T1.sort,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register,
+			TO_CHAR(T1.mod_date, 'YYYY-MM-DD') AS mod_date,
+			T1.modifier
+		FROM
+			tb_footer T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+	</select>
+	
+	<insert id="HomeKorAdminHomepageFooter_SQL.insertHomeKorAdminHomepageFooter" parameterType="vo">
+	/* HomeKorAdminHomepageFooter_SQL.insertHomeKorAdminHomepageFooter */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_footer_seq.NEXTVAL AS idx FROM dual
+		</selectKey>
+		INSERT INTO tb_footer
+		(
+					no,
+					use_at,
+					open_at,
+					title,
+					url,
+					sort,
+					register,
+					reg_date
+					
+		)
+					VALUES
+		(
+					#{idx},
+					#{paramKey1},
+					#{paramKey2},
+					#{paramKey3},
+					#{paramKey4},
+					#{paramKey5},
+					#{adm_idx},
+					SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorAdminHomepageFooter_SQL.updateHomeKorAdminHomepageFooter" parameterType="vo">
+	/* HomeKorAdminHomepageFooter_SQL.updateHomeKorAdminHomepageFooter */
+		UPDATE tb_footer SET
+				use_at																= #{paramKey1},
+				open_at																= #{paramKey2},
+				title																= #{paramKey3},
+				url																	= #{paramKey4},
+				sort																= #{paramKey5},
+				modifier															= #{adm_idx},
+				mod_date															= SYSDATE
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</update>
+	
+	<delete id="HomeKorAdminHomepageFooter_SQL.deleteHomeKorAdminHomepageFooter" parameterType="vo">
+	/* HomeKorAdminHomepageFooter_SQL.deleteHomeKorAdminHomepageFooter */
+		DELETE FROM tb_footer
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminHomepageFooter_SQL.deleteHomeKorAdminHomepageFooterList" parameterType="vo">
+		/* HomeKorAdminHomepageFooter_SQL.deleteHomeKorAdminHomepageFooterList */
+		DELETE FROM tb_footer
+		<where>
+			<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete> 
+	
+</mapper>

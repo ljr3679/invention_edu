@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminHomepagePopup_SQL">
+
+	<select id="HomeKorAdminHomepagePopup_SQL.selectHomeKorAdminHomepagePopupList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepagePopup_SQL.selectHomeKorAdminHomepagePopupList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.type_at,
+							T1.open_at,
+							T1.url,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_popup T1
+						<where>
+						AND			T1.type_at														= 'C'
+						</where>
+						ORDER BY T1.reg_date DESC, T1.no DESC 
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminHomepagePopup_SQL.selectHomeKorAdminHomepagePopupListCnt" parameterType="vo" resultType="int">
+		/* HomeKorAdminHomepagePopup_SQL.selectHomeKorAdminHomepagePopupListCnt */
+		SELECT 
+			COUNT(1)
+		FROM
+			tb_popup T1
+		<where>
+		AND			T1.type_at															= #{searchValue1}
+		</where>
+	</select>
+
+	<select id="HomeKorAdminHomepagePopup_SQL.selectHomeKorAdminHomepagePopup" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepagePopup_SQL.selectHomeKorAdminHomepagePopup */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.open_at,
+			T1.type_at,
+			T1.url,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register
+		FROM
+			tb_popup T1
+		<where>
+		<if test='searchValue1 != ""'>    <!-- 고정영역  A:고정영역1 B:고정영역2 -->
+		AND			T1.type_at														= #{searchValue1}
+		AND			ROWNUM 															= 1
+		</if>
+		<if test='idx != ""'>
+		AND			T1.no															= #{idx}
+		</if> 
+		</where>
+	</select>
+	
+	<insert id="HomeKorAdminHomepagePopup_SQL.insertHomeKorAdminHomepagePopup" parameterType="vo">
+	/* HomeKorAdminHomepagePopup_SQL.insertHomeKorAdminHomepagePopup */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_popup_seq.NEXTVAL AS idx FROM dual
+		</selectKey>
+		INSERT INTO tb_popup
+		(			
+					no,
+					use_at,
+					open_at,
+					type_at,
+					url,
+					register,
+					reg_date
+		)
+					VALUES
+		(			
+					#{idx},
+					#{paramKey1},
+					#{paramKey2},
+					#{paramKey3},
+					#{paramKey4},
+					#{adm_idx},
+					SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorAdminHomepagePopup_SQL.updateHomeKorAdminHomepagePopup" parameterType="vo">
+		/* HomeKorAdminHomepagePopup_SQL.updateHomeKorAdminHomepagePopup */
+		UPDATE tb_popup SET 
+			   	use_at																	= #{paramKey1},
+				open_at																	= #{paramKey2},
+				type_at																	= #{paramKey3},
+				url																		= #{paramKey4},
+			   	mod_date																= SYSDATE,  
+			   	modifier																= #{adm_idx}        
+		<where>
+		AND no 																			= #{idx}
+		</where>	   
+		          
+	</update>
+	
+	<delete id="HomeKorAdminHomepagePopup_SQL.deleteHomeKorAdminHomepagePopup" parameterType="vo">
+	/* HomeKorAdminHomepagePopup_SQL.deleteHomeKorAdminHomepagePopup */
+		DELETE FROM tb_popup
+		<where>
+		AND			no																	= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminHomepagePopup_SQL.deleteHomeKorAdminHomepagePopupList" parameterType="vo">
+		/* HomeKorAdminHomepagePopup_SQL.deleteHomeKorAdminHomepagePopupList */
+		DELETE FROM tb_popup
+		<where>
+			<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete>
+	
+</mapper>

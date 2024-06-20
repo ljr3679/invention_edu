@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="CmsBoardMng">
+
+	<sql id="TABLE">
+		cms_board T1
+	LEFT OUTER JOIN
+		cms_admin_view T2
+	ON	T1.register							= T2.no
+	LEFT OUTER JOIN
+		cms_admin_view T3
+	ON	T1.modifier							= T3.no
+	</sql>
+
+	<select id="CmsBoardMng.selectBoardDataList" parameterType="vo" resultType="egovMap">
+	/* CmsBoardMng.selectContentsDataList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.board_code,
+							T1.title,
+							T1.board_skin,
+							T1.regist_auth,
+							T1.view_auth,
+							T2.id AS register_id,
+							T2.name AS register_name,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.reg_date AS sort
+						FROM
+							<include refid="TABLE"/>
+						<where>
+							<if test='searchKeyword != ""'>
+						AND			T1.title						LIKE '%' || #{searchKeyword} || '%'
+							</if>
+						</where>
+						ORDER BY sort DESC
+					) X
+			) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="CmsBoardMng.selectBoardListDataCnt" parameterType="vo" resultType="int">
+	/* CmsBoardMng.selectBoardListDataCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			<include refid="TABLE"/>
+		<where>
+			<if test='searchKeyword != ""'>
+		AND			T1.title						LIKE '%' || #{searchKeyword} || '%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="CmsBoardMng.selectBoardData" parameterType="vo" resultType="egovMap">
+	/* CmsBoardMng.selectBoardData */
+		SELECT
+			T1.board_code,
+			T1.title,
+			T1.board_skin,
+			T1.regist_auth,
+			T1.view_auth,
+			T1.secret_at,
+			T1.answer_at,
+			T1.search_at,
+			T1.paging_at,
+			T1.paging_cnt,
+			T1.list_field,
+			T1.list_title,
+			T1.list_vali,
+			T1.list_search_field,
+			T1.list_search_title,
+			T1.list_view_field,
+			T1.list_view_title,
+			T1.list_view_percent,
+			T1.list_view_class,
+			T1.category_field1,
+			T1.category_field1_option,
+			T1.category_field2,
+			T1.category_field2_option,
+			T1.category_field3,
+			T1.category_field3_option,
+			T1.category_field4,
+			T1.category_field4_option,
+			T1.attach_cnt,
+			T1.top_contents,
+			T1.bottom_contents,
+			T1.contents,
+			T2.id AS register_id,
+			T2.name AS register_name,
+			T3.id AS modifier_id,
+			T3.name AS modifier_name,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD HH24:MI:SS') AS reg_date,
+			TO_CHAR(T1.mod_date, 'YYYY-MM-DD HH24:MI:SS') AS mod_date
+		FROM
+			<include refid="TABLE"/>
+		<where>
+		AND			T1.board_code					= #{board_code}
+		</where>
+	</select>
+	
+	<select id="CmsBoardMng.selectCheckBoardKey" parameterType="str" resultType="int">
+	/* CmsBoardMng.selectCheckBoardKey */
+		SELECT
+			COUNT(1)
+		FROM
+			cms_board
+		<where>
+		AND			board_code						= #{board_code}
+		</where>
+	</select>
+	
+	<select id="CmsBoardMng.selectBoardDataAt" parameterType="vo" resultType="bol">
+	/* CmsBoardMng.selectBoardDataAt */
+		SELECT
+			COUNT(1)
+		FROM
+			cms_board T1
+		<where>
+		AND			board_code						= #{board_code}
+		</where>
+	</select>
+	
+	<insert id="CmsBoardMng.insertBoardData" parameterType="vo">
+	/* CmsBoardMng.insertBoardData */
+		INSERT INTO cms_board
+		(
+					board_code,
+					title,
+					board_skin,
+					regist_auth,
+					view_auth,
+					secret_at,
+					answer_at,
+					search_at,
+					paging_at,
+					paging_cnt,
+					attach_cnt,
+					list_field,
+					list_title,
+					list_vali,
+					list_search_field,
+					list_search_title,
+					list_view_field,
+					list_view_title,
+					list_view_percent,
+					list_view_class,
+					category_field1,
+					category_field1_option,
+					category_field2,
+					category_field2_option,
+					category_field3,
+					category_field3_option,
+					category_field4,
+					category_field4_option,
+					top_contents,
+					bottom_contents,
+					contents,
+					register,
+					reg_date
+		)
+					VALUES
+		(
+					#{board_code},
+					#{title},
+					#{paramKey1},
+					#{paramKey2},
+					#{paramKey3},
+					#{paramKey4},
+					#{paramKey5},
+					#{paramKey7},
+					#{paramKey8},
+					#{paramKey9},
+					#{paramKey10},
+					#{paramKey11},
+					#{paramKey12},
+					#{paramKey13},
+					#{paramKey14},
+					#{paramKey15},
+					#{paramKey16},
+					#{paramKey17},
+					#{paramKey18},
+					#{paramKey38},
+					#{paramKey30},
+					#{paramKey31},
+					#{paramKey32},
+					#{paramKey33},
+					#{paramKey34},
+					#{paramKey35},
+					#{paramKey36},
+					#{paramKey37},
+					#{paramKey19},
+					#{paramKey20},
+					#{paramKey21},
+					#{adm_idx},
+					SYSDATE
+		)
+	</insert>
+	
+	<update id="CmsBoardMng.updateBoardData" parameterType="vo">
+	/* CmsBoardMng.updateBoardData */
+		UPDATE cms_board SET
+					title                           = #{title},
+					board_skin                      = #{paramKey1},
+					regist_auth                     = #{paramKey2},
+					view_auth                       = #{paramKey3},
+					secret_at                       = #{paramKey4},
+					answer_at                       = #{paramKey5},
+					search_at                       = #{paramKey7},
+					paging_at                       = #{paramKey8},
+					paging_cnt                      = #{paramKey9},
+					attach_cnt                      = #{paramKey10},
+					list_field						= #{paramKey11},
+					list_title						= #{paramKey12},
+					list_vali                       = #{paramKey13},
+					list_search_field               = #{paramKey14},
+					list_search_title				= #{paramKey15},
+					list_view_field                 = #{paramKey16},
+					list_view_title                 = #{paramKey17},
+					list_view_percent               = #{paramKey18},
+					list_view_class		            = #{paramKey38},
+					category_field1					= #{paramKey30},
+					category_field1_option			= #{paramKey31},
+					category_field2					= #{paramKey32},
+					category_field2_option			= #{paramKey33},
+					category_field3					= #{paramKey34},
+					category_field3_option			= #{paramKey35},
+					category_field4					= #{paramKey36},
+					category_field4_option			= #{paramKey37},
+					top_contents                    = #{paramKey19},
+					bottom_contents                 = #{paramKey20},
+					contents                        = #{paramKey21}, 
+					modifier						= #{adm_idx},
+					mod_date						= SYSDATE
+		<where>
+		AND			board_code						= #{board_code}
+		</where>
+	</update>
+	
+	<select id="CmsBoardMng.selectBoardDataUseAtList" parameterType="str" resultType="egovMap">
+	/* CmsBoardMng.selectBoardDataUseAtList */
+		SELECT
+			menu_title
+		FROM
+			cms_menu
+		<where>
+		AND			delete_at						= 'N'
+		AND			menu_type						= 'B'
+		<choose>
+			<when test='paramKeyList1 != null'>
+				<foreach collection="paramKeyList1" open="AND board_code IN (" close=")" separator="," item="board_code">
+					#{board_code}
+				</foreach>	
+			</when>
+			<otherwise>
+		AND			1								= 2
+			</otherwise>
+		</choose>
+		</where>
+	</select>
+	
+	<delete id="CmsBoardMng.deleteBoardData">
+	/* CmsBoardMng.deleteBoardData */
+		DELETE FROM cms_board
+		<where>
+		<choose>
+			<when test='paramKeyList1 != null'>
+				<foreach collection="paramKeyList1" open="board_code IN (" close=")" separator="," item="board_code">
+					#{board_code}
+				</foreach>			
+			</when>
+			<otherwise>
+		AND			1								= 2
+			</otherwise>
+		</choose>
+		</where>
+	</delete>
+	
+	<select id="CmsBoardMng.selectCategoryDataList" parameterType="vo" resultType="egovMap">
+	/* CmsBoardMng.selectCategoryDataList */
+		SELECT
+			category_code,
+			category_name
+		FROM
+			cms_category
+		ORDER BY reg_date DESC
+	</select>
+	
+</mapper>

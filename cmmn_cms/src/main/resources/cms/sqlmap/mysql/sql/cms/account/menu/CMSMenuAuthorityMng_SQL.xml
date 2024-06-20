@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="CmsMenuAuthorityMng">
+
+	<sql id="TABLE">
+		cms_menu_authority T1
+	LEFT OUTER JOIN
+		cms_admin_view T2
+	ON	T1.register							= T2.no
+	LEFT OUTER JOIN
+		cms_admin_view T3
+	ON	T1.modifier							= T3.no
+	</sql>
+	
+	<select id="CmsMenuAuthorityMng.selectMenuAuthorityDataList" parameterType="vo" resultType="egovMap">
+	/* CmsMenuAuthorityMng.selectMenuAuthorityDataList */
+		SELECT
+			T1.no,
+			T1.title,
+			T2.id AS register_id,
+			T2.name AS register_name,
+			DATE_FORMAT(T1.reg_date,'%Y-%m-%d') AS reg_date
+		FROM
+			<include refid="TABLE"/>
+		<where>
+			<if test='searchKeyword != ""'>
+		AND			T1.title						LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+		</where>	
+		ORDER BY T1.reg_date DESC, T1.no DESC
+		LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+	
+	<select id="CmsMenuAuthorityMng.selectMenuAuthorityDataListCnt" parameterType="vo" resultType="int">
+	/* CmsMenuAuthorityMng.selectMenuAuthorityDataListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			<include refid="TABLE"/>
+		<where>
+			<if test='searchKeyword != ""'>
+		AND			T1.title						LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+		</where>
+	</select>
+	
+	<select id="CmsMenuAuthorityMng.selectMenuAuthorityData" parameterType="vo" resultType="egovMap">
+	/* CmsMenuAuthorityMng.selectMenuAuthorityData */
+		SELECT
+			T1.no,
+			T1.title,
+			T1.menu_list,
+			T2.id AS register_id,
+			T2.name AS register_name,
+			T3.id AS modifier_id,
+			T3.name AS modifier_name,
+			DATE_FORMAT(T1.reg_date,'%Y-%m-%d %h:%i:%s') AS reg_date,
+			DATE_FORMAT(T1.mod_date,'%Y-%m-%d %h:%i:%s') AS mod_date
+		FROM
+			<include refid="TABLE"/>
+		<where>
+		AND			T1.no							= #{idx}
+		</where>	
+	</select>
+	
+	<insert id="CmsMenuAuthorityMng.insertMenuAuthorityData" parameterType="vo">
+	/* CmsMenuAuthorityMng.insertMenuAuthorityData */
+		INSERT INTO cms_menu_authority
+		(
+			title,
+			menu_list,
+			register,
+			reg_date
+		)
+			VALUES
+		(
+			#{title},
+			#{paramKey1},
+			#{adm_idx},
+			NOW()
+		)
+	</insert>
+	
+	<update id="CmsMenuAuthorityMng.updateMenuAuthorityData" parameterType="vo">
+	/* CmsMenuAuthorityMng.updateMenuAuthorityData */
+		UPDATE cms_menu_authority SET
+					title							= #{title},
+					menu_list						= #{paramKey1},
+					modifier						= #{adm_idx},
+					mod_date						= NOW()
+		<where>
+		AND			no								= #{idx}
+		</where>
+	</update>
+	
+	<select id="CmsMenuAuthorityMng.selectAuthorityDataUseAtList" parameterType="str" resultType="egovMap">
+	/* CmsMenuAuthorityMng.selectAuthorityDataUseAtList */
+	<if test='paramKeyList1 != null'>
+		SELECT
+			name,
+			id
+		FROM
+			cms_admin_view
+		<where>
+			<foreach collection="paramKeyList1" open="no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</if>
+	</select>
+	
+	<delete id="CmsMenuAuthorityMng.deleteMenuAuthorityDataList" parameterType="vo">
+	/* CmsMenuAuthorityMng.deleteMenuAuthorityDataList */
+	<if test='paramKeyList1 != null'>
+		DELETE FROM cms_menu_authority
+		<where>
+			<foreach collection="paramKeyList1" open="no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</if>
+	</delete>
+	
+	<select id="CmsMenuAuthorityMng.selectMenuAuthoritySessionInit" parameterType="vo" resultType="egovMap">
+	/* CmsMenuAuthorityMng.selectMenuAuthoritySessionInit */
+		SELECT 
+			menu_authority_name, 
+			menu_list 
+		FROM 
+			cms_admin_view
+		<where>
+		AND			no								= #{adm_idx}
+		</where> 
+	</select>
+	
+</mapper>

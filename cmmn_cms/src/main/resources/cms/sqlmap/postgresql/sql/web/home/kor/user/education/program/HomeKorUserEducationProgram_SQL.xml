@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorUserEducationProgram_SQL">
+
+	<select id="HomeKorUserEducationProgram_SQL.selectHomeKorUserEducationProgramList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserEducationProgram_SQL.selectHomeKorUserEducationProgramList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.target_ref,
+							T1.subject_ref,
+							(SELECT FT.data_name FROM cms_category_data FT <where>FT.no = T1.target_ref</where>) AS target_name,
+							(SELECT FT.data_name FROM cms_category_data FT <where>FT.no = T1.subject_ref</where>) AS subject_name,
+							(SELECT COUNT(1) FROM tb_program_comment CT <where>CT.tb_program_ref = T1.no</where>) AS comment_cnt,
+							(SELECT FT.attach_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_name,
+	        				(SELECT FT.attach_re_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_re_name,
+	        				(SELECT FT.extension FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_extension,
+							TO_CHAR(T1.start_date, 'YYYY-MM-DD') AS start_date,
+							TO_CHAR(T1.end_date, 'YYYY-MM-DD') AS end_date,
+							T1.title,
+							T1.keyword,
+							T1.stat_text1,
+							T1.stat_point1,
+							T1.stat_text2,
+							T1.stat_point2,
+							T1.stat_text3,
+							T1.stat_point3,
+							T1.stat_text4,
+							T1.stat_point4,
+							T1.stat_text5,
+							T1.stat_point5,
+							T1.detail,
+							T1.content,
+							<choose>
+								<when test='usr_idx != ""'>
+							(SELECT COUNT(1) FROM tb_program_scrap T2 WHERE T2.tb_program_ref = T1.no AND T2.user_no = #{usr_idx} AND ROWNUM = 1) AS scrap_at,	
+								</when>
+								<otherwise>
+							0 AS scrap_at,
+								</otherwise>
+							</choose>
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_program T1
+						<where>
+						AND			T1.use_at														= 'Y'
+						<!-- AND			(CASE
+										WHEN <![CDATA[TO_CHAR(T1.start_date, 'YYYY-MM-DD') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <= TO_CHAR(T1.end_date, 'YYYY-MM-DD')]]>
+										THEN 1
+										ELSE 2
+									END) = 2 -->
+						<if test='searchValueList2 != null'>
+							AND (
+							<foreach collection="searchValueList2" separator="OR " item="key">
+							T1.target_ref		LIKE '%' || #{key} || '%'
+							</foreach>
+							)
+						</if>
+						<if test='searchValueList3 != null'>
+							AND (
+							<foreach collection="searchValueList3" separator="OR " item="key">
+							T1.subject_ref		LIKE '%' || #{key} || '%'
+							</foreach>
+							)
+						</if>
+						<if test='searchKeyword != ""'>
+							<if test='searchValueList1 != null'>
+								AND (
+								<foreach collection="searchValueList1" separator="OR " item="key">
+									<choose>
+									<when test='key == "A"'>
+								(
+											T1.title													LIKE '%' || #{searchKeyword} || '%'
+								OR			T1.stat_text1												LIKE '%' || #{searchKeyword} || '%'
+								OR			T1.stat_text2												LIKE '%' || #{searchKeyword} || '%'
+								OR			T1.stat_text3												LIKE '%' || #{searchKeyword} || '%'
+								OR			T1.stat_text4												LIKE '%' || #{searchKeyword} || '%'
+								OR			T1.stat_text5												LIKE '%' || #{searchKeyword} || '%'
+								OR			T1.detail													LIKE '%' || #{searchKeyword} || '%'
+								OR			T1.content													LIKE '%' || #{searchKeyword} || '%'
+								OR			T1.keyword													LIKE '%' || #{searchKeyword} || '%'
+								)
+									</when>
+									<when test='key == "B"'>
+											T1.title													LIKE '%' || #{searchKeyword} || '%'
+									</when>
+									<when test='key == "C"'>
+								(
+											T1.stat_text1												LIKE '%' || #{searchKeyword} || '%'
+								OR			T1.stat_text2												LIKE '%' || #{searchKeyword} || '%'
+								OR			T1.stat_text3												LIKE '%' || #{searchKeyword} || '%'
+								OR			T1.stat_text4												LIKE '%' || #{searchKeyword} || '%'
+								OR			T1.stat_text5												LIKE '%' || #{searchKeyword} || '%'
+								)
+									</when>
+									<when test='key == "D"'>
+											T1.detail													LIKE '%' || #{searchKeyword} || '%'
+									</when>
+									<when test='key == "E"'>
+											T1.content													LIKE '%' || #{searchKeyword} || '%'
+									</when>
+									<when test='key == "F"'>
+											T1.keyword													LIKE '%' || #{searchKeyword} || '%'
+									</when>
+								</choose>
+								</foreach>
+								)
+							</if>
+						</if>
+						</where>
+						ORDER BY	T1.reg_date DESC, T1.no DESC 
+					) X
+					<where>
+						<if test='searchValue2 != ""'>
+							<choose>
+								<when test='searchValue1 == "A"'>
+									AND X.scrap_at >= 1
+								</when>
+								<otherwise>
+									AND X.scrap_at = 0
+								</otherwise>
+							</choose>
+						</if>
+					</where>
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorUserEducationProgram_SQL.selectHomeKorUserEducationProgramListCnt" parameterType="vo" resultType="int">
+		/* HomeKorUserEducationProgram_SQL.selectHomeKorUserEducationProgramListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			(
+				SELECT
+					T1.no,
+					T1.use_at,
+					T1.target_ref,
+					T1.subject_ref,
+					(SELECT FT.data_name FROM cms_category_data FT <where>FT.no = T1.target_ref</where>) AS target_name,
+					(SELECT FT.data_name FROM cms_category_data FT <where>FT.no = T1.subject_ref</where>) AS subject_name,
+					(SELECT COUNT(1) FROM tb_program_comment CT <where>CT.tb_program_ref = T1.no</where>) AS comment_cnt,
+					(SELECT FT.attach_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_name,
+       				(SELECT FT.attach_re_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_re_name,
+       				(SELECT FT.extension FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_extension,
+					TO_CHAR(T1.start_date, 'YYYY-MM-DD') AS start_date,
+					TO_CHAR(T1.end_date, 'YYYY-MM-DD') AS end_date,
+					T1.title,
+					T1.keyword,
+					T1.stat_text1,
+					T1.stat_point1,
+					T1.stat_text2,
+					T1.stat_point2,
+					T1.stat_text3,
+					T1.stat_point3,
+					T1.stat_text4,
+					T1.stat_point4,
+					T1.stat_text5,
+					T1.stat_point5,
+					T1.detail,
+					T1.content,
+					<choose>
+						<when test='usr_idx != ""'>
+					(SELECT COUNT(1) FROM tb_program_scrap T2 WHERE T2.tb_program_ref = T1.no AND T2.user_no = #{usr_idx} AND ROWNUM = 1) AS scrap_at,	
+						</when>
+						<otherwise>
+					0 AS scrap_at,
+						</otherwise>
+					</choose>
+					TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+					T1.register
+				FROM 
+					tb_program T1
+				<where>
+				AND			T1.use_at														= 'Y'
+				<!-- AND			(CASE
+								WHEN <![CDATA[TO_CHAR(T1.start_date, 'YYYY-MM-DD') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <= TO_CHAR(T1.end_date, 'YYYY-MM-DD')]]>
+								THEN 1
+								ELSE 2
+							END) = 2 -->
+				<if test='searchValueList2 != null'>
+					AND (
+					<foreach collection="searchValueList2" separator="OR " item="key">
+					T1.target_ref		LIKE '%' || #{key} || '%'
+					</foreach>
+					)
+				</if>
+				<if test='searchValueList3 != null'>
+					AND (
+					<foreach collection="searchValueList3" separator="OR " item="key">
+					T1.subject_ref		LIKE '%' || #{key} || '%'
+					</foreach>
+					)
+				</if>
+				<if test='searchKeyword != ""'>
+					<if test='searchValueList1 != null'>
+						AND (
+						<foreach collection="searchValueList1" separator="OR " item="key">
+							<choose>
+							<when test='key == "A"'>
+						(
+									T1.title													LIKE '%' || #{searchKeyword} || '%'
+						OR			T1.stat_text1												LIKE '%' || #{searchKeyword} || '%'
+						OR			T1.stat_text2												LIKE '%' || #{searchKeyword} || '%'
+						OR			T1.stat_text3												LIKE '%' || #{searchKeyword} || '%'
+						OR			T1.stat_text4												LIKE '%' || #{searchKeyword} || '%'
+						OR			T1.stat_text5												LIKE '%' || #{searchKeyword} || '%'
+						OR			T1.detail													LIKE '%' || #{searchKeyword} || '%'
+						OR			T1.content													LIKE '%' || #{searchKeyword} || '%'
+						OR			T1.keyword													LIKE '%' || #{searchKeyword} || '%'
+						)
+							</when>
+							<when test='key == "B"'>
+									T1.title													LIKE '%' || #{searchKeyword} || '%'
+							</when>
+							<when test='key == "C"'>
+						(
+									T1.stat_text1												LIKE '%' || #{searchKeyword} || '%'
+						OR			T1.stat_text2												LIKE '%' || #{searchKeyword} || '%'
+						OR			T1.stat_text3												LIKE '%' || #{searchKeyword} || '%'
+						OR			T1.stat_text4												LIKE '%' || #{searchKeyword} || '%'
+						OR			T1.stat_text5												LIKE '%' || #{searchKeyword} || '%'
+						)
+							</when>
+							<when test='key == "D"'>
+									T1.detail													LIKE '%' || #{searchKeyword} || '%'
+							</when>
+							<when test='key == "E"'>
+									T1.content													LIKE '%' || #{searchKeyword} || '%'
+							</when>
+							<when test='key == "F"'>
+									T1.keyword													LIKE '%' || #{searchKeyword} || '%'
+							</when>
+						</choose>
+						</foreach>
+						)
+					</if>
+				</if>
+				</where>
+			) X
+		<where>
+			<if test='searchValue2 != ""'>
+				<choose>
+					<when test='searchValue1 == "A"'>
+						AND X.scrap_at >= 1
+					</when>
+					<otherwise>
+						AND X.scrap_at = 0
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<select id="HomeKorUserEducationProgram_SQL.selectHomeKorUserEducationProgramPromList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserEducationProgram_SQL.selectHomeKorUserEducationProgramPromList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.target_ref,
+							T1.subject_ref,
+							(SELECT FT.data_name FROM cms_category_data FT <where>FT.no = T1.target_ref</where>) AS target_name,
+							(SELECT FT.data_name FROM cms_category_data FT <where>FT.no = T1.subject_ref</where>) AS subject_name,
+							(SELECT COUNT(1) FROM tb_program_comment CT <where>CT.tb_program_ref = T1.no</where>) AS comment_cnt,
+							(SELECT FT.attach_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_name,
+	        				(SELECT FT.attach_re_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_re_name,
+	        				(SELECT FT.extension FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_extension,
+							TO_CHAR(T1.start_date, 'YYYY-MM-DD') AS start_date,
+							TO_CHAR(T1.end_date, 'YYYY-MM-DD') AS end_date,
+							T1.title,
+							T1.keyword,
+							T1.stat_text1,
+							T1.stat_point1,
+							T1.stat_text2,
+							T1.stat_point2,
+							T1.stat_text3,
+							T1.stat_point3,
+							T1.stat_text4,
+							T1.stat_point4,
+							T1.stat_text5,
+							T1.stat_point5,
+							T1.detail,
+							T1.content,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_program T1
+						<where>
+						AND			T1.use_at														= 'Y'
+						AND			(CASE
+										WHEN <![CDATA[TO_CHAR(T1.start_date, 'YYYY-MM-DD') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <= TO_CHAR(T1.end_date, 'YYYY-MM-DD')]]>
+										THEN 1
+										ELSE 2
+									END) = 1
+						</where>
+						ORDER BY	T1.reg_date DESC, T1.no DESC 
+					) X
+		) Z
+	</select>
+	
+	<select id="HomeKorUserEducationProgram_SQL.selectHomeKorUserEducationProgram" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserEducationProgram_SQL.selectHomeKorUserEducationProgram */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.target_ref,
+			T1.subject_ref,
+			(SELECT FT.data_name FROM cms_category_data FT <where>FT.no = T1.target_ref</where>) AS target_name,
+			(SELECT FT.data_name FROM cms_category_data FT <where>FT.no = T1.subject_ref</where>) AS subject_name,
+			(SELECT COUNT(1) FROM tb_program_comment CT <where>CT.tb_program_ref = T1.no</where>) AS comment_cnt,
+			(SELECT FT.attach_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_name,
+	        (SELECT FT.attach_re_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_re_name,
+			(SELECT FT.extension FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_extension,
+			TO_CHAR(T1.start_date, 'YYYY-MM-DD') AS start_date,
+			TO_CHAR(T1.end_date, 'YYYY-MM-DD') AS end_date,
+			T1.title,
+			T1.keyword,
+			T1.stat_text1,
+			T1.stat_point1,
+			T1.stat_text2,
+			T1.stat_point2,
+			T1.stat_text3,
+			T1.stat_point3,
+			T1.stat_text4,
+			T1.stat_point4,
+			T1.stat_text5,
+			T1.stat_point5,
+			T1.detail,
+			T1.content,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register
+		FROM
+			tb_program T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+	</select>
+	
+	<!-- 						목차 							-->
+	<!-- 						목차 							-->
+	<!-- 						목차 							-->
+	
+	<select id="HomeKorUserEducationProgram_SQL.selectHomeKorUserEducationProgramIndexList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserEducationProgram_SQL.selectHomeKorUserEducationProgramIndexList */
+		SELECT
+			T1.no,
+			T1.tb_program_ref,
+			T1.content
+		FROM
+			tb_program_index T1
+		<where>
+		AND			T1.tb_program_ref												= #{idx}
+		</where>
+		ORDER BY	T1.no ASC
+	</select>
+	
+	<!-- 						관련 자료 링크 							-->
+	<!-- 						관련 자료 링크 							-->
+	<!-- 						관련 자료 링크 							-->
+	
+	<select id="HomeKorUserEducationProgram_SQL.selectHomeKorUserEducationProgramLinkList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserEducationProgram_SQL.selectHomeKorUserEducationProgramLinkList */
+		SELECT
+			T1.no,
+			T1.tb_program_ref,
+			T1.title,
+			T1.link
+		FROM
+			tb_program_link T1
+		<where>
+		AND			T1.tb_program_ref												= #{idx}
+		</where>
+		ORDER BY	T1.no ASC
+	</select>
+	
+	<!-- 						댓글 							-->
+	<!-- 						댓글 							-->
+	<!-- 						댓글 							-->
+	
+	<select id="HomeKorUserEducationProgram_SQL.selectHomeKorUserEducationProgramCommentList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserEducationProgram_SQL.selectHomeKorUserEducationProgramCommentList */
+		SELECT
+			T1.no,
+			T1.tb_program_ref,
+			T1.site_account_ref,
+			(SELECT T2.name FROM site_account T2 <where>T2.no = T1.site_account_ref</where>) AS register_name,
+			T1.content,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD HH24:MI:SS') AS reg_date,
+			TO_CHAR(T1.mod_date, 'YYYY-MM-DD HH24:MI:SS') AS mod_date
+		FROM
+			tb_program_comment T1
+		<where>
+		AND			T1.tb_program_ref												= #{idx}
+		</where>
+		ORDER BY	T1.reg_date ASC, T1.no ASC
+	</select>
+	
+	<insert id="HomeKorUserEducationProgram_SQL.insertHomeKorUserEducationProgramComment" parameterType="vo">
+	/* HomeKorUserEducationProgram_SQL.insertHomeKorUserEducationProgramComment */
+		<selectKey resultType="vo" keyProperty="idx4" order="BEFORE">
+			SELECT tb_program_comment_seq.NEXTVAL AS idx4
+		</selectKey>
+		INSERT INTO tb_program_comment
+		(			
+					no,
+					tb_program_ref,
+					site_account_ref,
+					content,
+					reg_date
+		)
+					VALUES
+		(			
+					#{idx4},
+					#{parentKey},
+					#{userKey},
+					#{content},
+					SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorUserEducationProgram_SQL.updateHomeKorUserEducationProgramComment" parameterType="vo">
+		/* HomeKorUserEducationProgram_SQL.updateHomeKorUserEducationProgramComment */
+		UPDATE tb_program_comment SET 
+				content																= #{content},
+				mod_date															= SYSDATE
+		<where>
+		AND no 																		= #{key}
+		</where>	   
+	</update>
+	
+	<delete id="HomeKorUserEducationProgram_SQL.deleteHomeKorUserEducationProgramComment" parameterType="vo">
+	/* HomeKorUserEducationProgram_SQL.deleteHomeKorUserEducationProgramComment */
+		DELETE FROM tb_program_comment
+		<where>
+		AND			no																= #{idx4}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorUserEducationProgram_SQL.deleteHomeKorUserEducationProgramCommentList" parameterType="vo">
+		/* HomeKorUserEducationProgram_SQL.deleteHomeKorUserEducationProgramCommentList */
+		DELETE FROM tb_program_comment
+		<where>
+		AND			tb_program_ref													= #{parentKey}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorUserEducationProgram_SQL.deleteHomeKorUserEducationProgramCommentMultipleList" parameterType="vo">
+		/* HomeKorUserEducationProgram_SQL.deleteHomeKorUserEducationProgramCommentMultipleList */
+		DELETE FROM tb_program_comment
+		<where>
+			<foreach collection="paramKeyList1" open="AND tb_program_ref IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete>
+	
+						<!-- 						스크랩 							-->
+						<!-- 						스크랩 							-->
+						<!-- 						스크랩 							-->
+	
+	<select id="HomeKorUserEducationProgram_SQL.selectHomeKorUserEducationProgramScrapAtCnt" parameterType="vo" resultType="int">
+		/* HomeKorUserEducationProgram_SQL.selectHomeKorUserEducationProgramScrapAtCnt */
+		SELECT 
+			COUNT(1)
+		FROM 
+			tb_program_scrap T1
+		<where>
+		AND			T1.tb_program_ref												= #{idx}
+		<choose>
+			<when test='usr_idx != ""'>
+		AND			T1.user_no														= #{usr_idx}
+			</when>
+			<otherwise>
+		AND			T1.user_no	= '0'
+			</otherwise>
+		</choose>
+		</where>
+	</select>
+	
+	<insert id="HomeKorUserEducationProgram_SQL.insertHomeKorUserEducationProgramScrap" parameterType="vo">
+	/* HomeKorUserEducationProgram_SQL.insertHomeKorUserEducationProgramScrap */
+		<selectKey resultType="vo" keyProperty="idx3" order="BEFORE">
+			SELECT tb_program_scrap_seq.NEXTVAL AS idx3
+		</selectKey>
+		INSERT INTO tb_program_scrap
+		(			
+					no,
+					tb_program_ref,
+					user_no,
+					reg_date
+		)
+					VALUES
+		(			
+					#{idx3},
+					#{parentKey},
+					#{userKey},
+					SYSDATE
+		)
+	</insert>
+	
+	<delete id="HomeKorUserEducationProgram_SQL.deleteHomeKorUserEducationProgramScrap" parameterType="vo">
+	/* HomeKorUserEducationProgram_SQL.deleteHomeKorUserEducationProgramScrap */
+		DELETE FROM tb_program_scrap
+		<where>
+		AND			tb_program_ref													= #{idx}
+		AND			user_no															= #{usr_idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorUserEducationProgram_SQL.deleteHomeKorUserEducationProgramScrapList" parameterType="vo">
+		/* HomeKorUserEducationProgram_SQL.deleteHomeKorUserEducationProgramScrapList */
+		DELETE FROM tb_program_scrap
+		<where>
+		AND			tb_program_ref													= #{parentKey}
+		</where>
+	</delete>
+</mapper>

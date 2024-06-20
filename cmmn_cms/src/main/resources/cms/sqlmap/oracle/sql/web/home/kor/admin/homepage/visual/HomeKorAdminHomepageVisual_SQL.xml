@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminHomepageVisual_SQL">
+
+	<select id="HomeKorAdminHomepageVisual_SQL.selectHomeKorAdminHomepageVisualList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepageVisual_SQL.selectHomeKorAdminHomepageVisualList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.open_at,
+							T1.period_at,
+							TO_CHAR(T1.start_date, 'YYYY-MM-DD') AS start_date,
+							TO_CHAR(T1.end_date, 'YYYY-MM-DD') AS end_date,
+							T1.type_title,
+							T1.title,
+							T1.content,
+							T1.url,
+							T1.sort,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_visual T1
+						<where>
+						<if test='searchValue1 != ""'>
+						AND			T1.use_at														= #{searchValue1}
+						</if>
+						<if test='searchKeyword != ""'>
+						AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+						</if>
+						</where>
+						ORDER BY T1.reg_date DESC, T1.no DESC 
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminHomepageVisual_SQL.selectHomeKorAdminHomepageVisualListCnt" parameterType="vo" resultType="int">
+		/* HomeKorAdminHomepageVisual_SQL.selectHomeKorAdminHomepageVisualListCnt */
+		SELECT 
+			COUNT(1)
+		FROM
+			tb_visual T1
+		<where>
+		<if test='searchValue1 != ""'>
+		AND			T1.use_at														= #{searchValue1}
+		</if>
+		<if test='searchKeyword != ""'>
+		AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		</where>
+	</select>
+
+	<select id="HomeKorAdminHomepageVisual_SQL.selectHomeKorAdminHomepageVisual" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepageVisual_SQL.selectHomeKorAdminHomepageVisual */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.open_at,
+			T1.period_at,
+			TO_CHAR(T1.start_date, 'YYYY-MM-DD') AS start_date,
+			TO_CHAR(T1.end_date, 'YYYY-MM-DD') AS end_date,
+			T1.type_title,
+			T1.title,
+			T1.content,
+			T1.url,
+			T1.sort,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register
+		FROM
+			tb_visual T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+		<!-- LIMIT 1 -->
+	</select>
+	
+	<insert id="HomeKorAdminHomepageVisual_SQL.insertHomeKorAdminHomepageVisual" parameterType="vo">
+	/* HomeKorAdminHomepageVisual_SQL.insertHomeKorAdminHomepageVisual */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_visual_seq.NEXTVAL AS idx FROM dual
+		</selectKey>
+		INSERT INTO tb_visual
+		(			
+					no,
+					use_at,
+					open_at,
+					period_at,
+					<if test='paramKey3 == "B"'>
+					start_date,
+					end_date,
+					</if>
+					type_title,
+					title,
+					content,
+					url,
+					sort,
+					register,
+					reg_date
+		)
+					VALUES
+		(			
+					#{idx},
+					#{paramKey1},
+					#{paramKey2},
+					#{paramKey3},
+					<if test='paramKey3 == "B"'>
+					#{paramKey4},
+					#{paramKey5},
+					</if>
+					#{paramKey6},
+					#{paramKey7},
+					#{paramKey8},
+					#{paramKey9},
+					#{paramKey10},
+					#{adm_idx},
+					SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorAdminHomepageVisual_SQL.updateHomeKorAdminHomepageVisual" parameterType="vo">
+		/* HomeKorAdminHomepageVisual_SQL.updateHomeKorAdminHomepageVisual */
+		UPDATE tb_visual SET 
+			   	use_at																	= #{paramKey1},
+				open_at																	= #{paramKey2},
+				period_at																= #{paramKey3},
+				<if test='paramKey3 == "B"'>
+				start_date																= #{paramKey4},
+				end_date																= #{paramKey5},
+				</if>
+				<if test='paramKey3 == "A"'>
+				start_date																= NULL,
+				end_date																= NULL,
+				</if>
+				type_title																= #{paramKey6},
+				title																	= #{paramKey7},
+				content																	= #{paramKey8},
+				url																		= #{paramKey9},
+				sort																	= #{paramKey10},
+			   	mod_date																= SYSDATE,  
+			   	modifier																= #{adm_idx}        
+		<where>
+		AND no 																		= #{idx}
+		</where>	   
+		          
+	</update>
+	
+	<delete id="HomeKorAdminHomepageVisual_SQL.deleteHomeKorAdminHomepageVisual" parameterType="vo">
+	/* HomeKorAdminHomepageVisual_SQL.deleteHomeKorAdminHomepageVisual */
+		DELETE FROM tb_visual
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminHomepageVisual_SQL.deleteHomeKorAdminHomepageVisualList" parameterType="vo">
+		/* HomeKorAdminHomepageVisual_SQL.deleteHomeKorAdminHomepageVisualList */
+		DELETE FROM tb_visual
+		<where>
+			<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete>
+	
+</mapper>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminEducationThemeStory_SQL">
+
+	<select id="HomeKorAdminEducationThemeStory_SQL.selectHomeKorAdminEducationThemeStoryList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminEducationThemeStory_SQL.selectHomeKorAdminEducationThemeStoryList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.url,
+							T1.title,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_story T1
+						<where>
+						<if test='searchValue1 != ""'>
+						AND			T1.use_at														= #{searchValue1}
+						</if>
+						<if test='searchKeyword != ""'>
+						AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+						</if>
+						</where>
+						ORDER BY	T1.reg_date DESC, T1.no DESC 
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminEducationThemeStory_SQL.selectHomeKorAdminEducationThemeStoryListCnt" parameterType="vo" resultType="int">
+		/* HomeKorAdminEducationThemeStory_SQL.selectHomeKorAdminEducationThemeStoryListCnt */
+		SELECT 
+			COUNT(1)
+		FROM 
+			tb_story T1
+		<where>
+		<if test='searchValue1 != ""'>
+		AND			T1.use_at														= #{searchValue1}
+		</if>
+		<if test='searchKeyword != ""'>
+		AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		</where>
+	</select>
+
+	<select id="HomeKorAdminEducationThemeStory_SQL.selectHomeKorAdminEducationThemeStory" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminEducationThemeStory_SQL.selectHomeKorAdminEducationThemeStory */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.title,
+			T1.url,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register
+		FROM
+			tb_story T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+		<!-- LIMIT 1 -->
+	</select>
+	
+	<insert id="HomeKorAdminEducationThemeStory_SQL.insertHomeKorAdminEducationThemeStory" parameterType="vo">
+	/* HomeKorAdminEducationThemeStory_SQL.insertHomeKorAdminEducationThemeStory */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_story_seq.NEXTVAL AS idx FROM dual
+		</selectKey>
+		INSERT INTO tb_story
+		(			
+					no,
+					use_at,
+					title,
+					url,
+					register,
+					reg_date
+		)
+					VALUES
+		(			
+					#{idx},
+					#{paramKey1},
+					#{paramKey3},
+					#{paramKey4},
+					#{adm_idx},
+					SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorAdminEducationThemeStory_SQL.updateHomeKorAdminEducationThemeStory" parameterType="vo">
+		/* HomeKorAdminEducationThemeStory_SQL.updateHomeKorAdminEducationThemeStory */
+		UPDATE tb_story SET 
+			   	use_at																	= #{paramKey1},
+				title																	= #{paramKey3},
+				url																		= #{paramKey4},
+			   	mod_date																= SYSDATE,  
+			   	modifier																= #{adm_idx}        
+		<where>
+		AND no 																		= #{idx}
+		</where>	   
+		          
+	</update>
+	
+	<delete id="HomeKorAdminEducationThemeStory_SQL.deleteHomeKorAdminEducationThemeStory" parameterType="vo">
+	/* HomeKorAdminEducationThemeStory_SQL.deleteHomeKorAdminEducationThemeStory */
+		DELETE FROM tb_story
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminEducationThemeStory_SQL.deleteHomeKorAdminEducationThemeStoryList" parameterType="vo">
+		/* HomeKorAdminEducationThemeStory_SQL.deleteHomeKorAdminEducationThemeStoryList */
+		DELETE FROM tb_story
+		<where>
+			<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete>
+	
+</mapper>

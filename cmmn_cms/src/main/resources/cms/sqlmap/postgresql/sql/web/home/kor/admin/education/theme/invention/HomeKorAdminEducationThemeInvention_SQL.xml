@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminEducationThemeInvention_SQL">
+
+	<select id="HomeKorAdminEducationThemeInvention_SQL.selectHomeKorAdminEducationThemeInventionList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminEducationThemeInvention_SQL.selectHomeKorAdminEducationThemeInventionList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.type_ref,
+							T1.url,
+							T1.title,
+							T2.data_name AS type_name,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_invention T1
+						LEFT OUTER JOIN 
+							cms_category_data T2
+						ON  T1.type_ref																= T2.no
+						<where>
+						<if test='searchValue1 != ""'>
+						AND			T1.use_at														= #{searchValue1}
+						</if>
+						<if test='searchValue2 != ""'>
+						AND			T1.type_ref														= #{searchValue2}
+						</if>
+						<if test='searchKeyword != ""'>
+						AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+						</if>
+						</where>
+						ORDER BY	T1.reg_date DESC, T1.no DESC 
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminEducationThemeInvention_SQL.selectHomeKorAdminEducationThemeInventionListCnt" parameterType="vo" resultType="int">
+		/* HomeKorAdminEducationThemeInvention_SQL.selectHomeKorAdminEducationThemeInventionListCnt */
+		SELECT 
+			COUNT(1)
+		FROM 
+			tb_invention T1
+		LEFT OUTER JOIN 
+			cms_category_data T2
+		ON  T1.type_ref																= T2.no
+		<where>
+		<if test='searchValue1 != ""'>
+		AND			T1.use_at														= #{searchValue1}
+		</if>
+		<if test='searchValue2 != ""'>
+		AND			T1.type_ref														= #{searchValue2}
+		</if>
+		<if test='searchKeyword != ""'>
+		AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		</where>
+	</select>
+
+	<select id="HomeKorAdminEducationThemeInvention_SQL.selectHomeKorAdminEducationThemeInvention" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminEducationThemeInvention_SQL.selectHomeKorAdminEducationThemeInvention */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.type_ref,
+			T1.title,
+			T1.url,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register
+		FROM
+			tb_invention T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+		<!-- LIMIT 1 -->
+	</select>
+	
+	<insert id="HomeKorAdminEducationThemeInvention_SQL.insertHomeKorAdminEducationThemeInvention" parameterType="vo">
+	/* HomeKorAdminEducationThemeInvention_SQL.insertHomeKorAdminEducationThemeInvention */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_invention_seq.NEXTVAL AS idx
+		</selectKey>
+		INSERT INTO tb_invention
+		(			
+					no,
+					use_at,
+					type_ref,
+					title,
+					url,
+					register,
+					reg_date
+		)
+					VALUES
+		(			
+					#{idx},
+					#{paramKey1},
+					#{paramKey2},
+					#{paramKey3},
+					#{paramKey4},
+					#{adm_idx},
+					SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorAdminEducationThemeInvention_SQL.updateHomeKorAdminEducationThemeInvention" parameterType="vo">
+		/* HomeKorAdminEducationThemeInvention_SQL.updateHomeKorAdminEducationThemeInvention */
+		UPDATE tb_invention SET 
+			   	use_at																	= #{paramKey1},
+				type_ref																= #{paramKey2},
+				title																	= #{paramKey3},
+				url																		= #{paramKey4},
+			   	mod_date																= SYSDATE,  
+			   	modifier																= #{adm_idx}        
+		<where>
+		AND no 																		= #{idx}
+		</where>	   
+		          
+	</update>
+	
+	<delete id="HomeKorAdminEducationThemeInvention_SQL.deleteHomeKorAdminEducationThemeInvention" parameterType="vo">
+	/* HomeKorAdminEducationThemeInvention_SQL.deleteHomeKorAdminEducationThemeInvention */
+		DELETE FROM tb_invention
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminEducationThemeInvention_SQL.deleteHomeKorAdminEducationThemeInventionList" parameterType="vo">
+		/* HomeKorAdminEducationThemeInvention_SQL.deleteHomeKorAdminEducationThemeInventionList */
+		DELETE FROM tb_invention
+		<where>
+			<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete>
+	
+</mapper>

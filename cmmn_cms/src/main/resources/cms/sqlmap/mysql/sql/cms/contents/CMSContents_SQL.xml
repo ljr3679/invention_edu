@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="CmsContents">
+
+	<sql id="TABLE">
+		cms_contents T1
+	LEFT OUTER JOIN
+		cms_admin_view T2
+	ON	T1.register							= T2.no
+	LEFT OUTER JOIN
+		cms_admin_view T3
+	ON	T1.modifier							= T3.no
+	</sql>
+	
+	<select id="CmsContents.selectCMSContentsData" parameterType="vo" resultType="egovMap">
+	/* CmsContents.selectCMSContentsData */
+		SELECT
+			T1.board_code,
+			T1.title,
+			T1.contents,
+			T2.id AS register_id,
+			T2.name AS register_name,
+			T3.id AS modifier_id,
+			T3.name AS modifier_name,
+			DATE_FORMAT(T1.reg_date,'%Y-%m-%d %h:%i:%s') AS reg_date,
+			DATE_FORMAT(T1.mod_date,'%Y-%m-%d %h:%i:%s') AS mod_date
+		FROM
+			<include refid="TABLE"/>
+		<where>
+		AND			T1.board_code					= #{board_code}
+		</where>
+	</select>
+	
+	<insert id="CmsContents.updateCMSContentsData" parameterType="vo">
+	/* CmsContents.updateCMSContentsData */
+		UPDATE cms_contents SET
+					title							= #{title},
+					contents						= #{paramKey1},
+					modifier						= #{adm_idx},
+					mod_date						= NOW()
+		<where>
+		AND			board_code						= #{board_code}
+		</where>
+	</insert>
+	
+</mapper>

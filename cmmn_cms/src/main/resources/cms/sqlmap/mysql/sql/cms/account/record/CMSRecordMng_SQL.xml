@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="CmsRecordMng">
+
+	<sql id="SQL_WHERE">
+	<where>
+	AND			T1.cms_admin_access_ref							= T2.no
+	<if test='searchDate1 != ""'>
+	<![CDATA[
+	AND			#{searchDate1}									<= DATE_FORMAT(T1.perform_date, '%Y-%m-%d')
+	]]>			
+	</if>
+	<if test='searchDate2 != ""'>
+	<![CDATA[
+	AND			DATE_FORMAT(T1.perform_date, '%Y-%m-%d')		<= #{searchDate2} 
+	]]>			
+	</if>
+	<if test='searchDate3 != ""'>
+	<![CDATA[
+	AND			#{searchDate3}									<= DATE_FORMAT(T2.login_date, '%Y-%m-%d')
+	]]>			
+	</if>
+	<if test='searchDate4 != ""'>
+	<![CDATA[
+	AND			DATE_FORMAT(T2.login_date, '%Y-%m-%d')			<= #{searchDate4}
+	]]>			
+	</if>	
+	<if test='searchValue2 != ""'>
+	AND			T1.work_code									= #{searchValue2}
+	</if>
+	<if test='searchKeyword != ""'>
+		<choose>
+			<when test='searchValue1 == "0"'>
+	AND	
+	(
+				T1.menu											LIKE CONCAT('%', #{searchKeyword}, '%')
+	OR			T1.title										LIKE CONCAT('%', #{searchKeyword}, '%')
+	OR			T1.work_id										LIKE CONCAT('%', #{searchKeyword}, '%')
+	OR			T1.work_name									LIKE CONCAT('%', #{searchKeyword}, '%')
+	OR			T2.ip											LIKE CONCAT('%', #{searchKeyword}, '%')
+	)
+			</when>
+			<when test='searchValue1 == "1"'>
+	AND			T1.menu											LIKE CONCAT('%', #{searchKeyword}, '%')
+			</when>
+			<when test='searchValue1 == "2"'>
+	AND			T1.title										LIKE CONCAT('%', #{searchKeyword}, '%')
+			</when>
+			<when test='searchValue1 == "3"'>
+	AND			T1.work_id										LIKE CONCAT('%', #{searchKeyword}, '%')
+			</when>
+			<when test='searchValue1 == "4"'>
+	AND			T1.work_name									LIKE CONCAT('%', #{searchKeyword}, '%')
+			</when>
+			<when test='searchValue1 == "5"'>
+	AND			T2.ip											LIKE CONCAT('%', #{searchKeyword}, '%')
+			</when>
+		</choose>
+	</if>
+	</where>
+	</sql>
+
+	<select id="CmsRecordMng.selectRecordDataList" parameterType="vo" resultType="egovMap">
+	/* CmsRecordMng.selectRecordDataList */
+		SELECT
+			T1.menu,
+			T1.title,
+			T1.down_reason,
+			T1.work_code,
+			T1.work_id,
+			T1.work_name,
+			T2.ip,
+			DATE_FORMAT(T2.login_date, '%Y-%m-%d %h:%i:%s') AS login_date,
+			DATE_FORMAT(T1.perform_date, '%Y-%m-%d %h:%i:%s') AS perform_date, 
+			T1.perform_date AS sort_date
+		FROM
+			cms_admin_record T1,
+			cms_admin_access T2
+		<include refid="SQL_WHERE"/>
+		ORDER BY sort_date DESC
+		<if test='pagingAt == "Y"'>
+		LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+		</if>
+	</select>
+	
+	<select id="CmsRecordMng.selectRecordDataListCnt" parameterType="vo" resultType="int">
+	/* CmsRecordMng.selectRecordDataListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			cms_admin_record T1,
+			cms_admin_access T2
+		<include refid="SQL_WHERE"/>
+	</select>
+	
+	<insert id="CmsRecordMng.insertCMSAdminRecordData" parameterType="egovMap">
+	/* CmsRecordMng.insertCMSAdminRecordData */
+		INSERT INTO cms_admin_record 
+		(
+			menu,
+			title,
+			down_reason,
+			work_code,
+			work_id,
+			work_name,
+			cms_admin_access_ref,
+			perform_date
+		)
+			VALUES
+		(
+			#{menu},
+			#{title},
+			#{downReason},
+			#{workCode},
+			#{workId},
+			#{workName},
+			#{cmsAdminAccessRef},
+			NOW()
+		)
+	</insert>
+	
+</mapper>

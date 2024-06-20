@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="CmsBoardMng">
+
+	<sql id="TABLE">
+		cms_board T1
+	LEFT OUTER JOIN
+		cms_admin_view T2
+	ON	T1.register							= T2.no
+	LEFT OUTER JOIN
+		cms_admin_view T3
+	ON	T1.modifier							= T3.no
+	</sql>
+
+	<select id="CmsBoardMng.selectBoardDataList" parameterType="vo" resultType="egovMap">
+	/* CmsBoardMng.selectContentsDataList */
+		SELECT
+			T1.board_code,
+			T1.title,
+			T1.board_skin,
+			T1.regist_auth,
+			T1.view_auth,
+			T2.id AS register_id,
+			T2.name AS register_name,
+			DATE_FORMAT(T1.reg_date,'%Y-%m-%d') AS reg_date,
+			T1.reg_date AS sort
+		FROM
+			<include refid="TABLE"/>
+		<where>
+			<if test='searchKeyword != ""'>
+		AND			T1.title						LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+		</where>
+		ORDER BY sort DESC
+		LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+	
+	<select id="CmsBoardMng.selectBoardListDataCnt" parameterType="vo" resultType="int">
+	/* CmsBoardMng.selectBoardListDataCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			<include refid="TABLE"/>
+		<where>
+			<if test='searchKeyword != ""'>
+		AND			T1.title						LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+		</where>
+	</select>
+	
+	<select id="CmsBoardMng.selectBoardData" parameterType="vo" resultType="egovMap">
+	/* CmsBoardMng.selectBoardData */
+		SELECT
+			T1.board_code,
+			T1.title,
+			T1.board_skin,
+			T1.regist_auth,
+			T1.view_auth,
+			T1.secret_at,
+			T1.answer_at,
+			T1.search_at,
+			T1.paging_at,
+			T1.paging_cnt,
+			T1.list_field,
+			T1.list_title,
+			T1.list_vali,
+			T1.list_search_field,
+			T1.list_search_title,
+			T1.list_view_field,
+			T1.list_view_title,
+			T1.list_view_percent,
+			T1.list_view_class,
+			T1.category_field1,
+			T1.category_field1_option,
+			T1.category_field2,
+			T1.category_field2_option,
+			T1.category_field3,
+			T1.category_field3_option,
+			T1.category_field4,
+			T1.category_field4_option,
+			T1.attach_cnt,
+			T1.top_contents,
+			T1.bottom_contents,
+			T1.contents,
+			T2.id AS register_id,
+			T2.name AS register_name,
+			T3.id AS modifier_id,
+			T3.name AS modifier_name,
+			DATE_FORMAT(T1.reg_date,'%Y-%m-%d %h:%i:%s') AS reg_date,
+			DATE_FORMAT(T1.mod_date,'%Y-%m-%d %h:%i:%s') AS mod_date
+		FROM
+			<include refid="TABLE"/>
+		<where>
+		AND			T1.board_code					= #{board_code}
+		</where>
+	</select>
+	
+	<select id="CmsBoardMng.selectCheckBoardKey" parameterType="str" resultType="int">
+	/* CmsBoardMng.selectCheckBoardKey */
+		SELECT
+			COUNT(1)
+		FROM
+			cms_board
+		<where>
+		AND			board_code						= #{board_code}
+		</where>
+	</select>
+	
+	<insert id="CmsBoardMng.insertAndUpdateBoardData" parameterType="vo">
+	/* CmsBoardMng.insertAndUpdateBoardData */
+		INSERT INTO cms_board
+		(
+			board_code,
+			title,
+			board_skin,
+			regist_auth,
+			view_auth,
+			secret_at,
+			answer_at,
+			search_at,
+			paging_at,
+			paging_cnt,
+			attach_cnt,
+			list_field,
+			list_title,
+			list_vali,
+			list_search_field,
+			list_search_title,
+			list_view_field,
+			list_view_title,
+			list_view_percent,
+			list_view_class,
+	<if test='paramKey30 != ""'>
+			category_field1,
+	</if>
+	<if test='paramKey31 != ""'>
+			category_field1_option,
+	</if>
+	<if test='paramKey32 != ""'>
+			category_field2,
+	</if>
+	<if test='paramKey33 != ""'>
+			category_field2_option,
+	</if>
+	<if test='paramKey34 != ""'>
+			category_field3,
+	</if>
+	<if test='paramKey35 != ""'>
+			category_field3_option,
+	</if>
+	<if test='paramKey36 != ""'>
+			category_field4,
+	</if>
+	<if test='paramKey37 != ""'>
+			category_field4_option,
+	</if>
+			top_contents,
+			bottom_contents,
+			contents,
+			register,
+			reg_date
+		)
+			VALUES
+		(
+			#{board_code},
+			#{title},
+			#{paramKey1},
+			#{paramKey2},
+			#{paramKey3},
+			#{paramKey4},
+			#{paramKey5},
+			#{paramKey7},
+			#{paramKey8},
+			#{paramKey9},
+			#{paramKey10},
+			#{paramKey11},
+			#{paramKey12},
+			#{paramKey13},
+			#{paramKey14},
+			#{paramKey15},
+			#{paramKey16},
+			#{paramKey17},
+			#{paramKey18},
+			#{paramKey38},
+	<if test='paramKey30 != ""'>
+			#{paramKey30},
+	</if>
+	<if test='paramKey31 != ""'>
+			#{paramKey31},
+	</if>
+	<if test='paramKey32 != ""'>
+			#{paramKey32},
+	</if>
+	<if test='paramKey33 != ""'>
+			#{paramKey33},
+	</if>
+	<if test='paramKey34 != ""'>
+			#{paramKey34},
+	</if>
+	<if test='paramKey35 != ""'>
+			#{paramKey35},
+	</if>
+	<if test='paramKey36 != ""'>
+			#{paramKey36},
+	</if>
+	<if test='paramKey37 != ""'>
+			#{paramKey37},
+	</if>
+			#{paramKey19},
+			#{paramKey20},
+			#{paramKey21},
+			#{adm_idx},
+			NOW()
+		)
+		ON DUPLICATE KEY
+		UPDATE
+					board_code						= #{board_code},
+					title                           = #{title},
+					board_skin                      = #{paramKey1},
+					regist_auth                     = #{paramKey2},
+					view_auth                       = #{paramKey3},
+					secret_at                       = #{paramKey4},
+					answer_at                       = #{paramKey5},
+					search_at                       = #{paramKey7},
+					paging_at                       = #{paramKey8},
+					paging_cnt                      = #{paramKey9},
+					attach_cnt                      = #{paramKey10},
+					list_field						= #{paramKey11},
+					list_title						= #{paramKey12},
+					list_vali                       = #{paramKey13},
+					list_search_field               = #{paramKey14},
+					list_search_title				= #{paramKey15},
+					list_view_field                 = #{paramKey16},
+					list_view_title                 = #{paramKey17},
+					list_view_percent               = #{paramKey18},
+					list_view_class		            = #{paramKey38},
+					category_field1					=	<choose>
+															<when test='paramKey30 != ""'>#{paramKey30},</when>
+															<otherwise>NULL,</otherwise>
+														</choose>
+					category_field1_option			=	<choose>
+															<when test='paramKey31 != ""'>#{paramKey31},</when>
+															<otherwise>NULL,</otherwise>
+														</choose>
+					category_field2					=	<choose>
+															<when test='paramKey32 != ""'>#{paramKey32},</when>
+															<otherwise>NULL,</otherwise>
+														</choose>
+					category_field2_option			=	<choose>
+															<when test='paramKey33 != ""'>#{paramKey33},</when>
+															<otherwise>NULL,</otherwise>
+														</choose>
+					category_field3					=	<choose>
+															<when test='paramKey34 != ""'>#{paramKey34},</when>
+															<otherwise>NULL,</otherwise>
+														</choose>
+					category_field3_option			=	<choose>
+															<when test='paramKey35 != ""'>#{paramKey35},</when>
+															<otherwise>NULL,</otherwise>
+														</choose>
+					category_field4					=	<choose>
+															<when test='paramKey36 != ""'>#{paramKey36},</when>
+															<otherwise>NULL,</otherwise>
+														</choose>
+					category_field4_option			=	<choose>
+															<when test='paramKey37 != ""'>#{paramKey37},</when>
+															<otherwise>NULL,</otherwise>
+														</choose>
+					top_contents                    = #{paramKey19},
+					bottom_contents                 = #{paramKey20},
+					contents                        = #{paramKey21}, 
+					modifier						= #{adm_idx},
+					mod_date						= NOW()
+	</insert>
+	
+	<select id="CmsBoardMng.selectBoardDataUseAtList" parameterType="str" resultType="egovMap">
+	/* CmsBoardMng.selectBoardDataUseAtList */
+	<if test='paramKeyList1 != null'>
+		SELECT
+			menu_title
+		FROM
+			cms_menu
+		<where>
+		AND			delete_at						= 'N'
+		AND			menu_type						= 'B'
+		<foreach collection="paramKeyList1" open="AND board_code IN (" close=")" separator="," item="board_code">
+			#{board_code}
+		</foreach>
+		</where>
+	</if>
+	</select>
+	
+	<delete id="CmsBoardMng.deleteBoardData">
+	/* CmsBoardMng.deleteBoardData */
+	<if test='paramKeyList1 != null'>
+		DELETE FROM cms_board
+		<where>
+			<foreach collection="paramKeyList1" open="board_code IN (" close=")" separator="," item="board_code">
+				#{board_code}
+			</foreach>
+		</where>
+	</if>
+	</delete>
+	
+	<select id="CmsBoardMng.selectCategoryDataList" parameterType="vo" resultType="egovMap">
+	/* CmsBoardMng.selectCategoryDataList */
+		SELECT
+			category_code,
+			category_name
+		FROM
+			cms_category
+		ORDER BY reg_date DESC
+	</select>
+	
+</mapper>

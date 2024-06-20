@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+	
+	<mapping path="/home/kor/*.do"  decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/user_layout.jsp" />
+	<mapping path="/home/kor/**/*.do"  decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/user_layout.jsp" />
+	
+    <mapping path="/cmsManager/*.do" decorator="/WEB-INF/jsp/cms/layout/sitemesh/cmmn/admin_layout.jsp" />
+    <mapping path="/cmsManager/**/*.do" decorator="/WEB-INF/jsp/cms/layout/sitemesh/cmmn/admin_layout.jsp" />
+    
+    
+	<mapping path="/home/kor/award/festival2021/*.do"  decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/award/festival2021/user_layout.jsp" />
+	<mapping path="/home/kor/award/festival2021/**/*.do"  decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/award/festival2021/user_layout.jsp" />
+	<mapping path="/home/kor/award/festival2022/*.do"  decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/award/festival2022/user_layout.jsp" />
+	<mapping path="/home/kor/award/festival2022/**/*.do"  decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/award/festival2022/user_layout.jsp" />
+	<mapping path="/home/kor/award/festival2023/*.do"  decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/award/festival2023/user_layout.jsp" />
+	<mapping path="/home/kor/award/festival2023/**/*.do"  decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/award/festival2023/user_layout.jsp" />
+
+
+	
+    <mapping path="/cmsManager/cms/entrance.do" exclue="true"/>
+
+	<!-- POPUP -->    
+    <mapping path="/*_popup.do" exclue="true"/>
+	<mapping path="/**/*_popup.do" exclue="true"/>
+	<mapping path="/cmsManager/*_popup.do" exclue="true"/>
+	<mapping path="/cmsManager/**/*_popup.do" exclue="true"/>
+	<!-- POPUP -->
+	
+	<mapping path="/cmsManager/**/*_popup.do" exclue="true"/>
+	
+	<mapping path="/home/kor/judge/**/*.do" exclue="true"/>
+	
+	<mapping path="/home/kor/award/festival*/exhibition/inc/list.ajax" exclue="true"/>
+	
+	<!-- FILE HANDLER -->
+	<mapping path="/sm/editor/single/fileUpload.do" exclue="true"/>
+	<mapping path="/sm/editor/multi/fileUpload.do" exclue="true"/>
+	
+	<mapping path="/fileDownload.do" exclue="true"/>
+	<mapping path="/**/excelDownload.do" exclue="true"/>
+	<!-- FILE HANDLER -->
+    
+</sitemesh>

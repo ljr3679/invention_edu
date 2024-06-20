@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="CmsEntrance">
+	
+	<select id="CmsEntrance.selectIpStatus" parameterType="vo" resultType="str">
+	/* CmsEntrance.selectIpStatus */
+		SELECT
+			status 
+		FROM 
+			cms_ip_status
+		<where>
+		AND			site 								= 'CMS'
+		</where>
+	</select>
+	
+	<select id="CmsEntrance.selectAccessCheck" parameterType="vo" resultType="int">
+	/* CmsEntrance.selectAccessCheck */
+		SELECT
+			COUNT(1)
+		FROM
+			cms_ip_list T1,
+			cms_admin_view T2
+		<where>
+		AND			T1.account							= T2.no
+		AND			T2.use_at							= 'Y'
+		AND			T1.ip								= #{paramKey1}
+		</where>
+	</select>
+	
+	<select id="CmsEntrance.selectLoginAdmDataInfoAt" parameterType="vo" resultType="egovMap">
+	/* CmsEntrance.selectLoginAdmDataInfo */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.account,
+			T1.site_code,
+			T1.id,
+			T1.pw,
+			T1.name,
+			T1.access_fail_cnt,
+			T1.access_fail_date
+		FROM
+			site_account T1
+		<where>
+		AND			T1.account							!= 'U'
+		AND			T1.id								= #{paramKey1}
+		AND			T1.pw								= #{paramKey2}
+		</where>
+		LIMIT 1
+	</select>
+	
+	<select id="CmsEntrance.selectLoginAct" parameterType="vo" resultType="egovMap">
+	/* CmsEntrance.selectLoginAct */
+		SELECT
+			T1.no,
+			T1.account,
+			T1.site_code,
+			T1.id,
+			T1.name,
+			T1.authority,
+			T1.phone,
+			T1.email,
+			T1.menu_authority_name,
+			T1.menu_list,
+			T1.access_fail_cnt,
+			T1.access_fail_date,
+			(
+				CASE
+					WHEN <![CDATA[(SELECT COUNT(1) FROM cms_ip_list ST1 WHERE ST1.account = T1.no AND ST1.ip = #{paramKey4}) > 0]]> 
+					THEN 'Y'
+					ELSE 'N'
+				END
+			) AS ipCheck
+		FROM
+			cms_admin_view T1
+		<where>
+		AND			T1.no								= #{idx}		
+		</where>
+		LIMIT 1
+	</select>
+	
+	<update id="CmsEntrance.updateAccessFailCnt" parameterType="vo">
+	/* CmsEntrance.updateAccessFailCnt */
+		UPDATE site_account SET
+					access_fail_cnt					= IFNULL(access_fail_cnt, 0) + 1,
+					access_fail_date				= (
+														CASE
+															WHEN access_fail_cnt = 5
+															THEN NOW()
+															ELSE access_fail_date
+														END
+													  )
+		<where>
+		AND			id								= #{paramKey1}
+		AND			account							!= 'U'
+		</where>
+		<selectKey resultType="vo" keyProperty="paramKey4" order="AFTER">
+        	SELECT IFNULL((SELECT access_fail_cnt FROM site_account WHERE id = #{paramKey1} AND account != 'U'), -1) AS paramKey4
+    	</selectKey>
+	</update>
+	
+	<update id="CmsEntrance.updateLoginFailCntInit" parameterType="vo">
+	/* CmsEntrance.updateLoginFailCntInit */
+		UPDATE site_account SET
+					access_fail_cnt					= 0,
+					access_fail_date				= NULL
+		<where>
+		AND			no								= #{idx}
+		</where>
+	</update>
+	
+	<insert id="CmsEntrance.insertCMSAdminAccessLog" parameterType="egovMap">
+	/* CmsEntrance.insertCMSAdminAccessLog */
+		INSERT INTO cms_admin_access 
+		(
+			site_account_ref,
+			id,
+			name,
+			ip,
+			login_date
+		)
+			VALUES
+		(
+			#{no},
+			#{id},
+			#{name},
+			#{ip},
+			NOW()
+		)
+		
+		<selectKey resultType="egovMap" keyProperty="cmsAdminAccessRef" order="AFTER">
+        	SELECT LAST_INSERT_ID() AS cmsAdminAccessRef
+    	</selectKey>
+	</insert>
+	
+</mapper>

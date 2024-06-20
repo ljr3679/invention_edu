@@ -1,0 +1,883 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="CmsBoard">
+
+	<sql id="SQL_WHERE">
+		<where>
+		AND			T1.board_code								= #{board_code}
+		<if test='access == "U"'>
+		AND			T1.use_at									= 'Y'
+		</if>
+		<if test='access == "A" and searchValue2 != ""'>
+		AND			T1.use_at									= #{searchValue2}
+		</if>
+		<if test='searchDate1 != ""'>
+		AND			T1.date_field1								= #{searchDate1}
+		</if>
+		<if test='searchDate2 != ""'>
+		AND			T1.date_field2								= #{searchDate2}
+		</if>
+		<if test='searchDate3 != ""'>
+		AND			T1.date_field3								= #{searchDate3}
+		</if>
+		<if test='searchDate4 != ""'>
+		AND			T1.date_field4								= #{searchDate4}
+		</if>
+		<if test='searchDate5 != ""'>
+		<![CDATA[
+		AND			#{searchDate5}								<= T1.date_array_field1_start
+		]]> 
+		</if>
+		<if test='searchDate6 != ""'>
+		<![CDATA[
+		AND			T1.date_array_field1_end					<= #{searchDate6}
+		]]> 
+		</if>
+		<if test='searchDate7 != ""'>
+		<![CDATA[
+		AND			#{searchDate7}								<= T1.date_array_field2_start 
+		]]>
+		</if>
+		<if test='searchDate8 != ""'>
+		<![CDATA[
+		AND			T1.date_array_field2_end					<= #{searchDate8}
+		]]>
+		</if>
+		<if test='searchValue3 != ""'>
+		AND			T1.category1								= #{searchValue3}
+		</if>
+		<if test='searchValue4 != ""'>
+		AND			T1.category1_child							= #{searchValue4}
+		</if>
+		<if test='searchValue5 != ""'>
+		AND			T1.category2								= #{searchValue5}
+		</if>
+		<if test='searchValue6 != ""'>
+		AND			T1.category2_child							= #{searchValue6}
+		</if>
+		<if test='searchValue7 != ""'>
+		AND			T1.category3								= #{searchValue7}
+		</if>
+		<if test='searchValue8 != ""'>
+		AND			T1.category3_child							= #{searchValue8}
+		</if>
+		<if test='searchValue9 != ""'>
+		AND			T1.category4								= #{searchValue9}
+		</if>
+		<if test='searchValue10 != ""'>
+		AND			T1.category4_child							= #{searchValue10}
+		</if>
+		<if test='searchKeyword != "" and searchValue1 != ""'>
+		<if test='searchValue1 == "0"'>
+			<foreach collection="searchValueList1" open="AND (" close=")" separator="OR" item="item">
+				<if test='item.field == "title"'>
+					T1.title									LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "register"'>
+					T1.writer									LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textField1"'>
+					T1.text_field1								LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textField2"'>
+					T1.text_field2								LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textField3"'>
+					T1.text_field3								LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textField4"'>
+					T1.text_field4								LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textField5"'>
+					T1.text_field5								LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textField6"'>
+					T1.text_field6								LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textField7"'>
+					T1.text_field7								LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textField8"'>
+					T1.text_field8								LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textField9"'>
+					T1.text_field9								LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textField10"'>
+					T1.text_field10								LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textField11"'>
+					T1.text_field11								LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textField12"'>
+					T1.text_field12								LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textField13"'>
+					T1.text_field13								LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textField14"'>
+					T1.text_field14								LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textField15"'>
+					T1.text_field15								LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textareaField1"'>
+					T1.textarea_field1							LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textareaField2"'>
+					T1.textarea_field2							LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textareaField3"'>
+					T1.textarea_field3							LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textareaField4"'>
+					T1.textarea_field4							LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test='item.field == "textareaField5"'>
+					T1.textarea_field5							LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+			</foreach>
+		</if>
+		<if test='searchValue1 == "title"'>
+		AND			T1.title									LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "register"'>
+		AND			T1.writer									LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textField1"'>
+		AND			T1.text_field1								LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textField2"'>
+		AND			T1.text_field2								LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textField3"'>
+		AND			T1.text_field3								LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textField4"'>
+		AND			T1.text_field4								LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textField5"'>
+		AND			T1.text_field5								LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textField6"'>
+		AND			T1.text_field6								LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textField7"'>
+		AND			T1.text_field7								LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textField8"'>
+		AND			T1.text_field8								LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textField9"'>
+		AND			T1.text_field9								LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textField10"'>
+		AND			T1.text_field10								LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textField11"'>
+		AND			T1.text_field11								LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textField12"'>
+		AND			T1.text_field12								LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textField13"'>
+		AND			T1.text_field13								LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textField14"'>
+		AND			T1.text_field14								LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textField15"'>
+		AND			T1.text_field15								LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textareaField1"'>
+		AND			T1.textarea_field1							LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textareaField2"'>
+		AND			T1.textarea_field2							LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textareaField3"'>
+		AND			T1.textarea_field3							LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textareaField4"'>
+		AND			T1.textarea_field4							LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test='searchValue1 == "textareaField5"'>
+		AND			T1.textarea_field5							LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		</if>
+		</where>
+	</sql>
+	
+	<select id="CmsBoard.selectCMSBoardConfigData" parameterType="vo" resultType="egovMap">
+	/* CmsBoard.selectCMSBoardConfigData */
+		SELECT
+			T1.title,
+			T1.board_skin,
+			T1.regist_auth,
+			T1.view_auth,
+			T1.secret_at,
+			T1.answer_at,
+			T1.search_at,
+			T1.paging_at,
+			T1.paging_cnt,
+			T1.list_search_field,
+			T1.list_search_title,
+			T1.list_view_field,
+			T1.list_view_title,
+			T1.list_view_percent,
+			T1.list_view_class,
+			T1.list_field,
+			T1.list_title,
+			T1.list_vali,
+			T1.category_field1,
+			T1.category_field1_option,
+			(SELECT COUNT(1) FROM cms_category_data T2 WHERE T2.category_code = T1.category_field1 AND T2.parent != 0) AS category_field1_children,
+			T1.category_field2,
+			T1.category_field2_option,
+			(SELECT COUNT(1) FROM cms_category_data T2 WHERE T2.category_code = T1.category_field2 AND T2.parent != 0) AS category_field2_children,
+			T1.category_field3,
+			T1.category_field3_option,
+			(SELECT COUNT(1) FROM cms_category_data T2 WHERE T2.category_code = T1.category_field3 AND T2.parent != 0) AS category_field3_children,
+			T1.category_field4,
+			T1.category_field4_option,
+			(SELECT COUNT(1) FROM cms_category_data T2 WHERE T2.category_code = T1.category_field4 AND T2.parent != 0) AS category_field4_children,
+			T1.attach_cnt,
+			T1.top_contents,
+			T1.bottom_contents
+		FROM
+			cms_board T1
+		<where>
+		AND			T1.board_code							= #{board_code}
+		</where>
+	</select>
+	
+	<select id="CmsBoard.selectCategoryDataList" parameterType="vo" resultType="egovMap">
+	/* CmsBoard.selectCategoryDataList */
+		SELECT
+			no,
+			parent,
+			data_name,
+			sort,
+			(SELECT COUNT(1) FROM cms_category_data T2 WHERE T1.no = T2.parent AND T2.parent != 0) AS children,
+			IFNULL((SELECT T2.sort FROM cms_category_data T2 WHERE T2.no = T1.parent), sort) AS parentSort
+		FROM
+			cms_category_data T1
+		<where>
+		<if test='idx3 != ""'> 
+		AND			category_code								= #{idx3}
+		</if>
+		<if test='idx4 == ""'>
+		AND			parent										= 0
+		</if>
+		<if test='idx4 != ""'>
+		AND			parent										= #{idx4}
+		</if>
+		</where>
+		ORDER BY
+			parentSort ASC,
+			CASE
+				WHEN parent = 0
+				THEN 1
+				ELSE 2
+			END ASC,
+			sort ASC
+	</select>
+	
+	<select id="CmsBoard.selectCMSBoardDataList" parameterType="vo" resultType="egovMap">
+	/* CmsBoard.selectCMSBoardDataList */
+		SELECT
+			CASE
+				WHEN <![CDATA[T1.impt_start_date <= NOW() AND NOW() <= T1.impt_end_date]]>
+				THEN 'Y'
+				ELSE 'N'
+			END AS isTop,
+			CASE
+				WHEN reg_date <![CDATA[>=]]> date_add(NOW(), interval-1 day) 
+				THEN 'Y'
+				ELSE 'N'
+			END AS isNew,
+			(SELECT attach_name FROM cms_file_data FT WHERE FT.identifier = #{identifier} AND FT.key_ref = T1.no ORDER BY FT.reg_date ASC LIMIT 1) AS attach_name,
+			(SELECT attach_re_name FROM cms_file_data FT WHERE FT.identifier = #{identifier} AND FT.key_ref = T1.no ORDER BY FT.reg_date ASC LIMIT 1) AS attach_re_name,
+			(SELECT extension FROM cms_file_data FT WHERE FT.identifier = #{identifier} AND FT.key_ref = T1.no ORDER BY FT.reg_date ASC LIMIT 1) AS extension,
+			
+			(SELECT attach_name FROM cms_file_data FT WHERE FT.identifier = #{identifier2} AND FT.key_ref = T1.no ORDER BY FT.reg_date ASC LIMIT 1) AS thumbnail_name,
+			(SELECT attach_re_name FROM cms_file_data FT WHERE FT.identifier = #{identifier2} AND FT.key_ref = T1.no ORDER BY FT.reg_date ASC LIMIT 1) AS thumbnail_re_name,
+			(SELECT extension FROM cms_file_data FT WHERE FT.identifier = #{identifier2} AND FT.key_ref = T1.no ORDER BY FT.reg_date ASC LIMIT 1) AS thumbnail_extension,
+			T1.no,
+			T1.use_at,
+			T1.title,
+			T1.text_field1,
+			T1.text_field2,
+			T1.text_field3,
+			T1.text_field4,
+			T1.text_field5,
+			T1.text_field6,
+			T1.text_field7,
+			T1.text_field8,
+			T1.text_field9,
+			T1.text_field10,
+			T1.text_field11,
+			T1.text_field12,
+			T1.text_field13,
+			T1.text_field14,
+			T1.text_field15,
+			T1.textarea_field1,
+			T1.textarea_field2,
+			T1.textarea_field3,
+			T1.textarea_field4,
+			T1.textarea_field5,
+			DATE_FORMAT(T1.date_field1, '%Y-%m-%d') AS date_field1,
+			DATE_FORMAT(T1.date_field2, '%Y-%m-%d') AS date_field2,
+			DATE_FORMAT(T1.date_field3, '%Y-%m-%d') AS date_field3,
+			DATE_FORMAT(T1.date_field4, '%Y-%m-%d') AS date_field4,
+			DATE_FORMAT(T1.date_array_field1_start, '%Y-%m-%d') AS date_array_field1_start,
+			DATE_FORMAT(T1.date_array_field1_end, '%Y-%m-%d') AS date_array_field1_end,
+			DATE_FORMAT(T1.date_array_field2_start, '%Y-%m-%d') AS date_array_field2_start,
+			DATE_FORMAT(T1.date_array_field2_end, '%Y-%m-%d') AS date_array_field2_end,
+			(SELECT T2.data_name FROM cms_category_data T2 WHERE T2.no = T1.category1) AS category1_name,
+			(SELECT T2.data_name FROM cms_category_data T2 WHERE T2.no = T1.category1_child) AS category1_child_name,
+			(SELECT T2.data_name FROM cms_category_data T2 WHERE T2.no = T1.category2) AS category2_name,
+			(SELECT T2.data_name FROM cms_category_data T2 WHERE T2.no = T1.category2_child) AS category2_child_name,
+			(SELECT T2.data_name FROM cms_category_data T2 WHERE T2.no = T1.category3) AS category3_name,
+			(SELECT T2.data_name FROM cms_category_data T2 WHERE T2.no = T1.category3_child) AS category3_child_name,
+			(SELECT T2.data_name FROM cms_category_data T2 WHERE T2.no = T1.category4) AS category4_name,
+			(SELECT T2.data_name FROM cms_category_data T2 WHERE T2.no = T1.category4_child) AS category4_child_name,
+			T1.answer,
+			T1.secret,
+			T1.cnt,
+			T1.writer,
+			DATE_FORMAT(T1.reg_date, '%Y-%m-%d') AS reg_date
+		FROM
+			cms_board_data T1
+		<include refid="SQL_WHERE"/>
+		ORDER BY 
+			(CASE
+				WHEN <![CDATA[T1.impt_start_date <= NOW() AND NOW() <= T1.impt_end_date]]>
+				THEN 1
+				ELSE 2
+			END) ASC, reg_date DESC, T1.no DESC
+		<if test='pagingAt == "Y"'>
+		LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+		</if>
+	</select>
+	
+	<select id="CmsBoard.selectCMSBoardDataListCnt" parameterType="vo" resultType="int">
+	/* CmsBoard.selectCMSBoardDataListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			cms_board_data T1
+		<include refid="SQL_WHERE"/>
+	</select>
+	
+	<select id="CmsBoard.selectCMSBoardData" parameterType="vo" resultType="egovMap">
+	/* CmsBoard.selectCMSBoardData */
+		SELECT
+			CASE
+				WHEN reg_date <![CDATA[>=]]> date_add(NOW(), interval-1 day) 
+				THEN 'Y'
+				ELSE 'N'
+			END AS isNew,
+			T1.no,
+			T1.use_at,
+			T1.impt_start_date,
+			T1.impt_end_date,
+			T1.title,
+			T1.text_field1,
+			T1.text_field2,
+			T1.text_field3,
+			T1.text_field4,
+			T1.text_field5,
+			T1.text_field6,
+			T1.text_field7,
+			T1.text_field8,
+			T1.text_field9,
+			T1.text_field10,
+			T1.text_field11,
+			T1.text_field12,
+			T1.text_field13,
+			T1.text_field14,
+			T1.text_field15,
+			T1.textarea_field1,
+			T1.textarea_field2,
+			T1.textarea_field3,
+			T1.textarea_field4,
+			T1.textarea_field5,
+			DATE_FORMAT(T1.date_field1, '%Y-%m-%d') AS date_field1,
+			DATE_FORMAT(T1.date_field2, '%Y-%m-%d') AS date_field2,
+			DATE_FORMAT(T1.date_field3, '%Y-%m-%d') AS date_field3,
+			DATE_FORMAT(T1.date_field4, '%Y-%m-%d') AS date_field4,
+			DATE_FORMAT(T1.date_array_field1_start, '%Y-%m-%d') AS date_array_field1_start,
+			DATE_FORMAT(T1.date_array_field1_end, '%Y-%m-%d') AS date_array_field1_end,
+			DATE_FORMAT(T1.date_array_field2_start, '%Y-%m-%d') AS date_array_field2_start,
+			DATE_FORMAT(T1.date_array_field2_end, '%Y-%m-%d') AS date_array_field2_end,
+			T1.category1,
+			T1.category1_child,
+			T1.category2,
+			T1.category2_child,
+			T1.category3,
+			T1.category3_child,
+			T1.category4,
+			T1.category4_child,
+			(SELECT T2.data_name FROM cms_category_data T2 WHERE T2.no = T1.category1) AS category1_name,
+			(SELECT T2.data_name FROM cms_category_data T2 WHERE T2.no = T1.category1_child) AS category1_child_name,
+			(SELECT T2.data_name FROM cms_category_data T2 WHERE T2.no = T1.category2) AS category2_name,
+			(SELECT T2.data_name FROM cms_category_data T2 WHERE T2.no = T1.category2_child) AS category2_child_name,
+			(SELECT T2.data_name FROM cms_category_data T2 WHERE T2.no = T1.category3) AS category3_name,
+			(SELECT T2.data_name FROM cms_category_data T2 WHERE T2.no = T1.category3_child) AS category3_child_name,
+			(SELECT T2.data_name FROM cms_category_data T2 WHERE T2.no = T1.category4) AS category4_name,
+			(SELECT T2.data_name FROM cms_category_data T2 WHERE T2.no = T1.category4_child) AS category4_child_name,
+			T1.answer,
+			T1.secret,
+			T1.cnt,
+			T1.register AS registerIdx,
+			T1.writer,
+			DATE_FORMAT(T1.reg_date, '%Y-%m-%d') AS reg_date,
+			SUBSTR(_UTF8'일월화수목금토', DAYOFWEEK(reg_date), 1) AS reg_date_week,
+			DATE_FORMAT(reg_date, '%H:%i') AS reg_date_time
+		FROM
+			cms_board_data T1
+		<where>
+		AND			T1.no										= #{idx}
+		</where>
+	</select>
+	
+	<select id="CmsBoard.selectCMSBoardDataRow" parameterType="vo" resultType="int">
+	/* CmsBoard.selectCMSBoardDataRow */
+		SELECT
+			T3.pos
+		FROM
+			(
+				SELECT
+					T1.no,
+					@pos := @pos + 1 AS pos
+				FROM
+					cms_board_data T1,
+					(SELECT @pos := 0) pos
+				<include refid="SQL_WHERE"/>
+				AND			
+				(
+							IFNULL(T1.secret, '')										= ''
+				OR			T1.no														= #{idx}
+				)
+				ORDER BY 
+					(CASE
+						WHEN <![CDATA[impt_start_date <= NOW() AND NOW() <= impt_end_date]]>
+						THEN 1
+						ELSE 2
+					END) ASC, DATE_FORMAT(T1.reg_date, '%Y-%m-%d') DESC, T1.no DESC
+			) T3
+		<where>
+		AND			T3.no										= #{idx}
+		</where>
+	</select>
+	
+	<select id="CmsBoard.selectCMSBoardDataPrevNextList" parameterType="vo" resultType="egovMap">
+	/* CmsBoard.selectCMSBoardDataPrevNextList */
+		SELECT
+			T3.no,
+			CAST(T3.pos AS signed integer) AS pos
+		FROM
+			(
+				SELECT
+					T1.no,
+					@pos := @pos + 1 AS pos
+				FROM
+					cms_board_data T1,
+					(SELECT @pos := 0) pos
+				<include refid="SQL_WHERE"/>
+				AND			
+				(
+							IFNULL(T1.secret, '')										= ''
+				OR			T1.no														= #{idx}
+				)
+				ORDER BY 
+					(CASE
+						WHEN <![CDATA[impt_start_date <= NOW() AND NOW() <= impt_end_date]]>
+						THEN 1
+						ELSE 2
+					END) ASC, DATE_FORMAT(T1.reg_date, '%Y-%m-%d') DESC, T1.no DESC
+			) T3
+		<where>
+		AND
+		(
+					T3.pos										= #{pos}-1
+		OR			T3.pos										= #{pos}
+		OR			T3.pos										= #{pos}+1
+		)
+		</where>
+	</select>
+	
+	<update id="CmsBoard.updateCMSBoardDataViewCnt" parameterType="vo">
+	/* CmsBoard.updateCMSBoardDataViewCnt */
+		UPDATE cms_board_data SET 
+					cnt											= cnt+1
+		<where>
+		AND			no											= #{idx}
+		</where>
+	</update>
+	
+	<insert id="CmsBoard.insertCMSBoardData" parameterType="vo">
+	/* CmsBoard.insertCMSBoardData */
+		INSERT INTO cms_board_data
+		(
+			board_code,
+			use_at,
+			<if test='paramKey2 != ""'>
+			impt_start_date,
+			</if>
+			<if test='paramKey3 != ""'>
+			impt_end_date,
+			</if>
+			title,
+			<if test='paramKey5 != ""'>
+			text_field1,
+			</if>
+			<if test='paramKey6 != ""'>
+			text_field2,
+			</if>
+			<if test='paramKey7 != ""'>
+			text_field3,
+			</if>
+			<if test='paramKey8 != ""'>
+			text_field4,
+			</if>
+			<if test='paramKey9 != ""'>
+			text_field5,
+			</if>
+			<if test='paramKey10 != ""'>
+			text_field6,
+			</if>
+			<if test='paramKey11 != ""'>
+			text_field7,
+			</if>
+			<if test='paramKey12 != ""'>
+			text_field8,
+			</if>
+			<if test='paramKey13 != ""'>
+			text_field9,
+			</if>
+			<if test='paramKey14 != ""'>
+			text_field10,
+			</if>
+			<if test='paramKey15 != ""'>
+			text_field11,
+			</if>
+			<if test='paramKey16 != ""'>
+			text_field12,
+			</if>
+			<if test='paramKey17 != ""'>
+			text_field13,
+			</if>
+			<if test='paramKey18 != ""'>
+			text_field14,
+			</if>
+			<if test='paramKey19 != ""'>
+			text_field15,
+			</if>
+			<if test='paramKey20 != ""'>
+			textarea_field1,
+			</if>
+			<if test='paramKey21 != ""'>
+			textarea_field2,
+			</if>
+			<if test='paramKey22 != ""'>
+			textarea_field3,
+			</if>
+			<if test='paramKey23 != ""'>
+			textarea_field4,
+			</if>
+			<if test='paramKey24 != ""'>
+			textarea_field5,
+			</if>
+			<if test='paramKey25 != ""'>
+			date_field1,
+			</if>
+			<if test='paramKey26 != ""'>
+			date_field2,
+			</if>
+			<if test='paramKey27 != ""'>
+			date_field3,
+			</if>
+			<if test='paramKey28 != ""'>
+			date_field4,
+			</if>
+			<if test='paramKey29 != ""'>
+			date_array_field1_start,
+			</if>
+			<if test='paramKey30 != ""'>
+			date_array_field1_end,
+			</if>
+			<if test='paramKey31 != ""'>
+			date_array_field2_start,
+			</if>
+			<if test='paramKey32 != ""'>
+			date_array_field2_end,
+			</if>
+			<if test='paramKey40 != ""'>
+			category1,
+			</if>
+			<if test='paramKey41 != ""'>
+			category1_child,
+			</if>
+			<if test='paramKey42 != ""'>
+			category2,
+			</if>
+			<if test='paramKey43 != ""'>
+			category2_child,
+			</if>
+			<if test='paramKey44 != ""'>
+			category3,
+			</if>
+			<if test='paramKey45 != ""'>
+			category3_child,
+			</if>
+			<if test='paramKey46 != ""'>
+			category4,
+			</if>
+			<if test='paramKey47 != ""'>
+			category4_child,
+			</if>
+			<if test='paramKey33 != ""'>
+			answer,
+			</if>
+			<if test='paramKey34 != ""'>
+			secret,
+			</if>
+			cnt,
+			writer,
+			<if test='(access == "U" and usr_idx != "") or (access == "A" and adm_idx != "")'>
+			register,
+			</if>
+			reg_date
+		)
+			VALUES
+		(
+			#{board_code},
+			#{paramKey1},
+			<if test='paramKey2 != ""'>
+			#{paramKey2},
+			</if>
+			<if test='paramKey3 != ""'>
+			#{paramKey3},
+			</if>
+			#{title},
+			<if test='paramKey5 != ""'>
+			#{paramKey5},
+			</if>
+			<if test='paramKey6 != ""'>
+			#{paramKey6},
+			</if>
+			<if test='paramKey7 != ""'>
+			#{paramKey7},
+			</if>
+			<if test='paramKey8 != ""'>
+			#{paramKey8},
+			</if>
+			<if test='paramKey9 != ""'>
+			#{paramKey9},
+			</if>
+			<if test='paramKey10 != ""'>
+			#{paramKey10},
+			</if>
+			<if test='paramKey11 != ""'>
+			#{paramKey11},
+			</if>
+			<if test='paramKey12 != ""'>
+			#{paramKey12},
+			</if>
+			<if test='paramKey13 != ""'>
+			#{paramKey13},
+			</if>
+			<if test='paramKey14 != ""'>
+			#{paramKey14},
+			</if>
+			<if test='paramKey15 != ""'>
+			#{paramKey15},
+			</if>
+			<if test='paramKey16 != ""'>
+			#{paramKey16},
+			</if>
+			<if test='paramKey17 != ""'>
+			#{paramKey17},
+			</if>
+			<if test='paramKey18 != ""'>
+			#{paramKey18},
+			</if>
+			<if test='paramKey19 != ""'>
+			#{paramKey19},
+			</if>
+			<if test='paramKey20 != ""'>
+			#{paramKey20},
+			</if>
+			<if test='paramKey21 != ""'>
+			#{paramKey21},
+			</if>
+			<if test='paramKey22 != ""'>
+			#{paramKey22},
+			</if>
+			<if test='paramKey23 != ""'>
+			#{paramKey23},
+			</if>
+			<if test='paramKey24 != ""'>
+			#{paramKey24},
+			</if>
+			<if test='paramKey25 != ""'>
+			#{paramKey25},
+			</if>
+			<if test='paramKey26 != ""'>
+			#{paramKey26},
+			</if>
+			<if test='paramKey27 != ""'>
+			#{paramKey27},
+			</if>
+			<if test='paramKey28 != ""'>
+			#{paramKey28},
+			</if>
+			<if test='paramKey29 != ""'>
+			#{paramKey29},
+			</if>
+			<if test='paramKey30 != ""'>
+			#{paramKey30},
+			</if>
+			<if test='paramKey31 != ""'>
+			#{paramKey31},
+			</if>
+			<if test='paramKey32 != ""'>
+			#{paramKey32},
+			</if>
+			<if test='paramKey40 != ""'>
+			#{paramKey40},
+			</if>
+			<if test='paramKey41 != ""'>
+			#{paramKey41},
+			</if>
+			<if test='paramKey42 != ""'>
+			#{paramKey42},
+			</if>
+			<if test='paramKey43 != ""'>
+			#{paramKey43},
+			</if>
+			<if test='paramKey44 != ""'>
+			#{paramKey44},
+			</if>
+			<if test='paramKey45 != ""'>
+			#{paramKey45},
+			</if>
+			<if test='paramKey46 != ""'>
+			#{paramKey46},
+			</if>
+			<if test='paramKey47 != ""'>
+			#{paramKey47},
+			</if>
+			<if test='paramKey33 != ""'>
+			#{paramKey33},
+			</if>
+			<if test='paramKey34 != ""'>
+			#{paramKey34},
+			</if>
+			0,
+			#{writer},
+			<if test='(access == "U" and usr_idx != "") or (access == "A" and adm_idx != "")'>
+			<choose>
+				<when test='access == "U"'>#{usr_idx},</when>
+				<when test='access == "A"'>#{adm_idx},</when>
+			</choose>
+			</if>
+			#{paramKey36}
+		)
+		
+		<selectKey resultType="vo" keyProperty="idx" order="AFTER">
+        	SELECT LAST_INSERT_ID() AS idx
+    	</selectKey>
+	</insert>
+	
+	<update id="CmsBoard.updateCMSBoardData" parameterType="vo">
+	/* CmsBoard.updateCMSBoardData */
+		UPDATE cms_board_data SET
+					use_at												= #{paramKey1},
+					impt_start_date										= <if test='paramKey2 != ""'>#{paramKey2}</if><if test='paramKey2 == ""'>NULL</if>,
+					impt_end_date										= <if test='paramKey3 != ""'>#{paramKey3}</if><if test='paramKey3 == ""'>NULL</if>,
+					title												= #{title},
+					text_field1											= #{paramKey5},
+					text_field2											= #{paramKey6},
+					text_field3											= #{paramKey7},
+					text_field4											= #{paramKey8},
+					text_field5											= #{paramKey9},
+					text_field6											= #{paramKey10},
+					text_field7											= #{paramKey11},
+					text_field8											= #{paramKey12},
+					text_field9											= #{paramKey13},
+					text_field10										= #{paramKey14},
+					text_field11										= #{paramKey15},
+					text_field12										= #{paramKey16},
+					text_field13										= #{paramKey17},
+					text_field14										= #{paramKey18},
+					text_field15										= #{paramKey19},
+					textarea_field1										= #{paramKey20},
+					textarea_field2										= #{paramKey21},
+					textarea_field3										= #{paramKey22},
+					textarea_field4										= #{paramKey23},
+					textarea_field5										= #{paramKey24},
+					date_field1											= <if test='paramKey25 != ""'>#{paramKey25}</if><if test='paramKey25 == ""'>NULL</if>,
+					date_field2											= <if test='paramKey26 != ""'>#{paramKey26}</if><if test='paramKey26 == ""'>NULL</if>,
+					date_field3											= <if test='paramKey27 != ""'>#{paramKey27}</if><if test='paramKey27 == ""'>NULL</if>,
+					date_field4											= <if test='paramKey28 != ""'>#{paramKey28}</if><if test='paramKey28 == ""'>NULL</if>,
+					date_array_field1_start								= <if test='paramKey29 != ""'>#{paramKey29}</if><if test='paramKey29 == ""'>NULL</if>,
+					date_array_field1_end								= <if test='paramKey30 != ""'>#{paramKey30}</if><if test='paramKey30 == ""'>NULL</if>,
+					date_array_field2_start								= <if test='paramKey31 != ""'>#{paramKey31}</if><if test='paramKey31 == ""'>NULL</if>,
+					date_array_field2_end								= <if test='paramKey32 != ""'>#{paramKey32}</if><if test='paramKey32 == ""'>NULL</if>,
+					
+					category1											= <if test='paramKey40 != ""'>#{paramKey40}</if><if test='paramKey40 == ""'>NULL</if>,
+					category1_child										= <if test='paramKey41 != ""'>#{paramKey41}</if><if test='paramKey41 == ""'>NULL</if>,
+					category2											= <if test='paramKey42 != ""'>#{paramKey42}</if><if test='paramKey42 == ""'>NULL</if>,
+					category2_child										= <if test='paramKey43 != ""'>#{paramKey43}</if><if test='paramKey43 == ""'>NULL</if>,
+					category3											= <if test='paramKey44 != ""'>#{paramKey44}</if><if test='paramKey44 == ""'>NULL</if>,
+					category3_child										= <if test='paramKey45 != ""'>#{paramKey45}</if><if test='paramKey45 == ""'>NULL</if>,
+					category4											= <if test='paramKey46 != ""'>#{paramKey46}</if><if test='paramKey46 == ""'>NULL</if>,
+					category4_child										= <if test='paramKey47 != ""'>#{paramKey47}</if><if test='paramKey47 == ""'>NULL</if>,
+					answer												= #{paramKey33},
+					<if test='paramKey37 == "Y"'>
+					secret												= #{paramKey34},
+					</if>
+					cnt													= #{paramKey35},
+					reg_date											= #{paramKey36},
+					<if test='access == "A"'>
+					writer												= #{writer},
+					</if>
+					<if test='usr_idx != "" or adm_idx != ""'>
+					modifier											= 
+																		<choose>
+																			<when test='access == "U"'>#{usr_idx},</when>
+																			<when test='access == "A"'>#{adm_idx},</when>
+																		</choose>
+					</if>
+					mod_date											= NOW()
+		<where>
+		AND			no													= #{idx}
+		</where>
+	</update>
+	
+	<delete id="CmsBoard.deleteCMSBoardData" parameterType="vo">
+	/* CmsBoard.deleteCMSBoardData */
+		DELETE FROM cms_board_data
+		<where>
+					no													= #{idx}
+		</where>
+	</delete>
+	
+	<select id="CmsBoard.selectCMSBoardSecretCheck" parameterType="vo" resultType="int">
+	/* CmsBoard.selectCMSBoardSecretCheck */
+		SELECT
+			COUNT(1)
+		FROM
+			cms_board_data
+		<where>
+		AND			no													= #{idx}
+		AND			secret												= #{paramKey1}
+		</where>
+	</select>
+	
+	
+</mapper>

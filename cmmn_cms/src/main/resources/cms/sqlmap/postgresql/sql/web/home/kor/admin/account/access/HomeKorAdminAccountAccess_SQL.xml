@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="HomeKorAdminAccountAccess_SQL">
+	<sql id="SQL_WHERE">
+	<where>
+	<if test='searchDate1 != ""'>
+	<![CDATA[
+	AND			#{searchDate1}									<= TO_CHAR(T1.login_date, 'YYYY-MM-DD')
+	]]>			
+	</if>
+	<if test='searchDate2 != ""'>
+	<![CDATA[
+	AND			TO_CHAR(T1.login_date, 'YYYY-MM-DD')			<= #{searchDate2}
+	]]>			
+	</if>	
+	<if test='searchKeyword != ""'>
+		<choose>
+			<when test='searchValue1 == "0"'>
+	AND	
+	(
+				T1.id											LIKE '%' || #{searchKeyword} || '%'
+	OR			T1.name											LIKE '%' || #{searchKeyword} || '%'
+	OR			T1.ip											LIKE '%' || #{searchKeyword} || '%'
+	)
+			</when>
+			<when test='searchValue1 == "1"'>
+	AND			T1.id											LIKE '%' || #{searchKeyword} || '%'
+			</when>
+			<when test='searchValue1 == "2"'>
+	AND			T1.name										LIKE '%' || #{searchKeyword} || '%'
+			</when>
+			<when test='searchValue1 == "3"'>
+	AND			T1.ip										LIKE '%' || #{searchKeyword} || '%'
+			</when>
+		</choose>
+	</if>
+	</where>
+	</sql>
+	
+	<select id="HomeKorAdminAccountAccess_SQL.selectLoginDataList" parameterType="vo" resultType="egovMap">
+	/* CmsAccessMng.selectLoginDataList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+					SELECT
+						T1.no,
+						T1.id,
+						T1.name,
+						T1.ip,
+						TO_CHAR(T1.login_date, 'YYYY-MM-DD hh24:mi:ss') AS login_date
+					FROM
+						cms_admin_access T1
+					
+					<include refid="SQL_WHERE"/>							
+					ORDER BY login_date DESC	
+					) X
+			) Z					
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminAccountAccess_SQL.selectLoginDataListCnt" parameterType="vo" resultType="int">
+	/* CmsAccessMng.selectLoginDataListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			cms_admin_access T1
+		
+		<include refid="SQL_WHERE"/>			
+
+	</select>	
+	
+	
+
+
+</mapper> 

@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminEducationProgram_SQL">
+
+	<select id="HomeKorAdminEducationProgram_SQL.selectHomeKorAdminEducationProgramList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminEducationProgram_SQL.selectHomeKorAdminEducationProgramList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.target_ref,
+							T1.subject_ref,
+							(SELECT FT.data_name FROM cms_category_data FT <where>FT.no = T1.target_ref</where>) AS target_name,
+							(SELECT FT.data_name FROM cms_category_data FT <where>FT.no = T1.subject_ref</where>) AS subject_name,
+							(SELECT COUNT(1) FROM tb_program_comment CT <where>CT.tb_program_ref = T1.no</where>) AS comment_cnt,
+							TO_CHAR(T1.start_date, 'YYYY-MM-DD') AS start_date,
+							TO_CHAR(T1.end_date, 'YYYY-MM-DD') AS end_date,
+							(CASE
+								WHEN <![CDATA[TO_CHAR(T1.start_date, 'YYYY-MM-DD') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <= TO_CHAR(T1.end_date, 'YYYY-MM-DD')]]>
+								THEN 1
+								ELSE 2
+							END) AS prom_at,
+							T1.title,
+							T1.keyword,
+							T1.stat_text1,
+							T1.stat_point1,
+							T1.stat_text2,
+							T1.stat_point2,
+							T1.stat_text3,
+							T1.stat_point3,
+							T1.stat_text4,
+							T1.stat_point4,
+							T1.stat_text5,
+							T1.stat_point5,
+							T1.detail,
+							T1.content,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_program T1
+						<where>
+						<if test='searchValue1 != ""'>
+						AND			T1.use_at														= #{searchValue1}
+						</if>
+						<if test='searchValue2 != ""'>
+						AND			T1.target_ref													= #{searchValue2}
+						</if>
+						<if test='searchValue3 != ""'>
+						AND			T1.subject_ref													= #{searchValue3}
+						</if>
+						<if test='searchKeyword != ""'>
+							<choose>
+								<when test='searchValue4 == "0"'>
+							AND
+							(
+										T1.title													LIKE '%' || #{searchKeyword} || '%'
+							OR			T1.detail													LIKE '%' || #{searchKeyword} || '%'
+							OR			T1.content													LIKE '%' || #{searchKeyword} || '%'
+							)
+								</when>
+								<when test='searchValue4 == "1"'>
+							AND			T1.title													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+								<when test='searchValue4 == "2"'>
+							AND			T1.detail													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+								<when test='searchValue4 == "3"'>
+							AND			T1.content													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+							</choose>
+						</if>
+						</where>
+						ORDER BY	(CASE
+							WHEN <![CDATA[TO_CHAR(T1.start_date, 'YYYY-MM-DD') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <= TO_CHAR(T1.end_date, 'YYYY-MM-DD')]]>
+							THEN 1
+							ELSE 2
+						END) ASC, T1.reg_date DESC, T1.no DESC 
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminEducationProgram_SQL.selectHomeKorAdminEducationProgramListCnt" parameterType="vo" resultType="int">
+		/* HomeKorAdminEducationProgram_SQL.selectHomeKorAdminEducationProgramListCnt */
+		SELECT 
+			COUNT(1)
+		FROM 
+			tb_program T1
+		<where>
+		<if test='searchValue1 != ""'>
+		AND			T1.use_at														= #{searchValue1}
+		</if>
+		<if test='searchValue2 != ""'>
+		AND			T1.target_ref													= #{searchValue2}
+		</if>
+		<if test='searchValue3 != ""'>
+		AND			T1.subject_ref													= #{searchValue3}
+		</if>
+		<if test='searchKeyword != ""'>
+			<choose>
+				<when test='searchValue4 == "0"'>
+			AND
+			(
+						T1.title													LIKE '%' || #{searchKeyword} || '%'
+			OR			T1.detail													LIKE '%' || #{searchKeyword} || '%'
+			OR			T1.content													LIKE '%' || #{searchKeyword} || '%'
+			)
+				</when>
+				<when test='searchValue4 == "1"'>
+			AND			T1.title													LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test='searchValue4 == "2"'>
+			AND			T1.detail													LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test='searchValue4 == "3"'>
+			AND			T1.content													LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</if>
+		</where>
+	</select>
+
+	<select id="HomeKorAdminEducationProgram_SQL.selectHomeKorAdminEducationProgram" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminEducationProgram_SQL.selectHomeKorAdminEducationProgram */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.target_ref,
+			T1.subject_ref,
+			(SELECT FT.data_name FROM cms_category_data FT <where>FT.no = T1.target_ref</where>) AS target_name,
+			(SELECT FT.data_name FROM cms_category_data FT <where>FT.no = T1.subject_ref</where>) AS subject_name,
+			TO_CHAR(T1.start_date, 'YYYY-MM-DD') AS start_date,
+			TO_CHAR(T1.end_date, 'YYYY-MM-DD') AS end_date,
+			T1.title,
+			T1.keyword,
+			T1.stat_text1,
+			T1.stat_point1,
+			T1.stat_text2,
+			T1.stat_point2,
+			T1.stat_text3,
+			T1.stat_point3,
+			T1.stat_text4,
+			T1.stat_point4,
+			T1.stat_text5,
+			T1.stat_point5,
+			T1.detail,
+			T1.content,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register
+		FROM
+			tb_program T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+		<!-- LIMIT 1 -->
+	</select>
+	
+	<insert id="HomeKorAdminEducationProgram_SQL.insertHomeKorAdminEducationProgram" parameterType="vo">
+	/* HomeKorAdminEducationProgram_SQL.insertHomeKorAdminEducationProgram */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_program_seq.NEXTVAL AS idx FROM dual
+		</selectKey>
+		INSERT INTO tb_program
+		(			
+					no,
+					use_at,
+					target_ref,
+					subject_ref,
+					start_date,
+					end_date,
+					title,
+					keyword,
+					stat_text1,
+					stat_point1,
+					stat_text2,
+					stat_point2,
+					stat_text3,
+					stat_point3,
+					stat_text4,
+					stat_point4,
+					stat_text5,
+					stat_point5,
+					detail,
+					content,
+					register,
+					reg_date
+		)
+					VALUES
+		(			
+					#{idx},
+					#{paramKey1},
+					#{paramKey2},
+					#{paramKey3},
+					TO_DATE(#{paramKey4}, 'YYYY-MM-DD'),
+					TO_DATE(#{paramKey5}, 'YYYY-MM-DD'),
+					#{paramKey6},
+					#{paramKey7},
+					#{paramKey8},
+					#{paramKey9},
+					#{paramKey10},
+					#{paramKey11},
+					#{paramKey12},
+					#{paramKey13},
+					#{paramKey14},
+					#{paramKey15},
+					#{paramKey16},
+					#{paramKey17},
+					#{paramKey18},
+					#{paramKey19},
+					#{adm_idx},
+					SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorAdminEducationProgram_SQL.updateHomeKorAdminEducationProgram" parameterType="vo">
+		/* HomeKorAdminEducationProgram_SQL.updateHomeKorAdminEducationProgram */
+		UPDATE tb_program SET 
+			   	use_at																	= #{paramKey1},
+				target_ref																= #{paramKey2},
+				subject_ref																= #{paramKey3},
+				start_date																= TO_DATE(#{paramKey4}, 'YYYY-MM-DD'),
+				end_date																= TO_DATE(#{paramKey5}, 'YYYY-MM-DD'),
+				title																	= #{paramKey6},
+				keyword																	= #{paramKey7},
+				stat_text1																= #{paramKey8},
+				stat_point1																= #{paramKey9},
+				stat_text2																= #{paramKey10},
+				stat_point2																= #{paramKey11},
+				stat_text3																= #{paramKey12},
+				stat_point3																= #{paramKey13},
+				stat_text4																= #{paramKey14},
+				stat_point4																= #{paramKey15},
+				stat_text5																= #{paramKey16},
+				stat_point5																= #{paramKey17},
+				detail																	= #{paramKey18},
+				content																	= #{paramKey19},
+			   	mod_date																= SYSDATE,  
+			   	modifier																= #{adm_idx}        
+		<where>
+		AND no 																		= #{idx}
+		</where>	   
+		          
+	</update>
+	
+	<delete id="HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgram" parameterType="vo">
+	/* HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgram */
+		DELETE FROM tb_program
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramList" parameterType="vo">
+		/* HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramList */
+		DELETE FROM tb_program
+		<where>
+			<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete>
+	
+											<!-- 						목차 							-->
+											<!-- 						목차 							-->
+											<!-- 						목차 							-->
+											
+	<select id="HomeKorAdminEducationProgram_SQL.selectHomeKorAdminEducationProgramIndexList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminEducationProgram_SQL.selectHomeKorAdminEducationProgramIndexList */
+		SELECT
+			T1.no,
+			T1.tb_program_ref,
+			T1.content
+		FROM
+			tb_program_index T1
+		<where>
+		AND			T1.tb_program_ref												= #{idx}
+		</where>
+		ORDER BY	T1.no ASC
+	</select>
+	
+	<insert id="HomeKorAdminEducationProgram_SQL.insertHomeKorAdminEducationProgramIndex" parameterType="vo">
+	/* HomeKorAdminEducationProgram_SQL.HomeKorAdminEducationProgram_SQL.insertHomeKorAdminEducationProgramIndex */
+		<selectKey resultType="vo" keyProperty="idx2" order="BEFORE">
+			SELECT tb_program_index_seq.NEXTVAL AS idx2 FROM dual
+		</selectKey>
+		INSERT INTO tb_program_index
+		(			
+					no,
+					tb_program_ref,
+					content
+		)
+					VALUES
+		(			
+					#{idx2},
+					#{parentKey},
+					#{indexContent}
+		)
+	</insert>
+	
+	<update id="HomeKorAdminEducationProgram_SQL.updateHomeKorAdminEducationProgramIndex" parameterType="vo">
+		/* HomeKorAdminEducationProgram_SQL.updateHomeKorAdminEducationProgramIndex */
+		UPDATE tb_program_index SET 
+				content																= #{indexContent}
+		<where>
+		AND no 																		= #{key}
+		</where>	   
+	</update>
+											
+	<delete id="HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramIndex" parameterType="vo">
+	/* HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramIndex */
+		DELETE FROM tb_program_index
+		<where>
+		AND			no																= #{idx2}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramIndexList" parameterType="vo">
+		/* HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramIndexList */
+		DELETE FROM tb_program_index
+		<where>
+		AND			tb_program_ref													= #{parentKey}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramIndexMultipleList" parameterType="vo">
+		/* HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramIndexMultipleList */
+		DELETE FROM tb_program_index
+		<where>
+			<foreach collection="paramKeyList1" open="AND tb_program_ref IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete>								
+											
+											<!-- 						관련 자료 링크 							-->
+											<!-- 						관련 자료 링크 							-->
+											<!-- 						관련 자료 링크 							-->
+	
+	<select id="HomeKorAdminEducationProgram_SQL.selectHomeKorAdminEducationProgramLinkList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminEducationProgram_SQL.selectHomeKorAdminEducationProgramLinkList */
+		SELECT
+			T1.no,
+			T1.tb_program_ref,
+			T1.title,
+			T1.link
+		FROM
+			tb_program_link T1
+		<where>
+		AND			T1.tb_program_ref												= #{idx}
+		</where>
+		ORDER BY	T1.no ASC
+	</select>
+	
+	<insert id="HomeKorAdminEducationProgram_SQL.insertHomeKorAdminEducationProgramLink" parameterType="vo">
+	/* HomeKorAdminEducationProgram_SQL.insertHomeKorAdminEducationProgramLink */
+		<selectKey resultType="vo" keyProperty="idx3" order="BEFORE">
+			SELECT tb_program_link_seq.NEXTVAL AS idx3 FROM dual
+		</selectKey>
+		INSERT INTO tb_program_link
+		(			
+					no,
+					tb_program_ref,
+					title,
+					link
+		)
+					VALUES
+		(			
+					#{idx3},
+					#{parentKey},
+					#{title},
+					#{link}
+		)
+	</insert>
+	
+	<update id="HomeKorAdminEducationProgram_SQL.updateHomeKorAdminEducationProgramLink" parameterType="vo">
+		/* HomeKorAdminEducationProgram_SQL.updateHomeKorAdminEducationProgramLink */
+		UPDATE tb_program_link SET 
+				title																	= #{title},
+				link																	= #{link}
+		<where>
+		AND no 																			= #{key}
+		</where>	   
+	</update>
+											
+	<delete id="HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramLink" parameterType="vo">
+	/* HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramLink */
+		DELETE FROM tb_program_link
+		<where>
+		AND			no																= #{idx3}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramLinkList" parameterType="vo">
+		/* HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramLinkList */
+		DELETE FROM tb_program_link
+		<where>
+		AND			tb_program_ref													= #{parentKey}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramLinkMultipleList" parameterType="vo">
+		/* HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramLinkMultipleList */
+		DELETE FROM tb_program_link
+		<where>
+			<foreach collection="paramKeyList1" open="AND tb_program_ref IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete>
+	
+											<!-- 						댓글 							-->
+											<!-- 						댓글 							-->
+											<!-- 						댓글 							-->
+											
+	<select id="HomeKorAdminEducationProgram_SQL.selectHomeKorAdminEducationProgramCommentList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminEducationProgram_SQL.selectHomeKorAdminEducationProgramCommentList */
+		SELECT
+			T1.no,
+			T1.tb_program_ref,
+			T1.site_account_ref,
+			(SELECT T2.name FROM site_account T2 <where>T2.no = T1.site_account_ref</where>) AS register_name,
+			T1.content,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD HH24:MI:SS') AS reg_date,
+			TO_CHAR(T1.mod_date, 'YYYY-MM-DD HH24:MI:SS') AS mod_date
+		FROM
+			tb_program_comment T1
+		<where>
+		AND			T1.tb_program_ref												= #{idx}
+		</where>
+		ORDER BY	T1.reg_date ASC, T1.no ASC
+	</select>
+	
+	<insert id="HomeKorAdminEducationProgram_SQL.insertHomeKorAdminEducationProgramComment" parameterType="vo">
+	/* HomeKorAdminEducationProgram_SQL.insertHomeKorAdminEducationProgramComment */
+		<selectKey resultType="vo" keyProperty="idx4" order="BEFORE">
+			SELECT tb_program_comment_seq.NEXTVAL AS idx4 FROM dual
+		</selectKey>
+		INSERT INTO tb_program_comment
+		(			
+					no,
+					tb_program_ref,
+					site_account_ref,
+					content,
+					reg_date
+		)
+					VALUES
+		(			
+					#{idx4},
+					#{parentKey},
+					#{userKey},
+					#{content},
+					SYSDATE
+		)
+	</insert>
+	
+	<delete id="HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramComment" parameterType="vo">
+	/* HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramComment */
+		DELETE FROM tb_program_comment
+		<where>
+		AND			no																= #{idx4}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramCommentList" parameterType="vo">
+		/* HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramCommentList */
+		DELETE FROM tb_program_comment
+		<where>
+		AND			tb_program_ref													= #{parentKey}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramCommentMultipleList" parameterType="vo">
+		/* HomeKorAdminEducationProgram_SQL.deleteHomeKorAdminEducationProgramCommentMultipleList */
+		DELETE FROM tb_program_comment
+		<where>
+			<foreach collection="paramKeyList1" open="AND tb_program_ref IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete>
+											
+</mapper>

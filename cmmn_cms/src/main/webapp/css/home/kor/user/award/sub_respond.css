@@ -1,0 +1,450 @@
+@charset "UTF-8";
+
+@media screen and (max-width:1600px){
+	/* 서브에서 사용되어야 하는 헤더 */
+	.header .gnb_header .logo a img {width: 250px; }
+	.header .gnb_header .gnb {padding: 9px 55px 11px 269px;}
+	.header .gnb_header .gnb > li > a {font-size: 16px; line-height: 24px;}
+    
+}
+
+@media screen and (max-width:1280px){
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .tit_area {height: 100px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .text_box {height: 191px;}
+
+	/* 홍보관3 */
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area {padding: 20px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li {padding: 0 30px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li:first-child {padding: 0 30px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li:last-child {padding: 0 0 0 30px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li:nth-child(3n) {padding: 0 0 30px 0;}
+	/* 홍보관3 */
+	
+	/* 10-05 */
+	.com_list_cont .title_area .title_box {padding: 0 120px;}
+	.com_list_cont .con_area .video_box {max-width: 991px;}
+	.com_list_cont .con_area .video_box .video_inner {height: 555px;}
+	/* // 10-05 */
+	
+	.com_program_view_cont > .box > .info_list_area > .info_list {padding: 0 60px;}
+	
+}
+
+
+@media screen and (max-width:1080px){
+	.sub_top {margin: 0 0 55px;}
+	.header .gnb_header .logo {position: relative;}
+	.contents_view {padding-top:0px;}
+	 /* 창의발명교육 홍보관 */
+	.promotion_cont > .title {font-size: 24px; line-height: 36px;}
+	.promotion_cont .info_list_area {margin: 33px 0 0;}
+	.promotion_cont .info_list_area .list li .box .img_box {width: 183px; height: 183px; background-size: 98px 82px;}
+	.promotion_cont .info_list_area .list li .box .txt_box {margin: 17px 0 0;}
+	.promotion_cont .info_list_area .list li .box .txt_box .txt {font-size: 16px; line-height: 23px;}
+	.promotion_cont .info_list_area .list li .box .txt_box .tit {font-size: 16px; line-height: 23px;}
+	.promotion_cont .design_img_list_area {margin: 63px 0 0;}
+	.promotion_cont .design_img_list_area .title {font-size: 16px; line-height: 24px;}
+	.promotion_cont .design_img_list_area .list_box {margin: 17px 0 0;}
+	.promotion_cont .design_img_list_area .list_box:last-child > ul {margin: 10px 0 0;}
+
+	/* 공통 틀 */
+	.com_cont .title_cont .box {padding: 0 0 100px;}
+	.com_cont .title_cont .box .title_area {max-width: 720px; padding: 31px 5px;}
+	.com_cont .title_cont .box .title_area .title_inner .title {font-size: 30px; line-height: 42px;}
+	.com_cont .title_cont .box .title_area .text {margin: 20px 0 0; font-size: 18px; line-height: 30px;}
+	.com_cont .info_list_cont {margin: 25px 0 0;}
+	.com_cont .info_list_cont > .list > li .box > .title {font-size: 26px; line-height: 39px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area {margin: 30px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .img_box {width: 110px; height: 110px; background-size: 80px 60px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .tit {font-size: 21px; line-height: 32px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .txt {font-size: 15px; line-height: 23px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .link {margin: 20px 0 0; padding: 0 14px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .link .text {font-size: 15px; line-height: 40px;}
+
+	/* 아이디어 경진대회 */
+	.com_cont .info_list_cont > .list > li .box .award_area {margin: 25px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .award_area .list li {width: calc(50% - 8.5px); margin: 10px 17px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .award_area .list li:nth-child(-n+2) {margin: 0 17px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .award_area .list li:nth-child(2n) {margin: 10px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .award_area .list li:nth-child(2) {margin: 0;}
+	.com_cont .info_list_cont > .list > li .box .award_area .list li .box .info_box .img_box {margin: 0 auto;}
+	/* 아이디어 경진대회 */
+
+	 /* 아이디어 경진대회 VIEW */
+	.view_cont .view_top .img_slide {width: 300px; height: 200px;}
+	.view_cont .view_top .img_slide #slide_list .slick-list .slick-track li .img_box {height: 224px;}
+	.view_cont .view_top .info_box {padding: 20px 0 0 40px;}
+	.view_cont .view_top .info_box .title {font-size: 22px; line-height: 33px;}
+	.view_cont .view_top .info_box .info_list .list li {margin: 7px 0 0; padding: 0 0 0 80px; font-size: 15px; line-height: 23px;}
+	.view_cont .view_top .info_box .info_list .list li .tit {font-size: 15px; line-height: 23px;}
+	.view_cont .view_btm {margin: 25px 0 0; padding: 14px 0 0;}
+	.view_cont .view_btm .text_list .list li .box .title {font-size: 17px; line-height: 26px;}
+	.view_cont .view_btm .text_list .list li .box .text {font-size: 15px; line-height: 23px;}
+	 /* //아이디어 경진대회 VIEW */
+
+	/* 체험프로그램 */
+	.program_box .list li .box .info_text .title {font-size: 26px; line-height: 39px;}
+	.program_box .list li .box .info_text .text {font-size: 20px; line-height: 30px;}
+	/* // 체험프로그램 */
+
+	/* YIP(청소년발명가프로그램) */
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box {padding: 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box:before {display: none;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li {width: calc(25% - 7.5px); margin: 15px 10px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li:nth-child(-n+4) {margin: 0 10px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li:nth-child(4n) {margin: 15px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li:nth-child(4) {margin: 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li:last-child {margin: 15px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .tit_area {height: 70px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .text_box {height: 150px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .text_box .text_box_inner .day:before {max-width: inherit; background-size: cover;}
+
+	/* 대한민국학생발명전시회 수상작 전시 */
+	.com_tab_cont .tab_list {display: none;}
+	.com_tab_cont .slt_tab {display: block; width: 100%; max-width: 767px; margin: 0 auto; border: 1px solid #d4d4d4; padding: 0 40px 0 10px; background-color: #ffffff; background-image: url("/award2021/images/sub/slt_arr.png"); background-position: right 10px center; background-repeat: no-repeat; font-weight: 400; font-size: 16px; line-height: 48px; color: #333333;}
+	/* 스크롤바 tab */
+	.com_tab_cont.tab-02 {display: none;}
+	.com_tab_cont.tab-03 {display: none;}
+	.com_tab_cont.tab-03 .tab_list li {display: inline-block; width: 200px;}
+	.com_tab_cont.tab-03 .tab_list li .tab_btn_box .tab_btn {height: 38px;}
+	.com_tab_cont.tab-03 .tab_list li .tab_btn_box .tab_btn .text {font-size: 13px; line-height: 19px;}
+	
+	.com_list_cont {margin: 40px 0 0;}
+	.com_list_cont .com_list_box {margin: 10px 0 0; padding: 22px 0 0;}
+	.com_list_cont .com_list_box > .list > li {display: inline-block; width: calc(25% - 11.25px); margin: 0 15px 35px 0;}
+	.com_list_cont .com_list_box > .list > li:nth-last-child(-n+4) {margin: 0 15px 0 0;}
+	.com_list_cont .com_list_box > .list > li:nth-child(4n) {margin: 0 0 35px 0;}
+	.com_list_cont .com_list_box > .list > li .box .text_box .title {height: 48px; font-size: 16px; line-height: 24px;}
+	.com_list_cont .com_list_box > .list > li .box .text_box .info_list > .list > li {font-size: 14px; line-height: 24px;}
+	.com_list_cont .com_list_box > .list > li .box .text_box .data2 {margin: 5px 0 0; font-size: 14px; line-height: 24px;}
+	/* // 대한민국학생발명전시회 수상작 전시 */
+
+	/* 추가 */
+	.com_cont .info_list_cont > .list > li .box > .text {margin: 5px 0 0; font-size: 16px; line-height: 24px;}
+	
+	/* 홍보관3 */
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li {width: 100%; margin: 25px 0 0; padding: 0 0 50px 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li:after {top: inherit; right: inherit; bottom: 0; left: 50%; margin: 0 0 0 -7px; -webkit-transform: rotate(90deg); -moz-transform: rotate(90deg); -ms-transform: rotate(90deg); transform: rotate(90deg);}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li:first-child {margin: 0; padding: 0 0 50px 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li:last-child {padding: 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li .txt_box {margin: 10px 0 0; padding: 25px 0 0;}
+	/* 홍보관3 */
+	
+	
+	/* 10-05 */
+	.com_list_cont .title_area .title_box {padding: 0 60px;}
+	.com_list_cont .title_area .title_box .title {font-size: 26px; line-height: 39px;}
+	.com_list_cont .title_area .title_box:before {top: 50%; width: 61px; height: 98px; margin: -49px 0 0; background-size: cover;}
+	.com_list_cont .title_area .title_box:after {top: 50%; width: 61px; height: 98px; margin: -49px 0 0; background-size: cover;}
+	.com_list_cont .title_area .title_box .sub_tit {padding: 10px 0 7px 45px; font-size: 22px; line-height: 33px;}
+	.com_list_cont .title_area .title_box .sub_tit:before {width: 41px; height: 42px; background-size: cover;}
+	.com_list_cont .title_area .title_box .text {font-size: 18px; line-height: 27px;}
+	.com_list_cont .con_area {padding: 0 0 103px;background-size: 100% 204px;}
+	.com_list_cont .con_area .video_box {max-width: 700px;}
+	.com_list_cont .con_area .video_box .video_inner {height: 394px;}
+	.btn_wrap {margin: 30px 0 0;}
+	.btn_wrap .view_btn {padding: 0 30px;}
+	.btn_wrap .view_btn .text {font-size: 20px; line-height: 60px;}
+
+	.view_cont .title_box .title {font-size: 24px; line-height: 36px;}
+	.view_cont .title_box.award .title {padding: 8px 0 8px 62px;}
+	.view_cont .title_box.award .title:before {width: 54px; height: 50px; background-size: cover;}
+	.view_cont .view_top {max-width: 700px;}
+	.view_cont .view_top .info_box {padding: 0 0 0 40px;}
+
+	.view_cont .view_top .info_box .info_list .list li {padding: 0 0 0 110px;}
+	.view_cont .view_top .img_slide #slide_list .slick-list .slick-track li .img_box {height: 154px;}
+	.view_cont .view_top .img_slide #slide_list .slick-list .slick-track li .img_box .img_inner {height: 154px;}
+	
+	.com_list_cont .com_list_box2 > .list > li {width: calc(50% - 10px); margin: 40px 20px 0 0;}
+	.com_list_cont .com_list_box2 > .list > li:nth-child(-n+3) {margin: 0 20px 0 0;}
+	.com_list_cont .com_list_box2 > .list > li:nth-child(3n) {margin: 40px 0 0;}
+	.com_list_cont .com_list_box2 > .list > li:nth-child(3) {margin: 40px 20px 0 0;}
+	.com_list_cont .com_list_box2 > .list > li:nth-child(-n+2) {margin: 0 20px 0 0;}
+	.com_list_cont .com_list_box2 > .list > li:nth-child(2n) {margin: 40px 0 0;}
+	.com_list_cont .com_list_box2 > .list > li:nth-child(2) {margin: 0;}
+	.com_list_cont .com_list_box2 > .list > li .box .text_box .title {font-size: 16px; line-height: 24px;}
+	.com_list_cont .com_list_box2 > .list > li .box .text_box .info_list .list li {font-size: 15px; line-height: 23px;}
+
+	.com_list_cont .com_list_box2 > .list > li .btn_wrap {margin: 20px 0 0;}
+	.com_list_cont .com_list_box2 > .list > li .btn_wrap .view_btn .text {font-size: 14px; line-height: 35px;}
+
+	/* // 10-05 */
+	
+	.com_program_view_cont > .box > .title_area {padding: 25px 5px 20px;}				
+	.com_program_view_cont > .box > .title_area > .title {font-size: 24px; line-height: 36px;}
+	.com_program_view_cont > .box > .info_list_area > .info_list {padding: 0 10px;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li {padding: 30px 0 40px;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li > .inner_box > .one {width: 100px; height: 100px; padding: 22px 5px 29px;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li > .inner_box > .one > .text {font-size: 14px; line-height: 21px;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li > .inner_box > .text_box > .text {font-size: 14px; line-height: 24px;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont {margin: 36px 0 0; padding: 36px 35px 0;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide .slick-arrow {width: 44px; height: 66px; margin: -33px 0 0;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide .slick-list .slick-track li .img_box .inner_box {height: 500px;}
+    .com_program_view_cont > .box > .info_list_area > .nav_box {bottom: 60px;}
+    
+    .com_cont .info_list_cont > .list > li .box > .video_box iframe {height: 430px;}
+    
+}
+
+@media screen and (max-width:767px){
+	.header .gnb_header {padding: 10px 5px;}
+	.header .gnb_header .logo a img {width: 120px;}
+
+	/* 창의발명교육 홍보관 */
+	.promotion_cont > .title {font-size: 18px; line-height: 27px;}
+	.promotion_cont > .title .ft_c:before {display: none;}
+	.promotion_cont .info_list_area {margin: 20px 0 0;}
+	.promotion_cont .info_list_area .list li .box .img_box {width: 123px; height: 123px; background-size: 58px 52px;}
+	.promotion_cont .info_list_area .list li .box .txt_box {margin: 10px 0 0;}
+	.promotion_cont .info_list_area .list li .box .txt_box .txt {font-size: 14px; line-height: 21px;}
+	.promotion_cont .info_list_area .list li .box .txt_box .tit {font-size: 14px; line-height: 21px;}
+	.promotion_cont .design_img_list_area {margin: 33px 0 0;}
+	.promotion_cont .design_img_list_area .title {font-size: 14px; line-height: 21px;}
+	.promotion_cont .design_img_list_area .list_box {margin: 10px 0 0;}
+	
+
+	/* 공통 틀 */
+	.com_cont .title_cont .box {padding: 0;}
+	.com_cont .title_cont .box .img_box {display: none;}
+	.com_cont .title_cont .box .title_area {position: inherit; bottom: inherit; left: inherit; max-width: 100%; padding: 0; transform: translate(0);}
+	.com_cont .title_cont .box .title_area .title_inner {padding: 4px 20px 0;}
+	.com_cont .title_cont .box .title_area .title_inner:before {width: 12px; height: 11px; background-size: cover;}
+	.com_cont .title_cont .box .title_area .title_inner:after {width: 12px; height: 11px; background-size: cover;}
+	.com_cont .title_cont .box .title_area .title_inner .title {font-size: 18px; line-height: 27px;}
+	.com_cont .title_cont .box .title_area .text {margin: 10px 0 0; font-size: 14px; line-height: 21px;}
+
+	.com_cont .info_list_cont > .list > li {margin: 30px 0 0;}
+	.com_cont .info_list_cont > .list > li .box > .title {font-size: 20px; line-height: 30px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area {margin: 15px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li {display: block; width: 100%; margin: 15px 0 0; border-right: none; text-align: center;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li:first-child {margin: 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .img_box {width: 80px; height: 80px; background-size: 65px 50px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .tit {margin: 8px 0 0; font-size: 18px; line-height: 27px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .txt {font-size: 14px; line-height: 21px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .link {margin: 10px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .link .text {font-size: 13px; line-height: 35px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area.sty2 > .list > li {display: block; width: 100%; margin: 15px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area.sty2 > .list > li:first-child {margin: 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area.sty2 > .list > li:last-child {margin: 15px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .video_box {margin: 8px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area > .text {font-size: 15px; line-height: 23px;}
+
+	/* 체험프로그램 */
+	.program_box .list li {display: block; width: 100%; margin: 10px 0 0;}
+	.program_box .list li:nth-child(-n+2) {margin: 10px 0 0;}
+	.program_box .list li:nth-child(2n) {margin: 10px 0 0;}
+	.program_box .list li:nth-child(2) {margin: 10px 0 0;}
+	.program_box .list li:first-child {margin: 0;}
+	.program_box .list li .box {height: 180px;}
+	.program_box .list li .box .info_text:before {height: 180px;}
+	.program_box .list li .box .info_text .title {font-size: 18px; line-height: 27px;}
+	.program_box .list li .box .info_text .text {font-size: 14px; line-height: 21px;}
+	/* // 체험프로그램 */
+
+	/* 아이디어 경진대회 */
+	.com_cont .info_list_cont > .list > li .box .award_area {margin: 15px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .award_area .list li .box .sort {font-size: 15px; line-height: 30px;}
+	.com_cont .info_list_cont > .list > li .box .award_area .list li .box .info_box {padding: 10px;}
+	.com_cont .info_list_cont > .list > li .box .award_area .list li .box .info_box .text_box {padding: 0;}
+	.com_cont .info_list_cont > .list > li .box .award_area .list li .box .info_box .text_box .title {height: 46px; margin: 5px 0 0; font-size: 15px; line-height: 23px;}
+	.com_cont .info_list_cont > .list > li .box .award_area .list li .box .info_box .text_box .name {padding: 0 0 0 48px; font-size: 13px; line-height: 20px;}
+	/* // 아이디어 경진대회 */
+
+	/* 아이디어 경진대회 VIEW */
+	.view_cont .view_top .img_slide {display: block; width: inherit; text-align: center;}
+	.view_cont .view_top .img_slide .play_box .nav {width: 10px; height: 20px; margin: -10px 0 0;}
+	
+	.view_cont .view_top .info_box {display: block; padding: 20px 0 0;}
+	.view_cont .view_top .info_box .title {font-size: 17px; line-height: 26px;}
+	.view_cont .view_top .info_box .info_list {margin: 6px 0 0; padding: 10px 0 0;}
+	.view_cont .view_top .info_box .info_list .list li {padding: 0 0 0 70px; font-size: 14px; line-height: 21px;}
+	.view_cont .view_top .info_box .info_list .list li .tit {font-size: 14px; line-height: 21px;}
+	.view_cont .view_btm {margin: 15px 0 0; padding: 8px 0 0;}
+	.view_cont .view_btm .text_list .list li {margin: 20px 0 0;}
+	.view_cont .view_btm .text_list .list li .box .title {font-size: 15px; line-height: 23px;}
+	.view_cont .view_btm .text_list .list li .box .text {font-size: 13px; line-height: 19px;}
+	/* // 아이디어 경진대회 VIEW*/
+
+
+	/* YIP(청소년발명가프로그램) */
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area.sty2 {padding: 10px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li {width: calc(50% - 2.5px); margin: 8px 5px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li:nth-child(-n+4) {margin: 8px 5px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li:nth-child(4n) {margin: 8px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li:nth-child(4) {margin: 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li:nth-child(-n+2) {margin: 0 5px 0 0;} 
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li:nth-child(2n) {margin: 8px 0 0;} 
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li:nth-child(2) {margin: 0;} 
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li:last-child {margin: 8px 0 0;}
+
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .tit_area {height: 50px; margin: 9px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .tit_area .tit {font-size: 14px; line-height: 21px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .text_box {height: 128px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .text_box .text_box_inner .text {font-size: 14px; line-height: 23px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .step_list li .box .text_box .text_box_inner .day {margin: 3px 0 0; padding: 7px 0 0; font-size: 13px; line-height: 20px;}
+
+	.com_cont .info_list_cont > .list > li .box .img_list_box .list li {width: calc(33.3333% - 10px); margin: 0 15px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .img_list_box .list li .text {margin: 6px 0 0; font-size: 13px; line-height: 20px;}
+
+	/* 대한민국학생발명전시회 수상작 전시 */
+	.com_tab_cont .slt_tab {font-size: 14px; line-height: 38px;}
+	/* 스크롤바 tab */
+	.com_tab_cont.tab-03 .tab_list li {display: inline-block; width: 150px;}
+	.com_tab_cont.tab-03 .tab_list li .tab_btn_box .tab_btn {height: 36px;}
+	.com_tab_cont.tab-03 .tab_list li .tab_btn_box .tab_btn .text {font-size: 12px; line-height: 18px;}
+
+	.com_list_cont {margin: 20px 0 0;}
+	.com_list_cont .top_box .slt_data {padding: 0 25px 0 10px; background-position: right 5px center; font-size: 14px; line-height: 34px;}
+	.com_list_cont .com_list_box {padding: 17px 0 0;}
+	.com_list_cont .com_list_box > .list > li {width: calc(33.3333% - 10px); margin: 0 15px 20px 0;}
+	.com_list_cont .com_list_box > .list > li:nth-last-child(-n+4) {margin: 0 15px 20px 0;}
+	.com_list_cont .com_list_box > .list > li:nth-child(4n) {margin: 0 15px 20px 0;}
+	.com_list_cont .com_list_box > .list > li:nth-last-child(-n+3) {margin: 0 15px 0 0;}
+	.com_list_cont .com_list_box > .list > li:nth-child(3n) {margin: 0 0 20px 0;}
+	.com_list_cont .com_list_box > .list > li .box .text_box {margin: 7px 0 0;}
+	.com_list_cont .com_list_box > .list > li .box .text_box .info_list > .list > li {font-size: 12px; line-height: 21px;}
+	.com_list_cont .com_list_box > .list > li .box .text_box .data2 {font-size: 12px; line-height: 21px;}
+	/* // 대한민국학생발명전시회 수상작 전시 */
+
+	/* 추가 */
+	.com_cont .info_list_cont > .list > li .box > .text {font-size: 14px; line-height: 21px;}
+	.view_cont .view_top .img_slide #slide_list li .img_box {height: 200px; margin: 0 auto;}
+	.view_cont .view_top .img_slide #slide_list li .img_box .img_inner {height: 200px;}
+	
+	/* 홍보관3 */
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area {padding: 10px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li {margin: 15px 0 0; padding: 0 0 30px 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li:after {width: 9.33px; height: 16px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li:first-child {padding: 0 0 30px 0;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li .step_box {max-width: 115px; background-size: 115px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li .step_box .box {height: 115px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li .step_box .box .txt {font-size: 14px; line-height: 21px;}
+	.com_cont .info_list_cont > .list > li .box .com_list_area .step_area .list li .txt_box .txt {font-size: 14px; line-height: 21px;}
+	/* 홍보관3 */
+	
+	/* 10-05 */
+	.com_list_cont .title_area {margin: 15px 0 0;}
+	.com_list_cont .con_area {padding: 0 0 74px; background-size: 100% 151px;}
+	.com_list_cont .con_area .video_box {max-width: 550px;}
+	.com_list_cont .con_area .video_box .video_inner {height: 310px;}
+	.btn_wrap {margin: 15px 0 0;}
+	.btn_wrap .view_btn .text {font-size: 15px; line-height: 40px;}
+	.btn_wrap .view_btn .text:before {width: 0; height: 7px; margin: -4px 0 0; background-size: cover;}
+	.btn_wrap .view_btn:hover .text:before, .btn_wrap .view_btn:focus .text:before {width: 23px;}
+
+	.view_cont .title_box {margin: 0 0 15px; padding: 0 0 15px;}
+	.view_cont .title_box .title {font-size: 18px; line-height: 27px;}
+	.view_cont .view_top .info_box .info_list .list li {padding: 0 0 0 94px;}
+	.view_cont .view_top .info_box .info_list .list li .tit {padding: 0 0 0 26px;}
+	.view_cont .view_top .info_box .info_list .list li .tit:before {width: 22px; height: 22px; background-size: cover;}
+
+	.view_cont .view_top .img_slide .nav_box {bottom: 0;}
+	.com_list_cont .com_list_box2 > .list > li .box .text_box {margin: 10px 0 0;}
+	.com_list_cont .com_list_box2 > .list > li .box .img_wrap .img_box .inner_box {height: 146px;}
+	.com_list_cont .com_list_box2 > .list > li .btn_wrap {margin: 8px 0 0;}
+
+	.view_cont .title_box.award .title {padding: 0 0 0 36px;}
+	.view_cont .title_box.award .title:before {width: 32px; height: 30px;}
+	/* // 10-05 */
+	
+		.com_program_view_cont > .box > .title_area {padding: 15px 5px;}
+	.com_program_view_cont > .box > .title_area > .title {font-size: 22px; line-height: 27px;}
+	.com_program_view_cont > .box > .title_area > .title > .ft_c {display: block;font-size:19px;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 {display: block !important;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li {display: block; margin: 10px 0 0; padding: 0; border: none; width: 100%;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li:first-child {margin: 0;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li > .inner_box {display: table; width: 100%; table-layout: fixed;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li > .inner_box > .one {display: table-cell; width: 60px; height: 60px; padding: 0; background-color: inherit !important; vertical-align: middle;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li > .inner_box > .one > .text {width: 60px; height: 60px; padding: 0; background-color: #ffffff; background-image: inherit !important; line-height: 60px; border-radius: 50%;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li > .inner_box > .text_box {display: table-cell; padding: 0 0 0 20px; vertical-align: middle; text-align: left;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .box > .list2 > li > .inner_box > .text_box:before {display: none;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide .slick-list .slick-track li .img_box .inner_box {height: 300px;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont {margin: 20px 0 0; padding: 25px 5px 0;}
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont .info_slide .slick-arrow {width: 22px; height:33px; margin: -17px 0 0; background-size:  9px 16px;}
+	.com_program_view_cont > .box > .info_list_area > .nav_box .num {font-size: 14px; line-height: 27px;}
+	
+	.com_cont .info_list_cont > .list > li .box > .video_box iframe {height: 270px;}
+}
+
+@media screen and (max-width:640px){
+	/* 대한민국학생발명전시회 수상작 전시 */
+	.com_list_cont .com_list_box > .list > li {width: calc(50% - 5px); margin: 0 10px 15px 0;}
+	.com_list_cont .com_list_box > .list > li:nth-last-child(-n+4) {margin: 0 10px 15px 0;}
+	.com_list_cont .com_list_box > .list > li:nth-child(4n) {margin: 0 10px 15px 0;}
+	.com_list_cont .com_list_box > .list > li:nth-last-child(-n+3) {margin: 0 10px 15px 0;}
+	.com_list_cont .com_list_box > .list > li:nth-child(3n) {margin: 0 10px 15px 0;}
+	.com_list_cont .com_list_box > .list > li:nth-last-child(-n+2) {margin: 0 10px 0 0;}
+	.com_list_cont .com_list_box > .list > li:nth-child(2n) {margin: 0 0 15px 0;}
+	/* // 대한민국학생발명전시회 수상작 전시 */
+	
+	/* 10-05 */
+	.com_list_cont .title_area .title_box {padding: 0;}
+	.com_list_cont .title_area .title_box:before {display: none;}
+	.com_list_cont .title_area .title_box:after {display: none;}
+	.com_list_cont .title_area .title_box .sub_tit {font-size: 18px; line-height: 27px;}
+	.com_list_cont .title_area .title_box .title {font-size: 20px; line-height: 30px;}
+	.com_list_cont .title_area .title_box .text {font-size: 15px; line-height: 23px;}
+	.com_list_cont .con_area {padding: 0 0 80px; background-size: 100% 151px;}
+	.com_list_cont .con_area .video_box {max-width: 400px;}
+	.com_list_cont .con_area .video_box .video_inner {height: 225px;}
+
+	.com_list_cont .com_list_box2 > .list > li .box .img_wrap .img_box .inner_box {height: 100px;}
+	/* // 10-05 */
+	
+}
+
+
+@media screen and (max-width:480px){
+	/* 창의발명교육 홍보관 */
+	.promotion_cont > .title {font-size: 14px; line-height: 21px;}
+	.promotion_cont .info_list_area {margin: 10px 0 0;}
+	.promotion_cont .info_list_area .list li {width: 100%; margin: 10px 0 0;}
+	.promotion_cont .info_list_area .list li:first-child {margin: 0;}
+	.promotion_cont .info_list_area .list li .box .img_box {width: 73px; height: 73px; background-size: 38px 32px;}
+	.promotion_cont .design_img_list_area {margin: 15px 0 0;}
+	.promotion_cont .design_img_list_area .list_box.box2 > ul > li {width: calc(33.3333% - 6.6666px); margin: 0 10px 0 0;}
+
+	.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .video_box iframe {height: 270px;}
+	
+	/* 아이디어 경진대회 */
+	.com_cont .info_list_cont > .list > li .box .award_area .list li {display: block; width: 100%; margin: 10px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .award_area .list li:nth-child(-n+2) {margin:10px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .award_area .list li:nth-child(2) {margin: 10px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .award_area .list li:first-child {margin: 0;}
+	.view_cont .view_btm .text_list .list li .box .img_box {height: 268px;}
+	/* // 아이디어 경진대회 */
+
+	.com_cont .info_list_cont > .list > li .box .img_list_box .list li {display: block; width: 100%; margin: 10px 0 0;}
+	.com_cont .info_list_cont > .list > li .box .img_list_box .list li:first-child {margin: 0;}
+	.com_cont .info_list_cont > .list > li .box .img_list_box .list li:last-child {margin: 10px 0 0;}
+
+	/* 대한민국학생발명전시회 수상작 전시 */
+	.com_list_cont .com_list_box > .list > li {width: 100%; margin: 0 0 15px !important;}
+	/*.com_list_cont .com_list_box > .list > li .box .img_box {width: auto; margin: 0 auto;}
+	.com_list_cont .com_list_box > .list > li .box .img_box .inner_box {width: auto;} */
+	.com_list_cont .com_list_box > .list > li .box .text_box .title {height: 21px; font-size: 14px; line-height: 21px; -webkit-line-clamp: 1;}
+	/* // 대한민국학생발명전시회 수상작 전시 */
+	
+	
+	/* 10-05 */
+	.com_list_cont .con_area {padding: 0 30px 62px; background-size: 100% 114px;}
+	.com_list_cont .con_area .video_box {max-width: 280px;}
+	.com_list_cont .con_area .video_box .video_inner {height: 155px;}
+	.com_list_cont .com_list_box2 > .list > li {display: block; width: 100%; margin: 20px 0 0;}
+	.com_list_cont .com_list_box2 > .list > li:nth-child(-n+3) {margin: 20px 0 0;}
+	.com_list_cont .com_list_box2 > .list > li:nth-child(3n) {margin: 20px 0 0;}
+	.com_list_cont .com_list_box2 > .list > li:nth-child(3) {margin: 20px 0 0;}
+	.com_list_cont .com_list_box2 > .list > li:nth-child(-n+2) {margin: 20px 0 0;}
+	.com_list_cont .com_list_box2 > .list > li:nth-child(2n) {margin: 20px 0 0;}
+	.com_list_cont .com_list_box2 > .list > li:nth-child(2) {margin: 20px 0 0;}
+
+	.com_list_cont .com_list_box2 > .list > li:first-child {margin: 0;}
+	.com_list_cont .com_list_box2 > .list > li .box .img_wrap .img_box .inner_box {height: 150px;}
+
+	/* // 10-05 */
+	
+	.com_program_view_cont > .box > .info_list_area > .info_list > li > .info_list_box > .info_slide_cont {padding: 15px 0 0;}
+	
+	.com_cont .info_list_cont > .list > li .box > .video_box iframe {height: 150px;}
+}

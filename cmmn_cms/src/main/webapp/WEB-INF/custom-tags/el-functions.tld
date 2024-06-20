@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+    version="2.0">
+ 
+    <description>Custom EL functions library</description>
+    <display-name>Custom EL functions</display-name>
+    <tlib-version>1.1</tlib-version>
+    <short-name>cFn</short-name>
+    <uri>cms/tld/el-functions.tld</uri>
+ 
+    <function>
+        <description>get index from arrays</description>
+        <name>arrIndexOf</name>
+        <function-class>cms.tld.CustomTldFunctions</function-class>
+        <function-signature>java.lang.Integer arrIndexOf(java.util.List, java.lang.Object)</function-signature>
+        <example>${cFn:arrIndexOf(list, data)}</example>
+    </function>
+    
+    <function>
+    	<description>kss file include</description>
+        <name>kssFileInclude</name>
+        <function-class>cms.tld.CustomTldFunctions</function-class>
+        <function-signature>java.lang.String kssFileInclude(java.lang.String, java.lang.Integer, java.lang.String, java.lang.Integer, java.lang.String, java.lang.Boolean, java.util.List)</function-signature>
+        <example>${cFn:onFileInclude(sendParam, attachCnt, extensions, maxSize, sizeUnit, thumbnail, fileList)}</example>
+    </function>
+    
+    <function>
+        <description>get file html</description>
+        <name>onFileInclude</name>
+        <function-class>cms.tld.CustomTldFunctions</function-class>
+        <function-signature>java.lang.String onFileInclude(java.lang.String, java.lang.String, java.lang.Integer, java.lang.String, java.lang.Integer, java.lang.String, java.util.List)</function-signature>
+        <example>${cFn:onFileInclude(tableName, sendParam, attachCnt, extensions, maxSize, sizeUnit, fileList)}</example>
+    </function>
+    
+    <function>
+        <description>get file html</description>
+        <name>onUserFileInclude</name>
+        <function-class>cms.tld.CustomTldFunctions</function-class>
+        <function-signature>java.lang.String onUserFileInclude(java.lang.String, java.lang.String, java.lang.Integer, java.lang.String, java.lang.Integer, java.lang.String, java.util.List)</function-signature>
+        <example>${cFn:onUserFileInclude(tableName, sendParam, attachCnt, extensions, maxSize, sizeUnit, fileList)}</example>
+    </function>
+    
+    
+    <function>
+    	<description>remove html tags</description>
+    	<name>removeTags</name>
+    	<function-class>cms.tld.CustomTldFunctions</function-class>
+    	<function-signature>java.lang.String removeTags(java.lang.String)</function-signature>
+    	<example>${cFn:removeTags(text)}</example>
+    </function>
+    
+    <function>
+    	<description>make new line</description>
+    	<name>nl2br</name>
+    	<function-class>cms.tld.CustomTldFunctions</function-class>
+    	<function-signature>java.lang.String nl2br(java.lang.String)</function-signature>
+    	<example>${cFn:nl2br(text)}</example>
+    </function>
+    
+    <function>
+    	<description>get encrypt data</description>
+    	<name>encrypt</name>
+    	<function-class>cms.tld.CustomTldFunctions</function-class>
+    	<function-signature>java.lang.String encrypt(java.lang.String)</function-signature>
+    	<example>${cFn:decrypt(text)}</example>
+    </function>
+    
+    <function>
+    	<description>get decrypt data</description>
+    	<name>decrypt</name>
+    	<function-class>cms.tld.CustomTldFunctions</function-class>
+    	<function-signature>java.lang.String decrypt(java.lang.String)</function-signature>
+    	<example>${cFn:decrypt(text)}</example>
+    </function>
+    
+    <function>
+        <description>get single category data names</description>
+        <name>singleCategoryNames</name>
+        <function-class>cms.tld.CustomTldFunctions</function-class>
+        <function-signature>java.lang.String singleCategoryNames(java.lang.String, java.util.List)</function-signature>
+        <example>${cFn:singleCategoryNames(category, categoryList)}</example>
+    </function>
+    
+    <function>
+        <description>get multiple category data names</description>
+        <name>multipleCategoryNames</name>
+        <function-class>cms.tld.CustomTldFunctions</function-class>
+        <function-signature>java.lang.String multipleCategoryNames(java.lang.String, java.util.List)</function-signature>
+        <example>${cFn:multipleCategoryNames(categorys, categoryList)}</example>
+    </function>
+    
+    <function>
+    	<description>fill zero space</description>
+    	<name>zeroSpace</name>
+    	<function-class>cms.tld.CustomTldFunctions</function-class>
+    	<function-signature>java.lang.Object zeroSpace(java.lang.Object, java.lang.Integer)</function-signature>
+    	<example>${cFn:zeroSpace(data, space)}</example>
+    </function>
+    
+    <function>
+    	<description>site text splitor</description>
+    	<name>textSplitor2</name>
+    	<function-class>cms.tld.CustomTldFunctions</function-class>
+    	<function-signature>java.util.List textSplitor2(java.lang.String, java.lang.String)</function-signature>
+    	<example>${cFn:textSplitor2(text, splitor)}</example>
+    </function>
+    
+    <function>
+    	<description>escapeXml</description>
+    	<name>escapeXml</name>
+    	<function-class>cms.tld.CustomTldFunctions</function-class>
+    	<function-signature>java.lang.String escapeXml(java.lang.String)</function-signature>
+    	<example>${cFn:escapeXml(text)}</example>
+    </function>
+    
+</taglib>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminCenterQuestion_SQL">
+
+	<select id="HomeKorAdminCenterQuestion_SQL.selectHomeKorAdminCenterQuestionList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminCenterQuestion_SQL.selectHomeKorAdminCenterQuestionList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.type_at,
+							T1.title,
+							T1.content,
+							T1.name,
+							T1.email,
+							T1.agreement,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_center_question T1
+						<where>
+						<if test='searchValue1 != ""'>
+						AND			T1.use_at														= #{searchValue1}
+						</if>
+						<if test='searchValue2 != ""'>
+						AND			T1.type_at														= #{searchValue2}
+						</if>
+						<if test='searchKeyword != ""'>
+							<choose>
+								<when test='searchValue3 == "0"'>
+							AND
+							(
+										T1.name														LIKE '%' || #{searchKeyword} || '%'
+							OR			T1.title													LIKE '%' || #{searchKeyword} || '%'
+							OR			T1.content													LIKE '%' || #{searchKeyword} || '%'
+							)
+								</when>
+								<when test='searchValue3 == "1"'>
+							AND			T1.name														LIKE '%' || #{searchKeyword} || '%'
+								</when>
+								<when test='searchValue3 == "2"'>
+							AND			T1.title													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+								<when test='searchValue3 == "3"'>
+							AND			T1.content													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+							</choose>
+						</if>
+						</where>
+						ORDER BY T1.reg_date DESC, T1.no DESC
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminCenterQuestion_SQL.selectHomeKorAdminCenterQuestionListCnt" parameterType="vo" resultType="int">
+		/* HomeKorAdminCenterQuestion_SQL.selectHomeKorAdminCenterQuestionListCnt */
+		SELECT 
+			COUNT(1)
+		FROM tb_center_question T1
+		 <where>
+		<if test='searchValue1 != ""'>
+		AND			T1.use_at														= #{searchValue1}
+		</if>
+		<if test='searchValue2 != ""'>
+		AND			T1.type_at														= #{searchValue2}
+		</if>
+		<if test='searchKeyword != ""'>
+			<choose>
+				<when test='searchValue3 == "0"'>
+			AND
+			(
+						T1.name														LIKE '%' || #{searchKeyword} || '%'
+			OR			T1.title													LIKE '%' || #{searchKeyword} || '%'
+			OR			T1.content													LIKE '%' || #{searchKeyword} || '%'
+			)
+				</when>
+				<when test='searchValue3 == "1"'>
+			AND			T1.name														LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test='searchValue3 == "2"'>
+			AND			T1.title													LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test='searchValue3 == "3"'>
+			AND			T1.content													LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</if>
+		</where>
+	</select>
+
+	<select id="HomeKorAdminCenterQuestion_SQL.selectHomeKorAdminCenterQuestion" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminCenterQuestion_SQL.selectHomeKorAdminCenterQuestion */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.type_at,
+			T1.title,
+			T1.content,
+			T1.name,
+			T1.email,
+			T1.agreement,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register
+		FROM
+			tb_center_question T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+		<!-- LIMIT 1 -->
+	</select>
+	
+	<insert id="HomeKorAdminCenterQuestion_SQL.insertHomeKorAdminCenterQuestion" parameterType="vo">
+	/* HomeKorAdminCenterQuestion_SQL.insertHomeKorAdminCenterQuestion */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_center_question_seq.NEXTVAL AS idx FROM dual
+		</selectKey>
+		INSERT INTO tb_center_question
+		(			
+					no,
+					use_at,
+					title,
+					content,
+					name,
+					type_at,
+					email,
+					register,
+					reg_date
+		)
+					VALUES
+		(			
+					#{idx},
+					#{paramKey1},
+					#{paramKey2},
+					#{paramKey3},
+					#{paramKey4},
+					#{paramKey5},
+					#{paramKey7},
+					#{adm_idx},
+					SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorAdminCenterQuestion_SQL.updateHomeKorAdminCenterQuestion" parameterType="vo">
+		/* HomeKorAdminCenterQuestion_SQL.updateHomeKorAdminCenterQuestion */
+		UPDATE tb_center_question SET 
+			   use_at																= #{paramKey1},
+			   mod_date																= SYSDATE,  
+			   modifier																= #{adm_idx}        
+		<where>
+		AND no 																		= #{idx}
+		</where>	   
+		          
+	</update>
+	
+	<delete id="HomeKorAdminCenterQuestion_SQL.deleteHomeKorAdminCenterQuestion" parameterType="vo">
+	/* HomeKorAdminCenterQuestion_SQL.deleteHomeKorAdminCenterQuestion */
+		DELETE FROM tb_center_question
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminCenterQuestion_SQL.deleteHomeKorAdminCenterQuestionList" parameterType="vo">
+		/* HomeKorAdminCenterQuestion_SQL.deleteHomeKorAdminCenterQuestionList */
+		DELETE FROM tb_center_question
+		<where>
+			<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete>
+	
+</mapper>

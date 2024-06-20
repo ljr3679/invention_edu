@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorUserJudgeMain_SQL">
+
+	<select id="HomeKorUserJudgeMain_SQL.selectHomeKorUserJudgeMainList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserJudgeMain_SQL.selectHomeKorUserJudgeMainList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.year_ref,
+							T1.region_ref,
+							T1.type_ref,
+							T1.reg_no,
+							T1.title,
+							T1.invention,
+							T1.content,
+							(SELECT T2.data_name FROM cms_category_data T2 <where> AND T2.no = T1.year_ref </where>) AS year_name,
+							(SELECT T3.data_name FROM cms_category_data T3 <where> AND T3.no = T1.region_ref </where>) AS region_name,
+							(SELECT T4.data_name FROM cms_category_data T4 <where> AND T4.no = T1.type_ref </where>) AS type_name,
+							(SELECT COUNT(1) FROM tb_exam_like T5 <where>T5.tb_invent_exam_ref = T1.no</where>) AS like_cnt,
+							(SELECT FT.attach_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_name,
+	        				(SELECT FT.attach_re_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_re_name,
+	        				(SELECT FT.extension FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_extension,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_invent_exam T1
+						<where>
+						<!-- <if test='searchValue1 != ""'>
+						AND			T1.year_ref														= #{searchValue1}
+						</if>
+						<if test='searchValue2 != ""'>
+						AND			T1.region_ref													= #{searchValue2}
+						</if> -->
+						<if test='searchValue4 != ""'>
+						AND			T1.type_ref														= #{searchValue4}
+						</if>
+						<if test='searchKeyword != ""'>
+							<choose>
+								<when test='searchValue3 == "0"'>
+							AND
+							(
+										T1.reg_no													LIKE '%' || #{searchKeyword} || '%'
+							OR			T1.title													LIKE '%' || #{searchKeyword} || '%'
+							)
+								</when>
+								<when test='searchValue3 == "1"'>
+							AND			T1.reg_no													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+								<when test='searchValue3 == "2"'>
+							AND			T1.title													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+							</choose>
+						</if>
+						</where>
+						ORDER BY 
+						<choose>
+							<when test='searchValue5 == "A"'>
+							T1.reg_date DESC, T1.no DESC
+							</when>
+							<when test='searchValue5 == "B"'>
+							like_cnt ASC, T1.no ASC			
+							</when>
+							<when test='searchValue5 == "C"'>
+							like_cnt DESC, T1.no ASC			
+							</when>
+							<when test='searchValue5 == "D"'>
+							T1.reg_no ASC, T1.no ASC			
+							</when>
+							<otherwise>
+							T1.reg_date DESC, T1.no DESC
+							</otherwise>
+						</choose>
+					) X
+		) Z
+		<if test='pagingYn == "Y"'>
+			<where>
+			<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+			</where>
+		</if>
+	</select>
+	
+	<select id="HomeKorUserJudgeMain_SQL.selectHomeKorUserJudgeMainListCnt" parameterType="vo" resultType="int">
+		/* HomeKorUserJudgeMain_SQL.selectHomeKorUserJudgeMainListCnt */
+		SELECT 
+			COUNT(1)
+		FROM tb_invent_exam T1
+		<where>
+		<!-- <if test='searchValue1 != ""'>
+		AND			T1.year_ref														= #{searchValue1}
+		</if>
+		<if test='searchValue2 != ""'>
+		AND			T1.region_ref													= #{searchValue2}
+		</if> -->
+		<if test='searchValue4 != ""'>
+		AND			T1.type_ref														= #{searchValue4}
+		</if>
+		<if test='searchKeyword != ""'>
+			<choose>
+				<when test='searchValue3 == "0"'>
+			AND
+			(
+						T1.reg_no													LIKE '%' || #{searchKeyword} || '%'
+			OR			T1.title													LIKE '%' || #{searchKeyword} || '%'
+			)
+				</when>
+				<when test='searchValue3 == "1"'>
+			AND			T1.reg_no													LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test='searchValue3 == "2"'>
+			AND			T1.title													LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</if>
+		</where>
+	</select>
+
+	<select id="HomeKorUserJudgeMain_SQL.selectHomeKorUserJudgeMain" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserJudgeMain_SQL.selectHomeKorUserJudgeMain */
+		SELECT
+			T1.no,
+			T1.year_ref,
+			T1.region_ref,
+			T1.type_ref,
+			T1.reg_no,
+			T1.title,
+			T1.invention,
+			T1.content,
+			(SELECT T4.data_name FROM cms_category_data T4 <where> AND T4.no = T1.type_ref </where>) AS type_name,
+			(SELECT FT.attach_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_name,
+			(SELECT FT.attach_re_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_re_name,
+			(SELECT FT.extension FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_extension,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register
+		FROM
+			tb_invent_exam T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+		<!-- LIMIT 1 -->
+	</select>
+	
+					<!-- 				공중심사 좋아요 				-->
+					<!-- 				공중심사 좋아요 				-->
+					<!-- 				공중심사 좋아요 				--> 
+		
+	<select id="HomeKorUserJudgeMain_SQL.selectHomeKorUserJudgeMainLikeListCnt" parameterType="vo" resultType="int">
+		/* HomeKorUserJudgeMain_SQL.selectHomeKorUserJudgeMainLikeListCnt */
+		SELECT 
+			COUNT(1)
+		FROM tb_exam_like T1
+		<where>
+			T1.tb_invent_exam_ref														= #{idx}
+		</where>
+	</select>
+	
+	<select id="HomeKorUserJudgeMain_SQL.selectHomeKorUserJudgeMainIsLikeCnt" parameterType="vo" resultType="int">
+		/* HomeKorUserJudgeMain_SQL.selectHomeKorUserJudgeMainIsLikeCnt */
+		SELECT 
+			COUNT(1)
+		FROM tb_exam_like T1
+		<where>
+			AND		T1.site_account_ref															= #{idx3}
+			AND		T1.tb_invent_exam_ref														= #{idx}
+		</where>
+	</select>
+	
+	<select id="HomeKorUserJudgeMain_SQL.selectHomeKorUserJudgeMainLiked" parameterType="vo" resultType="egovMap">
+		/* HomeKorUserJudgeMain_SQL.selectHomeKorUserJudgeMainLiked */
+		SELECT 
+			<!-- COUNT(1) AS cnt, -->
+			T1.tb_invent_exam_ref
+		FROM tb_exam_like T1
+		<where>
+			AND		T1.site_account_ref															= #{idx3}
+			AND 	ROWNUM 																		= 1
+		</where>
+	</select>	
+		
+	<insert id="HomeKorUserJudgeMain_SQL.insertHomeKorUserJudgeMainLike" parameterType="vo">
+	/* HomeKorUserJudgeMain_SQL.insertHomeKorUserJudgeMainLike */
+		<selectKey resultType="vo" keyProperty="idx2" order="BEFORE">
+			SELECT tb_exam_like_seq.NEXTVAL AS idx2 FROM dual
+		</selectKey>
+		INSERT INTO tb_exam_like
+		(			
+					no,
+					site_account_ref,
+					tb_invent_exam_ref
+		)
+					VALUES
+		(			
+					#{idx2},
+					#{idx3},
+					#{idx}
+		)
+	</insert>
+	
+	<delete id="HomeKorUserJudgeMain_SQL.deleteHomeKorUserJudgeMainLike" parameterType="vo">
+	/* HomeKorUserJudgeMain_SQL.deleteHomeKorUserJudgeMainLike */
+		DELETE FROM tb_exam_like T1
+		<where>
+		AND		T1.site_account_ref															= #{idx3}
+		<!-- AND		T1.tb_invent_exam_ref														= #{idx} -->
+		</where>
+	</delete>
+	
+</mapper>

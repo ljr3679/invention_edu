@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorUserEducationMaterialWork_SQL">
+
+	<select id="HomeKorUserEducationMaterialWork_SQL.selectHomeKorUserEducationMaterialWorkList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserEducationMaterialWork_SQL.selectHomeKorUserEducationMaterialWorkList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.type_ref,
+							T1.title,
+							T2.data_name AS type_name,
+							(SELECT FT.attach_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_name,
+							(SELECT FT.attach_re_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_re_name,
+							(SELECT FT.extension FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_extension,
+							(SELECT IM.attach_name FROM cms_file_data IM <where> AND IM.identifier = #{identifier2} AND IM.key_ref = T1.no AND ROWNUM = 1</where>) AS img_name,
+							(SELECT IM.attach_re_name FROM cms_file_data IM <where> AND IM.identifier = #{identifier2} AND IM.key_ref = T1.no AND ROWNUM = 1</where>) AS img_re_name,
+							(SELECT IM.extension FROM cms_file_data IM <where> AND IM.identifier = #{identifier2} AND IM.key_ref = T1.no AND ROWNUM = 1</where>) AS img_extension,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_work T1
+						LEFT OUTER JOIN 
+							cms_category_data T2
+						ON  T1.type_ref																= T2.no
+						<where>
+						AND			T1.use_at														= 'Y'
+						<if test='searchValue2 != ""'>
+						AND			T1.type_ref														= #{searchValue2}
+						</if>
+						</where>
+						ORDER BY	T1.reg_date DESC, T1.no DESC 
+					) X
+		) Z
+	</select>
+	
+	<select id="HomeKorUserEducationMaterialWork_SQL.selectHomeKorUserEducationMaterialWorkListCnt" parameterType="vo" resultType="int">
+		/* HomeKorUserEducationMaterialWork_SQL.selectHomeKorUserEducationMaterialWorkListCnt */
+		SELECT 
+			COUNT(1)
+		FROM 
+			tb_work T1
+		LEFT OUTER JOIN 
+			cms_category_data T2
+		ON  T1.type_ref																= T2.no
+		<where>
+		AND			T1.use_at														= 'Y'
+		<if test='searchValue2 != ""'>
+		AND			T1.type_ref														= #{searchValue2}
+		</if>
+		</where>
+	</select>
+	
+</mapper>

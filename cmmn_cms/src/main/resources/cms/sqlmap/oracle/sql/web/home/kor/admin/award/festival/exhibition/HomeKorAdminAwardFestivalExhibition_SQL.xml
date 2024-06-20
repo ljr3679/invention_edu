@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminAwardFestivalExhibition_SQL">
+
+	<select id="HomeKorAdminAwardFestivalExhibition_SQL.selectHomeKorAdminAwardFestivalExhibitionList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminAwardFestivalExhibition_SQL.selectHomeKorAdminAwardFestivalExhibitionList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.year,
+							T1.parent_ref,
+							(SELECT T2.data_name FROM cms_category_data T2 <where>T2.no = T1.parent_ref</where>) AS parent_name,
+							T1.type_ref,
+							(SELECT T2.data_name FROM cms_category_data T2 <where>T2.no = T1.type_ref</where>) AS type_name,
+							T1.school_ref,
+							(SELECT T2.data_name FROM cms_category_data T2 <where>T2.no = T1.school_ref</where>) AS school_type_name,
+							T1.tech_ref,
+							(SELECT T2.data_name FROM cms_category_data T2 <where>T2.no = T1.tech_ref</where>) AS tech_name,
+							T1.school_name,
+							T1.teacher,
+							T1.winner,
+							T1.title,
+							T1.intention,
+							T1.content,
+							T1.purpose,
+							T1.youtube,
+							T1.register,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.modifier,
+							TO_CHAR(T1.mod_date, 'YYYY-MM-DD') AS mod_date
+						FROM
+							tb_festival T1
+						<where>
+						<if test='searchValue1 != ""'>
+						AND			T1.year															= #{searchValue1}
+						</if>
+						<if test='searchValue2 != ""'>
+						AND			T1.parent_ref													= #{searchValue2}
+						</if>
+						<if test='searchValue3 != ""'>
+						AND			T1.school_ref													= #{searchValue3}
+						</if>
+						<if test='searchValue4 != ""'>
+						AND			T1.tech_ref														= #{searchValue4}
+						</if>
+						<if test='searchKeyword != ""'>
+							<choose>
+								<when test='searchValue5 == "0"'>
+							AND
+							(
+										T1.school_name												LIKE '%' || #{searchKeyword} || '%'
+							OR			T1.teacher													LIKE '%' || #{searchKeyword} || '%'
+							OR			T1.winner													LIKE '%' || #{searchKeyword} || '%'
+							OR			T1.title													LIKE '%' || #{searchKeyword} || '%'
+							)
+								</when>
+								<when test='searchValue5 == "1"'>
+							AND			T1.school_name												LIKE '%' || #{searchKeyword} || '%'
+								</when>
+								<when test='searchValue5 == "2"'>
+							AND			T1.teacher													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+								<when test='searchValue5 == "2"'>
+							AND			T1.winner													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+								<when test='searchValue5 == "2"'>
+							AND			T1.title													LIKE '%' || #{searchKeyword} || '%'
+								</when>
+							</choose>
+						</if>
+						</where>
+						ORDER BY T1.reg_date DESC, T1.no DESC
+					) X
+			) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminAwardFestivalExhibition_SQL.selectHomeKorAdminAwardFestivalExhibitionListCnt" parameterType="vo" resultType="int">
+	/* HomeKorAdminAwardFestivalExhibition_SQL.selectHomeKorAdminAwardFestivalExhibitionListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			tb_festival T1
+		<where>
+		<if test='searchValue1 != ""'>
+		AND			T1.year															= #{searchValue1}
+		</if>
+		<if test='searchValue2 != ""'>
+		AND			T1.parent_ref													= #{searchValue2}
+		</if>
+		<if test='searchValue3 != ""'>
+		AND			T1.school_ref													= #{searchValue3}
+		</if>
+		<if test='searchValue4 != ""'>
+		AND			T1.tech_ref														= #{searchValue4}
+		</if>
+		<if test='searchKeyword != ""'>
+			<choose>
+				<when test='searchValue5 == "0"'>
+			AND
+			(
+						T1.school_name												LIKE '%' || #{searchKeyword} || '%'
+			OR			T1.teacher													LIKE '%' || #{searchKeyword} || '%'
+			OR			T1.winner													LIKE '%' || #{searchKeyword} || '%'
+			OR			T1.title													LIKE '%' || #{searchKeyword} || '%'
+			)
+				</when>
+				<when test='searchValue5 == "1"'>
+			AND			T1.school_name												LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test='searchValue5 == "2"'>
+			AND			T1.teacher													LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test='searchValue5 == "2"'>
+			AND			T1.winner													LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test='searchValue5 == "2"'>
+			AND			T1.title													LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</if>
+		</where>
+	</select>
+
+	<select id="HomeKorAdminAwardFestivalExhibition_SQL.selectHomeKorAdminAwardFestivalExhibition" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminAwardFestivalExhibition_SQL.selectHomeKorAdminAwardFestivalExhibition */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.year,
+			T1.parent_ref,
+			T1.type_ref,
+			T1.school_ref,
+			T1.tech_ref,
+			T1.school_name,
+			T1.teacher,
+			T1.winner,
+			T1.title,
+			T1.intention,
+			T1.content,
+			T1.purpose,
+			T1.youtube,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register,
+			TO_CHAR(T1.mod_date, 'YYYY-MM-DD') AS mod_date,
+			T1.modifier
+		FROM
+			tb_festival T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+	</select>
+	
+	<insert id="HomeKorAdminAwardFestivalExhibition_SQL.insertHomeKorAdminAwardFestivalExhibition" parameterType="vo">
+	/* HomeKorAdminAwardFestivalExhibition_SQL.insertHomeKorAdminAwardFestivalExhibition */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_festival_seq.NEXTVAL AS idx FROM dual
+		</selectKey>
+		INSERT INTO tb_festival
+		(
+					no,
+					use_at,
+					year,
+					parent_ref,
+					type_ref,
+					school_ref,
+					tech_ref,
+					school_name,
+					teacher,
+					winner,
+					title,
+					intention,
+					content,
+					purpose,
+					youtube,
+					register,
+					reg_date
+					
+		)
+					VALUES
+		(
+					#{idx},
+					#{paramKey1},
+					#{paramKey2},
+					#{paramKey3},
+					#{paramKey4},
+					#{paramKey5},
+					#{paramKey6},
+					#{paramKey7},
+					#{paramKey8},
+					#{paramKey9},
+					#{paramKey10},
+					#{paramKey11},
+					#{paramKey12},
+					#{paramKey13},
+					#{paramKey14},
+					#{adm_idx},
+					SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorAdminAwardFestivalExhibition_SQL.updateHomeKorAdminAwardFestivalExhibition" parameterType="vo">
+	/* HomeKorAdminAwardFestivalExhibition_SQL.updateHomeKorAdminAwardFestivalExhibition */
+		UPDATE tb_festival SET
+				use_at																= #{paramKey1},
+				year																= #{paramKey2},
+				parent_ref															= #{paramKey3},
+				type_ref															= #{paramKey4},
+				school_ref															= #{paramKey5},
+				tech_ref															= #{paramKey6},
+				school_name															= #{paramKey7},
+				teacher																= #{paramKey8},
+				winner																= #{paramKey9},
+				title																= #{paramKey10},
+				intention															= #{paramKey11},
+				content																= #{paramKey12},
+				purpose																= #{paramKey13},
+				youtube																= #{paramKey14},
+				modifier															= #{adm_idx},
+				mod_date															= SYSDATE
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</update>
+	
+	<delete id="HomeKorAdminAwardFestivalExhibition_SQL.deleteHomeKorAdminAwardFestivalExhibition" parameterType="vo">
+	/* HomeKorAdminAwardFestivalExhibition_SQL.deleteHomeKorAdminAwardFestivalExhibition */
+		DELETE FROM tb_festival
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminAwardFestivalExhibition_SQL.deleteHomeKorAdminAwardFestivalExhibitionList" parameterType="vo">
+		/* HomeKorAdminAwardFestivalExhibition_SQL.deleteHomeKorAdminAwardFestivalExhibitionList */
+		DELETE FROM tb_festival
+		<where>
+			<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete> 
+	
+</mapper>

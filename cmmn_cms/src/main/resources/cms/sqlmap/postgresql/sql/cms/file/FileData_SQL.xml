@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="FileData">
+
+	<select id="FileData.selectFileDataList" parameterType="egovMap" resultType="egovMap">
+	/* FileData.selectFileDataList */
+		SELECT
+			no,
+			attach_name,
+			attach_re_name,
+			extension,
+			mime_type,
+			attach_size,
+			down_cnt
+		FROM
+			cms_file_data
+		<where>
+		<choose>
+			<when test='uniqueKeyList != null'>
+		<foreach collection="uniqueKeyList" open="no IN (" close=")" separator="," item="key">
+														#{key}
+		</foreach>
+			</when>
+			<otherwise>
+		AND			identifier							= #{identifier}
+		AND			key_ref								= #{keyRef}	
+			</otherwise>
+		</choose>
+		</where>
+		ORDER BY reg_date ASC
+	</select>
+	
+	<insert id="FileData.insertFileData" parameterType="egovMap">
+	/* FileData.insertFileData */
+		INSERT INTO cms_file_data
+		(
+			no,
+			identifier,
+			key_ref,
+			attach_name,
+			attach_re_name,
+			extension,
+			mime_type,
+			attach_size,
+			down_cnt,
+			reg_date
+		)
+			VALUES
+		(
+			cms_file_data_seq.NEXTVAL,
+			#{identifier},
+			#{keyRef},
+			#{attachName},
+			#{attachReName},
+			#{extension},
+			#{mimeType},
+			#{attachSize},
+			0,
+			SYSDATE
+		)
+	</insert>
+	
+	<delete id="FileData.deleteFileData" parameterType="vo">
+	/* FileData.deleteFileData */
+		DELETE FROM cms_file_data 
+		<where>
+		<choose>
+			<when test='fileDataRmList != null'>
+				<foreach collection="fileDataRmList" open="no IN (" close=")" separator="," item="no">
+					#{no}
+				</foreach>
+			</when>
+			<otherwise>
+		AND			1									= 2
+			</otherwise>
+		</choose>
+		</where>
+	</delete>
+	
+	<select id="FileData.selectFileDataInfo" parameterType="str" resultType="egovMap">
+	/* FileData.selectFileDataInfo */
+		SELECT
+			T1.*
+		FROM
+			(
+				SELECT
+					attach_name,
+					attach_re_name,
+					extension,
+					mime_type,
+					attach_size,
+					down_cnt
+				FROM
+					cms_file_data
+				<where>
+				AND			no									= #{uniqueKey}
+				</where>
+				ORDER BY reg_date DESC
+			) T1
+		<where>
+		AND			ROWNUM										= 1
+		</where>
+	</select>
+	
+	<update id="FileData.updateFileDownloadCountDataInfo" parameterType="str">
+	/* FileData.updateFileDownloadCountDataInfo */
+		UPDATE cms_file_data SET down_cnt = down_cnt + 1
+		<where>
+		AND			no											= #{uniqueKey}
+		</where>
+	</update>
+	
+</mapper>

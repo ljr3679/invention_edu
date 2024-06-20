@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminHomepageServeyMngSQL">
+
+	<select id="HomeKorAdminHomepageServeyMngSQL.selectAdminSurveyDataList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepageServeyMngSQL.selectAdminSurveyDataList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.title,
+							T1.use_at,
+							CASE
+								WHEN T1.use_at = 'Y'	THEN '공개'
+								WHEN T1.use_at = 'N' THEN '비공개'
+								ELSE '비공개'
+							END use_at_name,
+							T1.member_type,
+							TO_CHAR(T1.survey_start_date,'YYYY-MM-DD') AS survey_start_date,
+							TO_CHAR(T1.survey_end_date,'YYYY-MM-DD') AS survey_end_date,
+							TO_CHAR(T1.reg_date,'YYYY-MM-DD') AS reg_date
+						FROM
+							tb_survey_mng T1
+						<where>
+							AND	del_yn = 'N'
+							<if test='searchValue1 != ""'>
+								AND			T1.use_at = #{searchValue1}
+							</if>
+							<if test='searchKeyword != ""'>
+								<if test='searchValue2 == "0"'>
+									AND
+									(
+												T1.title	LIKE '%' || #{searchKeyword} || '%'
+												OR
+												T1.content	LIKE '%' || #{searchKeyword} || '%'
+									)
+								</if>
+								<if test='searchValue2 == "1"'>
+									AND			T1.title	LIKE '%' || #{searchKeyword} || '%'
+								</if>
+								<if test='searchValue2 == "2"'>
+									AND			T1.content	LIKE '%' || #{searchKeyword} || '%'
+								</if>
+							</if>
+						</where>
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminHomepageServeyMngSQL.selectAdminSurveyDataListCnt" parameterType="vo" resultType="int">
+		/* HomeKorAdminHomepageServeyMngSQL.selectAdminSurveyDataListCnt */
+		SELECT 
+			COUNT(1)
+		FROM
+			tb_survey_mng T1
+		<where>
+			AND	del_yn = 'N'
+			<if test='searchValue1 != ""'>
+				AND			T1.use_at = #{searchValue1}
+			</if>
+			<if test='searchKeyword != ""'>
+				<if test='searchValue2 == "0"'>
+					AND
+					(
+								T1.title	LIKE '%' || #{searchKeyword} || '%'
+								OR
+								T1.content	LIKE '%' || #{searchKeyword} || '%'
+					)
+				</if>
+				<if test='searchValue2 == "1"'>
+					AND			T1.title	LIKE '%' || #{searchKeyword} || '%'
+				</if>
+				<if test='searchValue2 == "2"'>
+					AND			T1.content	LIKE '%' || #{searchKeyword} || '%'
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<select id="HomeKorAdminHomepageServeyMngSQL.selectAdminSurveyData" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepageServeyMngSQL.selectAdminSurveyData */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.title,
+			T1.content,
+			T1.member_type,
+			TO_CHAR(T1.survey_start_date,'YYYY-MM-DD') AS survey_start_date,
+			TO_CHAR(T1.survey_end_date,'YYYY-MM-DD') AS survey_end_date
+		FROM
+			tb_survey_mng T1
+		<where>
+			AND			T1.no		= #{idx}
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminHomepageServeyMngSQL.selectAdminSurveySubDataList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepageServeyMngSQL.selectAdminSurveySubDataList */
+		SELECT
+			T1.no,
+			T1.survey_type,
+			T1.survey_title,
+			T1.survey_text
+		FROM
+			tb_survey_data T1
+		<where>
+		AND			T1.parent_no						= #{idx}
+		</where>
+		ORDER BY T1.no ASC
+	</select>
+	
+	<insert id="HomeKorAdminHomepageServeyMngSQL.insertAdminSurveyData" parameterType="vo">
+	/* HomeKorAdminHomepageServeyMngSQL.insertAdminSurveyData */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_survey_mng_seq.NEXTVAL AS idx
+		</selectKey>
+		INSERT INTO tb_survey_mng
+		(			
+			no,
+			use_at,
+			survey_start_date,
+			survey_end_date,
+			title,
+			content,
+			del_yn,
+			member_type,
+			reg_date
+		)
+		VALUES
+		(			
+			#{idx},
+			#{paramKey6},
+			TO_DATE(#{paramKey8}, 'YYYY-MM-DD'),
+			TO_DATE(#{paramKey9}, 'YYYY-MM-DD'),
+			#{title},
+			#{paramKey10},
+			'N',
+			#{paramKey11},
+			SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorAdminHomepageServeyMngSQL.updateAdminSurveyData" parameterType="vo">
+		/* HomeKorAdminHomepageServeyMngSQL.updateAdminSurveyData */
+		UPDATE tb_survey_mng SET 
+			use_at							= #{paramKey6},
+			survey_start_date				= TO_DATE(#{paramKey8}, 'YYYY-MM-DD'),
+			survey_end_date					= TO_DATE(#{paramKey9}, 'YYYY-MM-DD'),
+			title							= #{title},
+			content							= #{paramKey10},
+			member_type						= #{paramKey11}
+		<where>
+			AND		no						= #{idx}
+		</where>   
+	</update>
+	
+	<insert id="HomeKorAdminHomepageServeyMngSQL.insertAdminSurveySubData" parameterType="vo">
+	/* HomeKorAdminHomepageServeyMngSQL.insertAdminSurveySubData */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_survey_data_seq.NEXTVAL AS idx
+		</selectKey>
+		INSERT INTO tb_survey_data
+		(			
+			no,
+			parent_no,
+			survey_type,
+			survey_title,
+			survey_text
+		)
+		VALUES
+		(			
+			#{idx},
+			#{paramKey1},
+			#{paramKey2},
+			#{paramKey3},
+			#{paramKey5}
+		)
+	</insert>
+	
+	<update id="HomeKorAdminHomepageServeyMngSQL.updateAdminSurveySubData" parameterType="vo">
+	/* HomeKorAdminHomepageServeyMngSQL.updateAdminSurveySubData */
+		UPDATE tb_survey_data SET 
+					parent_no									= #{paramKey1},
+					survey_type									= #{paramKey2},
+					survey_title								= #{paramKey3},
+					survey_text	                                = #{paramKey5}
+		<where>
+		AND			no											= #{idx}
+		</where>
+	</update>
+	
+	<update id="HomeKorAdminHomepageServeyMngSQL.updateAdminSurveyDataDel" parameterType="vo">
+	/* HomeKorAdminHomepageServeyMngSQL.updateAdminSurveyDataDel */
+		UPDATE tb_survey_mng SET 
+					del_yn									= 'Y'
+		<where>
+		AND			no										= #{idx}
+		</where>
+	</update>
+	
+	
+	<delete id="HomeKorAdminHomepageServeyMngSQL.deleteAdminSurveySubData" parameterType="vo">
+	/* HomeKorAdminHomepageServeyMngSQL.deleteAdminSurveySubData */
+		DELETE FROM tb_survey_data
+		<where>
+		AND			parent_no							= #{idx}
+		<foreach collection="paramKeyList1" open="AND no NOT IN (" close=")" separator="," item="idx2">
+					#{idx2}
+		</foreach>
+		</where>
+	</delete>
+
+	<select id="HomeKorAdminHomepageServeyMngSQL.selectEducationParticipantSurveyDataList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepageServeyMngSQL.selectEducationParticipantSurveyDataList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.survey_no,
+							(SELECT sub.title FROM tb_survey_mng sub WHERE sub.no=T1.survey_no) AS title,
+							(SELECT sub.id FROM site_account sub WHERE sub.sso_no=T1.user_no) AS id,
+							(SELECT sub.name FROM site_account sub WHERE sub.sso_no=T1.user_no) AS name,
+							(SELECT sub.email FROM site_account sub WHERE sub.sso_no=T1.user_no) AS email,
+							TO_CHAR(T1.reg_date,'YYYY-MM-DD') AS reg_date
+						FROM
+							tb_edu_survey T1,
+							tb_survey_mng T2
+						<where>
+							AND			T1.survey_no					= T2.no
+							AND			T2.no							= #{idx}
+						</where>
+						ORDER BY T1.reg_date DESC, T1.no DESC
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex2} AND ROWNUM <= #{recordCountPerPage2} ]]>
+		</where>
+	</select>
+	
+	
+	
+	<select id="HomeKorAdminHomepageServeyMngSQL.selectEducationParticipantSurveyDataListCnt" parameterType="vo" resultType="int">
+	/* HomeKorAdminHomepageServeyMngSQL.selectEducationParticipantSurveyDataListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			tb_edu_survey T1,
+			tb_survey_mng T2
+		<where>
+			AND			T1.survey_no					= T2.no
+			AND			T2.no							= #{idx}
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminHomepageServeyMngSQL.selectAdminSurveyEditData" parameterType="vo" resultType="egovMap">
+		/* HomeKorAdminHomepageServeyMngSQL.selectAdminSurveyEditData */
+		SELECT
+			T1.no,
+			(SELECT sub.title FROM tb_survey_mng sub WHERE sub.no=T1.survey_no) AS title,
+			(SELECT sub.id FROM site_account sub WHERE sub.sso_no=T1.user_no) AS id,
+			(SELECT sub.name FROM site_account sub WHERE sub.sso_no=T1.user_no) AS name,
+			(SELECT sub.email FROM site_account sub WHERE sub.sso_no=T1.user_no) AS email,
+			T1.user_no,
+			T1.survey_no
+		FROM
+			tb_edu_survey T1,
+			tb_survey_mng T2
+		<where>
+
+			AND			T1.no							= #{idx2}
+			AND			T2.no							= #{idx}
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminHomepageServeyMngSQL.selectAdminSurveyEditSubDataList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepageServeyMngSQL.selectAdminSurveyEditSubDataList */
+		SELECT 
+			T1.no, 
+			T1.survey_type, 
+			T1.survey_title, 
+			T1.survey_text, 
+			T2.answer
+		FROM 
+			tb_survey_data T1 
+		LEFT OUTER JOIN 
+			tb_edu_survey_data T2 
+		ON T1.no = T2.tb_survey_data_no
+		<where>
+		AND	T1.parent_no = #{idx3}
+		AND	T2.tb_edu_survey_no = #{idx2}
+		</where>
+		ORDER BY T1.no ASC
+	</select>
+	
+	<select id="HomeKorAdminHomepageServeyMngSQL.selectAdminSurveyEditSubTotalDataList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepageServeyMngSQL.selectAdminSurveyEditSubTotalDataList */
+		SELECT 
+			LISTAGG(T1.no, ',') WITHIN GROUP(ORDER BY T1.no ASC) AS no_arr,
+			T1.survey_type, 
+			T1.survey_title, 
+			DBMS_LOB.SUBSTR(T1.survey_text, 4000, 1) survey_text, 
+	    	SUM(CASE WHEN T2.answer = '1' AND T1.survey_type = 'A' THEN 1 ELSE 0 END) AS answer1, 
+	     	SUM(CASE WHEN T2.answer = '2' AND T1.survey_type = 'A' THEN 1 ELSE 0 END) AS answer2, 
+	     	SUM(CASE WHEN T2.answer = '3' AND T1.survey_type = 'A' THEN 1 ELSE 0 END) AS answer3, 
+	     	SUM(CASE WHEN T2.answer = '4'AND T1.survey_type = 'A' THEN 1 ELSE 0 END) AS answer4, 
+	     	SUM(CASE WHEN T2.answer = '5' AND T1.survey_type = 'A' THEN 1 ELSE 0 END) AS answer5, 
+	     	SUM(CASE WHEN T2.answer = '6' AND T1.survey_type = 'A' THEN 1 ELSE 0 END) AS answer6, COUNT(1) AS cnt
+		FROM 
+			tb_survey_data T1 
+		LEFT OUTER JOIN 
+			tb_edu_survey_data T2 
+		ON T1.no = T2.tb_survey_data_no
+		<where>
+		AND	T1.parent_no = #{idx}
+		</where>
+		GROUP BY T1.survey_type,  T1.survey_title ,DBMS_LOB.SUBSTR(T1.survey_text, 4000, 1)
+	</select>
+	
+	<select id="HomeKorAdminHomepageServeyMngSQL.selectAdminSurveyEditSubmitTextDataInfoList" parameterType="egovMap" resultType="egovMap">
+	/* HomeKorAdminHomepageServeyMngSQL.selectAdminSurveyEditSubmitTextDataInfoList */
+		SELECT
+			T1.no,
+			T1.answer
+		FROM
+			tb_edu_survey_data T1
+		<where>
+			<foreach collection="keyArr" open="T1.tb_survey_data_no IN (" close=")" separator="," item="key">
+					#{key}
+			</foreach>
+		</where>
+		ORDER BY T1.no ASC
+	</select>
+	
+</mapper>

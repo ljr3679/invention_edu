@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorUserArchiveServeyMngSQL">
+	<select id="HomeKorUserArchiveServeyMngSQL.selectHomeKorUserArchiveServeyMngList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserArchiveServeyMngSQL.selectHomeKorUserArchiveServeyMngList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.title,
+							T1.use_at,
+							CASE
+								WHEN T1.use_at = 'Y'	THEN '공개'
+								WHEN T1.use_at = 'N' THEN '비공개'
+								ELSE '비공개'
+							END use_at_name,
+							T1.member_type,
+							TO_CHAR(T1.survey_start_date,'YYYY-MM-DD') AS survey_start_date,
+							TO_CHAR(T1.survey_end_date,'YYYY-MM-DD') AS survey_end_date,
+							TO_CHAR(T1.reg_date,'YYYY-MM-DD') AS reg_date
+						FROM
+							tb_survey_mng T1
+						<where>
+							AND	T1.del_yn = 'N'
+							AND T1.use_at = 'Y'
+							<if test='searchKeyword != ""'>
+								<if test='searchValue1 == "0"'>
+									AND
+									(
+												T1.title	LIKE '%' || #{searchKeyword} || '%'
+												OR
+												T1.content	LIKE '%' || #{searchKeyword} || '%'
+									)
+								</if>
+								<if test='searchValue1 == "1"'>
+									AND			T1.title	LIKE '%' || #{searchKeyword} || '%'
+								</if>
+								<if test='searchValue1 == "2"'>
+									AND			T1.content	LIKE '%' || #{searchKeyword} || '%'
+								</if>
+							</if>
+						</where>
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorUserArchiveServeyMngSQL.selectHomeKorUserArchiveServeyMngListCnt" parameterType="vo" resultType="int">
+		/* HomeKorUserArchiveServeyMngSQL.selectHomeKorUserArchiveServeyMngListCnt */
+		SELECT 
+			COUNT(1)
+		FROM
+			tb_survey_mng T1
+		<where>
+			AND	T1.del_yn = 'N'
+			AND T1.use_at = 'Y'
+			<if test='searchKeyword != ""'>
+				<if test='searchValue1 == "0"'>
+					AND
+					(
+								T1.title	LIKE '%' || #{searchKeyword} || '%'
+								OR
+								T1.content	LIKE '%' || #{searchKeyword} || '%'
+					)
+				</if>
+				<if test='searchValue1 == "1"'>
+					AND			T1.title	LIKE '%' || #{searchKeyword} || '%'
+				</if>
+				<if test='searchValue1 == "2"'>
+					AND			T1.content	LIKE '%' || #{searchKeyword} || '%'
+				</if>
+			</if>
+		</where>
+	</select>
+	
+	<select id="HomeKorUserArchiveServeyMngSQL.selectHomeKorUserArchiveServeyMngData" parameterType="vo" resultType="egovMap">
+		/* HomeKorUserArchiveServeyMngSQL.selectHomeKorUserArchiveServeyMngData */
+		SELECT
+			T1.use_at,
+			T1.member_type,
+			T1.title,
+			T1.content,
+			TO_CHAR(T1.survey_start_date,'YYYY-MM-DD') AS survey_start_date,
+			TO_CHAR(T1.survey_end_date,'YYYY-MM-DD') AS survey_end_date,
+			TO_CHAR(T1.reg_date,'YYYY-MM-DD') AS reg_date,
+			(SELECT name FROM site_account where no = T1.register) AS name
+		FROM
+			tb_survey_mng T1
+		<where>
+		AND no		=	#{idx}
+		</where>
+	</select>
+	
+	<select id="HomeKorUserArchiveServeyMngSQL.selectHomeKorUserArchiveServeyMngDataList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserArchiveServeyMngSQL.selectHomeKorUserArchiveServeyMngDataList */
+		SELECT
+			T1.no,
+			T1.parent_no,
+			T1.survey_type,
+			T1.survey_title,
+			T1.survey_text
+		FROM
+			tb_survey_data T1
+		<where>
+		AND			T1.parent_no								= #{idx}
+		</where>
+		ORDER BY T1.no ASC
+	</select>
+	
+	<insert id="HomeKorUserArchiveServeyMngSQL.insertHomeKorUserArchiveServeyMngData" parameterType="vo">
+	/* HomeKorUserArchiveServeyMngSQL.insertHomeKorUserArchiveServeyMngData */
+		<selectKey resultType="vo" keyProperty="idx2" order="BEFORE">
+			SELECT tb_edu_survey_seq.NEXTVAL AS idx2 FROM dual
+		</selectKey>
+		INSERT INTO tb_edu_survey
+		(
+			no,
+			survey_no,
+			<if test='usr_idx != ""'>
+			user_no,
+			</if>
+			reg_date
+		)
+			VALUES
+		
+		(
+			#{idx2},
+			#{idx},
+			<if test='usr_idx != ""'>
+			#{usr_idx},
+			</if>
+			SYSDATE
+		)
+	</insert>
+	
+	<insert id="HomeKorUserArchiveServeyMngSQL.insertHomeKorUserArchiveServeyMngSubData" parameterType="vo">
+	/* HomeKorUserArchiveServeyMngSQL.insertHomeKorUserArchiveServeyMngSubData */
+		<selectKey resultType="vo" keyProperty="idx4" order="BEFORE">
+			SELECT tb_edu_survey_data_seq.NEXTVAL AS idx4 FROM dual
+		</selectKey>
+		INSERT INTO tb_edu_survey_data
+		(
+			no,
+			tb_edu_survey_no,
+			tb_survey_data_no,
+			answer
+		)
+			VALUES
+		(
+			#{idx4},
+			#{idx2},
+			#{paramKey4},
+			#{paramKey5}
+		)
+	</insert>
+	
+</mapper>

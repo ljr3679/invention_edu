@@ -1,0 +1,41 @@
+@charset 'UTF-8';
+
+@font-face {
+    font-family: 'Spoqa Han Sans';
+	 font-style: normal;
+    font-weight: 700;
+     src: local('��'),
+    url('/fonts/cmmn/SpoqaHanSansBold.woff') format('woff'),
+    url('/fonts/cmmn/SpoqaHanSansBold.woff2') format('woff2'),
+    url('/fonts/cmmn/SpoqaHanSansBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Spoqa Han Sans';
+	 font-style: normal;
+    font-weight: 400;
+     src: local('��'),
+    url('/fonts/cmmn/SpoqaHanSansRegular.woff') format('woff'),
+    url('/fonts/cmmn/SpoqaHanSansRegular.woff2') format('woff2'),
+    url('/fonts/cmmn/SpoqaHanSansRegular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Spoqa Han Sans';
+	 font-style: normal;
+    font-weight: 300;
+     src: local('��'),
+    url('/fonts/cmmn/SpoqaHanSansLight.woff') format('woff'),
+    url('/fonts/cmmn/SpoqaHanSansLight.woff2') format('woff2'),
+    url('/fonts/cmmn/SpoqaHanSansLight.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Spoqa Han Sans';
+	 font-style: normal;
+    font-weight: 100;
+     src: local('��'),
+    url('/fonts/cmmn/SpoqaHanSansThin.woff') format('woff'),
+    url('/fonts/cmmn/SpoqaHanSansThin.woff2') format('woff2'),
+    url('/fonts/cmmn/SpoqaHanSansThin.ttf') format('truetype');
+}

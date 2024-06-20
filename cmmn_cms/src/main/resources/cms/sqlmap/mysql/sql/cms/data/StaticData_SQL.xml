@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="StaticData">
+
+	<select id="StaticData.selectSiteCodeDataList" resultType="egovMap">
+	/* StaticData.selectSiteCodeDataList */
+		SELECT
+			T1.site_code,
+			T1.site_txt,
+			T1.site_etc,
+			T1.lang_code
+		FROM
+			cms_site_code T1
+		<where>
+		AND			T1.delete_at					= 'N'
+		</where>
+		ORDER BY T1.sort ASC
+	</select>
+
+	<select id="StaticData.selectLangCodeDataList" parameterType="java.util.ArrayList" resultType="egovMap">
+	/* StaticData.selectLangCodeDataList */
+		SELECT
+			T1.lang_code,
+			T1.lang_txt,
+			T1.lang_etc
+		FROM
+			cms_site_language T1
+		<where>
+		AND			T1.delete_at					= 'N'
+		<foreach collection="lang" item="item" index="index" separator="," open="AND T1.lang_code IN (" close=")">
+            #{item}
+        </foreach>
+		</where>
+		ORDER BY T1.sort ASC
+	</select>
+
+	<select id="StaticData.selectMaxMenuDepth" parameterType="egovMap" resultType="int">
+	/* StaticData.selectMaxMenuDepth */
+		SELECT
+			IFNULL(MAX(depth), 0) AS depth
+		FROM
+			cms_menu T1
+		<where>
+		AND			T1.delete_at					= 'N'
+		AND			T1.use_gbn						= #{gubun}
+		AND			T1.site_code					= #{site}
+		AND			T1.lang_code					= #{lang}
+		</where>
+	</select>
+	
+	<sql id="menuOrderByForStartQuery">(SELECT sort FROM cms_menu WHERE no = </sql>
+	<sql id="menuOrderByForRoofQuery">(SELECT parent FROM cms_menu WHERE no = </sql>
+
+	<select id="StaticData.selectSeparateMenuDataList" parameterType="egovMap" resultType="egovMap">
+	/* StaticData.selectSeparateMenuDataList */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.gnb_view_at,
+			T1.session_at,
+			T1.tab_at,
+			T1.menu_title,
+			T1.menu_type,
+			T1.uri,
+			T1.link_type,
+			T1.link_url,
+			T1.board_code,		
+			T1.skin,	
+			T1.parent,
+			T1.depth,
+			T1.sort,
+			T1.cms_at,
+			(SELECT COUNT(1) FROM cms_menu T2 WHERE T1.no = T2.parent AND delete_at = 'N') AS children
+		FROM
+			cms_menu T1
+		<where>
+		AND			T1.delete_at					= 'N'		
+		AND			T1.use_gbn						= #{gubun}
+		AND			T1.site_code					= #{site}
+		AND			T1.lang_code					= #{lang}
+		AND			T1.depth						= #{depth}
+		</where>
+		ORDER BY
+		<foreach collection="roof" separator=" ASC," index="index">
+			<include refid="menuOrderByForStartQuery" />
+			
+			<foreach collection="roof[index]" index="index2">
+				<choose>
+					<when test='index2 == (roof[index].size - 1)'>
+						T1.parent
+						
+						<foreach collection="roof[index]">)</foreach>
+					</when>
+					<otherwise><include refid="menuOrderByForRoofQuery" /></otherwise>
+				</choose>
+			</foreach>
+		</foreach>
+		<if test="depth != 1"> ASC,</if>
+		T1.sort ASC
+	</select>
+	
+</mapper>

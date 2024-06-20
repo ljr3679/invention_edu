@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminHomepageMessage_SQL">
+
+	<sql id="searchOption">
+		<if test='searchValue3 != "" , searchValue4 != ""'>
+	AND 		TO_CHAR(T1.reg_date, 'YYYY-MM-DD')	BETWEEN #{searchValue3} AND #{searchValue4}
+		</if>
+		<if test='searchKeyword != ""'>
+	AND			
+	(			
+				T1.subject								LIKE '%' || #{searchKeyword} || '%'
+	)
+		</if>		
+		<if test='searchKeyword2 != ""'>
+	AND			
+	(			
+				T1.content								LIKE '%' || #{searchKeyword2} || '%'
+	)
+		</if>
+		<if test='searchKeyword3 != ""'>
+	AND			
+	(			
+				T1.phone								LIKE '%' || #{searchKeyword3} || '%'
+	)
+		</if>		
+	</sql>
+	
+	<sql id="searchOption1">
+		<if test='searchValue1 != ""'>
+		AND			use_at 								= #{searchValue1}
+			</if>
+			<if test='searchValue2 != ""'>
+		AND			member_type 						= #{searchValue2}
+			</if>
+			<if test='searchKeyword != ""'>
+		AND			name								LIKE '%' || #{searchKeyword} || '%'
+		</if>
+	</sql> 
+	
+	<select id="HomeKorAdminHomepageMessage_SQL.selectHomeKorAdminHomepageMessageList" parameterType="vo" resultType="egovMap">
+		/* HomeKorAdminHomepageMessage_SQL.selectHomeKorAdminHomepageMessageList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+					SELECT
+						T1.no,
+						T1.caller,
+						T1.phone,
+						T1.subject,
+						T1.content,
+						register,
+						TO_CHAR(T1.reg_date, 'YYYY-MM-DD hh24:mi:ss') AS reg_date
+					FROM
+						tb_message T1
+					<where>
+						<include refid="searchOption"/>
+					</where>
+					ORDER BY T1.reg_date DESC, T1.no DESC
+			) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminHomepageMessage_SQL.selectHomeKorAdminHomepageMessageListCnt" parameterType="vo" resultType="int">
+		/* HomeKorAdminHomepageMessage_SQL.selectHomeKorAdminHomepageMessageListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			tb_message T1
+		<where>
+			<include refid="searchOption"/>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminHomepageMessage_SQL.selectHomeKorAdminHomepageMessage" parameterType="vo" resultType="egovMap">
+		/* HomeKorAdminHomepageMessage_SQL.selectHomeKorAdminHomepageMessage */
+		SELECT
+			T1.no,
+			T1.caller,
+			T1.phone,
+			T1.subject,
+			T1.content,
+			T1.register,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date
+		FROM
+			tb_message T1
+		<where>
+		AND			T1.no							= #{idx}
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminHomepageMessage_SQL.selectMemberDataList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminHomepageMessage_SQL.selectMemberDataList */
+	SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT 
+						T1.no AS no,
+						T2.site_account_ref AS site_account_ref,
+						T2.no AS member_no,
+						T1.use_at AS use_at,
+						T1.account AS account,
+						T1.site_code AS site_code,
+						T1.id AS id,
+						T1.pw AS pw,
+						T1.name AS name,
+						T2.member_type AS member_type,
+						T2.birthday AS birthday,
+						T2.gender AS gender,
+						T2.phone AS phone,
+						T2.email AS email,
+						T2.school,
+						T2.school_year,
+						T2.zipcode,
+						T2.address,
+						T2.address_detail,
+						T2.agreement1,
+						T2.agreement2,
+						T2.acs_date,
+						T2.reg_date,
+						T2.mod_date
+						FROM 
+							site_account T1 
+						JOIN 
+							tb_member T2
+						ON 
+							T1.no 									= T2.site_account_ref
+						<where>
+							<include refid="searchOption1"/>
+						</where>
+						ORDER BY T2.acs_date DESC, T2.reg_date DESC
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex2} AND ROWNUM <= #{recordCountPerPage2} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminHomepageMessage_SQL.selectMemberDataListCnt" parameterType="vo" resultType="int">
+	/* HomeKorAdminHomepageMessage_SQL.selectMemberDataListCnt */
+		SELECT
+			COUNT(1)
+		FROM 
+			site_account T1 
+		JOIN 
+			tb_member T2
+		ON 
+			T1.no 									= T2.site_account_ref
+		<where>
+			<include refid="searchOption1"/>
+		</where>
+	</select>
+	
+	<insert id="HomeKorAdminHomepageMessage_SQL.insertHomeKorAdminHomepageMessage" parameterType="vo">
+		/* HomeKorAdminHomepageMessage_SQL.insertHomeKorAdminHomepageMessage */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_message_seq.NEXTVAL AS idx
+		</selectKey>
+		INSERT INTO tb_message
+		(
+			no,
+			caller,
+			phone,
+			subject,
+			content,
+			register,
+			reg_date
+			
+		)
+			VALUES
+		(
+			#{idx},
+			#{paramKey1},
+			#{paramKey2},
+			#{paramKey3},
+			#{paramKey4},
+			#{adm_idx},
+			SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorAdminHomepageMessage_SQL.updateHomeKorAdminHomepageMessage" parameterType="vo">
+	/* HomeKorAdminHomepageMessage_SQL.updateHomeKorAdminHomepageMessage */
+		UPDATE tb_message SET
+					caller															= #{paramKey1},
+					phone															= #{paramKey2},
+					subject															= #{paramKey3},
+					content															= #{paramKey4}
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</update>
+	
+	<delete id="HomeKorAdminHomepageMessage_SQL.deleteHomeKorAdminHomepageMessageList" parameterType="vo">
+		/* HomeKorAdminHomepageMessage_SQL.deleteHomeKorAdminHomepageMessageList */
+		<if test='paramKeyList1 != null'>
+			DELETE FROM tb_message
+			<where>
+				<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+					#{idx}
+				</foreach>
+			</where>
+		</if>
+	</delete>
+	
+	<delete id="HomeKorAdminHomepageMessage_SQL.deleteHomeKorAdminHomepageMessage" parameterType="vo">
+		/* HomeKorAdminHomepageMessage_SQL.deleteHomeKorAdminHomepageMessage */
+		DELETE FROM tb_message
+		<where>
+		AND			no									= #{idx}
+		</where>
+	</delete>
+	
+	
+	<insert id="HomeKorAdminHomepageMessage_SQL.insertHomeKorAdminHomepageMessageLog" parameterType="vo">
+		/* HomeKorAdminHomepageMessage_SQL.insertHomeKorAdminHomepageMessageLog */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_message_log_seq.NEXTVAL AS idx
+		</selectKey>
+		INSERT INTO tb_message_log
+		(
+			no,
+			caller,
+			phone,
+			subject,
+			content,
+			register,
+			send_date,
+			result_code
+			
+		)
+			VALUES
+		(
+			#{idx},
+			#{paramKey1},
+			#{paramKey2},
+			#{paramKey3},
+			#{paramKey4},
+			#{adm_idx},
+			SYSDATE,
+			#{paramKey5}
+		)
+	</insert>	
+
+	<select id="HomeKorAdminHomepageMessage_SQL.selectHomeKorAdminHomepageMessageLogList" parameterType="vo" resultType="egovMap">
+		/* HomeKorAdminHomepageMessage_SQL.selectHomeKorAdminHomepageMessageLogList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+					SELECT
+						T1.no,
+						T1.caller,
+						T1.phone,
+						T1.subject,
+						T1.content,
+						T1.register,
+						TO_CHAR(T1.send_date, 'YYYY-MM-DD hh24:mi:ss') AS send_date,
+						T1.result_code
+					FROM
+						tb_message_log T1
+					<where>
+						<include refid="searchOption"/>
+					</where>
+					ORDER BY T1.send_date DESC, T1.no DESC
+			) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminHomepageMessage_SQL.selectHomeKorAdminHomepageMessageLogListCnt" parameterType="vo" resultType="int">
+		/* HomeKorAdminHomepageMessage_SQL.selectHomeKorAdminHomepageMessageLogListCnt */
+		SELECT
+			COUNT(1)
+		FROM
+			tb_message_Log T1
+		<where>
+			<include refid="searchOption"/>
+		</where>
+	</select>
+	
+	
+</mapper>

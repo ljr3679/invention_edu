@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="CmsCategoryMng">
+	
+	<select id="CmsCategoryMng.selectCategoryDataList" parameterType="vo" resultType="egovMap">
+	/* CmsCategoryMng.selectCategoryDataList */
+		SELECT
+			category_code,
+			category_name
+		FROM
+			cms_category
+		ORDER BY reg_date DESC
+	</select>
+	
+	<select id="CmsCategoryMng.selectCategoryData" parameterType="str" resultType="egovMap">
+	/* CmsCategoryMng.selectCategoryData */
+		SELECT
+			category_name
+		FROM
+			cms_category
+		<where>
+		AND			category_code								= #{code}
+		</where>
+	</select>
+	
+	<select id="CmsCategoryMng.selectCheckCategoryKey" parameterType="egovMap" resultType="int">
+	/* CmsCategoryMng.selectCheckCategoryKey */
+		SELECT
+			COUNT(1)
+		FROM
+			cms_category
+		<where>
+		AND			category_code								= #{code}
+		</where>
+	</select>
+	
+	<insert id="CmsCategoryMng.insertCategoryData" parameterType="vo">
+	/* CmsCategoryMng.insertCategoryData */
+		INSERT INTO cms_category
+		(
+			category_code,
+			category_name,
+			register,
+			reg_date
+		)
+			VALUES
+		(
+			#{idx},
+			#{title},
+			#{adm_idx},
+			NOW()
+		)	
+	</insert>
+	
+	<update id="CmsCategoryMng.updateCategoryData" parameterType="vo">
+	/* CmsCategoryMng.updateCategoryData */
+		UPDATE cms_category SET
+			category_name										= #{title},
+			modifier											= #{adm_idx},
+			mod_date											= NOW()
+		<where>
+		AND			category_code								= #{idx}
+		</where>
+	</update>
+	
+	<delete id="CmsCategoryMng.deleteCategoryData" parameterType="vo">
+	/* CmsCategoryMng.deleteCategoryData */
+		DELETE FROM cms_category
+		<where>
+		AND			category_code								= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="CmsCategoryMng.deleteCategorySubAllData" parameterType="vo">
+	/* CmsCategoryMng.deleteCategorySubAllData */
+		DELETE FROM cms_category_data
+		<where>
+		AND			category_code								= #{idx}
+		</where>
+	</delete>
+	
+	<select id="CmsCategoryMng.selectCategorySubDataList" parameterType="vo" resultType="egovMap">
+	/* CmsCategoryMng.selectCategorySubDataList */
+		SELECT
+			no,
+			parent,
+			data_name,
+			sort,
+			(SELECT COUNT(1) FROM cms_category_data T2 WHERE T1.no = T2.parent AND T2.parent != 0) AS children,
+			IFNULL((SELECT T2.sort FROM cms_category_data T2 WHERE T2.no = T1.parent), sort) AS parentSort
+		FROM
+			cms_category_data T1
+		<where>
+		AND			category_code								= #{code}
+		</where>
+		ORDER BY
+			parentSort ASC,
+			CASE
+				WHEN parent = 0
+				THEN 1
+				ELSE 2
+			END ASC,
+			sort ASC 
+	</select>
+	
+	<select id="CmsCategoryMng.selectCategorySubData" parameterType="str" resultType="egovMap">
+	/* CmsCategoryMng.selectCategorySubData */
+		SELECT
+			no,
+			parent,
+			data_name,
+			sort
+		FROM
+			cms_category_data
+		<where>
+		AND			no											= #{key}
+		</where>
+	</select>
+	
+	<insert id="CmsCategoryMng.insertCategorySubData" parameterType="vo">
+	/* CmsCategoryMng.insertCategorySubData */
+		INSERT INTO cms_category_data
+		(
+			category_code,
+			parent,
+			data_name,
+			sort,
+			register,
+			reg_date
+		)
+			VALUES
+		(
+			#{idx},
+			#{idx3},
+			#{title},
+			IFNULL((SELECT MAX(T1.sort) FROM cms_category_data T1 WHERE 1=1 AND T1.category_code = #{idx} AND T1.parent = #{idx3}), 0) + 1,
+			#{adm_idx},
+			NOW()
+		)	
+		
+		<selectKey resultType="vo" keyProperty="idx2" order="AFTER">
+        	SELECT LAST_INSERT_ID() AS idx2
+    	</selectKey>
+	</insert>
+	
+	<update id="CmsCategoryMng.updateCategorySubData" parameterType="vo">
+	/* CmsCategoryMng.updateCategorySubData */
+		UPDATE cms_category_data SET
+			data_name											= #{title},
+			sort												= #{paramKey1},
+			modifier											= #{adm_idx},
+			mod_date											= NOW()
+		<where>
+		AND			no											= #{idx2}
+		</where>
+	</update>
+	
+	<update id="CmsCategoryMng.updateCategorySubDataSort" parameterType="vo">
+	/* CmsCategoryMng.updateCategorySubDataSort */
+		UPDATE cms_category_data SET
+			<if test='paramKey1 lt paramKey2'>
+			sort												= sort+1
+			</if>
+			<if test='paramKey1 gt paramKey2'>
+			sort												= sort-1
+			</if>
+		<where>
+		AND			(category_code, parent)						= (SELECT * FROM (SELECT T1.category_code, T1.parent FROM cms_category_data T1 WHERE T1.no = #{idx2}) T2)
+		<if test='paramKey1 lt paramKey2'>
+		<![CDATA[
+		AND			#{paramKey1}								<= sort
+		AND			sort										< #{paramKey2}
+		]]>
+		</if>
+		<if test='paramKey1 gt paramKey2'>
+		<![CDATA[
+		AND			#{paramKey2}								< sort
+		AND			sort										<= #{paramKey1}
+		]]>
+		</if>
+		</where>
+	</update>
+	
+	<delete id="CmsCategoryMng.deleteCategorySubData" parameterType="vo">
+	/* CmsCategoryMng.deleteCategorySubData */
+		DELETE FROM cms_category_data
+		<where>
+		AND			
+		(
+					no											= #{idx2}
+		OR			parent										= #{idx2}
+		)
+		
+		</where>
+	</delete>
+	
+	<update id="CmsCategoryMng.updateCategorySubDataDeleteSort" parameterType="vo">
+	/* CmsCategoryMng.updateCategorySubDataDeleteSort */
+		UPDATE cms_category_data SET
+			sort												= sort-1
+		<where>
+		AND			(category_code, parent)						= (SELECT * FROM (SELECT T1.category_code, T1.parent FROM cms_category_data T1 WHERE T1.no = #{idx2}) T2)
+		<![CDATA[
+		AND			#{paramKey2}								< sort
+		]]>
+		</where>
+	</update>
+	
+</mapper>

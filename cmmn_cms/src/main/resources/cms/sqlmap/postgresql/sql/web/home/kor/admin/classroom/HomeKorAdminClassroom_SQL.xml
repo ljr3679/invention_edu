@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminClassroom_SQL">
+	
+	<select id="HomeKorAdminClassroom_SQL.selectHomeKorAdminClassroomList" parameterType="vo" resultType="egovMap">
+		/* HomeKorAdminClassroom_SQL.selectHomeKorAdminClassroomList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+					SELECT
+						T1.no,
+						T1.year,
+						T1.class_cd,
+						T1.school_nm,
+						T1.sido_edu,
+						T1.edu_agency,
+						T1.student_cnt,
+						T1.school_grade,
+						T1.class_title,
+						T1.charge_reader,
+						T1.charge_team,
+						T1.edu_start_time,
+						T1.edu_end_time,
+						T1.phone,
+						T1.team_phone,
+						T1.reference,						
+						T1.progrm_cd,
+						T1.reports_url,
+						T1.materials,
+						T1.register,
+						TO_CHAR(T1.reg_date, 'YYYY-MM-DD hh24:mi:ss') AS reg_date
+					FROM
+						tb_gclass_info T1
+					<where>
+						<if test='searchValue1 != ""'>
+							AND	T1.year = #{searchValue1} 
+						</if>							
+						<choose>
+				
+							<when test='searchValue2 == "0"'>
+								AND
+								(
+											T1.class_title														LIKE '%' || #{searchKeyword} || '%'
+								OR			T1.school_nm													LIKE '%' || #{searchKeyword} || '%'
+								OR			T1.charge_reader													LIKE '%' || #{searchKeyword} || '%'
+								)
+							</when>
+							<when test='searchValue2 == "1"'>
+								AND			T1.class_title														LIKE '%' || #{searchKeyword} || '%'
+							</when>
+							<when test='searchValue2 == "2"'>
+								AND			T1.school_nm													LIKE '%' || #{searchKeyword} || '%'
+							</when>
+							<when test='searchValue2 == "3"'>
+								AND			T1.charge_reader													LIKE '%' || #{searchKeyword} || '%'
+							</when>
+						</choose>
+							
+					</where>
+					ORDER BY T1.reg_date DESC, T1.no DESC
+			) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminClassroom_SQL.selectHomeKorAdminClassroomListCnt" parameterType="vo" resultType="int">
+		/* HomeKorAdminClassroom_SQL.selectHomeKorAdminClassroomListCnt */
+		
+		SELECT
+			COUNT(1)
+		FROM
+			tb_gclass_info T1
+		<where>
+			<if test='searchValue1 != ""'>
+				AND	T1.year = #{searchValue1} 
+			</if>	
+
+			<choose>
+			
+				<when test='searchValue2 == "0"'>
+					AND
+					(
+								T1.class_title														LIKE '%' || #{searchKeyword} || '%'
+					OR			T1.school_nm													LIKE '%' || #{searchKeyword} || '%'
+					OR			T1.charge_reader													LIKE '%' || #{searchKeyword} || '%'
+					)
+				</when>
+				<when test='searchValue2 == "1"'>
+					AND			T1.class_title														LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test='searchValue2 == "2"'>
+					AND			T1.school_nm													LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test='searchValue2 == "3"'>
+					AND			T1.charge_reader													LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminClassroom_SQL.selectHomeKorAdminClassroom" parameterType="vo" resultType="egovMap">
+		/* HomeKorAdminClassroom_SQL.selectHomeKorAdminClassroom */
+		SELECT
+			T1.no,
+			T1.year,
+			T1.class_cd,
+			T1.school_nm,
+			T1.sido_edu,
+			T1.edu_agency,
+			T1.student_cnt,
+			T1.school_grade,
+			T1.class_title,
+			T1.charge_reader,
+			T1.charge_team,
+			T1.edu_start_time,
+			T1.edu_end_time,
+			T1.phone,
+			T1.team_phone,
+			T1.reference,						
+			T1.progrm_cd,
+			T1.reports_url,
+			T1.materials,
+			T1.register,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date
+		FROM
+			tb_gclass_info T1
+		<where>
+		AND			T1.no							= #{idx}
+		</where>
+	</select>
+
+	<insert id="HomeKorAdminClassroom_SQL.insertHomeKorAdminClassroom" parameterType="vo">
+		/* HomeKorAdminClassroom_SQL.insertHomeKorAdminClassroom */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_gclass_info_seq.NEXTVAL AS idx
+		</selectKey>
+		INSERT INTO tb_gclass_info
+		(
+			no,
+			year,
+			class_cd,
+			school_nm,
+			sido_edu,
+			edu_agency,
+			student_cnt,
+			school_grade,
+			class_title,
+			charge_reader,
+			charge_team,
+			edu_start_time,
+			edu_end_time,
+			phone,
+			team_phone,
+			reference,						
+			progrm_cd,
+			reports_url,
+			materials,
+			register,
+			reg_date,
+			use_at
+		)
+			VALUES
+		(
+			#{idx},
+			#{paramKey1},
+			#{paramKey2},
+			#{paramKey3},
+			#{paramKey4},
+			#{paramKey5},
+			#{paramKey6},
+			#{paramKey7},
+			#{paramKey8},
+			#{paramKey9},
+			#{paramKey10},
+			#{paramKey11},
+			#{paramKey12},
+			#{paramKey13},
+			#{paramKey18},
+			#{paramKey14},
+			#{paramKey15},
+			#{paramKey16},
+			#{paramKey17},
+			#{adm_idx},
+			SYSDATE,
+			'Y'			
+		)
+	</insert>
+	
+	<update id="HomeKorAdminClassroom_SQL.updateHomeKorAdminClassroom" parameterType="vo">
+	/* HomeKorAdminClassroom_SQL.updateHomeKorAdminClassroom */
+		UPDATE tb_gclass_info SET
+					year															= #{paramKey1},
+					class_cd														= #{paramKey2},
+					school_nm														= #{paramKey3},
+					sido_edu														= #{paramKey4},
+					edu_agency														= #{paramKey5},
+					student_cnt														= #{paramKey6},
+					school_grade													= #{paramKey7},
+					class_title														= #{paramKey8},
+					charge_reader													= #{paramKey9},
+					charge_team														= #{paramKey10},
+					edu_start_time													= #{paramKey11},
+					edu_end_time													= #{paramKey12},
+					phone															= #{paramKey13},
+					team_phone														= #{paramKey18},
+					reference														= #{paramKey14},					
+					progrm_cd														= #{paramKey15},
+					reports_url														= #{paramKey16},
+					materials														= #{paramKey17},		
+					modifier 														= #{adm_idx},
+					mod_date 														= SYSDATE
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</update>
+	
+	<delete id="HomeKorAdminClassroom_SQL.deleteHomeKorAdminClassroom" parameterType="vo">
+		/* HomeKorAdminClassroom_SQL.deleteHomeKorAdminClassroom */
+		DELETE FROM tb_gclass_info
+		<where>
+		AND			no									= #{idx}
+		</where>
+	</delete>
+
+	<delete id="HomeKorAdminClassroom_SQL.deleteHomeKorAdminClassroomList" parameterType="vo">
+		/* HomeKorAdminClassroom_SQL.deleteHomeKorAdminClassroomList */
+		DELETE FROM tb_gclass_info
+		<where>
+			<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete>
+
+	<select id="HomeKorAdminClassroom_SQL.selectTeacherDataList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminClassroom_SQL.selectTeacherDataList */
+	SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT 
+						T1.tb_teacher_pool_seq AS no,
+						T1.member_id AS id,
+						T1.member_name AS name,
+						T1.birth AS birth,
+						T1.phone AS phone,
+						T1.email AS email,
+						T1.create_date
+						FROM 
+							tb_teacher_pool T1 
+						<where>
+							<if test='searchKeyword != ""'>
+							AND			member_name								LIKE '%' || #{searchKeyword} || '%'
+							</if>
+						</where>
+						ORDER BY create_date DESC
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex2} AND ROWNUM <= #{recordCountPerPage2} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminClassroom_SQL.selectTeacherDataListCnt" parameterType="vo" resultType="int">
+	/* HomeKorAdminClassroom_SQL.selectTeacherDataListCnt */
+		SELECT
+			COUNT(1)
+		FROM 
+			tb_teacher_pool T1 
+		<where>
+			<if test='searchKeyword != ""'>
+			AND			member_name								LIKE '%' || #{searchKeyword} || '%'
+			</if>
+		</where>
+	</select>
+
+
+
+
+
+
+
+	<select id="HomeKorAdminClassroom_SQL.selectHomeKorAdminClassroomSchedule" parameterType="vo" resultType="egovMap">
+		/* HomeKorAdminClassroom_SQL.selectHomeKorAdminClassroomSchedule */
+
+			SELECT
+				T1.no,
+				T1.gno,
+				TO_CHAR(T1.edu_date, 'YYYY-MM-DD') AS edu_date,
+				T1.charge,
+				T1.edu_kind,
+				T1.resource_kind,
+				T1.complete_yn
+			FROM
+				tb_gclass_Schedule T1
+		<where>
+		AND			T1.no							= #{idx}
+		</where>
+	</select>
+	
+	
+	<insert id="HomeKorAdminClassroom_SQL.insertHomeKorAdminClassroomSchedule" parameterType="vo">
+		/* HomeKorAdminClassroom_SQL.insertHomeKorAdminClassroomSchedule */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_gclass_schedule_seq.NEXTVAL AS idx
+		</selectKey>
+		INSERT INTO tb_gclass_schedule
+		(
+			no,
+			gno,
+			edu_date,
+			charge,
+			edu_kind,
+			resource_kind,						
+			complete_yn,
+			register,
+			reg_date
+		)
+			VALUES
+		(
+			#{idx},
+			#{idx2},
+			to_date(#{paramKey1},'YYYY-MM-DD'),
+			#{paramKey2},
+			#{paramKey3},
+			#{paramKey4},
+			#{paramKey5},
+			#{adm_idx},
+			SYSDATE	
+		)
+	</insert>	
+	
+	<update id="HomeKorAdminClassroom_SQL.updateHomeKorAdminClassroomSchedule" parameterType="vo">
+	/* HomeKorAdminClassroom_SQL.updateHomeKorAdminClassroomSchedule */
+		UPDATE tb_gclass_schedule SET
+					edu_date														= to_date(#{paramKey1},'YYYY-MM-DD'),
+					charge															= #{paramKey2},
+					edu_kind														= #{paramKey3},
+					resource_kind													= #{paramKey4},
+					complete_yn														= #{paramKey5},
+					modifier 														= #{adm_idx},
+					mod_date 														= SYSDATE
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</update>
+	
+	<delete id="HomeKorAdminClassroom_SQL.deleteHomeKorAdminClassroomSchedule" parameterType="vo">
+		/* HomeKorAdminClassroom_SQL.deleteHomeKorAdminClassroomSchedule */
+		DELETE FROM tb_gclass_schedule
+		<where>
+		AND			no									= #{idx}
+		</where>
+	</delete>	
+	
+	
+	
+
+	<select id="HomeKorAdminClassroom_SQL.selectHomeKorAdminClassroomScheduleList" parameterType="vo" resultType="egovMap">
+		/* HomeKorAdminClassroom_SQL.selectHomeKorAdminClassroomScheduleList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+				select 
+						T2.no
+						,year
+						,class_title
+						,charge_reader
+						,array_to_string(array_agg(gclass1),'') as gclass1 
+						,array_to_string(array_agg(gclass2),'') as gclass2 
+						,array_to_string(array_agg(gclass3),'') as gclass3
+						,array_to_string(array_agg(gclass4),'') as gclass4
+						,array_to_string(array_agg(gclass5),'') as gclass5
+						,array_to_string(array_agg(gclass6),'') as gclass6
+						,array_to_string(array_agg(gclass7),'') as gclass7
+						,array_to_string(array_agg(gclass8),'') as gclass8
+						,array_to_string(array_agg(gclass9),'') as gclass9
+						,array_to_string(array_agg(gclass10),'') as gclass10
+						
+						,array_to_string(array_agg(edu_kind1),'') as edu_kind1 
+						,array_to_string(array_agg(edu_kind2),'') as edu_kind2 
+						,array_to_string(array_agg(edu_kind3),'') as edu_kind3
+						,array_to_string(array_agg(edu_kind4),'') as edu_kind4
+						,array_to_string(array_agg(edu_kind5),'') as edu_kind5
+						,array_to_string(array_agg(edu_kind6),'') as edu_kind6
+						,array_to_string(array_agg(edu_kind7),'') as edu_kind7
+						,array_to_string(array_agg(edu_kind8),'') as edu_kind8
+						,array_to_string(array_agg(edu_kind9),'') as edu_kind9
+						,array_to_string(array_agg(edu_kind10),'') as edu_kind10
+						
+						,array_to_string(array_agg(no1),'') as no1 
+						,array_to_string(array_agg(no2),'') as no2 
+						,array_to_string(array_agg(no3),'') as no3
+						,array_to_string(array_agg(no4),'') as no4
+						,array_to_string(array_agg(no5),'') as no5
+						,array_to_string(array_agg(no6),'') as no6
+						,array_to_string(array_agg(no7),'') as no7
+						,array_to_string(array_agg(no8),'') as no8
+						,array_to_string(array_agg(no9),'') as no9
+						,array_to_string(array_agg(no10),'') as no10	
+					from (
+						select T1.no, T1.year, T1.class_title, T1.charge_reader
+						,(CASE WHEN T1.no=T2.gno and T2.num=1 THEN T2.gclass end) AS gclass1
+						,(CASE WHEN T1.no=T2.gno and T2.num=2 THEN T2.gclass end) AS gclass2
+						,(CASE WHEN T1.no=T2.gno and T2.num=3 THEN T2.gclass end) AS gclass3
+						,(CASE WHEN T1.no=T2.gno and T2.num=4 THEN T2.gclass end) AS gclass4
+						,(CASE WHEN T1.no=T2.gno and T2.num=5 THEN T2.gclass end) AS gclass5
+						,(CASE WHEN T1.no=T2.gno and T2.num=6 THEN T2.gclass end) AS gclass6
+						,(CASE WHEN T1.no=T2.gno and T2.num=7 THEN T2.gclass end) AS gclass7
+						,(CASE WHEN T1.no=T2.gno and T2.num=8 THEN T2.gclass end) AS gclass8
+						,(CASE WHEN T1.no=T2.gno and T2.num=9 THEN T2.gclass end) AS gclass9
+						,(CASE WHEN T1.no=T2.gno and T2.num=10 THEN T2.gclass end) AS gclass10
+
+						,(CASE WHEN T1.no=T2.gno and T2.num=1 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind1
+						,(CASE WHEN T1.no=T2.gno and T2.num=2 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind2
+						,(CASE WHEN T1.no=T2.gno and T2.num=3 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind3
+						,(CASE WHEN T1.no=T2.gno and T2.num=4 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind4
+						,(CASE WHEN T1.no=T2.gno and T2.num=5 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind5
+						,(CASE WHEN T1.no=T2.gno and T2.num=6 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind6
+						,(CASE WHEN T1.no=T2.gno and T2.num=7 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind7
+						,(CASE WHEN T1.no=T2.gno and T2.num=8 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind8
+						,(CASE WHEN T1.no=T2.gno and T2.num=9 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind9
+						,(CASE WHEN T1.no=T2.gno and T2.num=10 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind10
+
+						,(CASE WHEN T1.no=T2.gno and T2.num=1 THEN T2.no end) AS no1
+						,(CASE WHEN T1.no=T2.gno and T2.num=2 THEN T2.no end) AS no2
+						,(CASE WHEN T1.no=T2.gno and T2.num=3 THEN T2.no end) AS no3
+						,(CASE WHEN T1.no=T2.gno and T2.num=4 THEN T2.no end) AS no4
+						,(CASE WHEN T1.no=T2.gno and T2.num=5 THEN T2.no end) AS no5
+						,(CASE WHEN T1.no=T2.gno and T2.num=6 THEN T2.no end) AS no6
+						,(CASE WHEN T1.no=T2.gno and T2.num=7 THEN T2.no end) AS no7
+						,(CASE WHEN T1.no=T2.gno and T2.num=8 THEN T2.no end) AS no8
+						,(CASE WHEN T1.no=T2.gno and T2.num=9 THEN T2.no end) AS no9
+						,(CASE WHEN T1.no=T2.gno and T2.num=10 THEN T2.no end) AS no10						
+						from tb_gclass_info T1
+						left join (
+							Select ROW_NUMBER() OVER (PARTITION BY gno ORDER BY edu_date) num, no, gno, edu_date, complete_yn, edu_kind, CONCAT(TO_CHAR(edu_date,'MM-DD'),' ',charge,' ',resource_kind) as gclass from tb_gclass_schedule order by edu_date						
+						) T2 on T1.no=T2.gno
+					) T2
+					group by no, year, class_title, charge_reader
+			) X 
+			
+			<where>
+					<if test='searchValue1 != ""'>
+						AND	year = #{searchValue1} 
+					</if>					
+			
+				<choose>
+				
+					<when test='searchValue2 == "0"'>
+						AND
+						(
+									class_title														LIKE '%' || #{searchKeyword} || '%'
+						OR			charge_reader													LIKE '%' || #{searchKeyword} || '%'
+						)
+					</when>
+					<when test='searchValue2 == "1"'>
+						AND			class_title														LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test='searchValue2 == "2"'>
+						AND			charge_reader													LIKE '%' || #{searchKeyword} || '%'
+					</when>
+				</choose>
+			</where>			
+			
+			order by no desc
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminClassroom_SQL.selectHomeKorAdminClassroomScheduleListCnt" parameterType="vo" resultType="int">
+		/* HomeKorAdminClassroom_SQL.selectHomeKorAdminClassroomScheduleListCnt */
+		
+		SELECT
+			count(Z.*)
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+				select 
+						T2.no
+						,year
+						,class_title
+						,charge_reader
+		
+					from (
+						select T1.no, T1.year, T1.class_title, T1.charge_reader
+						from tb_gclass_info T1
+						left join (
+Select ROW_NUMBER() OVER (PARTITION BY gno ORDER BY edu_date) num, no, gno, edu_date, edu_kind, CONCAT(TO_CHAR(edu_date,'MM-DD'),' ',charge,' ',resource_kind) as gclass from tb_gclass_schedule order by edu_date						) T2 on T1.no=T2.gno
+					) T2
+					group by no, year, class_title, charge_reader
+			) X
+			
+			<where>
+					<if test='searchValue1 != ""'>
+						AND	year = #{searchValue1} 
+					</if>				
+				<choose>
+			
+					<when test='searchValue2 == "0"'>
+						AND
+						(
+									class_title														LIKE '%' || #{searchKeyword} || '%'
+						OR			charge_reader													LIKE '%' || #{searchKeyword} || '%'
+						)
+					</when>
+					<when test='searchValue2 == "1"'>
+						AND			class_title														LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test='searchValue2 == "2"'>
+						AND			charge_reader													LIKE '%' || #{searchKeyword} || '%'
+					</when>
+				</choose>
+			</where>			
+		) Z
+	</select>
+
+	
+	
+	
+</mapper>

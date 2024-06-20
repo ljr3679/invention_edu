@@ -1,0 +1,545 @@
+@charset "UTF-8";
+
+@media screen and (max-width:1280px){ 
+    .com_tab_wrap .com_tab_info {margin: 30px 0 0;}
+}
+
+
+@media screen and (max-width:1080px){
+    /* ==================== 공통 ==================== */
+	.mw365 {max-width: 100% !important;}
+
+	/* Input, select, br */
+	input[type="text"] {height: 40px; font-size: 14px; line-height: 40px;}
+	
+	select {height: 40px; font-size: 14px; line-height: 40px;}
+	/* Input, select */
+	
+	/* radio */
+	.radio_area label .text {font-size: 14px; line-height: 21px;}
+	/* radio */
+
+	/* Button stlye */
+	.btn_area {margin: 45px 0 0;}
+	.btn_area.top_line {margin: 20px 0 0; padding: 25px 0 0;}
+	.btn_area .btn {margin: 0 0 0 5px; padding: 0 30px; font-size: 18px; line-height: 38px;}
+	/* Button stlye */
+	.bt_txt {margin: 15px 0 0; font-size: 15px;}
+	/* ==================== 공통 ==================== */
+		
+	/* ==================== 공통 테이블 view ==================== */
+	.com_table_cont.sty1 {margin: 40px 0 0;}
+	.com_table_cont.sty2 {margin: 30px 0 0;}
+	.com_table_cont > .table_box {margin: 20px 0 0;}
+	.com_table_cont .table_box .title_area.sty2 {margin: 10px 0 0;}
+    .com_table_cont > .table_box > .title_area .title_box > .title {font-size: 18px; line-height: 27px;}
+    .com_table_cont > .table_box > .title_area .title_box > .title .sub_tit {font-size: 16px; line-height: 27px;}
+    .com_table_cont > .table_box > .title_area .title_box > .row_sub_tit {margin: 6px 0 0; font-size: 15px; line-height: 27px;}
+    .com_table_cont > .table_box > .title_area .title_box.sty1 > .row_sub_tit {margin: 6px 0 0; font-size: 15px; line-height: 27px;}
+	.com_table_cont > .table_box > .title_area > .fr > .text {font-size: 14px; line-height: 21px;}
+	.com_table_cont > .table_box > .title_area > .fr > .btn_box > .btn {height: 27px; padding: 0 10px; font-size: 14px; line-height: 27px;}
+    .com_table_cont .table_box .board_write {display: block; margin: 10px 0 0;}
+    .com_table_cont .table_box .board_write tbody {display: block;}
+    .com_table_cont .table_box .board_write tbody tr {display: block; overflow: hidden; border: none;}
+    .com_table_cont .table_box .board_write tbody tr th {display: block; float: left; width: 100%; padding: 10px; font-size: 14px; line-height: 21px; box-sizing: border-box;}
+    .com_table_cont .table_box .board_write tbody tr th .txt {display: block;}
+	.com_table_cont .table_box .board_write tbody tr th br {display: none;}
+	.com_table_cont .table_box .board_write tbody tr td {display: block; float: left; width: 100%; padding: 10px; font-size: 14px; line-height: 21px; box-sizing: border-box;}
+	.com_table_cont .table_box .board_write tbody tr td .state {margin: 0 0 0 10px; padding: 0 10px; font-size: 14px; line-height: 30px;}
+	.com_table_cont .table_box .board_write tbody tr td .top_attach_area {margin: 0 0 8px;}
+	.com_table_cont .table_box .board_write tbody tr td .top_attach_area .attach_btn_area .btn_wrap .btn {margin: 0 10px 0 0; padding: 0 28px 0 14px; font-size: 15px; line-height: 39px; }
+	.com_table_cont .table_box .board_write tbody tr td .top_attach_area .attach_btn_area .btn_wrap .btn::after {right: 10px; width: 11px; height: 13px;}
+	.com_table_cont .table_box .board_write tbody tr td .top_attach_area .attach_btn_area .txt_wrap {font-size: 14px; line-height: 39px; }
+	.com_table_cont .table_box .board_write tbody tr td .attach_area .list li .attach_box .text {display: block; margin: 5px 0 0;}
+	.com_table_cont .table_box .board_write tbody tr td .attach_area .list li .attach_box .box .attach_btn {height: 40px; font-size: 14px; line-height: 40px;}
+	.com_table_cont .table_box .board_write tbody tr td .attach_area .list li .attach_box .box .attach_vbox .txt2{font-size: 15px;}
+	.com_table_cont .table_box .board_write tbody tr td .attach_area .list li .delete_box .name {padding: 0 0 0 18px; font-size: 14px; line-height: 21px;}
+	.com_table_cont .table_box .board_write tbody tr td .attach_area .list li .delete_box .name:before {width: 15px;height: 12px;}
+	.com_table_cont .table_box .board_write tbody tr td .attach_area .list li .delete_box .btn {margin: 0 0 0 10px; font-size: 14px; line-height: 21px;}
+	.com_table_cont .table_box .board_write tbody tr td > .text {margin: 5px 0 0; font-size: 14px; line-height: 21px;}
+
+	.com_table_cont .table_box .board_write tbody tr td .photo_area {padding: 34px 127px 34px 0;}
+	.com_table_cont .table_box .board_write tbody tr td .photo_area .img_wrap {position: absolute; width: 125px; height: 155px;}
+	.com_table_cont .table_box .board_write tbody tr td .photo_area .img_wrap .img_box {border: 3px solid #e8e8e8;}
+	.com_table_cont .table_box .board_write tbody tr td .photo_area .img_wrap .img_box .txt{font-size: 14px; line-height: 27px;}
+	.period_area {max-width: 100%;}
+	.period_area.mw365 {max-width: 100%;}
+	.com_table_cont .table_box.sty2 .com_table_container {margin: 10px 0 0;}
+
+	.com_table_cont .table_box .board_write tbody tr td .attach_area2 .list li .attach_box .box .attach_btn {width: 100px; height: 30px; font-size: 14px; line-height: 30px;}
+	.com_table_cont .table_box .board_write tbody tr td .attach_area2 .list li .delete_box .name {padding: 0 0 0 15px; font-size: 14px; line-height: 22px;}
+	.com_table_cont .table_box .board_write tbody tr td .attach_area2 .list li .delete_box .name:before {width: 16px; height: 13px;}
+
+	/*기간*/
+	.period_area.sty1 .box {width: calc(50% - 12px);}
+	.period_area.sty1 .txt {line-height: 40px;}
+	
+	/*우편번호*/
+	.com_table_cont .table_box .board_write tbody tr td .area_area .area_list li .area_sch {padding: 0 126px 0 0;}
+	.com_table_cont .table_box .board_write tbody tr td .area_area .area_list li .area_sch .btn.sty2 {height: 40px; font-size: 14px; line-height: 40px;}
+
+	
+	.com_table_cont .table_box .board_write tbody tr td .attach_area .list li .attach_box .text {display: block; margin: 5px 0 0;}
+	.com_table_cont .table_box .board_write tbody tr td .attach_area .list li .attach_box .box .attach_btn {height: 40px; font-size: 14px; line-height: 40px;}
+	.com_table_cont .table_box .board_write tbody tr td .attach_area .list li .delete_box .name {padding: 0 0 0 18px; font-size: 14px; line-height: 21px;}
+	.com_table_cont .table_box .board_write tbody tr td .attach_area .list li .delete_box .name:before {width: 15px;height: 12px;}
+	.com_table_cont .table_box .board_write tbody tr td .attach_area .list li .delete_box .btn {margin: 0 0 0 10px; font-size: 14px; line-height: 21px;}
+
+	.com_table_cont .table_box .board_write tbody tr td > span.text {font-size: 13px; line-height: 19px;}
+	.com_table_cont .table_box .board_write tbody tr td > .state {margin: 0 0 0 8px; padding: 0 8px; font-size: 12px; line-height: 23px;}
+	.com_table_cont .table_box .board_write tbody tr td textarea {padding: 10px; font-size: 14px; line-height: 21px;}
+	.com_table_cont .table_box .board_write tbody tr th .view_btn {display: inline-block; margin: 0 0 0 5px;}
+
+	/* 인풋 인라인 */
+	.com_table_cont .table_box .board_write tbody tr td .input_din_box .input_din {display: block;}
+	.com_table_cont .table_box .board_write tbody tr td .input_din_box .text.din {display: block; margin: 5px 0 0; font-size: 14px; line-height: 21px;}
+
+	/* 아이디 */
+	.com_table_cont .table_box .board_write tbody tr td .id_box .btn {height: 40px; line-height: 40px;}
+	.com_table_cont .table_box .board_write tbody tr td .id_box input {width: calc(100% - 102px);}
+	/* ==================== 공통 테이블 view ==================== */
+
+
+
+
+	/* ==================== 서브 테이블 view ==================== */	
+	.com_table_container {padding: 20px 0 0; background-image: url("/images/home/kor/user/common/lr_arr_ico.png"); background-size: 24px auto; background-repeat: no-repeat; animation: tblScrollAni 2s infinite;}
+	.com_table_container .talbe_tit {margin: 0 0 7px; font-size: 15px; line-height: 24px;}
+	.com_table_container .sub_com_table {overflow-x: auto;}
+	.com_table_container .sub_com_table table { min-width: 1000px; font-size: 16px; line-height: 21px;}
+	.com_table_container .sub_com_table table thead tr th {padding: 15px; font-size: 15px;}
+	.com_table_container .sub_com_table table tbody tr td {padding: 15px; font-size: 15px;}
+	.com_table_container .sub_com_table table tbody tr th {padding: 15px; font-size: 15px;}
+	.com_table_container .table_bt_wrap {margin: 10px 0 0;}
+	.com_table_container .table_bt_wrap li {margin: 3px 0 0; font-size: 14px; line-height: 21px;}
+	
+	.com_table_container.sty1.fixed_table .sub_com_table {overflow-x: auto;} 
+	/* ==================== 서브 테이블 view ==================== */
+
+	/* ==================== 기본 검색영역 ==================== */
+	.sub_sch_box {margin: 0 0 25px;}
+	.sub_sch_box .sch_box .box {padding: 10px;}
+	.sub_sch_box .sch_box .box .row {display:block; margin-bottom:0;}
+	.sub_sch_box .sch_box .box .row label {display:block; width:100%; margin: 0 0 5px; font-size: 14px; line-height: 30px; text-align:left;}
+	.sub_sch_box .sch_box .box .row .slt_box {display:block; width:100%; margin-bottom:10px; padding-right:0;}
+	.sub_sch_box .sch_box .box .row .slt_box select {font-size: 14px;}
+	.sub_sch_box .sch_box .box .row .input_box {display:block; width:100% !important; margin-bottom:10px; padding-right:0;}
+	.sub_sch_box .sch_box .box .row .input_box input {font-size: 14px}
+	.sub_sch_box .sch_box .box .st_sch_btn {position: inherit; top: inherit; right: inherit; width:100%; height:40px; margin: 10px 0 0;}
+    .sub_sch_box .sch_box .box .st_sch_btn .ico {font-size: 14px; line-height: 40px;}
+    /* ==================== 기본 검색영역 ==================== */
+
+	/* ==================== 기본 검색영역 - 상세검색이 있을 경우 / details_sch ==================== */
+	.sub_sch_box.details_sch .sch_box .box:last-child {padding: 10px;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data {display: block;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.chk_list_area .chk_list {display: block;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.chk_list_area .chk_list .list {display: none;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.chk_list_area .chk_list .list li {display: inline-block; width: calc(25% - 3.75px); margin: 5px 5px 0 0;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.chk_list_area .chk_list .list li:nth-child(-n+5) {margin: inherit;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.chk_list_area .chk_list .list li:nth-child(5n) {margin: 5px 5px 0 0;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.chk_list_area .chk_list .list li:nth-child(5) {margin: 5px 5px 0 0;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.chk_list_area .chk_list .list li:nth-child(-n+4) {margin: 0 5px 0 0;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.chk_list_area .chk_list .list li:nth-child(4n) {margin: 5px 0 0;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.chk_list_area .chk_list .list li:nth-child(4) {margin: 0;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.chk_list_area .chk_list .sch_slt_box {display: block;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.chk_list_area2 .chk_list2 {display: block;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.chk_list_area2 .chk_list2 .list li .chk_area label .text {font-size: 14px; line-height: 21px;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data .tit_box {display: block; width: 100%; height: 30px; margin: 0 0 5px; text-align: left; -webkit-line-clamp: 1;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data .tit_box .tit {font-size: 14px; line-height: 30px;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data .tit_box .tit br {display: none;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.slt_area .slt_box {display: block;}
+
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.period_area .period_box {display: block;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.period_area .period_box .date_inp {font-size: 14px; line-height: 21px;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.radio_list_area .radio_list .list li .radio_area label .text {font-size: 14px; line-height: 21px;}
+	
+	/* 통합검색 - 검색기 (초기화 있을 경우)*/
+	.sub_sch_box.details_sch.sty2 .sch_box .box {padding: 10px;}
+	.sub_sch_box.details_sch.sty2 .sch_box .box .btn_com {position: inherit; top: inherit; right: inherit; width: 100%;}
+	.sub_sch_box.details_sch.sty2 .sch_box .box .btn_com .st_sch_btn {margin: 0;}
+	.sub_sch_box.details_sch.sty2 .sch_box .box .btn_com .reset_btn {margin: 4px 0 0; width: 100%; height: 40px; line-height: 40px;}
+
+	
+
+	/* ==================== Table style ==================== */
+    .board_area {}
+    .board_area .board_list {margin: 10px 0 0;}
+    .board_area .board_list thead {display: none;}
+	.board_area .board_list, .board_area .board_list tbody, .board_area .board_list tr, .board_area .board_list td {display: block;}
+	.board_area .board_list tbody tr {position:relative; z-index:1; overflow:hidden; padding:10px 5px;}
+	.board_area .board_list tbody tr td {float: left; width: 100%; border:none; padding:4px 0; font-size: 14px; color:#777; text-align:left;}
+	.board_area .board_list tbody tr td:before {display: inline-block; content: attr(data-th) ": ";	 width: auto; margin: 0 5px 0 0; color: #333333;}
+	.board_area .board_list tbody tr td.tit:before, .board_area .board_list tbody tr td.title:before {display: none;}
+	.board_area .board_list tbody tr td.data_non:before {display: none;}
+	.board_area .board_list tbody tr td .tc {text-align: left;}
+	.board_area .board_list tbody tr td.tit .ft_c {text-align: left;}
+    .board_area .board_list tbody tr td.tit {font-size: 14px; line-height: 21px;}
+    .board_area .board_list tbody tr td.tit a {padding: 0;}
+    .board_area .board_list tbody tr td.tit a .text {padding: 0;}
+	.board_area .board_list tbody tr td br {display: none;}
+	.board_area .board_list tbody tr td.list {display: inline-block; width: 50%;}
+	.board_area .board_list tbody tr td.tit.secret a:after {top: 0;}
+	.board_area .board_list tbody tr td .state {width: 60px; font-size: 12px; line-height: 24px; text-align: center;}
+	.board_area .board_list tbody tr td.chk:before {display: none;}
+
+    /* ==================== Table style ==================== */
+
+	/* ==================== 게시판 VIEW Style ==================== */
+    .board_view {margin: 15px 0 0;}
+	.board_view .board_view_top {padding:0 20px 20px;}
+	.board_view .board_view_top .tit {margin: 0 0 10px; font-size: 18px; line-height: 27px;}
+	.board_view .board_view_top .sort {margin-top:0;}
+	.board_view .board_view_top .info .each:after {padding:0 10px;}
+	.board_view .board_view_top .controler {left:0;}
+	.board_view .board_view_top .next {left:auto; right:0;}
+	.board_view .board_view_top .info .each {font-size: 12px;}
+	.board_view .board_view_top .mark_list .list li .mark {padding: 5px 7px; font-size: 12px;}
+    .board_view .board_view_top .btn_arr {width: 8px; height: 13px; margin: -8px 0 0;}
+    .board_view .board_view_top .board_prev {left: 5px;}
+    .board_view .board_view_top .board_next {right: 5px;}
+    .board_view .board_write {display: block;}
+    .board_view .board_write tbody {display: block;}
+    .board_view .board_write tbody tr {display: block; overflow: hidden; border-bottom: none;}
+    .board_view .board_write tbody tr th {display: block; float: left; width: 100%; padding: 10px; box-sizing: border-box; font-size: 12px; line-height: 18px;}
+	.board_view .board_write.sty2 tbody tr th {background-color: #f5f7f9;}
+	.board_view .board_write.sty2 tbody tr th .text {padding: 0;}
+	.board_view .board_write.sty2 tbody tr th .text:before {display: none;}
+    .board_view .board_write tbody tr td {display: block; float: left; width: 100%; padding: 10px; font-size: 12px; line-height: 18px; box-sizing: border-box;}
+	.board_view .board_write tbody tr td .view {height: 26px; width: 65px; font-size: 12px; line-height: 24px;}
+	.board_view .board_view_con {padding: 10px;}
+	.board_view .board_view_file .tit {display:block; width:100%;}
+	.board_view .board_view_file .file_box {display:block;}
+	.board_view .board_view_file .file_box {padding: 10px;}
+	.board_view .board_view_file .file_each a {padding: 0 0 0 15px; background-size: 9px; background-position: 0 5px; font-size: 12px; line-height: 18px;}
+	.board_view .board_view_file .file_each button {width: 65px; height: 26px;}
+	.board_view .board_view_file .file_each button .text {font-size: 12px; line-height: 24px;}
+	/* ==================== 게시판 VIEW Style ==================== */
+
+	/* ==================== 게시판 VIEW - 이미지가 있을 경우 Style ==================== */
+	.board_view .img_view_cont {padding: 15px 0;}
+	.board_view .img_view_cont .box {display: block;}
+	.board_view .img_view_cont .box .img_area {display: block; width: 100%; margin: 0 auto;}
+	.board_view .img_view_cont .box .txt_area {display: block; margin: 15px 0 0; padding: 0;}
+	.board_view .img_view_cont .box .txt_area .txt_box .txt {font-size: 12px; line-height: 18px;}
+	.board_view .img_view_cont .box .txt_area .txt_box .txt .file_list li a .text {padding: 0 0 0 20px; font-size: 12px; line-height: 18px;}
+	/* ==================== 게시판 VIEW - 이미지가 있을 경우 Style ==================== */
+
+	/* ==================== 게시판 VIEW - 지도가 있을 경우 Style ==================== */
+	.board_view .map_cont .box #map {height: 200px !important;}
+	.board_view .map_cont .box .txt_box .txt {padding: 0 0 0 13px; font-size: 12px; line-height: 21px;}
+	.board_view .map_cont .box .txt_box .txt:before {top: 5px; width: 7px; height: 11px; background-size: contain;}
+	.board_view .map_cont .box .txt_box .txt .map_link {padding: 0 10px;}
+	/* ==================== 게시판 VIEW - 지도가 있을 경우 Style ==================== */
+
+	/* ==================== 갤러리 Style ==================== */
+	.gallery_cont .gallery_list {margin: 15px 0 0; padding: 15px 0 0;}
+	.gallery_cont .gallery_list > .list > li {width: calc(33.3333% - 13.3333px); margin: 0 20px 20px 0;}
+	.gallery_cont .gallery_list > .list > li:nth-last-child(-n+4) {margin: 0 20px 20px 0;}
+	.gallery_cont .gallery_list > .list > li:nth-child(4n) {margin: 0 20px 20px 0;}
+	.gallery_cont .gallery_list > .list > li:nth-last-child(-n+3) {margin: 0 20px 0 0;}
+	.gallery_cont .gallery_list > .list > li:nth-child(3n) {margin: 0 0 20px 0;}
+	.gallery_cont .gallery_list > .list > li .box .txt_box {padding: 10px 0 0;}
+	.gallery_cont .gallery_list > .list > li .box .txt_box .tit_area .kay {font-size: 14px; line-height: 21px;}
+	.gallery_cont .gallery_list > .list > li .box .txt_box .tit_area .tit {height: 42px; margin: 0; font-size: 14px; line-height: 21px;}
+	/* ==================== 갤러리 Style ==================== */
+
+	/* ==================== 블로그 Style ==================== */
+	.blog_cont .blog_list {margin: 15px 0 0; padding: 15px 0 0;}
+	.blog_cont .blog_list > .list > li .box {padding: 15px 0;}
+	.blog_cont .blog_list > .list > li:first-child .box {padding: 0 0 15px;}
+	.blog_cont .blog_list > .list > li .box .txt_area {padding: 0 0 0 15px;}
+	/* ==================== 블로그 Style ==================== */
+
+	/* ==================== 포스터형 Style ==================== */
+	.poster_cont .poster_list {margin: 15px 0 0; padding: 15px 0 0;}
+	.poster_cont .poster_list > .list > li {width: calc(25% - 15px); margin: 0 20px 20px 0;}
+	.poster_cont .poster_list > .list > li:nth-last-child(-n+5) {margin: 0 20px 20px 0;}
+	.poster_cont .poster_list > .list > li:nth-child(5n) {margin: 0 20px 20px 0;}
+	.poster_cont .poster_list > .list > li:nth-last-child(-n+4) {margin: 0 20px 0 0;}
+	.poster_cont .poster_list > .list > li:nth-child(4n) {margin: 0 0 20px 0;}
+	.poster_cont .poster_list > .list > li .box .txt_box {padding: 10px 0 0;}
+	.poster_cont .poster_list > .list > li .box .txt_box .tit_area .kay {font-size: 14px; line-height: 21px;}
+	.poster_cont .poster_list > .list > li .box .txt_box .tit_area .tit {height: 42px; margin: 0; font-size: 14px; line-height: 21px;}
+	.poster_cont .poster_list > .list > li .box .img_box .inner_box {height: 248px;}
+	/* ==================== 포스터형 Style ==================== */
+
+	.board_view .board_view_con .box_cont {margin: 30px 0 0;}
+	.board_view .board_view_con .box_cont .title {padding: 0 0 0 35px; font-size: 20px; line-height: 26px;}
+	.board_view .board_view_con .box_cont .title:before {width: 26px; height: 26px;}
+	.board_view .board_view_con .box_cont .text_box {margin: 10px 0 0; padding: 15px 10px 15px 20px; font-size: 14px; line-height: 24px;}
+
+	/* ==================== 블로그 Style ==================== */
+	.blog_cont .blog_list > .list > li .box .txt_area {}
+	.blog_cont .blog_list > .list > li .box .txt_area .title_area > .category_list > .list > li {font-size: 14px; line-height: 21px;}
+	.blog_cont .blog_list > .list > li .box .txt_area .title_area .title {margin: 5px 0 0; font-size: 14px; line-height: 21px;}
+	.blog_cont .blog_list > .list > li .box .txt_area .text {margin: 5px 0 0; font-size: 12px; line-height: 18px; -webkit-line-clamp: 3}
+	.blog_cont .blog_list > .list > li .box .txt_area .sort_list {margin: 5px 0 0;}
+	.blog_cont .blog_list > .list > li .box .txt_area .sort_list > .list > li {margin: 0 6px 0 0; padding: 0 6px 0 0; font-size: 12px; line-height: 18px;}
+	.blog_cont .blog_list > .list > li .box .txt_area .data_list {margin: 5px 0 0;}
+	.blog_cont .blog_list > .list > li .box .txt_area .data_list > .list > li {font-size: 12px; line-height: 18px;}
+	.blog_cont .blog_list > .list > li .box .txt_area .data_list > .list > li img {padding: 1px 0;}
+	/* ==================== 블로그 Style ==================== */
+
+	/* ==================== 이벤트 Style ==================== */
+	.event_cont .event_list {margin: 15px 0 0; padding: 15px 0 0;}
+	.event_cont .event_list > .list > li .box {padding: 11px 0;}
+	.event_cont .event_list > .list > li:first-child .box {padding: 0 0 11px;}
+	/* .event_cont .event_list > .list > li .box .img_area {display: none;} */
+	.event_cont .event_list > .list > li .box .txt_area {padding: 0 0 0 15px;}
+	.event_cont .event_list > .list > li .box .txt_area > .category_list > .list > li {font-size: 14px; line-height: 21px;}
+	.event_cont .event_list > .list > li .box .txt_area .title {font-size: 14px; line-height: 21px;}
+	.event_cont .event_list > .list > li .box .txt_area > .sort_list {margin: 5px 0 0;}
+	.event_cont .event_list > .list > li .box .txt_area > .sort_list > .list > li {padding: 0 0 0 95px; font-size: 12px; line-height: 18px;}
+	.event_cont .event_list > .list > li .box .txt_area > .data_list > .list > li {font-size: 12px; line-height: 18px;}
+	.event_cont .event_list > .list > li .box .situ_area {width: 70px;}
+	.event_cont .event_list > .list > li .box .situ_area .situ {width: 49px; height: 49px; font-size: 12px; line-height: 49px;}
+	/* ==================== 이벤트 Style ==================== */
+
+	/* ==================== FAQ Style ==================== */
+	.faq_cont .faq_list .list li .cont:before {width: 23px; height: 23px;}
+	.faq_cont .faq_list .list li .q_area {padding: 10px 30px 10px 40px; font-size: 14px; line-height: 21px;}
+	.faq_cont .faq_list .list li .q_area:before {left: 5px; font-size: 14px; line-height: 21px;}
+	.faq_cont .faq_list .list li .q_area:after {right: 10px;}
+	.faq_cont .faq_list .list li .a_area {padding: 10px 30px 60px 40px; font-size: 12px; line-height: 18px;}
+	.faq_cont .faq_list .list li .a_area:before {left: 5px; font-size: 14px; line-height: 21px;}
+	/* ==================== FAQ Style ==================== */
+
+	/* ==================== 통합검색 Style ==================== */
+	.sch_tab_cont > .list > li {width: 100%; border-top: 1px solid #cdcdcd; border-left: none;}
+	.sch_tab_cont > .list > li:first-child {border: none;}
+	.sch_tab_cont > .list > li .com_tab_btn .text {font-size: 14px; line-height: 42px;}
+	.sch_tab_cont > .list > li.tab_slt .tab_slt_btn .text {font-size: 14px; line-height: 42px;}
+	.sch_tab_cont > .list > li.tab_slt > .slt_list > li > .tab_data .text_box .text_inner {height: 42px;}
+	.sch_tab_cont > .list > li.tab_slt > .slt_list > li > .tab_data .text_box .text_inner .text {font-size: 14px; line-height: 21px;}
+	
+	.record_area .title {font-size: 18px; line-height: 27px;}
+	.record_area .text {margin: 6px 0 0; font-size: 14px; line-height: 21px;}
+	.sch_list_cont {margin: 15px 0 0;}
+	.sch_list_cont > .list > li > .box .title_area .title {font-size: 14px; line-height: 22px;}
+	.sch_list_cont > .list > li > .box .title_area .view {font-size: 14px; line-height: 22px;}
+	.sch_list_cont > .list > li > .box .sch_list_box > .list > li > .box {padding: 7px;}
+	.sch_list_cont > .list > li > .box .sch_list_box > .list > li > .box .sub_tit {font-size: 14px; line-height: 21px;}
+	.sch_list_cont > .list > li > .box .sch_list_box > .list > li > .box .tit {height: 24px; font-size: 16px; line-height: 24px;}
+	.sch_list_cont > .list > li > .box .sch_list_box > .list > li > .box .file_list {margin: 7px 0 0;}
+	.sch_list_cont > .list > li > .box .sch_list_box > .list > li > .box .menu_list li .text {font-size: 14px; line-height: 21px;}
+	.sch_tab_cont > .list > li.tab_slt > .slt_list {top: 42px;}
+	/* ==================== 통합검색 Style ==================== */
+   
+   /* ==================== Pagination Style ==================== */
+	.pagination {margin: 15px 0 0;}
+	.pagination a {width: 19px; height: 19px; font-size:12px; line-height: 19px;}
+	.pagination .page_arrow {font-size:15px;}
+	.pagination .page_arrow.l1 {margin: 0 8px 3px 0;}
+	.pagination .page_arrow.r1 {margin: 0 0 3px 8px;}
+	.pagination.skin2 a {line-height:20px;}
+    .pagination .page_arrow.l2 {margin: 0 8px 3px 0;}
+    .pagination .page_arrow.r2 {margin: 0 0 3px 8px;}
+    /* ==================== Pagination Style ==================== */
+
+
+
+	/* 댓글 */
+    .comment_title {padding: 0 0 0 24px; font-size: 18px; line-height: 26px;}
+	.comment_title.program {background-size: 20px auto;}
+	.comment_regist_form {padding: 10px;}
+	.comment_regist_form .tit {font-size: 16px; line-height: 26px;}
+	.comment_top_area {margin: 0 0 6px;}
+	.comment_top_area .comment_top_tit {font-size: 14px; line-height: 21px;}
+	.comment_top_area .secret_txt .chk_area label .text {font-size: 14px; line-height: 21px;}
+	.comment_regist {margin: 0 0 20px;}
+	.comment_regist_textarea {font-size: 14px; line-height: 21px;}
+	.comment_regist .comment_word_count {padding: 0 105px 0 0; font-size: 14px; line-height: 21px;}
+	.comment_regist_form .btn {width: 100px;}
+	.comment_list > li {padding: 0 20px;}
+	.comment_list > li .box {padding: 15px 0;}
+	.comment_list > li .box .no_text {font-size: 14px; line-height: 21px;}
+	.comment_info {margin: 0 0 7px;}
+	.comment_info .id {font-size: 14px; line-height: 21px;}
+	.comment_info .date {margin: 0 0 0 7px; font-size: 14px; line-height: 21px;}
+	.comment_info .edit_box .btn {font-size: 14px; line-height: 24px;}
+	.comment_txt img {margin: 0 5px 0 0;}
+	.comment_txt .text {font-size: 14px; line-height: 21px;}
+	.comment_edit_box .btn {font-size: 12px;}
+	/* 댓글 */
+	
+	.com_tab_wrap .com_tab_cont.sty1 .tab_slt_box {display: block;}
+	.com_tab_wrap .com_tab_cont.sty1 .tab_slt_box button {font-size: 16px; line-height: 40px;}
+	.com_tab_wrap .com_tab_cont.sty1 .tab_slt_box button:after {top: 15px; right: 15px; width: 10px; height: 6px;} 
+	.com_tab_wrap .com_tab_cont .list {overflow-y: scroll; display: none; position: absolute; top: 40px; left: 0; width: 100%; max-height: 160px; border: 1px solid #3081b4; z-index: 1;}
+	.com_tab_wrap .com_tab_cont .list.on {display: block;}
+	.com_tab_wrap .com_tab_cont .list li::after {display: none;}
+	.com_tab_wrap .com_tab_cont .list li button {height: 40px; font-size: 16px; line-height: 40px;}
+	.com_tab_wrap .com_tab_cont .list li.on button {height: 40px;}
+
+    .com_tab_wrap com_tab_info {margin: 20px 0 0;}
+
+	/*완료페이지*/
+	.comp_cont {padding: 20px 5px;}
+	.comp_cont .title {padding: 120px 0 0; background-size: 100px 100px; font-size: 20px; line-height: 30px;}
+	.comp_cont .text {margin: 7px 0 0; font-size: 16px; line-height: 24px;}
+	/*완료페이지*/
+}
+
+
+@media screen and (max-width:767px){
+	/* Input, select */
+	input {padding: 0 5px;}
+	input::placeholder {font-size: 13px;}
+	/* Input, select */
+
+	/* Button stlye */
+	.btn_area {margin: 30px 0 0;}
+	.btn_area.top_line {margin: 15px 0 0; padding: 15px 0 0;}
+	.btn_area .btn {padding: 0 10px; font-size: 14px; line-height: 30px;}
+	/* Button stlye */
+	/* 공통테이블 */
+	.com_table_cont > .table_box {margin: 15px 0 0;}
+	.com_table_cont > .table_box > .title_area .title_box > .title {font-size: 16px; line-height: 24px;}
+	.com_table_cont .table_box .board_write {margin: 7px 0 0;}
+	.com_table_cont .table_box .board_write tbody tr th {padding: 7px;}
+	.com_table_cont .table_box .board_write tbody tr td {padding: 7px;}
+
+
+	/* 공통테이블 */
+
+     /* ==================== 기본 검색영역 - 상세검색이 있을 경우 / details_sch ==================== */
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.chk_list_area .chk_list .list li {display: none; width: 100%; margin: 0;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.chk_list_area .chk_list .list li.m_slt {display: block;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.slt_area .slt_box select {max-width: 100%;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.period_area .period_box .date_inp {width: calc(50% - 15px); max-width: inherit;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.period_area .period_box.sty2 .date_inp {width: 100%;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.radio_list_area .radio_list .list li {/* width: 50%; */ margin: 0 0 10px;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.chk_list_area2 .chk_list2 .list li {/* width: 50%; */ margin: 0 0 10px;}
+	/* ==================== 기본 검색영역 - 상세검색이 있을 경우 / details_sch ==================== */
+
+	/* 통합검색 검색기 */
+	.sub_sch_box.details_sch.sty2 .sch_box .box:nth-child(2) {padding: 10px;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.radio_list_area .radio_list {display: block;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box .com_data.chk_list_area2 .chk_list2 {display: block;}
+	/* 통합검색 검색기 */
+
+
+
+	/* 체크박스 */
+	/* .chk_list .list {font-size: 0;}
+	.chk_list .list li {width: 50%; margin: 5px 0 0;}
+	.chk_list .list li:nth-child(-n+2) {margin: 0;}
+	.chk_list .list li:last-child {margin: 5px 0 0;} */
+
+	.step_box {display: none;}
+
+	/* ==================== 갤러리 Style ==================== */
+	.gallery_cont .gallery_list > .list > li {width: calc(50% - 5px); margin: 0 10px 10px 0;}
+	.gallery_cont .gallery_list > .list > li:nth-last-child(-n+4) {margin: 0 10px 10px 0;}
+	.gallery_cont .gallery_list > .list > li:nth-child(4n) {margin: 0 10px 10px 0;}
+	.gallery_cont .gallery_list > .list > li:nth-last-child(-n+3) {margin: 0 10px 10px 0;}
+	.gallery_cont .gallery_list > .list > li:nth-child(3n) {margin: 0 10px 10px 0;}
+	.gallery_cont .gallery_list > .list > li:nth-last-child(-n+2) {margin: 0 10px 0 0;}
+	.gallery_cont .gallery_list > .list > li:nth-child(2n) {margin: 0 0 10px 0;}
+	.gallery_cont .gallery_list > .list > li .box .txt_box .txt_area .txt {font-size: 12px; line-height: 18px;}
+	.gallery_cont .gallery_list > .list > li .box .txt_box .data_list > .list > li {margin: 0 6px 0 0; padding: 0 6px 0 0; font-size: 12px; line-height: 18px;}
+	.gallery_cont .gallery_list > .list > li .box .txt_box .data_list > .list > li img {padding: 1px 0;}
+	/* ==================== 갤러리 Style ==================== */
+
+	/* ==================== 포스터 Style ==================== */
+	.poster_cont .poster_list > .list > li {width: calc(33.3333% - 6.6666px); margin: 0 10px 10px 0;}
+	.poster_cont .poster_list > .list > li:nth-last-child(-n+5) {margin: 0 10px 10px 0;}
+	.poster_cont .poster_list > .list > li:nth-child(5n) {margin: 0 10px 10px 0;}
+	.poster_cont .poster_list > .list > li:nth-last-child(-n+4) {margin: 0 10px 10px 0;}
+	.poster_cont .poster_list > .list > li:nth-child(4n) {margin: 0 10px 10px 0;}
+	.poster_cont .poster_list > .list > li:nth-last-child(-n+3) {margin: 0 10px 0 0;}
+	.poster_cont .poster_list > .list > li:nth-child(3n) {margin: 0 0 10px 0;}
+	.poster_cont .poster_list > .list > li .box .txt_box .txt_area .txt {font-size: 12px; line-height: 18px;}
+	.poster_cont .poster_list > .list > li .box .txt_box .data_list > .list > li {margin: 0 6px 0 0; padding: 0 6px 0 0; font-size: 12px; line-height: 18px;}
+	.poster_cont .poster_list > .list > li .box .txt_box .data_list > .list > li img {padding: 1px 0;}
+	/* ==================== 포스터 Style ==================== */
+
+	
+
+	/* 댓글 */
+
+	/* 댓글 */
+
+	.com_tab_wrap .com_tab_cont.sty1 .tab_slt_box button {font-size: 15px; line-height: 32px;}
+	.com_tab_wrap .com_tab_cont.sty1 .tab_slt_box button:after {top: 13px; right: 15px; width: 10px; height: 6px;} 
+	.com_tab_wrap .com_tab_cont .list {top: 32px; max-height: 128px;}
+	.com_tab_wrap .com_tab_cont .list li button {height: 32px; font-size: 15px; line-height: 32px;}
+	.com_tab_wrap .com_tab_cont .list li.on button {height: 32px;}
+
+	/*완료페이지*/
+	.comp_cont {padding: 15px 5px;}
+	.comp_cont .title {padding: 100px 0 0; background-size: 80px 80px; font-size: 17px; line-height: 27px;}
+	.comp_cont .text {font-size: 14px; line-height: 21px;}
+	.comp_cont .text br {display: none;}
+	/*완료페이지*/
+}
+
+
+@media screen and (max-width:480px){
+	
+	/* Input, select, br */
+
+	select {max-width: 100%;}
+
+	.chk_area {padding: 0 0 0 20px;}
+	
+
+	/* 공통 테이블*/
+	.com_table_cont > .table_box > .title_box > .text {margin: 0 0 5px 0;}
+
+
+	
+	
+
+	/* 메이커 스페이스 예약 검색기*/
+	.sub_sch_box.details_sch .sch_box .box .com_data_box.w20 .com_data.chk_list_area2 .chk_list2 .list li {width: 50%;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box.w20 .com_data.chk_list_area2 .chk_list2 .list li:nth-child(-n+3) {margin: 5px 0 0;}
+	.sub_sch_box.details_sch .sch_box .box .com_data_box.w20 .com_data.chk_list_area2 .chk_list2 .list li:nth-child(-n+2) {margin: 0;}
+
+	/* ==================== 갤러리 Style ==================== */
+	.gallery_cont .gallery_list > .list > li {width: 100%; margin: 0 0 10px 0 !important;}
+	.gallery_cont .gallery_list > .list > li:nth-child(-n+4), .gallery_cont .gallery_list > .list > li:nth-child(-n+3), .gallery_cont .gallery_list > .list > li:nth-child(-n+2) {margin: 0 0 10px 0 !important;}
+	.gallery_cont .gallery_list > .list > li:nth-child(4n), .gallery_cont .gallery_list > .list > li:nth-child(3n), .gallery_cont .gallery_list > .list > li:nth-child(2n) {margin: 0 0 10px 0 !important;}
+	.gallery_cont .gallery_list > .list > li:nth-child(4), .gallery_cont .gallery_list > .list > li:nth-child(3), .gallery_cont .gallery_list > .list > li:nth-child(2) {margin: 0 0 10px 0 !important;}
+	/* ==================== 갤러리 Style ==================== */
+
+	/* ==================== 포스터 Style ==================== */
+	.poster_cont .poster_list > .list > li {width: calc(50% - 5px);}
+	.poster_cont .poster_list > .list > li:nth-last-child(-n+5) {margin: 0 10px 10px 0;}
+	.poster_cont .poster_list > .list > li:nth-child(5n) {margin: 0 10px 10px 0;}
+	.poster_cont .poster_list > .list > li:nth-last-child(-n+4) {margin: 0 10px 10px 0;}
+	.poster_cont .poster_list > .list > li:nth-child(4n) {margin: 0 10px 10px 0;}
+	.poster_cont .poster_list > .list > li:nth-last-child(-n+3) {margin: 0 10px 10px 0;}
+	.poster_cont .poster_list > .list > li:nth-child(3n) {margin: 0 10px 10px 0;}
+	.poster_cont .poster_list > .list > li:nth-last-child(-n+2) {margin: 0 10px 0 0;}
+	.poster_cont .poster_list > .list > li:nth-child(2n) {margin: 0 0 10px 0;}
+	.poster_cont .poster_list > .list > li .box .img_box .inner_box {height: 219px;}
+	/* ==================== 포스터 Style ==================== */
+
+	/* 블로그형 */
+	.blog_cont .blog_list > .list > li .box .img_area {display: block; margin: 0 auto;}
+	.blog_cont .blog_list > .list > li .box .txt_area {display: block; margin: 5px 0 0; padding: 0;}
+	/* 블로그형 */
+	
+	/* 이벤트형 */
+	.event_cont .event_list > .list > li .box .img_area {display: block; margin: 0 auto;}
+	.event_cont .event_list > .list > li .box .txt_area {display: block; margin: 5px 0 0; padding: 0;}
+	/* 이벤트형 */
+
+	/* comment */
+	
+	.comment_regist_form {height:auto; padding: 10px;}
+	.comment_regist_textarea {margin: 0 0 3px; width: 100%;}
+	.comment_word_count {position:static; margin-bottom:3px; text-align:right;}
+	.comment_regist_form .btn {position:static; width:100%; height:35px; line-height:35px;}
+	.comment2_view {padding:5px 5%;}
+	.comment_regist .comment_word_count{margin: 5px 0 0; padding: 0;}
+	.comment_info .edit_box {float: none; width: 100%; text-align: right;}
+
+	/* 버튼 */
+	.btn_com .btn_area.tl {}
+	.btn_com .btn_area {margin: 15px 0 0; font-size: 0;}
+	.btn_com .btn_area .btn {display: inline-block;}
+	.comment_regist_form .btn_box {text-align: right;}
+    .comment_regist .comment_word_count {position: relative;}
+}

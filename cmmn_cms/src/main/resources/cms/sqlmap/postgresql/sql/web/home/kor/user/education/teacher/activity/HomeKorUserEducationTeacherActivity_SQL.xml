@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorUserEducationTeacherActivity_SQL">
+
+	<select id="HomeKorUserEducationTeacherActivity_SQL.selectHomeKorUserEducationTeacherActivityList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserEducationTeacherActivity_SQL.selectHomeKorUserEducationTeacherActivityList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.type_ref,
+							T1.year_ref,
+							T1.region_ref,
+							T1.title,
+							T1.teacher_cnt,
+							T1.student_cnt,
+							T1.content,
+							T2.data_name AS type_name,
+							T3.data_name AS year_name,
+							T4.data_name AS region_name,
+							(SELECT FT.attach_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_name,
+							(SELECT FT.attach_re_name FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_re_name,
+							(SELECT FT.extension FROM cms_file_data FT <where> AND FT.identifier = #{identifier} AND FT.key_ref = T1.no AND ROWNUM = 1</where>) AS attach_extension,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_activity T1
+						LEFT OUTER JOIN 
+							cms_category_data T2
+						ON  T1.type_ref																= T2.no
+						LEFT OUTER JOIN 
+							cms_category_data T3
+						ON  T1.year_ref																= T3.no
+						LEFT OUTER JOIN 
+							cms_category_data T4
+						ON  T1.region_ref															= T4.no
+						<where>
+						AND			T1.use_at														= 'Y'
+						<if test='searchValue2 != ""'>
+						AND			T1.type_ref														= #{searchValue2}
+						</if>
+						<if test='searchValue3 != ""'>
+						AND			T1.year_ref														= #{searchValue3}
+						</if>
+						<if test='searchValue4 != ""'>
+						AND			T1.region_ref													= #{searchValue4}
+						</if>
+						<if test='searchKeyword != ""'>
+						AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+						</if>
+						</where>
+						ORDER BY	T1.reg_date DESC, T1.no DESC 
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorUserEducationTeacherActivity_SQL.selectHomeKorUserEducationTeacherActivityListCnt" parameterType="vo" resultType="int">
+		/* HomeKorUserEducationTeacherActivity_SQL.selectHomeKorUserEducationTeacherActivityListCnt */
+		SELECT 
+			COUNT(1)
+		FROM
+			tb_activity T1
+		LEFT OUTER JOIN 
+			cms_category_data T2
+		ON  T1.type_ref																= T2.no
+		LEFT OUTER JOIN 
+			cms_category_data T3
+		ON  T1.year_ref																= T3.no
+		LEFT OUTER JOIN 
+			cms_category_data T4
+		ON  T1.region_ref															= T4.no
+		<where>
+		AND			T1.use_at														= 'Y'
+		<if test='searchValue2 != ""'>
+		AND			T1.type_ref														= #{searchValue2}
+		</if>
+		<if test='searchValue3 != ""'>
+		AND			T1.year_ref														= #{searchValue3}
+		</if>
+		<if test='searchValue4 != ""'>
+		AND			T1.region_ref													= #{searchValue4}
+		</if>
+		<if test='searchKeyword != ""'>
+		AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		</where>
+	</select>
+	
+</mapper>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorAdminEducationThemeChange_SQL">
+
+	<select id="HomeKorAdminEducationThemeChange_SQL.selectHomeKorAdminEducationThemeChangeList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminEducationThemeChange_SQL.selectHomeKorAdminEducationThemeChangeList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+						SELECT
+							T1.no,
+							T1.use_at,
+							T1.url,
+							T1.title,
+							TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+							T1.register
+						FROM
+							tb_change T1
+						<where>
+						<if test='searchValue1 != ""'>
+						AND			T1.use_at														= #{searchValue1}
+						</if>
+						<if test='searchKeyword != ""'>
+						AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+						</if>
+						</where>
+						ORDER BY	T1.reg_date DESC, T1.no DESC 
+					) X
+		) Z
+		<where>
+		<![CDATA[ AND Z.RNUM > #{firstIndex} AND ROWNUM <= #{recordCountPerPage} ]]>
+		</where>
+	</select>
+	
+	<select id="HomeKorAdminEducationThemeChange_SQL.selectHomeKorAdminEducationThemeChangeListCnt" parameterType="vo" resultType="int">
+		/* HomeKorAdminEducationThemeChange_SQL.selectHomeKorAdminEducationThemeChangeListCnt */
+		SELECT 
+			COUNT(1)
+		FROM 
+			tb_change T1
+		<where>
+		<if test='searchValue1 != ""'>
+		AND			T1.use_at														= #{searchValue1}
+		</if>
+		<if test='searchKeyword != ""'>
+		AND			T1.title														LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		</where>
+	</select>
+
+	<select id="HomeKorAdminEducationThemeChange_SQL.selectHomeKorAdminEducationThemeChange" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminEducationThemeChange_SQL.selectHomeKorAdminEducationThemeChange */
+		SELECT
+			T1.no,
+			T1.use_at,
+			T1.title,
+			T1.url,
+			TO_CHAR(T1.reg_date, 'YYYY-MM-DD') AS reg_date,
+			T1.register
+		FROM
+			tb_change T1
+		<where>
+		AND			T1.no															= #{idx}
+		</where>
+		<!-- LIMIT 1 -->
+	</select>
+	
+	<insert id="HomeKorAdminEducationThemeChange_SQL.insertHomeKorAdminEducationThemeChange" parameterType="vo">
+	/* HomeKorAdminEducationThemeChange_SQL.insertHomeKorAdminEducationThemeChange */
+		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
+			SELECT tb_change_seq.NEXTVAL AS idx
+		</selectKey>
+		INSERT INTO tb_change
+		(			
+					no,
+					use_at,
+					title,
+					url,
+					register,
+					reg_date
+		)
+					VALUES
+		(			
+					#{idx},
+					#{paramKey1},
+					#{paramKey3},
+					#{paramKey4},
+					#{adm_idx},
+					SYSDATE
+		)
+	</insert>
+	
+	<update id="HomeKorAdminEducationThemeChange_SQL.updateHomeKorAdminEducationThemeChange" parameterType="vo">
+		/* HomeKorAdminEducationThemeChange_SQL.updateHomeKorAdminEducationThemeChange */
+		UPDATE tb_change SET 
+			   	use_at																	= #{paramKey1},
+				title																	= #{paramKey3},
+				url																		= #{paramKey4},
+			   	mod_date																= SYSDATE,  
+			   	modifier																= #{adm_idx}        
+		<where>
+		AND no 																		= #{idx}
+		</where>	   
+		          
+	</update>
+	
+	<delete id="HomeKorAdminEducationThemeChange_SQL.deleteHomeKorAdminEducationThemeChange" parameterType="vo">
+	/* HomeKorAdminEducationThemeChange_SQL.deleteHomeKorAdminEducationThemeChange */
+		DELETE FROM tb_change
+		<where>
+		AND			no																= #{idx}
+		</where>
+	</delete>
+	
+	<delete id="HomeKorAdminEducationThemeChange_SQL.deleteHomeKorAdminEducationThemeChangeList" parameterType="vo">
+		/* HomeKorAdminEducationThemeChange_SQL.deleteHomeKorAdminEducationThemeChangeList */
+		DELETE FROM tb_change
+		<where>
+			<foreach collection="paramKeyList1" open="AND no IN (" close=")" separator="," item="idx">
+				#{idx}
+			</foreach>
+		</where>
+	</delete>
+	
+</mapper>

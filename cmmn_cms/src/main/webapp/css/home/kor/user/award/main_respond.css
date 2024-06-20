@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+@media screen and (max-width:1700px){
+	.video_cont .video_wrap .info_text {padding: 60px 80px 54px 888px}
+	.video_cont .video_wrap .video_box {max-width: 850px;}
+}
+
+@media screen and (max-width:1600px){
+	.main_title_box {top: 61px;}
+	.bubble_box .text {padding: 0 18px; font-size: 15px; line-height: 50px;}
+	.box04 .bubble_box {top: -15px;}
+	.box05 .bubble_box {top: -15px;}
+	.box07 .bubble_box {top: -15px;}
+	.video_cont .video_wrap .video_box {max-width: 750px;}
+	.video_cont .video_wrap .info_text {padding: 60px 40px 54px 790px;}
+
+}
+
+@media screen and (max-width:1500px){
+	.video_cont .video_wrap .video_box {height: 490px;}
+	.video_cont .video_wrap .info_text {height: 490px;}
+	.video_cont .video_wrap .info_text .text_box .sub_tit {font-size: 26px; line-height: 39px;}
+	.video_cont .video_wrap .info_text .text_box .tit {font-size: 40px; line-height: 60px;}
+	.video_cont .video_wrap .info_text .text_box .text01 .txt {font-size: 23px; line-height: 35px;}
+	.video_cont .video_wrap .info_text .text_box .text02 {font-size: 18px; line-height: 27px;}
+
+}
+
+@media screen and (max-width:1400px){
+	.video_cont .video_wrap .video_box {max-width: 600px;}
+	.video_cont .video_wrap .info_text {padding: 60px 40px 54px 640px;}
+
+}
+
+
+@media screen and (max-width:1280px){
+	.video_cont .video_wrap .video_box {max-width: 550px;}
+	.video_cont .video_wrap .info_text {padding: 40px 30px 54px 590px;}
+	.video_cont .video_wrap .info_text .text_box .sub_tit {font-size: 23px; line-height: 35px;}
+	.video_cont .video_wrap .info_text .text_box .tit {font-size: 38px; line-height: 57px;}
+
+	.video_cont .video_wrap .info_text .text_box .text02 {margin: 30px 0 0;}
+}
+
+@media screen and (max-width:1080px){
+	.wrapper {background-image: url("/award/images/main/main_mob_bg.png"); background-size: 100% 100%; z-index: 0;}
+	.main {overflow: inherit;}
+	.main_pc {display: none;}
+	.main_mob {display: block;}
+	.main_title_box {position: relative; top: 0; margin: 55px 0 0; text-align: center;}
+	.main_title_box .date {font-size: 22px; line-height: 33px;}
+	.main_title_box .text {font-size: 22px; line-height: 33px;}
+		
+	.video_cont {bottom: inherit; right: inherit; left: inherit; margin: -45px 0 0;}
+	.video_cont.on {margin: 0;}
+	.video_cont .video_wrap {padding: 20px;}
+
+	.video_cont .video_wrap .video_box {position: inherit; left: inherit; top: inherit;	height: 300px; margin: 0 auto; box-shadow: inherit;}
+	
+	.video_cont .video_wrap .info_text {display: block; height: inherit; padding: 20px; text-align: center; box-shadow: inherit;}
+	.video_cont .video_wrap .info_text .text_box .sub_tit {font-size: 20px; line-height: 30px;}
+	.video_cont .video_wrap .info_text .text_box .tit {font-size: 35px; line-height: 52px;}
+	.video_cont .video_wrap .info_text .text_box .text01 {margin: 18px 0 0;}
+	.video_cont .video_wrap .info_text .text_box .text01 .txt {font-size: 20px; line-height: 30px;}
+	.video_cont .video_wrap .info_text .text_box .text02 {margin: 20px 0 0; font-size: 16px; line-height: 24px;}
+	.video_cont .video_wrap .info_text .host_box {margin: 20px 0 0;}
+	.video_cont .video_wrap .info_text .host_box .list li .tit {font-size: 15px; line-height: 23px;}
+	.video_cont .video_wrap .info_text .host_box .list li .img_box {padding: 0 0 0 35px;}
+
+
+}
+
+@media screen and (max-width:767px){
+	.main_title_box {margin: 20px 0 0;}
+	.main_title_box .img_box {width: 100%; max-width: 500px; margin: 0 auto;}
+	.main_title_box .date {margin: 7px 0 0; font-size: 18px; line-height: 27px;}  
+	.main_title_box .text {font-size: 18px; line-height: 27px;}     
+	.video_cont .video_wrap .info_text {margin: 20px 0 0; padding: 0;}
+	.video_cont .video_wrap .info_text .text_box .sub_tit {font-size: 18px; line-height: 27px;}
+	.video_cont .video_wrap .info_text .text_box .tit {font-size: 22px; line-height: 33px;}
+	.video_cont .video_wrap .info_text .text_box .text01 {margin: 6px 0 0;}
+	.video_cont .video_wrap .info_text .text_box .text01 .txt {font-size: 16px; line-height: 24px;}
+	.video_cont .video_wrap .info_text .text_box .text02 {margin: 8px 0 0; font-size: 14px; line-height: 21px;}
+	.video_cont .video_wrap .info_text .host_box .list li {margin: 0 20px 0 0;}
+}
+
+@media screen and (max-width:480px){
+	.video_cont .video_wrap .info_text .host_box .list li {margin: 0;}
+	.video_cont .video_wrap .video_box {height: 157px;}
+}   

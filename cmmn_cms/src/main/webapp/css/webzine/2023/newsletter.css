@@ -1,0 +1,242 @@
+@charset "UTF-8";
+body {font-family: 'CoreDream';}
+img {max-width:100%;}
+/*공통*/
+.type_area {margin: 0 0 40px 0; font-size: 0; text-align: center;}
+.type_area .type {display: inline-block; padding: 10px 50px; background-color: #ffffff; font-weight: 700; font-size: 20px; border-radius: 30px;}
+.type_area .type.type01 {border: 2px solid #314db8; color: #314db8;}
+.type_area .type.type02 {border: 2px solid #e36d00; color: #e36d00;}
+.type_area .type.type03 {border: 2px solid #3c7767; color: #3c7767;}
+.type_area .type.type04 {border: 2px solid #1d90a8; color: #1d90a8;}
+.newsletter_cont ..board_view .board_view_con {padding:0;}
+
+.newslettter_cont {max-width: 994px; margin: 0 auto;}
+.newslettter_cont .section {width: 100%;}
+.newslettter_cont .section .type_cont_area {}
+.newslettter_cont .section .type_cont_area .item_box {font-size: 0;}
+.newslettter_cont .section .type_cont_area .item_box .img_area {display: inline-block; vertical-align: middle;}
+.newslettter_cont .section .type_cont_area .item_box .text_area {display: inline-block; vertical-align: middle;}
+.newslettter_cont .section .type_cont_area .item_box .text_area .title {display: block; margin: 0 0 11px 0; font-weight: 700; font-size: 23px; color: #000000;}
+.newslettter_cont .section .type_cont_area .item_box .text_area .text {display: block;  font-size: 15px; color: #000000;line-height:1.5;}
+
+.newslettter_cont .section .type_cont_area.sty2 {font-size: 0;}
+.newslettter_cont .section .type_cont_area.sty2 .item_box {display: inline-block; vertical-align: top;}
+.newslettter_cont .section .type_cont_area.sty2 .item_box .img_area {display: block; margin: 0 0 25px 0; text-align: center;}
+.newslettter_cont .section .type_cont_area.sty2 .item_box .text_area {display: block;}
+
+.newslettter_cont .footer {
+	position:static;
+	padding:0;
+}
+/* 첫번째 페이지 */
+.newslettter_cont .section.section01 {padding: 20px 20px 40px 20px; background-color: #a4c9f6; background-image: url('https://ip-edu.net/images/webzine/202308/base/top_img.png'); background-position: top 40px center; background-repeat: no-repeat;}
+.newslettter_cont .section.section01 .top_area {display: flex; margin: 0 0 331px 0; justify-content: space-between; align-items: center;}
+.newslettter_cont .section.section01 .top_area .logo_box {display: block;}
+.newslettter_cont .section.section01 .top_area .num {font-weight: 500; font-size: 15px;}
+.newslettter_cont .section.section01 .title_area {font-size: 0; text-align: center;}
+.newslettter_cont .section.section01 .title_area .title_box {text-align: center;}
+.newslettter_cont .section.section01 .title_area .link {display: inline-block; margin: 13px 0 0 0; font-weight: 700; font-size: 20px; color: #ffffff;}
+
+/* 두번째 페이지 */
+.newslettter_cont .section.section02 {padding: 90px 110px 65px 110px; background-color: #e7ebfa; background-image: url('https://ip-edu.net/images/webzine/202308/base/bg_step1.png'); background-position: top 40px center; background-repeat: no-repeat;}
+.newslettter_cont .section.section02 .type_area {}
+.newslettter_cont .section.section02 .type_area .type {}
+.newslettter_cont .section.section02 .type_cont_area {}
+.newslettter_cont .section.section02 .type_cont_area .item_box {margin: 0 0 25px 0;}
+.newslettter_cont .section.section02 .type_cont_area .item_box:last-child {margin: 0;}
+.newslettter_cont .section.section02 .type_cont_area .item_box .img_area {}
+.newslettter_cont .section.section02 .type_cont_area .item_box .text_area {width: calc(100% - 415px); margin: 0 68px 0 0;}
+.newslettter_cont .section.section02 .type_cont_area .item_box:nth-child(2) .text_area {width: calc(100% - 415px); margin: 0 0 0 68px;}
+.newslettter_cont .section.section02 .type_cont_area .item_box .text_area .title {}
+.newslettter_cont .section.section02 .type_cont_area .item_box .text_area .text {}
+
+/* 세번째 페이지 */
+.newslettter_cont .section.section03 {padding: 90px 110px 82px 110px; background-color: #f7eade; background-image: url('https://ip-edu.net/images/webzine/202308/base/bg_step2.png'); background-position: top 20px center; background-repeat: no-repeat;}
+.newslettter_cont .section.section03 .type_area {}
+.newslettter_cont .section.section03 .type_area .type {}
+.newslettter_cont .section.section03 .type_cont_area.sty2 {}
+.newslettter_cont .section.section03 .type_cont_area.sty2 .item_box {width: calc(50% - 22.5px); margin: 0 0 0 45px;}
+.newslettter_cont .section.section03 .type_cont_area.sty2 .item_box:first-child {margin: 0;}
+.newslettter_cont .section.section03 .type_cont_area.sty2 .item_box:nth-child(n+3) {margin: 22px 0 0 45px;}
+.newslettter_cont .section.section03 .type_cont_area.sty2 .item_box:nth-child(3n) {margin: 22px 0 0 0;}
+.newslettter_cont .section.section03 .type_cont_area.sty2 .item_box .img_area {}
+.newslettter_cont .section.section03 .type_cont_area.sty2 .item_box .text_area {}
+.newslettter_cont .section.section03 .type_cont_area.sty2 .item_box .text_area .title {}
+.newslettter_cont .section.section03 .type_cont_area.sty2 .item_box .text_area .text {}
+
+/* 네번째 페이지 */
+.newslettter_cont .section.section04 {padding: 40px 122px;background-color: #edf7ec;}
+.newslettter_cont .section.section04 .type_area {}
+.newslettter_cont .section.section04 .type_area .type {}
+.newslettter_cont .section.section04 .type_cont_area {margin: 0 0 40px 0;}
+.newslettter_cont .section.section04 .type_cont_area > .item_box {margin: 45px 0 0 0;}
+.newslettter_cont .section.section04 .type_cont_area > .item_box:first-child {margin: 0;}
+.newslettter_cont .section.section04 .type_cont_area > .item_box .img_area {}
+.newslettter_cont .section.section04 .type_cont_area > .item_box .text_area {width: calc(100% - 371px); margin: 0 0 0 25px;}
+.newslettter_cont .section.section04 .type_cont_area > .item_box .text_area .title {}
+.newslettter_cont .section.section04 .type_cont_area > .item_box .text_area .text {}
+
+.newslettter_cont .section.section04 .type_cont_area.sty2 {margin: 0;}
+.newslettter_cont .section.section04 .type_cont_area.sty2 .item_box {width: calc(50% - 30px); margin: 0 60px 0 0;}
+.newslettter_cont .section.section04 .type_cont_area.sty2 .item_box:last-child {margin: 0;}
+.newslettter_cont .section.section04 .type_cont_area.sty2 .item_box .img_area {/* background-color: #ffffff; */border-radius: 20px;}
+.newslettter_cont .section.section04 .type_cont_area.sty2 .item_box .text_area {width: 100%; margin: 0;}
+.newslettter_cont .section.section04 .type_cont_area.sty2 .item_box .text_area .title {}
+.newslettter_cont .section.section04 .type_cont_area.sty2 .item_box .text_area .text {}
+
+/* 다섯번째 페이지 */
+.newslettter_cont .section.section05 {padding: 80px 110px; background-color: #e7f6f9; background-image: url('https://ip-edu.net/images/webzine/202308/base/bg_step4.png'); background-position: center; background-repeat: no-repeat;}
+.newslettter_cont .section.section05 .type_area {}
+.newslettter_cont .section.section05 .type_area .type {}
+.newslettter_cont .section.section05 .type_cont_area.sty2 {}
+.newslettter_cont .section.section05 .type_cont_area.sty2 .item_box {width: calc(50% - 20px); margin: 0 0 0 40px;}
+.newslettter_cont .section.section05 .type_cont_area.sty2 .item_box:first-child {margin: 0;}
+.newslettter_cont .section.section05 .type_cont_area.sty2 .item_box .img_area {}
+.newslettter_cont .section.section05 .type_cont_area.sty2 .item_box .text_area {}
+.newslettter_cont .section.section05 .type_cont_area.sty2 .item_box .text_area .title {}
+.newslettter_cont .section.section05 .type_cont_area.sty2 .item_box .text_area .text {}
+
+/* 뉴스레터 푸터 */
+
+.newslettter_cont .footer {padding: 20px 20px; background-color: #ffffff; font-size: 0;}
+.newslettter_cont .footer .f_logo_box {display: inline-block; vertical-align: middle; margin: 0 30px 0 0;}
+.newslettter_cont .footer .f_logo_box img {}
+.newslettter_cont .footer .f_cont_box {display: inline-block; vertical-align: middle;text-align:left;}
+.newslettter_cont .footer .f_cont_box .menu_list_area {margin: 0 0 10px 0;}
+.newslettter_cont .footer .f_cont_box .menu_list_area .list {font-size: 0;}
+.newslettter_cont .footer .f_cont_box .menu_list_area .list li {display: inline-block; position: relative; margin: 0 15px 0 0; padding: 0 16px 0 0; font-size: 0;}
+.newslettter_cont .footer .f_cont_box .menu_list_area .list li::before {display: block; content: ''; position: absolute; top: 50%; right: 0; width: 1px; height: 12px; background-color: #000000; transform: translateY(-50%);}
+.newslettter_cont .footer .f_cont_box .menu_list_area .list li:last-child {margin: 0; padding: 0;}
+.newslettter_cont .footer .f_cont_box .menu_list_area .list li:last-child::before {display: none;}
+.newslettter_cont .footer .f_cont_box .menu_list_area .list li .link {display: inline-block; font-weight: 500; font-size: 16px; color: #000000;}
+.newslettter_cont .footer .f_cont_box .info_text_area {}
+.newslettter_cont .footer .f_cont_box .info_text_area .text {font-weight: 400; font-size: 15px; color: #777777;}
+.newslettter_cont .footer .f_cont_box .info_text_area .text .link {display: inline-block; font-weight: 400; font-size: 15px; color: #777777;}
+
+@media screen and (max-width: 994px) {
+    /*공통*/
+    .newslettter_cont .section .type_cont_area .item_box .img_area {width: 300px;max-width:100%;}
+	.newslettter_cont .section .type_cont_area .item_box .text_area .title {font-size: 20px;letter-spacing:-1px}
+
+    .newslettter_cont .section .type_cont_area .item_box .text_area .title br {display: none;}
+
+    /* 두번째 페이지 */
+    .newslettter_cont .section.section02 {padding: 90px 60px 65px 60px;}
+    .newslettter_cont .section.section02 .type_cont_area .item_box .text_area {width: calc(100% - 340px); margin: 0 40px 0 0;}
+    .newslettter_cont .section.section02 .type_cont_area .item_box:nth-child(2) .text_area {width: calc(100% - 340px); margin: 0 0 0 40px;}
+
+    /* 세번째 페이지 */
+    .newslettter_cont .section.section03 {padding: 90px 60px 82px 60px}
+
+    /* 네번째 페이지 */
+    .newslettter_cont .section.section04 {padding: 40px 60px;}
+    .newslettter_cont .section.section04 .type_cont_area > .item_box .text_area {width: calc(100% - 325px);}
+
+    /* 다섯번째 페이지 */
+    .newslettter_cont .section.section05 {padding: 80px 60px;}
+}
+@media screen and (max-width: 900px) {
+	.newslettter_cont .footer .f_logo_box {margin:0 0 20px 0;}
+	.newslettter_cont .footer .f_logo_box img {transform:translateX(20px)}
+	.newslettter_cont .footer .f_cont_box {text-align:center;}
+}
+
+@media screen and (max-width: 767px) {
+    /*공통*/
+    .type_area {margin: 0 0 30px 0;}
+    .type_area .type {padding: 10px 40px; font-size: 18px;}
+    .newslettter_cont .section .type_cont_area .item_box .img_area {display: block; width: 100%; text-align: center;}
+    .newslettter_cont .section .type_cont_area .item_box .text_area {display: block; width: 100%;}
+
+    .newslettter_cont .section .type_cont_area.sty2 .item_box {display: block; width: 100%;}
+    .newslettter_cont .section .type_cont_area.sty2 .item_box .img_area {margin: 0 0 20px 0; text-align: center;}
+
+    /* 첫번째 페이지 */
+    .newslettter_cont .section.section01 {background-size: 320px auto;}
+    .newslettter_cont .section.section01 .top_area {margin: 0 0 231px 0;}
+    .newslettter_cont .section.section01 .top_area .logo_box {width: 159px;}
+    .newslettter_cont .section.section01 .title_area .title_box img {width: 345px;}
+    .newslettter_cont .section.section01 .title_area .link {font-size: 18px;}
+
+    /* 두번째 페이지 */
+    .newslettter_cont .section.section02 {padding: 70px 40px 45px 40px; background-size: 390px auto;}
+    .newslettter_cont .section.section02 .type_cont_area .item_box {margin: 0 0 20px 0;}
+    .newslettter_cont .section.section02 .type_cont_area .item_box:first-child {display: flex; flex-direction: column-reverse;}
+    .newslettter_cont .section.section02 .type_cont_area .item_box .text_area {width: 100%; margin: 30px 0 0 0;}
+    .newslettter_cont .section.section02 .type_cont_area .item_box:nth-child(2) .text_area {width: 100%; margin: 30px 0 0 0;}
+
+    /* 세번째 페이지 */
+    .newslettter_cont .section.section03 {padding: 70px 40px 60px 40px; background-size: 648px auto;}
+    .newslettter_cont .section.section03 .type_cont_area.sty2 .item_box {width: 100%; margin: 30px 0 0 0;}
+    .newslettter_cont .section.section03 .type_cont_area.sty2 .item_box:nth-child(n+3) {margin: 30px 0 0 0;}
+    .newslettter_cont .section.section03 .type_cont_area.sty2 .item_box:nth-child(3n) {margin: 30px 0 0 0;}
+
+    /* 네번째 페이지 */
+    .newslettter_cont .section.section04 {padding: 40px;}
+    .newslettter_cont .section.section04 .type_cont_area {margin: 0 0 30px 0;}
+    .newslettter_cont .section.section04 .type_cont_area > .item_box {margin: 30px 0 0 0;}
+    .newslettter_cont .section.section04 .type_cont_area > .item_box .text_area {width: 100%; margin: 30px 0 0 0;}
+
+    .newslettter_cont .section.section04 .type_cont_area.sty2 .item_box {width: 100%; margin: 0 0 30px 0;}
+
+    /* 다섯번째 페이지 */
+    .newslettter_cont .section.section05 {padding: 60px 40px; background-size: 533px auto; background-position: top 20px center;}
+    .newslettter_cont .section.section05 .type_cont_area.sty2 .item_box {width: 100%; margin: 30px 0 0 0;}
+
+    /* 뉴스레터 푸터 */
+    ,newslettter_cont .footer {padding: 20px 40px;}
+    ,newslettter_cont .footer .f_logo_box {display: block; margin: 0 0 10px 0; width: 166px}
+    ,newslettter_cont .footer .f_cont_box {display: block;}
+    ,newslettter_cont .footer .f_cont_box .menu_list_area .list li {padding: 0 11px 0 0;}
+    ,newslettter_cont .footer .f_cont_box .menu_list_area .list li::before {height: 10px;}
+    ,newslettter_cont .footer .f_cont_box .menu_list_area .list li .link {font-size: 14px;}
+    ,newslettter_cont .footer .f_cont_box .info_text_area .text {font-size: 12px;}
+    ,newslettter_cont .footer .f_cont_box .info_text_area .text .link {font-size: 12px;}
+
+	.newslettter_cont .footer .f_logo_box {margin:0;margin-bottom:20px;}
+}
+
+@media screen and (max-width: 480px) {
+    /*공통*/
+    .type_area {margin: 0 0 20px 0;}
+    .type_area .type {padding: 10px 30px; font-size: 16px;}
+    .newslettter_cont .section .type_cont_area .item_box .text_area .title {font-size: 18px;}
+    .newslettter_cont .section .type_cont_area .item_box .text_area .text {font-size: 12px;}
+	.newslettter_cont .section .type_cont_area .item_box .text_area .title {font-size:21px;}
+    /* 첫번째 페이지 */
+    .newslettter_cont .section.section01 {background-size: 213px auto;}
+    .newslettter_cont .section.section01 .top_area {margin: 0 0 131px 0;}
+    .newslettter_cont .section.section01 .top_area .logo_box {width: 120px; margin: 0 10px 0 0;}
+    .newslettter_cont .section.section01 .top_area .num {font-size: 12px;}
+    .newslettter_cont .section.section01 .title_area .title_box img {width: 230px;}
+    .newslettter_cont .section.section01 .title_area .link {font-size: 16px;}
+
+    /* 두번째 페이지 */
+    .newslettter_cont .section.section02 {padding: 40px 20px 25px 20px; background-size: 260px auto; background-position: top 15px center;}
+    .newslettter_cont .section.section02 .type_cont_area .item_box {margin: 0 0 20px 0;}
+    .newslettter_cont .section.section02 .type_cont_area .item_box .text_area {margin: 20px 0 0 0;}
+    .newslettter_cont .section.section02 .type_cont_area .item_box:nth-child(2) .text_area {margin: 20px 0 0 0;}
+
+    /* 세번째 페이지 */
+    .newslettter_cont .section.section03 {padding: 40px 20px 30px 20px; background-size: 648px auto;}
+    .newslettter_cont .section.section03 .type_cont_area.sty2 .item_box {margin: 20px 0 0 0;}
+    .newslettter_cont .section.section03 .type_cont_area.sty2 .item_box:nth-child(n+3) {margin: 20px 0 0 0;}
+    .newslettter_cont .section.section03 .type_cont_area.sty2 .item_box:nth-child(3n) {margin: 20px 0 0 0;}
+
+    /* 네번째 페이지 */
+    .newslettter_cont .section.section04 {padding: 40px 20px;}
+    .newslettter_cont .section.section04 .type_cont_area {margin: 0 0 20px 0;}
+    .newslettter_cont .section.section04 .type_cont_area > .item_box {margin: 20px 0 0 0;}
+
+    .newslettter_cont .section.section04 .type_cont_area.sty2 .item_box {margin: 0 0 20px 0;}
+
+    /* 다섯번째 페이지 */
+    .newslettter_cont .section.section05 {padding: 40px 20px; background-size: 355px auto;}
+    .newslettter_cont .section.section05 .type_cont_area.sty2 .item_box {width: 100%; margin: 20px 0 0 0;}
+
+    /* 뉴스레터 푸터 */
+    ,newslettter_cont .footer {padding: 20px;}
+    ,newslettter_cont .footer .f_logo_box {width: 106px}
+    ,newslettter_cont .footer .f_cont_box {display: block;}
+	.newslettter_cont .footer .f_logo_box img {height:35px;}
+}

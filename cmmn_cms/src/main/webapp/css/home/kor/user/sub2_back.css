@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+/* @import url("/css/sub.css"); */
+/* @import url("/css/sub3.css"); */
+
+/* 검색기 셀렉트 3개인 경우 */
+.search_wrap.slt3 {}
+.search_wrap.slt3 label {width: 30px;}
+.search_wrap.slt3 .base select {min-width: 110px;}
+
+
+
+.com_tab_wrap {}
+.cont_dot_list {}
+.cont_wrap .cont_each .right_cont .cont_dot_list > li > .dash_list {}
+.cont_wrap .cont_each .right_cont .cont_dot_list > li > .dash_list > li {position: relative; padding: 0 0 0 10px; font-weight: 400; font-size: 15px; line-height: 30px; color: #616161;}
+.cont_wrap .cont_each .right_cont .cont_dot_list .dash_list > li:before {content:'-'; position: absolute; top: 0px; left: 0; width: auto; height: auto;}
+
+.cont_dot_list + .flex_link {margin: 24px 0 0;}
+.flex_link + .cont_dot_list {margin: 32px 0 0;}
+.flex_link + .board_wrap {margin: 67px 0 0;}
+
+/* 테마가 있는 영상콘텐츠 버튼 */
+.flex_link {margin: 0 0 63px 0;}
+.flex_link .item_list {display: flex; flex-wrap: wrap; margin: 0 -4px;}
+.flex_link .item_list .item {flex: 1; padding: 0 4px;}
+.flex_link .item_list .item .box {display: flex; justify-content: center; align-items: center; padding: 14px 0;}
+.flex_link .item_list .item.style01 .box {background-color: #125179;}
+.flex_link .item_list .item.style02 .box {background-color: #0aa7d0;}
+.flex_link .item_list .item.style03 .box {background-color: #125179;}
+.flex_link .item_list .item.style04 .box {background-color: #0aa7d0;}
+.flex_link .item_list .item.style05 .box {background-color: #36a9a1;}
+.flex_link .item_list .item.style06 .box {background-color: #125179;}
+.flex_link .item_list .item.style07 .box {background-color: #0aa7d0;}
+
+.flex_link .item_list .item .box .icon {display: inline-block; width: 60px; height: 56px; margin: 0 10px 0 0; background-position: center center; background-size: 56px auto; background-repeat: no-repeat;}
+.flex_link .item_list .item.style01 .box .icon {background-image: url('/images/home/kor/user/sub/icon_teacher.png');}
+.flex_link .item_list .item.style02 .box .icon {background-image: url('/images/home/kor/user/sub/icon_book.png');}
+.flex_link .item_list .item.style03 .box .icon {background-image: url('/images/home/kor/user/sub/icon_bookmark.png');}
+.flex_link .item_list .item.style04 .box .icon {background-image: url('/images/home/kor/user/sub/icon_monitor.png');}
+.flex_link .item_list .item.style05 .box .icon {background-image: url('/images/home/kor/user/sub/icon_hour.png');}
+.flex_link .item_list .item.style06 .box .icon {background-image: url('/images/home/kor/user/sub/icon_flask.png');}
+.flex_link .item_list .item.style07 .box .icon {background-image: url('/images/home/kor/user/sub/icon_scope.png');}
+.flex_link .item_list .item .box .title {display: inline-block; font-weight: 500; font-size: 15px; line-height: 30px; color: #fff;}
+.flex_link .item_list .item .box .badge {display: inline-block; padding: 0 10px; margin: 0 0 0 10px; background-color: #fff; font-weight: 500; font-size: 13px; line-height: 24px; border-radius: 12px; }
+.flex_link .item_list .item.style01 .box .badge {color: #125179;}
+.flex_link .item_list .item.style02 .box .badge {color: #0aa7d0;}
+.flex_link .item_list .item.style03 .box .badge {color: #125179;}
+.flex_link .item_list .item.style04 .box .badge {color: #0aa7d0;}
+.flex_link .item_list .item.style05 .box .badge {color: #36a9a1;}
+.flex_link .item_list .item.style06 .box .badge {color: #125179;}
+.flex_link .item_list .item.style07 .box .badge {color: #0aa7d0;}
+
+
+.table_top_text {margin: 0 0 13px 0; text-align: right;}
+.table_top_text .exclam {padding: 0 0 0 20px; background-image: url('/images/home/kor/user/sub/icon_exclam.png'); background-position: left center; background-size: 13px auto; background-repeat: no-repeat; font-weight: 400; font-size: 14px; line-height: 30px; color: #9e9e9e;}
+
+
+
+/* 통통박사의 발명이야기 */
+.desc_container {margin: 0 0 54px 0;}
+.desc_container .desc_box {margin: 0 0 15px 0; padding: 25px; background-color: #f6f6f6;}
+.desc_container .desc_box dt {margin: 0 0 5px 0; font-weight: 500; font-size: 20px; line-height: 30px; color: #3081b4;}
+.desc_container .desc_box dt dl {font-weight: 500; font-size: 17px; line-height: 30px; color: #424242;}
+.desc_container .desc_text {font-weight: 400; font-size: 17px; line-height: 30px; color: #424242;}
+.desc_container .desc_text .color {display: inline-block; font-weight: 500; font-size: 15px; line-height: 30px; color: #3081b4;}
+
+a.attach_file {display: inline-block; font-weight: 400; font-size: 15px; line-height: 24px; color: #0aa7d0; text-decoration: underline;}
+
+
+/* 통합검색 */
+.list_type_board {border-top: 2px solid #616161;}
+.list_type_board > .item_list {}
+.list_type_board > .item_list > .item {border-bottom: 1px solid #e0e0e0; padding: 18px 0 22px 0;}
+.list_type_board > .item_list > .item .wrapper {}
+.list_type_board .path_container {margin: 0 0 6px 0;}
+.list_type_board .path_container > .item_list {border-top: 0; font-size: 0;}
+.list_type_board .path_container > .item_list > .item {display: inline-block; position: relative; margin: 0 5px 0 0; border-bottom: 0; padding: 0 14px 0 0; font-weight: 400; font-size: 15px; line-height: 24px; color: #0aa7d0;}
+.list_type_board .path_container > .item_list > .item:before {content:'>'; display: inline-block; position: absolute; top: 50%; right: 0; font-weight: 400; font-size: 15px; line-height: 24px; color: #0aa7d0; transform: translateY(-50%);}
+.list_type_board .path_container > .item_list > .item:last-child:before {display: none;}
+.list_type_board .title_container {font-weight: 400; font-size: 17px; line-height: 24px; color: #424242;}

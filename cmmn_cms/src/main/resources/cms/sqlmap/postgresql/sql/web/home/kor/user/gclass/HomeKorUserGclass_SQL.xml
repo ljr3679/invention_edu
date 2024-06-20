@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="HomeKorUserGclass_SQL">
+	
+
+	
+	<select id="HomeKorUserGclass_SQL.selectUserGclassList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserGclass_SQL.selectUserGclassList */
+		SELECT
+			Z.*
+		FROM
+			(
+				SELECT
+					ROWNUM AS RNUM,
+					X.*
+				FROM
+					(
+				select 
+						T2.no
+						,year
+						,class_cd
+						,school_nm
+						,progrm_cd
+						,student_cnt
+						,class_title
+						,charge_reader
+						,charge_team
+						,edu_start_time
+						,edu_end_time
+						,reports_url
+						,array_to_string(array_agg(gclass1),'') as gclass1 
+						,array_to_string(array_agg(gclass2),'') as gclass2 
+						,array_to_string(array_agg(gclass3),'') as gclass3
+						,array_to_string(array_agg(gclass4),'') as gclass4
+						,array_to_string(array_agg(gclass5),'') as gclass5
+						,array_to_string(array_agg(gclass6),'') as gclass6
+						,array_to_string(array_agg(gclass7),'') as gclass7
+						,array_to_string(array_agg(gclass8),'') as gclass8
+						,array_to_string(array_agg(gclass9),'') as gclass9
+						,array_to_string(array_agg(gclass10),'') as gclass10
+						
+						,array_to_string(array_agg(edu_kind1),'') as edu_kind1 
+						,array_to_string(array_agg(edu_kind2),'') as edu_kind2 
+						,array_to_string(array_agg(edu_kind3),'') as edu_kind3
+						,array_to_string(array_agg(edu_kind4),'') as edu_kind4
+						,array_to_string(array_agg(edu_kind5),'') as edu_kind5
+						,array_to_string(array_agg(edu_kind6),'') as edu_kind6
+						,array_to_string(array_agg(edu_kind7),'') as edu_kind7
+						,array_to_string(array_agg(edu_kind8),'') as edu_kind8
+						,array_to_string(array_agg(edu_kind9),'') as edu_kind9
+						,array_to_string(array_agg(edu_kind10),'') as edu_kind10
+						
+						,array_to_string(array_agg(no1),'') as no1 
+						,array_to_string(array_agg(no2),'') as no2 
+						,array_to_string(array_agg(no3),'') as no3
+						,array_to_string(array_agg(no4),'') as no4
+						,array_to_string(array_agg(no5),'') as no5
+						,array_to_string(array_agg(no6),'') as no6
+						,array_to_string(array_agg(no7),'') as no7
+						,array_to_string(array_agg(no8),'') as no8
+						,array_to_string(array_agg(no9),'') as no9
+						,array_to_string(array_agg(no10),'') as no10	
+					from (
+						select 
+						T1.no
+						,T1.year
+						,T1.class_cd
+						,T1.school_nm
+						,T1.progrm_cd
+						,T1.student_cnt
+						,T1.class_title
+						,T1.charge_reader
+						,T1.charge_team
+						,T1.edu_start_time
+						,T1.edu_end_time
+						,T1.reports_url
+						,(CASE WHEN T1.no=T2.gno and T2.num=1 THEN T2.gclass end) AS gclass1
+						,(CASE WHEN T1.no=T2.gno and T2.num=2 THEN T2.gclass end) AS gclass2
+						,(CASE WHEN T1.no=T2.gno and T2.num=3 THEN T2.gclass end) AS gclass3
+						,(CASE WHEN T1.no=T2.gno and T2.num=4 THEN T2.gclass end) AS gclass4
+						,(CASE WHEN T1.no=T2.gno and T2.num=5 THEN T2.gclass end) AS gclass5
+						,(CASE WHEN T1.no=T2.gno and T2.num=6 THEN T2.gclass end) AS gclass6
+						,(CASE WHEN T1.no=T2.gno and T2.num=7 THEN T2.gclass end) AS gclass7
+						,(CASE WHEN T1.no=T2.gno and T2.num=8 THEN T2.gclass end) AS gclass8
+						,(CASE WHEN T1.no=T2.gno and T2.num=9 THEN T2.gclass end) AS gclass9
+						,(CASE WHEN T1.no=T2.gno and T2.num=10 THEN T2.gclass end) AS gclass10
+
+						,(CASE WHEN T1.no=T2.gno and T2.num=1 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind1
+						,(CASE WHEN T1.no=T2.gno and T2.num=2 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind2
+						,(CASE WHEN T1.no=T2.gno and T2.num=3 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind3
+						,(CASE WHEN T1.no=T2.gno and T2.num=4 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind4
+						,(CASE WHEN T1.no=T2.gno and T2.num=5 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind5
+						,(CASE WHEN T1.no=T2.gno and T2.num=6 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind6
+						,(CASE WHEN T1.no=T2.gno and T2.num=7 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind7
+						,(CASE WHEN T1.no=T2.gno and T2.num=8 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind8
+						,(CASE WHEN T1.no=T2.gno and T2.num=9 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind9
+						,(CASE WHEN T1.no=T2.gno and T2.num=10 THEN (CASE WHEN t2.complete_yn='N' THEN T2.edu_kind ELSE 'end' END) END) AS edu_kind10
+
+						,(CASE WHEN T1.no=T2.gno and T2.num=1 THEN T2.no end) AS no1
+						,(CASE WHEN T1.no=T2.gno and T2.num=2 THEN T2.no end) AS no2
+						,(CASE WHEN T1.no=T2.gno and T2.num=3 THEN T2.no end) AS no3
+						,(CASE WHEN T1.no=T2.gno and T2.num=4 THEN T2.no end) AS no4
+						,(CASE WHEN T1.no=T2.gno and T2.num=5 THEN T2.no end) AS no5
+						,(CASE WHEN T1.no=T2.gno and T2.num=6 THEN T2.no end) AS no6
+						,(CASE WHEN T1.no=T2.gno and T2.num=7 THEN T2.no end) AS no7
+						,(CASE WHEN T1.no=T2.gno and T2.num=8 THEN T2.no end) AS no8
+						,(CASE WHEN T1.no=T2.gno and T2.num=9 THEN T2.no end) AS no9
+						,(CASE WHEN T1.no=T2.gno and T2.num=10 THEN T2.no end) AS no10						
+						from tb_gclass_info T1
+						left join (
+							Select ROW_NUMBER() OVER (PARTITION BY gno ORDER BY edu_date) num, no, gno, edu_date, complete_yn, edu_kind, CONCAT(TO_CHAR(edu_date,'MM-DD'),' ',charge,' ',resource_kind) as gclass from tb_gclass_schedule order by edu_date						
+						) T2 on T1.no=T2.gno
+						<where>
+							AND	year = #{searchDate2} 
+						</where>							
+						
+					) T2
+					group by no, year, class_cd, school_nm, progrm_cd, student_cnt, class_title, charge_reader, charge_team, edu_start_time, edu_end_time, reports_url
+			) X 
+			
+		
+			
+			order by no desc
+		) Z
+
+		
+
+	</select>
+
+
+	<select id="HomeKorUserGclass_SQL.selectUserGclassMonthList" parameterType="vo" resultType="egovMap">
+	/* HomeKorUserGclass_SQL.selectUserGclassMonthList */
+
+		select 			
+			T1.no,
+			T1.gno,
+			TO_CHAR(T1.edu_date, 'YYYY-MM-DD') AS edu_date,
+			T1.charge,
+			CASE when T1.complete_yn ='Y' then 'end' else T1.edu_kind end as edu_kind,
+			T1.resource_kind,
+			T1.complete_yn,
+			T2.*,
+			T3.num
+		
+		from tb_gclass_schedule T1
+		left join  tb_gclass_info T2 on T1.gno = T2.no 
+		left join (
+			Select ROW_NUMBER() OVER (PARTITION BY gno ORDER BY edu_date) num, no, gno from tb_gclass_schedule order by edu_date						
+		) T3 on T1.no=T3.no		
+		<where>
+		AND TO_CHAR(T1.edu_date, 'YYYY-MM') = #{searchDate1}
+		</where>
+
+	</select>	
+
+	
+</mapper>
+	
