@@ -42,6 +42,11 @@ public class HomeKorAdminMemberMngTeacherSvcImpl extends CommonServiceImpl imple
 	public List<?> selectTeacherSubCareerInfoList(CommonVO vo) throws Exception {
 		return (List<?>) commonMapper.executeQuery("HomeKorAdminMemberMngTeacher_SQL.selectTeacherSubCareerInfoList", vo);
 	}		
+	
+	@Override
+	public List<?> selectTeacherSubAreaInfoList(CommonVO vo) throws Exception {
+		return (List<?>) commonMapper.executeQuery("HomeKorAdminMemberMngTeacher_SQL.selectTeacherSubAreaInfoList", vo);
+	}		
 
 	@Override
 	public void insertTeacherData(CommonVO vo) throws Exception  {

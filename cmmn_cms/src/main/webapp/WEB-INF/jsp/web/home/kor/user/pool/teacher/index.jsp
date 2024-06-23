@@ -1,0 +1,101 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="validator" uri="http://www.springmodules.org/tags/commons-validator" %>
+<head>
+
+<script> 
+	function formSubmit(event) {
+		$(event.target).prop('disabled', true);
+
+		if (!$('#agree_true').is(':checked')) {
+			alert('개인정보 수집 및 이용목적에 대한 동의가 필요합니다.');
+			$(this.event.target).prop('disabled', false);
+			$('#agree_true').focus();
+			return;
+		}
+		if (!$('#agree2_true').is(':checked')) {
+			alert('아동·청소년 대상 범죄 전력 관련 서약 동의가 필요합니다.');
+			$(this.event.target).prop('disabled', false);
+			$('#agree2_true').focus();
+			return;
+		}		
+		$('#cmmnForm').attr('action', "${selfPath}edit.do");
+		$('#cmmnForm').submit();
+	}
+</script>
+<link rel="stylesheet" type="text/css" href="/css/home/kor/user/pool.css">
+</head>
+<body class="hold-transition register-page">
+
+	<div class="register-box-body" >
+		<div class="title">
+			늘봄학교 발명교육 민간강사POOL 등록
+		</div>
+		<form:form commandName="commonVO" name="cmmnForm" id="cmmnForm" method="post" enctype="multipart/form-data">
+			<div class="form_block box1">
+				<div class="form-group instructor">
+					한국발명진흥회에서는 늘봄학교의 발명교육 시행에 따라 ⌜늘봄학교 발명교육 민간강사POOL⌟을 운영하고 있습니다. 향후 발명교육의 역량 제고, 활용 강화, 네트워크 구축 등의 각종 교육 사업에 참여를 희망하는 분들은 늘봄학교 발명교육 민간강사POOL에 등록해주시기 바랍니다.
+				</div>
+			</div>
+			<div class="form-group">
+			</div>
+			<div class="form-group">
+				<h4 class="person-title">
+					개인정보 수집 및 이용목적에 관한 동의 내용
+				</h4>
+	
+				<div class="person-contents"><b>1. 개인정보의 수집 및 이용 목적 </b>
+					- 한국발명진흥회와 관련 강의, 연수, 연구, 자문 등의 목적으로 개인정보를 처리(수집·이용)합니다.
+	
+					<b>2. 수집·이용하려는 개인정보의 항목 </b>
+					- 기초정보(아이디, 성명, 생년월일, 성별, 휴대폰 번호, 이메일 주소, 지역, 소속, 직위, 학력)
+					- 자격이력(발명교육 연수 참여 이력)
+					- 강의이력(교육 희망 학년, 희망 활동 지역) 등 총 15개 항목
+	
+					<b>3. 개인정보의 보유 및 이용기간 </b>
+					- 개인정보파일명 : 발명교육 민간 강사POOL 
+					- 정보보유 및 이용기간 : 5년
+	
+					<b>4. 개인정보보호</b>
+					- 수집된 개인정보는 암호화되어 처리됩니다.
+	
+					<b>5. 이용자는 개인정보 수집 및 이용 동의에 대한 거부 권리가 있습니다.</b>
+					- 개인정보 수집·이용에 대한 동의를 하지 않으실 경우 사업 협력 참여 등에서 불이익이 발생하게 됩니다.
+				</div>
+			</div>
+			<div class="agree_chk_wrap">
+				<span>개인정보 수집 및 이용목적에 대해 동의하십니까?</span>
+				<span class="radio_form"><input type="radio"  id="agree_true" name="paramKey40" value="Y" vali-text="개인정보보유 및 이용기간 동의를 선택해주세요."/><label for="agree_true">동의함</label></span>
+				<span class="radio_form"><input type="radio"  id="agree_false" name="paramKey40" value="N" vali-text="개인정보보유 및 이용기간 동의를 선택해주세요."/><label for="agree_false">동의하지 않음</label></span>
+			</div>
+			<div class="form-group">
+				<h4 class="person-title">
+					아동·청소년 대상 범죄 전력 관련 서약
+				</h4>
+				<div class="person-contents"><b>1. 본인은 관련 법률에 의거하여 아래의 사안에 해당되지 않음을 확인하고, 만일 사실과 다를 경우 등록 취소 등의 조치에 이의가 없음을 서약합니다.</b>
+					- 아동·청소년의 성보호에 관한 법률(제56조, 아동·청소년 관련기관등에의 취업제한 등)에 의한 범죄경력 조회결과 취업이 제한되는 자
+					- 아동복지법 (제29조의3, 아동관련기관의 취업제한 등)에 의한 범죄경력 조회결과 취업이 제한되는 자
+				</div>
+			</div>
+			<div class="agree_chk_wrap">
+			<span>아동·청소년 대상 범죄 전력 관련 서약에 동의하십니까?</span>
+				<span class="radio_form"><input type="radio"  id="agree2_true" name="paramKey41" value="Y" vali-text="개인정보보유 및 이용기간 동의를 선택해주세요."/><label for="agree2_true">동의함</label></span>
+				<span class="radio_form"><input type="radio"  id="agree2_false" name="paramKey41" value="N" vali-text="개인정보보유 및 이용기간 동의를 선택해주세요."/><label for="agree2_false">동의하지 않음</label></span>
+			</div>			
+			
+			
+			
+			<div class="form-group text-center box-footer">
+				<button type="button" onclick="location.href='/';" class="btn btn_base" title="이전화면">이전화면</button>
+				<button type="button" class="btn btn_blue" onclick="formSubmit(event);">동의하기</button>
+			</div>
+		</form:form>
+	</div>
+	<!-- /.form-box -->
+	
+
+	
+	<!-- /.register-box -->
+</body>

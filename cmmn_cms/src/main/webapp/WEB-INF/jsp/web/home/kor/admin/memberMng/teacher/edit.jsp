@@ -3,6 +3,126 @@
 <!-- header -->
 <head>
 <script type="text/javascript">
+
+var countRegion = '${fn:length(subArea)}';
+
+function fn_add_Region_Form() {
+    if (countRegion >= 3) {
+        alert("최대 3개까지 가능합니다");
+        return false;
+    }
+
+    countRegion++;
+
+    var html = '';
+    html += '<div style="width:100%" class="region_form" id="region_form_' + countRegion + '" data-index="' + countRegion + '">';
+    html += '    <div class="form">';
+    html += '        <div class="region_chk_wrap">';
+    html += '            <label for="region_province_' + countRegion + '">순위 ' + countRegion + ': </label>';
+    html += '            <select style="width:40%" id="region_province_' + countRegion + '" name="paramKeyList7" onchange="fetchCities(' + countRegion + ')">';
+    html += '                <option value="">도 선택</option>';
+    html += '            </select>';
+    html += '            <select style="width:40%" id="region_city_' + countRegion + '" name="paramKeyList8">';
+    html += '                <option value="">시 선택</option>';
+    html += '            </select>';
+    html += '            <button type="button" onclick="fn_line_delete1(' + countRegion + ');" class="btn btn-default">삭제</button>';
+    html += '        </div>';
+    html += '    </div>';
+    html += '</div>';
+
+    $("#addFormRegion").append(html);
+    fetchProvinces(countRegion);
+}
+
+function fn_line_delete1(index) {
+    // 폼 삭제
+    $("#region_form_" + index).remove();
+
+    // 인덱스 재정렬
+    $(".region_form").each(function(i) {
+        var newIndex = i + 1;
+        $(this).attr("id", "region_form_" + newIndex);
+        $(this).attr("data-index", newIndex);
+        $(this).find("label").attr("for", "region_province_" + newIndex).text("순위 " + newIndex + ": ");
+        $(this).find("select[name='paramKeyList7']").attr("id", "region_province_" + newIndex).attr("name", "paramKeyList7").attr("onchange", "fetchCities(" + newIndex + ")");
+        $(this).find("select[name='paramKeyList8']").attr("id", "region_city_" + newIndex).attr("name", "paramKeyList8");
+        $(this).find("button").attr("onclick", "fn_line_delete1(" + newIndex + ")");
+    });
+
+    countRegion = $(".region_form").length;
+}
+
+function fetchProvinces(index) {
+    fetch("https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=*00000000")
+        .then(response => response.json())
+        .then(data => {
+            var provinceSelect = $("#region_province_" + index);
+            provinceSelect.empty();
+            provinceSelect.append(new Option("도 선택", ""));
+            data.regcodes.forEach(province => {
+                provinceSelect.append(new Option(province.name, province.code));
+            });
+
+            // 기존 데이터 선택
+            var existingProvince = $("#region_province_" + index).data("existingProvince");
+            if (existingProvince) {
+                $("#region_province_" + index).val(existingProvince).change();
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function fetchCities(index) {
+    var provinceCode = $("#region_province_" + index).val();
+    if (provinceCode) {
+        var pattern = provinceCode.substring(0, 2) + "*00000";
+        var url = 'https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=' + pattern;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                var citySelect = $("#region_city_" + index);
+                citySelect.empty(); // 기존 옵션 제거
+                citySelect.append(new Option("시 선택", ""));
+                data.regcodes.forEach(city => {
+                    if (city.code.substring(2, 5) !== "000") { // 시/구 코드 필터링
+                        citySelect.append(new Option(city.name, city.code));
+                    }
+                });
+
+                // 기존 데이터 선택
+                var existingCity = $("#region_city_" + index).data("existingCity");
+                if (existingCity) {
+                    $("#region_city_" + index).val(existingCity);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+}
+
+$(document).ready(function () {
+    $("#addBtnRegion").click(fn_add_Region_Form);
+
+    // 기존 데이터에 대해 도/시 초기화
+    <c:forEach varStatus="status" var="list" items="${subArea}">
+        $("#region_province_${status.count}").data("existingProvince", "${list.regionProvince}");
+        $("#region_city_${status.count}").data("existingCity", "${list.regionCity}");
+        fetchProvinces(${status.count});
+    </c:forEach>
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 	function fn_cancel() {
 		$('#act').val('');
 		$('#cmmnForm').attr('action', '${vo.selfPath}index.do');
@@ -35,35 +155,30 @@
 	function fn_add_Form(type){
 		var html = "";
 		if(type == 'B'){
-			countB++;
-			if(countB > 5) {
-				alert("최대 5개까지 가능합니다");
-				countB--;
-				return false;
-			}
-			html += "<div class=\"education_from\">";
-			html += "<div class=\"form\">";
-			html += "	<span class=\"txt\">연도</span>";
-			html += "	<input type=\"text\" class=\"tc\" name=\"paramKeyList5\"id=\"data5_"+countB+"\" style=\"width:80px;\" maxlength=\"4\" >";
-			html += "</div>";
-			html += "<div class=\"form\">";
-			html += "<span class=\"txt\">프로그램명</span>";
-			html += "	<input type=\"text\" name=\"paramKeyList6\" id=\"data6_"+countB+"\">";
-			html += "</div>";
-			html += "<div class=\"form\">";
-			html += "	<span class=\"txt\">차시</span>";
-			html += "	<input type=\"text\" class=\"tc\" name=\"paramKeyList7\" id=\"data7_"+countB+"\" style=\"width:70px;\"> ";
-			html += "</div>";
-			html += "<button type=\"button\" onclick=\"fn_line_delete(this,'B');\" class=\"btn btn-del\">삭제</button>";
-			html += "</div>";
-			$("#addForm"+type).append(html);
-		 	/* $('#data5_'+countB).attr("readonly",true);
-			$('#data5_'+countB).datepicker({
-				minViewMode: "years",
-				format: "yyyy",
-				language: "kr",
-				autoclose: true
-			});  */
+			 countB++;
+			 if(countB > 5) {
+					alert("최대 5개까지 가능합니다");
+					countB--;
+					return false;
+				}
+		        var html = '';
+		        html += '<div class="education_from">';
+		        html += '    <div class="form">';
+		        html += '        <div class="agree_chk_wrap">';
+		        html += '            <span class="txt">';
+		        html += '                <select id="data5_' + countB + '" name="paramKeyList5">';
+		        html += '                    <option value="돌봄">돌봄</option>';
+		        html += '                    <option value="방과후">방과후</option>';
+		        html += '                    <option value="늘봄">늘봄</option>';
+		        html += '                    <option value="기타">기타</option>';
+		        html += '                </select>';
+		        html += '            </span>';
+		        html += '        </div>';
+		        html += '    </div>';
+		        html += '    <textarea maxlength="90" name="paramKeyList6" id="data6_' + countB + '"></textarea>';
+		        html += '    <button type="button" onclick="fn_line_delete(this,\'B\');" class="btn btn-default">삭제</button>';
+		        html += '</div>';
+		        $("#addForm" + type).append(html);
 		}else{
 			countA++;
 			if(countA > 5) {
@@ -76,14 +191,15 @@
 			html += "	<span class=\"txt\">학위</span>";
 			html += "		<select name=\"paramKeyList2\" id=\"data2_"+countA+"\">";
 			html += "			<option value=\"\">선택</option>";
-			html += "			<option value=\"1\">학사</option>";
-			html += "			<option value=\"2\">석사</option>";
-			html += "			<option value=\"3\">박사</option>";
+			html += "			<option value=\"1\">준학사</option>";
+			html += "			<option value=\"2\">학사</option>";
+			html += "			<option value=\"3\">석사</option>";
+			html += "			<option value=\"4\">박사</option>";
 			html += "		</select>";
 			html += "</div>";
 			html += "<div class=\"form\">";
 			html += "<span class=\"txt\">취득연도</span>";
-			html += "	<input type=\"text\" class=\"major\" name=\"paramKeyList3\" id=\"data3_"+countA+"\" style=\"width:80px;\" maxlength=\"4\" > ";
+			html += " <input type=\"text\" class=\"getYear\" name=\"paramKeyList3\" id=\"data3_" + countA + "\" style=\"width:80px;\" maxlength=\"4\" placeholder=\"연도선택\"  oninput=\"this.value=this.value.replace(/[^0-9]/g, '').substring(0, 4);\"> ";
 			html += "</div>";
 			html += "<div class=\"form\">";
 			html += "	<span class=\"txt\">세부전공</span>";
@@ -200,17 +316,27 @@
 			</td>
 		</tr>
 		<tr>
+			<th scope="row"><span class="imp">*</span> 지역</th>
+			<td>
+				<select id="paramKey9" name="paramKey9" class="join_select1" vali-text="지역을 선택해주세요." style="width:150px;">
+					<c:forEach items="${region}" var="list" varStatus="status">
+						<option value="${list.no}"<c:if test="${resultData.departmentPosition eq list.no}">selected="selected"</c:if>>${list.dataName}</option>
+					</c:forEach>
+				</select>
+			</td>
+		</tr>
+		<tr>
 			<th scope="row"><span class="imp">*</span> 소속(50자이내)</th>
 			<td>
 			<input type="text" class="base" style="width:100%;" maxlength="50" id="paramKey8" name="paramKey8" value="${resultData.department}"/>
 			</td>
 		</tr>
-		<tr>
+		<%-- <tr>
 			<th scope="row"><span class="imp">*</span> 직위(50자이내)</th>
 			<td>
 			<input type="text" class="base" style="width:100%;" maxlength="50"  id="paramKey9" name="paramKey9" value="${resultData.departmentPosition}"/>
 			</td>
-		</tr>
+		</tr> --%>
 		<tr>
 			<th scope="row">학력<a href="javascript:void(0);" id="addBtn1" onclick="fn_add_Form('A');" class="btn btn-primary">추가</a></th>
 			<td id="addFormA">
@@ -220,15 +346,16 @@
 						<div class="form">
 							<span class="txt">학위</span>
 							<select name="paramKeyList2" id="data2_${status.count}">
-								<option value="">선택</option>
-								<option value="1" <c:if test="${list.level eq '1'}">selected="selected"</c:if>>학사</option>
-								<option value="2" <c:if test="${list.level eq '2'}">selected="selected"</c:if>>석사</option>
-								<option value="3" <c:if test="${list.level eq '3'}">selected="selected"</c:if>>박사</option>
+								<option value="" <c:if test="${list.level eq '0'}">selected="selected"</c:if>>선택</option>
+								<option value="1" <c:if test="${list.level eq '1'}">selected="selected"</c:if>>준학사</option>
+								<option value="1" <c:if test="${list.level eq '2'}">selected="selected"</c:if>>학사</option>
+								<option value="2" <c:if test="${list.level eq '3'}">selected="selected"</c:if>>석사</option>
+								<option value="3" <c:if test="${list.level eq '4'}">selected="selected"</c:if>>박사</option>
 							</select>
 						</div>
 						<div class="form">
 							<span class="txt">취득연도</span>
-							<input type="text"  name="paramKeyList3" class="getYear" id="data3_${status.count}" maxlength="4" style="width:80px;" value="${list.year}" placeholder="연도선택"/> 
+							<input type="text"  name="paramKeyList3" class="getYear" id="data3_${status.count}" maxlength="4" style="width:80px;" value="${list.year}" placeholder="연도선택" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" placeholder="연도선택" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"/> 
 						</div>
 						<div class="form">
 							<span class="txt">세부전공</span>
@@ -240,131 +367,259 @@
 			
 			</td>
 		</tr>
+		
 		<tr>
-			<th scope="row" colspan="2"><h4>자격이력</h4></th>
-		</tr>	
-		<tr>
-			<th scope="row">발명교사인증제 취득 여부</th>
-			<td>
-				<select name="paramKey10" id="paramKey10" style="width:250px;">
-					<option value="">선택</option>
-					<option value="2급" <c:if test="${resultData.acqAt eq '2급'}">selected="selected"</c:if>>2급</option>
-					<option value="1급" <c:if test="${resultData.acqAt eq '1급'}">selected="selected"</c:if>>1급</option>
-					<option value="명인(마스터)" <c:if test="${resultData.acqAt eq '명인(마스터)'}">selected="selected"</c:if>>명인(마스터)</option>
-					<option value="취득 예정" <c:if test="${resultData.acqAt eq '취득 예정'}">selected="selected"</c:if>>취득 예정</option>
-				</select>&nbsp;&nbsp;&nbsp;(취득한 가장 높은 등급을 선택해주세요.)
-			</td>
-		</tr>
-		<tr>
-			<th scope="row">발명교사 인증제 번호</th>
-			<td>
-			<%-- 
-			<input type="text" style="width:80px;" class="tc" maxlength="4" name="paramKey11" id="paramKey11" value="${result.acqAuthNum1}" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
-			<span>-</span>
-			<input type="text" style="width:55px;" class="tc" maxlength="1" name="paramKey12" id="paramKey12" value="${result.acqAuthNum2}" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"> 
-			<span>-</span>
-			<input type="text" style="width:80px;" class="tc" maxlength="4" name="paramKey13" id="paramKey13" value="${result.acqAuthNum3}" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
-			<input type="hidden" id="acqAuthNum" name="acqAuthNum" value="${result.acq_auth_num}">
-			--%>			
-			<input type="text" class="" readonly="readonly" value="${resultData.acqAuthNum1}" name="paramKey11" id="paramKey11" style="width:250px;" value="추후 사업 담당자 입력 영역" placeholder="추후 사업 담당자 입력 영역"/>
-			<input type="hidden" id="acqAuthNum" name="acqAuthNum" value="${resultData.acq_auth_num}">
-			</td>
-		</tr>
-		<tr>
-			<th scope="row">교사연구회 참여 이력</th>
-			<td>
-			<input type="text" class="" readonly="readonly" value="${resultData.researchGroupHistory}" name="paramKey14" id="paramKey14" style="width:250px;" value="추후 사업 담당자 입력 영역" placeholder="추후 사업 담당자 입력 영역"/>
-			</td>
-		</tr>
-		<tr>
-			<th scope="row">직무 연수 참여 이력</th>
-			<td>
-			<input type="text" class="" readonly="readonly" value="${resultData.jobTrainingHistory}" name="paramKey15" id="paramKey15" style="width:250px;" value="추후 사업 담당자 입력 영역" placeholder="추후 사업 담당자 입력 영역"/>
-			</td>
-		</tr>
-		<tr>
-			<th scope="row" colspan="2"><h4>강의이력</h4></th>
-		</tr>
-		<tr>
-			<th scope="row">KIPA 교육 플랫폼 활용 교육 경력</th>
-			<td>
-			<input type="text" class="" readonly="readonly" name="paramKey16" id="paramKey16" value="${resultData.kipaEduCareer}" style="width:250px;" value="추후 사업 담당자 입력 영역" placeholder="추후 사업 담당자 입력 영역"/>
-			</td>
-		</tr>
-		<tr>
-			<th scope="row">발명 교육 콘텐츠 개발 경력 <a href="javascript:void(0);" id="addBtn2" onclick="fn_add_Form('B');" class="btn btn-primary">추가</a></th>
-			<td id="addFormB">
-				<c:forEach varStatus="status" var="list" items="${subCareer}">
-					<div class="education_from">
-						<div class="form">
-							<span class="txt">연도</span>
-							<input type="text" name="paramKeyList5" class="dataList5" value="${list.year}" maxlength="4" id="data5_${status.count}" style="width:80px;"  placeholder="연도선택">
-						</div>
-						<div class="form">
-							<span class="txt">프로그램명</span>
-							<input type="text" name="paramKeyList6" id="data6_${status.count}" value="${list.program}">
-						</div>
-						<div class="form">
-							<span class="txt">차시</span>
-							<input type="text" class="tc" name="paramKeyList7" id="data7_${status.count}" value="${list.turn}" style="width:70px;"> 
-						</div>
-						<button type="button" onclick="fn_line_delete(this,'B');" class="btn btn-del">삭제</button>
-					</div>
-				</c:forEach>			
-			</td>
-		</tr>
-		<tr>
-			<th scope="row">기타 관련 경력</th>
-			<td>
-			<textarea name="paramKey17" id="paramKey17" style="width:100%;" rows="10"><c:out value="${resultData.etcCareer}"/></textarea>
-			</td>
-		</tr>		
-		<tr>
-			<th scope="row">강의 가능 학교급</th>
+			<th scope="row">교사자격증</th>
 			<td>
 				<span class="radio_area">
-					<input type="checkbox" id="paramKey181" name="paramKey18" value="유치원" <c:if test="${fn:indexOf(resultData.adviceSchoolType,'유치원') ne -1}">checked</c:if>>
-					<label for="adviceSchoolType1">유치원</label>
+					<input type="checkbox" id="teacherAcqAt1" name="paramKey20" value="1급 정교사" <c:if test="${fn:indexOf(resultData.teacherAcqAt,'1급 정교사') ne -1}">checked</c:if>>
+					<label for="teacherAcqAt1">1급 정교사</label>
 				</span>
 				<span class="radio_area">
-					<input type="checkbox" id="paramKey182" name="paramKey18" value="초등" <c:if test="${fn:indexOf(resultData.adviceSchoolType,'초등') ne -1}">checked</c:if>>
-					<label for="adviceSchoolType2">초등</label>
+					<input type="checkbox" id="teacherAcqAt2" name="paramKey20" value="2급 정교사" <c:if test="${fn:indexOf(resultData.teacherAcqAt,'2급 정교사') ne -1}">checked</c:if>>
+					<label for="teacherAcqAt2">2급 정교사</label>
 				</span>
 				<span class="radio_area">
-					<input type="checkbox" id="paramKey183" name="paramKey18" value="중등" <c:if test="${fn:indexOf(resultData.adviceSchoolType,'중등') ne -1}">checked</c:if>>
-					<label for="adviceSchoolType3">중등</label>
-				</span>
-				<span class="radio_area">
-					<input type="checkbox" id="paramKey184" name="paramKey18" value="성인" <c:if test="${fn:indexOf(resultData.adviceSchoolType,'성인') ne -1}">checked</c:if>>
-					<label for="adviceSchoolType4">성인</label>
+					<input type="checkbox" id="teacherAcqAt3" name="paramKey20" value="없음" <c:if test="${fn:indexOf(resultData.teacherAcqAt,'없음') ne -1}">checked</c:if>>
+					<label for="teacherAcqAt3">없음</label>
 				</span>
 			</td>
 		</tr>			
 		<tr>
-			<th scope="row">희망 활동 분야</th>
+			<th scope="row">기타 관련 자격증</th>
+			<td>
+				<span>자격증 이름</span>
+				<input type="text" id="paramKey21" name="paramKey21" value="${resultData.acqAtNm}"/>
+				<span>취득일</span>
+				<input type="text" id="paramKey22" name="paramKey22" value="${resultData.acqAtDt}" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" placeholder="취득일" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');/>
+				<span>시행처</span>
+				<input type="text" id="paramKey23" name="paramKey23" value="${resultData.acqAtLo}"/>
+			</td>
+		</tr>			
+		
+		
+		
+		
+		
+		
+		<tr>
+			<th scope="row" colspan="2"><h4>직무 연수 참여 이력 입력</h4></th>
+		</tr>	
+		<tr>
+			<th scope="row">한국발명진흥회 연수 경력</th>
+			<td>
+			<textarea name="paramKey24" id="paramKey24" style="width:100%;" rows="10"><c:out value="${resultData.trainingCareer}"/></textarea>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">타기관 발명교육 관련 경력</th>
+			<td>
+			<textarea name="paramKey25" id="paramKey25" style="width:100%;" rows="10"><c:out value="${resultData.eduCareer}"/></textarea>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">타기관 발명교육 관련 경력</th>
+			<td>
+			<textarea name="paramKey17" id="paramKey17" style="width:100%;" rows="10"><c:out value="${resultData.etcCareer}"/></textarea>
+			</td>
+		</tr>
+		
+		<tr>
+			<th scope="row" colspan="2"><h4>강의이력</h4></th>
+		</tr>	
+		
+		<tr>
+			<th scope="row">강의경력</th>
 			<td>
 				<span class="radio_area">
-					<input type="checkbox" id="paramKey191" name="paramKey19" value="원격 강의" <c:if test="${fn:indexOf(resultData.classHistory,'원격 강의') ne -1}">checked</c:if>>
-					<label for="classHistory1">원격 강의</label>
+					<input type="radio" id="kipaEduCareer1" name="paramKey16" value="없음" <c:if test="${fn:indexOf(resultData.kipaEduCareer,'없음') ne -1}">checked</c:if>>
+					<label for="kipaEduCareer1">없음</label>
 				</span>
 				<span class="radio_area">
-					<input type="checkbox" id="paramKey192" name="paramKey19" value="교사연구회 연수 참여" <c:if test="${fn:indexOf(resultData.classHistory,'교사연구회 연수 참여') ne -1}">checked</c:if>>
-					<label for="classHistory2">교사연구회·연수 참여</label>
+					<input type="radio" id="kipaEduCareer2" name="paramKey16" value="1년미만" <c:if test="${fn:indexOf(resultData.kipaEduCareer,'1년미만') ne -1}">checked</c:if>>
+					<label for="kipaEduCareer2">1년미만</label>
 				</span>
 				<span class="radio_area">
-					<input type="checkbox" id="paramKey193" name="paramKey19" value="자문 평가 위원" <c:if test="${fn:indexOf(resultData.classHistory,'자문 평가 위원') ne -1}">checked</c:if>>
-					<label for="classHistory3">자문·평가 위원</label>
+					<input type="radio" id="kipaEduCareer3" name="paramKey16" value="1년~3년" <c:if test="${fn:indexOf(resultData.kipaEduCareer,'1년~3년') ne -1}">checked</c:if>>
+					<label for="kipaEduCareer3">1년~3년</label>
 				</span>
 				<span class="radio_area">
-					<input type="checkbox" id="paramKey194" name="paramKey19" value="연구 개발 위원" <c:if test="${fn:indexOf(resultData.classHistory,'연구 개발 위원') ne -1}">checked</c:if>>
-					<label for="classHistory4">연구·개발 위원</label>
+					<input type="radio" id="kipaEduCareer4" name="paramKey16" value="4년이상" <c:if test="${fn:indexOf(resultData.kipaEduCareer,'4년이상') ne -1}">checked</c:if>>
+					<label for="kipaEduCareer4">4년이상</label>
+				</span>
+			</td>
+		</tr>	
+		
+		<tr>
+			<th scope="row">강의 경력<a href="javascript:void(0);" id="addBtn2" onclick="fn_add_Form('B');" class="btn btn-primary">추가</a></th>
+			<td id="addFormB">
+				<c:forEach varStatus="status" var="list" items="${subCareer}">
+		            <div class="education_from">
+		                <div class="form">
+		                    <div class="agree_chk_wrap">
+		                        <span class="check_form">
+		                            <select id="data5_${status.count}" name="paramKeyList5">
+		                                <option value="돌봄" <c:if test="${list.year == '돌봄'}">selected</c:if>>돌봄</option>
+		                                <option value="방과후" <c:if test="${list.year == '방과후'}">selected</c:if>>방과후</option>
+		                                <option value="늘봄" <c:if test="${list.year == '늘봄'}">selected</c:if>>늘봄</option>
+		                                <option value="기타" <c:if test="${list.year == '기타'}">selected</c:if>>기타</option>
+		                            </select>
+		                        </span>
+		                    </div>
+		                </div>
+		                <textarea maxlength="90" name="paramKeyList6" id="data6_${status.count}"> <c:out value="${list.program}"/></textarea>
+		                
+		                <button type="button" onclick="fn_line_delete(this,'B');" class="btn btn-default">삭제</button>
+		            </div>
+		        </c:forEach>	
+			</td>
+		</tr>
+		
+		<tr>
+			<th scope="row" colspan="2"><h4>향후 희망 강의</h4></th>
+		</tr>	
+		
+				
+		<tr>
+			<th scope="row">희망 강의</th>
+			<td>
+				<span class="radio_area">
+					<input type="checkbox" id="classHistory1" name="paramKey19" value="돌봄" <c:if test="${fn:indexOf(resultData.classHistory,'돌봄') ne -1}">checked</c:if>>
+					<label for="classHistory1">돌봄</label>
 				</span>
 				<span class="radio_area">
-					<input type="checkbox" id="paramKey195" name="paramKey19" value="기타" <c:if test="${fn:indexOf(resultData.classHistory,'기타') ne -1}">checked</c:if>>
-					<label for="classHistory5">기타</label>
-				</span>			
+					<input type="checkbox" id="classHistory2" name="paramKey19" value="방과후" <c:if test="${fn:indexOf(resultData.classHistory,'방과후') ne -1}">checked</c:if>>
+					<label for="classHistory2">방과후</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="classHistory3" name="paramKey19" value="늘봄" <c:if test="${fn:indexOf(resultData.classHistory,'늘봄') ne -1}">checked</c:if>>
+					<label for="classHistory3">늘봄</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="classHistory4" name="paramKey19" value="기타" <c:if test="${fn:indexOf(resultData.classHistory,'기타') ne -1}">checked</c:if>>
+					<label for="classHistory4">기타</label>
+				</span>
 			</td>
 		</tr>					
+		<tr>
+			<th scope="row">희망 강의 분야</th>
+			<td>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduField1" name="paramKey26" value="ICT 및 코딩" <c:if test="${fn:indexOf(resultData.hopeEduField,'ICT 및 코딩') ne -1}">checked</c:if>>
+					<label for="hopeEduField1">ICT 및 코딩</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduField2" name="paramKey26" value="메이커스" <c:if test="${fn:indexOf(resultData.hopeEduField,'메이커스') ne -1}">checked</c:if>>
+					<label for="hopeEduField2">메이커스</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduField3" name="paramKey26" value="창의과학" <c:if test="${fn:indexOf(resultData.hopeEduField,'창의과학') ne -1}">checked</c:if>>
+					<label for="hopeEduField3">창의과학</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduField4" name="paramKey26" value="지식재산" <c:if test="${fn:indexOf(resultData.hopeEduField,'지식재산') ne -1}">checked</c:if>>
+					<label for="hopeEduField4">지식재산</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduField5" name="paramKey26" value="기타" <c:if test="${fn:indexOf(resultData.hopeEduField,'기타') ne -1}">checked</c:if>>
+					<label for="hopeEduField5">기타</label>
+				</span>
+			</td>
+		</tr>					
+		<tr>
+			<th scope="row">희망 강의 학년</th>
+			<td>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduGrade1" name="paramKey27" value="유치원" <c:if test="${fn:indexOf(resultData.hopeEduGrade,'유치원') ne -1}">checked</c:if>>
+					<label for="hopeEduGrade1">유치원</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduGrade2" name="paramKey27" value="초등학교 1~2학년" <c:if test="${fn:indexOf(resultData.hopeEduGrade,'초등학교 1~2학년') ne -1}">checked</c:if>>
+					<label for="hopeEduGrade2">초등학교 1~2학년</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduGrade3" name="paramKey27" value="초등학교 3~4학년" <c:if test="${fn:indexOf(resultData.hopeEduGrade,'초등학교 3~4학년') ne -1}">checked</c:if>>
+					<label for="hopeEduGrade3">초등학교 3~4학년</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduGrade4" name="paramKey27" value="초등학교 5~6학년" <c:if test="${fn:indexOf(resultData.hopeEduGrade,'초등학교 5~6학년') ne -1}">checked</c:if>>
+					<label for="hopeEduGrade4">초등학교 5~6학년</label>
+				</span>
+			</td>
+		</tr>					
+		<tr>
+			<th scope="row">희망 강의 요일</th>
+			<td>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduDt1" name="paramKey28" value="월" <c:if test="${fn:indexOf(resultData.hopeEduDt,'월') ne -1}">checked</c:if>>
+					<label for="hopeEduDt1">월</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduDt2" name="paramKey28" value="화" <c:if test="${fn:indexOf(resultData.hopeEduDt,'화') ne -1}">checked</c:if>>
+					<label for="hopeEduDt2">화</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduDt3" name="paramKey28" value="수" <c:if test="${fn:indexOf(resultData.hopeEduDt,'수') ne -1}">checked</c:if>>
+					<label for="hopeEduDt3">수</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduDt4" name="paramKey28" value="목" <c:if test="${fn:indexOf(resultData.hopeEduDt,'목') ne -1}">checked</c:if>>
+					<label for="hopeEduDt4">목</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduDt5" name="paramKey28" value="금" <c:if test="${fn:indexOf(resultData.hopeEduDt,'금') ne -1}">checked</c:if>>
+					<label for="hopeEduDt5">금</label>
+				</span>
+			</td>
+		</tr>					
+		<tr>
+			<th scope="row">희망 강의 시간</th>
+			<td>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduTime1" name="paramKey29" value="8:00~9:00" <c:if test="${fn:indexOf(resultData.hopeEduTime,'8:00~9:00') ne -1}">checked</c:if>>
+					<label for="hopeEduTime1">8:00~9:00</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduTime2" name="paramKey29" value="12:00~13:00" <c:if test="${fn:indexOf(resultData.hopeEduTime,'12:00~13:00') ne -1}">checked</c:if>>
+					<label for="hopeEduTime2">12:00~13:00</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduTime3" name="paramKey29" value="13:00~14:00" <c:if test="${fn:indexOf(resultData.hopeEduTime,'13:00~14:00') ne -1}">checked</c:if>>
+					<label for="hopeEduTime3">13:00~14:00</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduTime4" name="paramKey29" value="15:00~16:00" <c:if test="${fn:indexOf(resultData.hopeEduTime,'15:00~16:00') ne -1}">checked</c:if>>
+					<label for="hopeEduTime4">15:00~16:00</label>
+				</span>
+				<span class="radio_area">
+					<input type="checkbox" id="hopeEduTime5" name="paramKey29" value="16:00~17:00" <c:if test="${fn:indexOf(resultData.hopeEduTime,'16:00~17:00') ne -1}">checked</c:if>>
+					<label for="hopeEduTime5">16:00~17:00</label>
+				</span>
+			</td>
+		</tr>		
+		
+		
+		 <tr>
+            <th scope="row">희망 활동 지역 <a href="javascript:void(0);" id="addBtnRegion" class="btn btn-primary">추가</a></th>
+            <td id="addFormRegion">
+                <c:forEach varStatus="status" var="list" items="${subArea}">
+                    <div style="width:100%" class="region_form" id="region_form_${status.count}" data-index="${status.count}">
+                        <div class="form">
+                            <div class="region_chk_wrap">
+                                <label for="region_province_${status.count}">순위 ${status.count}: </label>
+                                <select style="width:40%" id="region_province_${status.count}" name="paramKeyList7" onchange="fetchCities(${status.count})">
+                                    <option value="">도 선택</option>
+                                </select>
+                                <select style="width:40%" id="region_city_${status.count}" name="paramKeyList8">
+                                    <option value="">시 선택</option>
+                                </select>
+                                <button type="button" onclick="fn_line_delete1(${status.count});" class="btn btn-default">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </td>
+        </tr>
 	</tbody>
 </table>
 <!-- // board_write -->

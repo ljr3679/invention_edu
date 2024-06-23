@@ -85,6 +85,7 @@
 			<col style="width:10%;">
 			<col style="width:10%;">
 			<col style="width:15%;">
+			<col style="width:10%;">
 			<col style="width:10%;"> 
 			<col style="width:10%;">
 			<col style="width:10%;">
@@ -96,7 +97,8 @@
 				<!-- <th scope="col">관리코드</th>  -->
 				<th scope="col">아이디</th>
 				<th scope="col">이름</th>
-				<th scope="col">소속/직위</th>
+				<th scope="col">소속</th>
+				<th scope="col">직위</th>
 				<th scope="col">연락처</th>
 				<th scope="col">이메일</th>
 				<th scope="col">정보동의여부</th>
@@ -111,6 +113,7 @@
 				<td><a onClick="fn_edit('${list.no}');" style="cursor:pointer"><c:out value="${list.memberId}"/></a></td>
 				<td><a onClick="fn_edit('${list.no}');" style="cursor:pointer"><c:out value="${list.memberName}"/></a></td>
 				<td><a onClick="fn_edit('${list.no}');" style="cursor:pointer"><c:out value="${list.department}"/></a></td>
+				<td><a onClick="fn_edit('${list.no}');" style="cursor:pointer"><c:out value="${list.departmentPosition}"/></a></td>
 				<td><a onClick="fn_edit('${list.no}');" style="cursor:pointer"><c:out value="${list.phone}"/></a></td>
 				<td><a onClick="fn_edit('${list.no}');" style="cursor:pointer"><c:out value="${list.email}"/></a></td>
 				<td><a onClick="fn_edit('${list.no}');" style="cursor:pointer"><c:choose><c:when test="${list.crimsYn eq 'Y'}">동의</c:when><c:otherwise>비동의</c:otherwise></c:choose></a></td>

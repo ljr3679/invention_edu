@@ -1,4 +1,4 @@
-package web.home.kor.admin.memberMng.teacher.ctr;
+package web.home.kor.admin.memberMng.contact.ctr;
 
 import java.net.URLEncoder;
 import java.util.Arrays;
@@ -26,17 +26,17 @@ import cms.excel.ExcelView;
 import cms.mapping.CMSMappingHandler;
 import cms.mapping.PagingDataInterface;
 import egovframework.rte.psl.dataaccess.util.EgovMap;
-import web.home.kor.admin.memberMng.teacher.svc.HomeKorAdminMemberMngTeacherSvc;
+import web.home.kor.admin.memberMng.contact.svc.HomeKorAdminMemberMngContactSvc;
 
 
 @Controller
-@RequestMapping(value="/memberMng/teacher/")
-public class HomeKorAdminMemberMngTeacherCtr extends CMSMappingHandler {
+@RequestMapping(value="/memberMng/contact/")
+public class HomeKorAdminMemberMngContactCtr extends CMSMappingHandler {
 
 	
 	
-	@Resource(name="homeKorAdminMemberMngTeacherSvc")
-	private HomeKorAdminMemberMngTeacherSvc homeKorAdminMemberMngTeacherSvc;
+	@Resource(name="homeKorAdminMemberMngContactSvc")
+	private HomeKorAdminMemberMngContactSvc homeKorAdminMemberMngContactSvc;
 	
 	@RequestMapping(value="index.do")
 	public void index(
@@ -50,8 +50,8 @@ public class HomeKorAdminMemberMngTeacherCtr extends CMSMappingHandler {
 			@Override
 			public Object[] callData() throws Exception {
 				vo.setPagingYn("Y");
-				List<?> resultList = homeKorAdminMemberMngTeacherSvc.selectTeacherDataList(vo);
-				int totalCnt = homeKorAdminMemberMngTeacherSvc.selectTeacherDataListCnt(vo);
+				List<?> resultList = homeKorAdminMemberMngContactSvc.selectContactDataList(vo);
+				int totalCnt = homeKorAdminMemberMngContactSvc.selectContactDataListCnt(vo);
 				return new Object[] {resultList, totalCnt};
 			}
 		});
@@ -65,7 +65,7 @@ public class HomeKorAdminMemberMngTeacherCtr extends CMSMappingHandler {
 			ModelMap model
 			) throws Exception {
 		
-		EgovMap resultData = homeKorAdminMemberMngTeacherSvc.selectTeacherData(vo);
+		EgovMap resultData = homeKorAdminMemberMngContactSvc.selectContactData(vo);
 		if(resultData != null) {
 			
 			String name = String.valueOf(resultData.get("memberName"));
@@ -81,16 +81,11 @@ public class HomeKorAdminMemberMngTeacherCtr extends CMSMappingHandler {
 				}
 			}			
 			
-			List<?> region = this.commonSvc.selectCategoryParentDataList("Ce6WL4s6pT");
-		    model.addAttribute("region", region);
-			
-			List<?> subEdu = homeKorAdminMemberMngTeacherSvc.selectTeacherSubEduInfoList(vo);
-			List<?> subCareer = homeKorAdminMemberMngTeacherSvc.selectTeacherSubCareerInfoList(vo);
-			List<?> subArea = homeKorAdminMemberMngTeacherSvc.selectTeacherSubAreaInfoList(vo);
+			List<?> subEdu = homeKorAdminMemberMngContactSvc.selectContactSubEduInfoList(vo);
+			List<?> subCareer = homeKorAdminMemberMngContactSvc.selectContactSubCareerInfoList(vo);
 
 			model.addAttribute("subEdu", subEdu);
 			model.addAttribute("subCareer", subCareer);
-			model.addAttribute("subArea", subArea);			
 			
 
 //			if(resultData.get("acq_auth_num") != null && !String.valueOf(resultData.get("acq_auth_num")).equals("")) {
@@ -120,9 +115,9 @@ public class HomeKorAdminMemberMngTeacherCtr extends CMSMappingHandler {
 		switch (vo.getAct()) {
 
 		case "modify":
-			homeKorAdminMemberMngTeacherSvc.updateTbTeacherData(vo);
-			homeKorAdminMemberMngTeacherSvc.deleteTeacherCareerData(vo);
-			homeKorAdminMemberMngTeacherSvc.deleteTeacherEduData(vo);
+			homeKorAdminMemberMngContactSvc.updateTbContactData(vo);
+			homeKorAdminMemberMngContactSvc.deleteContactCareerData(vo);
+			homeKorAdminMemberMngContactSvc.deleteContactEduData(vo);
 
 			if(vo.getParamKeyList2()!=null) {
 				for(int i = 0; i < vo.getParamKeyList2().size(); i++) {
@@ -130,7 +125,7 @@ public class HomeKorAdminMemberMngTeacherCtr extends CMSMappingHandler {
 					vo.setParamKey33(vo.getParamKeyList3().get(i).toString());
 					vo.setParamKey34(vo.getParamKeyList4().get(i).toString());
 					vo.setParamKey41(Integer.toString(i+1));
-					homeKorAdminMemberMngTeacherSvc.insertTbTeacherEduData(vo);
+					homeKorAdminMemberMngContactSvc.insertTbContactEduData(vo);
 				}
 			}
 			
@@ -138,9 +133,10 @@ public class HomeKorAdminMemberMngTeacherCtr extends CMSMappingHandler {
 				for(int i = 0; i < vo.getParamKeyList5().size(); i++) {
 					vo.setParamKey35(vo.getParamKeyList5().get(i).toString());
 					vo.setParamKey36(vo.getParamKeyList6().get(i).toString());
-//					vo.setParamKey37(vo.getParamKeyList7().get(i).toString());
-					vo.setParamKey42(Integer.toString(i+1));
-					homeKorAdminMemberMngTeacherSvc.insertTbTeacherCareerData(vo);
+					vo.setParamKey37(vo.getParamKeyList7().get(i).toString());
+					vo.setParamKey42(Integer.toString(i+1
+							));
+					homeKorAdminMemberMngContactSvc.insertTbContactCareerData(vo);
 				}
 			}			
 			
@@ -163,10 +159,10 @@ public class HomeKorAdminMemberMngTeacherCtr extends CMSMappingHandler {
 			HttpServletRequest request
 			) throws Exception {
 		
-		vo.setTitle("관리자 늘봄학교 발명교육 민간강사POOL 다운로드");
-		homeKorAdminMemberMngTeacherSvc.downloadCMSRecord(vo);
+		vo.setTitle("관리자 협력교원관리 다운로드");
+		homeKorAdminMemberMngContactSvc.downloadCMSRecord(vo);
 		
-		String title = "CMS-관리자 [늘봄학교 발명교육 민간강사POOL]";
+		String title = "CMS-관리자 [협력 교원 관리]";
 		
         String docName = URLEncoder.encode(title, "UTF-8").replaceAll("\\+", "%20");
         response.setHeader("Content-Disposition", "attachment;filename=" + docName + ".xlsx");
@@ -175,7 +171,7 @@ public class HomeKorAdminMemberMngTeacherCtr extends CMSMappingHandler {
         response.setHeader("Pragma", "no-cache;");
         response.setHeader("Expires", "-1;");
 		
-        List<EgovMap> resultList = (List<EgovMap>) homeKorAdminMemberMngTeacherSvc.selectTeacherExlDataList(vo);
+        List<EgovMap> resultList = (List<EgovMap>) homeKorAdminMemberMngContactSvc.selectContactExlDataList(vo);
 		
 		//System.out.println(resultList);
         ExcelView excelView = new ExcelView(new ExcelContents() {
@@ -193,6 +189,9 @@ public class HomeKorAdminMemberMngTeacherCtr extends CMSMappingHandler {
 					String id = String.valueOf(innerMap.get("memberId"));
 					String name = String.valueOf(innerMap.get("memberName"));
 					String department = String.valueOf(innerMap.get("department"));
+					String departmentPosition = String.valueOf(innerMap.get("departmentPosition"));
+					String acqAt = String.valueOf(innerMap.get("acqAt"));
+					String classHistory = String.valueOf(innerMap.get("classHistory"));
 					String phone = String.valueOf(innerMap.get("phone"));
 					String email = String.valueOf(innerMap.get("email"));
 					String createDate = String.valueOf(innerMap.get("createDate"));
@@ -203,6 +202,9 @@ public class HomeKorAdminMemberMngTeacherCtr extends CMSMappingHandler {
 							id,
 							name,
 							department,
+							departmentPosition,
+							acqAt,
+							classHistory,
 							phone,
 							email,
 							createDate,
@@ -223,7 +225,7 @@ public class HomeKorAdminMemberMngTeacherCtr extends CMSMappingHandler {
 		});
         
         Map<String, Object> excelMap = new HashMap<String, Object>();
-		excelMap.put("excel_th", Arrays.asList(new String[]{"No","관리코드","아이디","이름","소속","연락처","이메일","등록일"}));
+		excelMap.put("excel_th", Arrays.asList(new String[]{"No","관리코드","아이디","이름","소속","직위","발명교사인증제 취득 여부","희망활동분야","연락처","이메일","등록일"}));
         excelView.render(excelMap, request, response);
 	}		
 	

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd"> 
  
-<mapper namespace="HomeKorAdminMemberMngTeacher_SQL">
+<mapper namespace="HomeKorAdminMemberMngContact_SQL">
 
-	<select id="HomeKorAdminMemberMngTeacher_SQL.selectTeacherDataList" parameterType="vo" resultType="egovMap">
-	/* HomeKorAdminMemberMngTeacher_SQL.selectTeacherDataList */
+	<select id="HomeKorAdminMemberMngContact_SQL.selectContactDataList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminMemberMngContact_SQL.selectContactDataList */
 	SELECT
 			Z.*
 		FROM
@@ -15,7 +15,7 @@
 				FROM
 					(
 						SELECT 
-							T1.tb_private_teacher_pool_seq AS no,
+							T1.tb_teacher_pool_seq AS no,
 							T1.member_id,
 							T1.member_name,
 							T1.department,
@@ -28,8 +28,8 @@
 							T2.privacy_yn,
 							T2.crims_yn
 						FROM 
-							tb_private_teacher_pool T1
-						left join tb_private_teacher_agree T2 on t1.member_id = t2.member_id 							
+							tb_teacher_pool T1
+						left join tb_teacher_agree T2 on t1.member_id = t2.member_id 							
 						<where>
 							<if test='searchKeyword != ""'>
 								<choose>
@@ -49,7 +49,7 @@
 								</choose>
 							</if>
 						</where>
-						ORDER BY T1.tb_private_teacher_pool_seq DESC
+						ORDER BY T1.tb_teacher_pool_seq DESC
 					) X
 		) Z
 		<where>
@@ -57,11 +57,11 @@
 		</where>
 	</select>
 
-	<select id="HomeKorAdminMemberMngTeacher_SQL.selectTeacherExlDataList" parameterType="vo" resultType="egovMap">
-	/* HomeKorAdminMemberMngTeacher_SQL.selectTeacherExlDataList */
+	<select id="HomeKorAdminMemberMngContact_SQL.selectContactExlDataList" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminMemberMngContact_SQL.selectContactExlDataList */
 
 		SELECT 
-			T1.tb_private_teacher_pool_seq AS no,
+			T1.tb_teacher_pool_seq AS no,
 			T1.member_id,
 			T1.member_name,
 			T1.department,
@@ -76,8 +76,8 @@
 			T2.privacy_yn,
 			T2.crims_yn
 		FROM 
-			tb_private_teacher_pool T1
-		left join tb_private_teacher_agree T2 on t1.member_id = t2.member_id 							
+			tb_teacher_pool T1
+		left join tb_teacher_agree T2 on t1.member_id = t2.member_id 							
 		<where>
 			<if test='searchKeyword != ""'>
 				<choose>
@@ -97,17 +97,17 @@
 				</choose>
 			</if>
 		</where>
-		ORDER BY T1.tb_private_teacher_pool_seq DESC
+		ORDER BY T1.tb_teacher_pool_seq DESC
 
 	</select>
 
 	
-	<select id="HomeKorAdminMemberMngTeacher_SQL.selectTeacherDataListCnt" parameterType="vo" resultType="int">
-	/* HomeKorAdminMemberMngTeacher_SQL.selectTeacherDataListCnt */
+	<select id="HomeKorAdminMemberMngContact_SQL.selectContactDataListCnt" parameterType="vo" resultType="int">
+	/* HomeKorAdminMemberMngContact_SQL.selectContactDataListCnt */
 		SELECT 
 			COUNT(1)
 		FROM 
-			tb_private_teacher_pool T1
+			tb_teacher_pool T1
 			<where>
 				<if test='searchKeyword != ""'>
 					<choose>
@@ -129,24 +129,16 @@
 			</where>
 	</select>
 	
-	 <select id="HomeKorAdminMemberMngTeacher_SQL.selectTeacherData" parameterType="vo" resultType="egovMap">
-	/* HomeKorAdminMemberMngTeacher_SQL.selectTeacherData */
+	 <select id="HomeKorAdminMemberMngContact_SQL.selectContactData" parameterType="vo" resultType="egovMap">
+	/* HomeKorAdminMemberMngContact_SQL.selectContactData */
 		SELECT
-				T1.tb_private_teacher_pool_seq AS no,
+				T1.tb_teacher_pool_seq AS no,
 				T1.member_id,
 				T1.member_name,
 				T1.birth,
 				T1.gender,
 				T1.phone,
 				T1.email,
-				T1.teacher_acq_at,
-				T1.acq_at_nm,
-				T1.acq_at_dt,	
-				T1.acq_at_lo,
-				T1.hope_edu_field,
-				T1.hope_edu_grade,
-				T1.hope_edu_dt,
-				T1.hope_edu_time,
 				T1.department,
 				T1.department_position,
 				T1.acq_at,
@@ -155,25 +147,23 @@
 				T1.job_training_history,
 				T1.kipa_edu_career,
 				T1.etc_career,
-				T1.training_career,
-				T1.edu_career,
 				T1.advice_school_type,
 				T1.create_date,
 				T1.mod_date,
 				T1.exit_date,
 				T1.modifyer,
-				T1.class_history	
+				T1.class_history
 		FROM 	
-				tb_private_teacher_pool T1
+				tb_teacher_pool T1
 		<where>
-		AND			T1.tb_private_teacher_pool_seq							= #{idx}
+		AND			T1.tb_teacher_pool_seq							= #{idx}
 		</where>
 	</select>
 	
-	<select id="HomeKorAdminMemberMngTeacher_SQL.selectTeacherSubEduInfoList" parameterType="str" resultType="egovMap">
-		/* selectTeacherPoolSubEduInfoList */
+	<select id="HomeKorAdminMemberMngContact_SQL.selectContactSubEduInfoList" parameterType="str" resultType="egovMap">
+		/* selectContactPoolSubEduInfoList */
 		SELECT
-				T1.tb_private_teacher_edu_pool_seq,
+				T1.tb_teacher_edu_pool_seq,
 				T1.teacher_pool_ref,
 				T1.level,
 				T1.year,
@@ -181,30 +171,15 @@
 				T1.sort,
 				T1.create_date	
 		FROM
-				tb_private_teacher_edu_pool T1
-		WHERE
-				T1.teacher_pool_ref = #{idx}
-	</select>	
-	
-	<select id="HomeKorAdminMemberMngTeacher_SQL.selectTeacherSubAreaInfoList" parameterType="str" resultType="egovMap">
-		/* selectTeacherSubAreaInfoList */
-		SELECT
-				T1.tb_private_teacher_area_pool_seq,
-				T1.teacher_pool_ref,
-				T1.region_province,
-				T1.region_city,
-				T1.sort,
-				T1.create_date	
-		FROM
-				tb_private_teacher_area_pool T1
+				tb_teacher_edu_pool T1
 		WHERE
 				T1.teacher_pool_ref = #{idx}
 	</select>	
 
-	<select id="HomeKorAdminMemberMngTeacher_SQL.selectTeacherSubCareerInfoList" parameterType="str" resultType="egovMap">
-		/* selectTeacherPoolSubCareerInfoList */
+	<select id="HomeKorAdminMemberMngContact_SQL.selectContactSubCareerInfoList" parameterType="str" resultType="egovMap">
+		/* selectContactPoolSubCareerInfoList */
 		SELECT
-				T1.tb_private_teacher_career_pool_seq,
+				T1.tb_teacher_career_pool_seq,
 				T1.teacher_pool_ref,
 				T1.year,
 				T1.program,
@@ -212,18 +187,18 @@
 				T1.sort,
 				T1.create_date	
 		FROM
-				tb_private_teacher_career_pool T1
+				tb_teacher_career_pool T1
 		WHERE
 				T1.teacher_pool_ref = #{idx}
 	</select>
 
-	<insert id="HomeKorAdminMemberMngTeacher_SQL.insertTeacherData" parameterType="vo">
+	<insert id="HomeKorAdminMemberMngContact_SQL.insertContactData" parameterType="vo">
 		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
-			SELECT NVL(MAX(tb_private_teacher_pool_seq), 0) + 1 AS idx FROM tb_private_teacher_pool
+			SELECT NVL(MAX(TB_TEACHER_POOL_SEQ), 0) + 1 AS idx FROM tb_teacher_pool
 		</selectKey>	
-		/* insertTbTeacherData */
-		INSERT INTO tb_private_teacher_pool (
-			tb_private_teacher_pool_seq,
+		/* insertTbContactData */
+		INSERT INTO tb_teacher_pool (
+			TB_TEACHER_POOL_SEQ,
 			MEMBER_ID,
 			MEMBER_NAME,
 			BIRTH,
@@ -239,24 +214,13 @@
 			KIPA_EDU_CAREER,
 			ETC_CAREER,
 			ADVICE_SCHOOL_TYPE,
-			teacher_acq_at,
-			acq_at_nm,
-			acq_at_dt,
-			acq_at_lo,
-			training_career,
-			edu_career,
-			hope_edu_field,
-			hope_edu_grade,
-			hope_edu_dt,
-			hope_edu_time,
 			CREATE_DATE,
 			MOD_DATE,
 			EXIT_DATE,
 			MODIFYER,
-			CLASS_HISTORY,
-			LEAVE_AT
+			CLASS_HISTORY
 		) VALUES (
-			#{idx}::integer,
+			#{idx},
 			#{paramKey2},
 			#{paramKey3},
 			#{paramKey4},
@@ -272,32 +236,21 @@
 			#{paramKey16},
 			#{paramKey17},
 			#{paramKey18},
-			#{paramKey20},
-			#{paramKey21},
-			#{paramKey22},
-			#{paramKey23},
-			#{paramKey24},
-			#{paramKey25},
-			#{paramKey26},
-			#{paramKey27},
-			#{paramKey28},
-			#{paramKey29},
 			now(),
 			current_date,
 			current_date,
-			null,
-			#{paramKey19},
-			'N'			
+			'',
+			#{paramKey19}
 		)
 	</insert>
 
-	<insert id="HomeKorAdminMemberMngTeacher_SQL.insertTbTeacherEduData" parameterType="vo">
+	<insert id="HomeKorAdminMemberMngContact_SQL.insertTbContactEduData" parameterType="vo">
 		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
-			SELECT NVL(MAX(TB_PRIVATE_TEACHER_EDU_POOL_SEQ), 0) + 1 AS idx FROM tb_private_teacher_edu_pool
+			SELECT NVL(MAX(TB_TEACHER_EDU_POOL_SEQ), 0) + 1 AS idx FROM tb_teacher_edu_pool
 		</selectKey>	
-		/* insertTbTeacherEduData */
-		INSERT INTO tb_private_teacher_edu_pool(
-			TB_PRIVATE_TEACHER_EDU_POOL_SEQ,
+		/* insertTbContactEduData */
+		INSERT INTO tb_teacher_edu_pool(
+			TB_TEACHER_EDU_POOL_SEQ,
 			TEACHER_POOL_REF,
 			LEVEL,
 			YEAR,
@@ -305,7 +258,7 @@
 			SORT,
 			CREATE_DATE			
 		)VALUES(
-			#{idx}::integer,
+			#{idx},
 			#{paramKey1},
 			#{paramKey32},
 			#{paramKey33},
@@ -315,14 +268,14 @@
 		)
 	</insert>
 
-	<insert id="HomeKorAdminMemberMngTeacher_SQL.insertTbTeacherCareerData" parameterType="vo">
+	<insert id="HomeKorAdminMemberMngContact_SQL.insertTbContactCareerData" parameterType="vo">
 		<selectKey resultType="vo" keyProperty="idx" order="BEFORE">
-			SELECT NVL(MAX(TB_PRIVATE_TEACHER_CAREER_POOL_SEQ), 0) + 1 AS idx FROM tb_private_teacher_career_pool
+			SELECT NVL(MAX(TB_TEACHER_CAREER_POOL_SEQ), 0) + 1 AS idx FROM tb_teacher_career_pool
 		</selectKey>	
-		/* insertTbTeacherCareerData */
+		/* insertTbContactCareerData */
 		
-		INSERT INTO tb_private_teacher_career_pool(
-			TB_PRIVATE_TEACHER_CAREER_POOL_SEQ,
+		INSERT INTO tb_teacher_career_pool(
+			TB_TEACHER_CAREER_POOL_SEQ,
 			TEACHER_POOL_REF,
 			YEAR,
 			PROGRAM,
@@ -330,7 +283,7 @@
 			SORT,
 			CREATE_DATE			
 		)VALUES(
-			#{idx}::integer,
+			#{idx},
 			#{paramKey1},
 			#{paramKey35},
 			#{paramKey36},
@@ -341,9 +294,9 @@
 	</insert>
 
 
-	<update id="HomeKorAdminMemberMngTeacher_SQL.updateTbTeacherData" parameterType="vo">
-		/* updateTbTeacherData */
-		UPDATE tb_private_teacher_pool set
+	<update id="HomeKorAdminMemberMngContact_SQL.updateTbContactData" parameterType="vo">
+		/* updateTbContactData */
+		UPDATE tb_teacher_pool set
 			birth					=	#{paramKey4},
 			gender					=	#{paramKey5},
 			phone					=	#{paramKey6},
@@ -357,48 +310,36 @@
 			kipa_edu_career			=	#{paramKey16},
 			etc_career				=	#{paramKey17},
 			advice_school_type		=	#{paramKey18},
-			teacher_acq_at			=	#{paramKey20},
-			acq_at_nm				=	#{paramKey21},
-			acq_at_dt				=	#{paramKey22},
-			acq_at_lo				=	#{paramKey23},
-			training_career			=	#{paramKey24},
-			edu_career				=	#{paramKey25},
-			hope_edu_field			=	#{paramKey26},
-			hope_edu_grade			=	#{paramKey27},
-			hope_edu_dt				=	#{paramKey28},
-			hope_edu_time			=	#{paramKey29},
 			mod_date				= now(),
 			class_history			=	#{paramKey19}
 	WHERE
-			tb_private_teacher_pool_seq = #{paramKey1}
+			TB_TEACHER_POOL_SEQ = #{paramKey1}
 	</update>
 
-	<delete id="HomeKorAdminMemberMngTeacher_SQL.deleteTeacherData" parameterType="vo">
-	/* deleteTeacherData */
-		UPDATE tb_private_teacher_pool set
+	<delete id="HomeKorAdminMemberMngContact_SQL.deleteContactData" parameterType="vo">
+	/* deleteContactData */
+		UPDATE tb_teacher_pool set
 		mod_date				= now()
 		<where>
-		AND			tb_private_teacher_pool_seq																= #{paramKey1}
+		AND			tb_teacher_pool_seq																= #{paramKey1}
 		</where>
 	</delete>
 	
-	<delete id="HomeKorAdminMemberMngTeacher_SQL.deleteTeacherCareerData" parameterType="vo">
+	<delete id="HomeKorAdminMemberMngContact_SQL.deleteContactCareerData" parameterType="vo">
 	/* deleteHomeKorAdminUrl */
-		DELETE FROM tb_private_teacher_career_pool
+		DELETE FROM tb_teacher_career_pool
 		<where>
 		AND			teacher_pool_ref															= #{paramKey1}
 		</where>
 	</delete>
 	
-	<delete id="HomeKorAdminMemberMngTeacher_SQL.deleteTeacherEduData" parameterType="vo">
+	<delete id="HomeKorAdminMemberMngContact_SQL.deleteContactEduData" parameterType="vo">
 	/* deleteHomeKorAdminUrl */
-		DELETE FROM tb_private_teacher_edu_pool
+		DELETE FROM tb_teacher_edu_pool
 		<where>
 		AND			teacher_pool_ref															= #{paramKey1}
 		</where>
 	</delete>		
-	
-	
 
 
 	
