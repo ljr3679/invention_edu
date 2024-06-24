@@ -297,7 +297,7 @@ $(document).ready(function () {
 			html += "</div>";
 			html += "<div class=\"form\">";
 			html += "	<span class=\"txt\">세부전공</span>";
-			html += "	<input type=\"text\" class=\"major\" name=\"paramKeyList4\" id=\"data4_"+countA+"\" style=\"width:70px;\"> ";
+			html += "	<input type=\"text\" class=\"major\" name=\"paramKeyList4\" id=\"data4_"+countA+"\" style=\"width:200px;\"> ";
 			html += "</div>";
 			html += "<button type=\"button\" onclick=\"fn_add_Form('A');\" class=\"btn btn-primary\">추가</button>";
 			html += "<button type=\"button\" onclick=\"fn_line_delete(this,'A');\" class=\"btn btn-default\">삭제</button>";
@@ -401,6 +401,10 @@ $(document).ready(function () {
 						<dd>
 							<div class="tel_form">
 								<input type="text" style="width:100%" value="${resultData.phone}" name="paramKey6" maxlength="11" id="paramKey6" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+								<div style="white-space: nowrap;">
+									&nbsp;&nbsp;&nbsp;(01012345678 형식으로 입력해주세요.)
+								</div>
+								
 							</div> 
 						</dd>
 					</dl>
@@ -468,12 +472,12 @@ $(document).ready(function () {
 									</div>
 									<div class="form">
 										<span class="txt">세부전공</span>
-										<input type="text" class="major" name="paramKeyList4" id="data4_${status.count}" style="width:70px;" value="${list.major}"> 
+										<input type="text" class="major" name="paramKeyList4" id="data4_${status.count}" style="width:200px;" value="${list.major}"> 
 									</div>
+									<button type="button" onclick="fn_add_Form('A');" class="btn btn-primary">추가</button>
 									<button type="button" onclick="fn_line_delete(this,'A');" id="delBtn1" class="btn btn-default">삭제</button>
 								</div>
 							</c:forEach>
-							
 						</dd>
 					</dl>			
 <%-- 					<dl>
@@ -517,7 +521,7 @@ $(document).ready(function () {
 								<span>자격증 이름</span>
 								<input type="text" id="paramKey21" name="paramKey21" value="${resultData.acqAtNm}"/>
 								<span>취득일</span>
-								<input type="text" id="paramKey22" name="paramKey22" value="${resultData.acqAtDt}" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')" />
+								<input type="text" id="paramKey22" name="paramKey22" value="${resultData.acqAtDt}" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')" placeholder="20201231" maxlength="8" />
 								<span>시행처</span>
 								<input type="text" id="paramKey23" name="paramKey23" value="${resultData.acqAtLo}"/>
 							</div>
@@ -616,7 +620,6 @@ $(document).ready(function () {
                     </div>
                 </div>
                 <textarea maxlength="90" name="paramKeyList6" id="data6_${status.count}"> <c:out value="${list.program}"/></textarea>
-                
                 <button type="button" onclick="fn_line_delete(this,'B');" class="btn btn-default">삭제</button>
             </div>
         </c:forEach>

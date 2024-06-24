@@ -12,9 +12,18 @@
 		
 		
 		function fn_line_delete(obj,type){
-			$(obj).parent().remove();
-			if(type == 'B') countB--;
-			else countA--;
+			
+			if(type == 'B') {
+				$(obj).parent().remove();
+				countB--;
+			}
+			else {
+				if(countA != 1){
+					$(obj).parent().remove();
+					countA--;
+				}
+			}
+			
 		}
 		
 			
