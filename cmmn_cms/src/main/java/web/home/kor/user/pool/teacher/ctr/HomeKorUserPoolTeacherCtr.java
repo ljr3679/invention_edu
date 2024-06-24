@@ -193,11 +193,19 @@ public class HomeKorUserPoolTeacherCtr {
 				for(int i = 0; i < vo.getParamKeyList5().size(); i++) {
 					vo.setParamKey35(vo.getParamKeyList5().get(i).toString());
 					vo.setParamKey36(vo.getParamKeyList6().get(i).toString());
-					vo.setParamKey37(vo.getParamKeyList7().get(i).toString());
+//					vo.setParamKey37(vo.getParamKeyList7().get(i).toString());
 					vo.setParamKey42(Integer.toString(i+1));
 					homeKorUserPoolTeacherSvc.insertTbTeacherCareerData(vo);
 				}
-			}					
+			}		
+			if(vo.getParamKeyList7()!=null) {
+				for(int i = 0; i < vo.getParamKeyList7().size(); i++) {
+					vo.setParamKey43(vo.getParamKeyList7().get(i).toString());
+					vo.setParamKey44(vo.getParamKeyList8().get(i).toString());
+					vo.setParamKey45(Integer.toString(i+1));
+					homeKorUserPoolTeacherSvc.insertTbTeacherAreaData(vo);
+				}
+			}		
 			
 			model.addAttribute("msg", "정상적으로 등록 되었습니다.");
 			model.addAttribute("returnURL", vo.getSelfPath()+"editcomplete.do?menuPos=" + vo.getMenuPos());	
