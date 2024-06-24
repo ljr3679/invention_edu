@@ -99,7 +99,73 @@ function fetchCities(index) {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function fetchProvincesForMain() {
+    fetch("https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=*00000000")
+        .then(response => response.json())
+        .then(data => {
+            var provinceSelect = $("#paramKey9");
+            provinceSelect.empty();
+            provinceSelect.append(new Option("도 선택", ""));
+            data.regcodes.forEach(province => {
+                provinceSelect.append(new Option(province.name, province.code));
+            });
+
+            // 기존 선택된 도가 있다면 설정
+            var existingProvince = $("#paramKey9").attr("data-existing-province");
+            if (existingProvince) {
+                provinceSelect.val(existingProvince).change();
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function fetchCitiesForMain() {
+    var provinceCode = $("#paramKey9").val();
+    if (provinceCode) {
+        var pattern = provinceCode.substring(0, 2) + "*00000";
+        var url = 'https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=' + pattern;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                var citySelect = $("#paramKey10");
+                citySelect.empty();
+                citySelect.append(new Option("시 선택", ""));
+                data.regcodes.forEach(city => {
+                    if (city.code.substring(2, 5) !== "000") { // 시/구 코드 필터링
+                        citySelect.append(new Option(city.name, city.code));
+                    }
+                });
+
+                // 기존 선택된 시가 있다면 설정
+                var existingCity = $("#paramKey10").attr("data-existing-city");
+                if (existingCity) {
+                    citySelect.val(existingCity);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+}
+
 $(document).ready(function () {
+    // 희망 활동 지역 추가 버튼 클릭 이벤트 등록
     $("#addBtnRegion").click(fn_add_Region_Form);
 
     // 기존 데이터에 대해 도/시 초기화
@@ -108,12 +174,11 @@ $(document).ready(function () {
         $("#region_city_${status.count}").data("existingCity", "${list.regionCity}");
         fetchProvinces(${status.count});
     </c:forEach>
+
+    // 메인 지역 선택 초기화
+    fetchProvincesForMain();
+
 });
-
-
-
-
-
 
 
 
@@ -174,8 +239,12 @@ $(document).ready(function () {
 		}		
     }	
 	
-	
 	var countA = '${fn:length(subEdu)}';
+	
+	if(countA == '0'){
+		fn_add_Form('A');
+	}
+	
 	var countB = '${fn:length(subCareer)}';
 	function fn_add_Form(type){
 		var html = "";
@@ -230,21 +299,32 @@ $(document).ready(function () {
 			html += "	<span class=\"txt\">세부전공</span>";
 			html += "	<input type=\"text\" class=\"major\" name=\"paramKeyList4\" id=\"data4_"+countA+"\" style=\"width:70px;\"> ";
 			html += "</div>";
+			html += "<button type=\"button\" onclick=\"fn_add_Form('A');\" class=\"btn btn-primary\">추가</button>";
 			html += "<button type=\"button\" onclick=\"fn_line_delete(this,'A');\" class=\"btn btn-default\">삭제</button>";
 			html += "</div>";
 			$("#addForm"+type).append(html);
-			/* $('#data3_'+countA).attr("readonly",true);
-			$('#data3_'+countA).datepicker({
-				minViewMode: "years",
-				format: "yyyy",
-				language: "kr",
-				autoclose: true
-			});  */
 		}
 	}	
 	
+	
+	 function toggleOtherField(checkbox) {
+	        var otherField = document.getElementById("otherField");
+	        if (checkbox.checked) {
+	            otherField.style.display = "inline";
+	        } else {
+	            otherField.style.display = "none";
+	        }
+	    }
+
+	    window.onload = function() {
+	        var otherCheckbox = document.getElementById("hopeEduField5");
+	        if (otherCheckbox.checked) {
+	            document.getElementById("otherField").style.display = "inline";
+	        }
+	    };
+	
 </script>
-<script type="text/javascript" src="/js/home/kor/user/pool.js"></script>
+<script type="text/javascript" src="/js/home/kor/user/pool.js"  charset="utf-8"></script>
 <style type="text/css">
 	.board_write dl {display:flex;margin-bottom:10px;}
 	.board_write dl dt {width:270px;}
@@ -348,15 +428,19 @@ $(document).ready(function () {
 					</dl>
 					
 					<dl>
-						<dt><span class="imp">*</span> 지역</dt>
-						<dd>
-							<select id="paramKey9" name="paramKey9" class="join_select1" vali-text="지역을 선택해주세요." style="width:150px;">
-								<c:forEach items="${region}" var="list" varStatus="status">
-									<option value="${list.no}"<c:if test="${resultData.departmentPosition eq list.no}">selected="selected"</c:if>>${list.dataName}</option>
-								</c:forEach>
-							</select>
-						</dd>
+					    <dt><span class="imp">*</span> 지역</dt>
+					    <dd>
+					        <div class="form">
+					            <select id="paramKey9" name="paramKey9" vali-text="지역을 선택해주세요." style="width:150px;" onchange="fetchCitiesForMain()" data-existing-province="${resultData.departmentPosition}">
+					                <option value="">도 선택</option>
+					            </select>
+					            <select id="paramKey10" name="paramKey10" vali-text="시를 선택해주세요." style="width:150px;" data-existing-city="${resultData.acqAt}">
+					                <option value="">시 선택</option>
+					            </select>
+					        </div>
+					    </dd>
 					</dl>
+
 					
 					
 					<dl>
@@ -364,7 +448,7 @@ $(document).ready(function () {
 						<dd><input type="text" class="base" style="width:100%;" maxlength="50" id="paramKey8" name="paramKey8" value="${resultData.department}"></dd>
 					</dl>
 					<dl>
-						<dt><span class="imp">*</span> 학력 &nbsp;&nbsp;&nbsp; <a href="javascript:void(0);" id="addBtn1" onclick="fn_add_Form('A');" class="btn btn-primary">추가</a></dt>
+						<dt><span class="imp">*</span> 학력 &nbsp;&nbsp;&nbsp;  </dt>
 						<dd id="addFormA">
 							<c:forEach varStatus="status" var="list" items="${subEdu}">
 								<div class="education_from">
@@ -542,9 +626,9 @@ $(document).ready(function () {
 				
 			</div>
 			
-			<div class="person-title info_form">향후 희망 강의 </div>
+			<div class="person-title info_form">향후 희망 강의 (중복 선택 가능) </div>
 			<div class="info_form_wrap v3">
-				<dl>
+				<%-- <dl>
 					<dt>희망 강의</dt>
 					<dd>
 						<div class="agree_chk_wrap">
@@ -566,7 +650,7 @@ $(document).ready(function () {
 							</span>
 						</div>
 					</dd> 
-				</dl>
+				</dl> --%>
 				<dl>
 					<dt>희망 강의 분야</dt>
 					<dd>
@@ -588,9 +672,12 @@ $(document).ready(function () {
 								<label for="hopeEduField4">지식재산</label>
 							</span>
 							<span class="check_form">
-								<input type="checkbox" id="hopeEduField5" name="paramKey26" value="기타" <c:if test="${fn:indexOf(resultData.hopeEduField,'기타') ne -1}">checked</c:if>>
-								<label for="hopeEduField5">기타</label>
-							</span>
+				                <input type="checkbox" id="hopeEduField5" name="paramKey26" value="기타" <c:if test="${fn:indexOf(resultData.hopeEduField,'기타') ne -1}">checked</c:if> onclick="toggleOtherField(this)">
+				                <label for="hopeEduField5">기타</label>
+				            </span>
+							<span class="check_form" id="otherField" style="display: none;">
+				                <input type="text" id="paramKey11" name="paramKey11" value="${resultData.acqAuthNum}"  placeholder="기타 입력">
+				            </span>
 						</div>
 					</dd> 
 				</dl>
@@ -703,7 +790,7 @@ $(document).ready(function () {
 				<c:when test="${vo.act eq 'modify'}">
 					<button type="button" onclick="location.href='/';" class="btn btn-default" title="이전화면">이전화면</button>
 					<button type="button" class="btn btn-primary" onclick="fn_edit()">정보수정</button>
-					<button type="button" class="btn btn-default" onclick="fn_leave()" style="margin-left:100px;">협력교원탈퇴</button>
+					<button type="button" class="btn btn-default" onclick="fn_leave()" style="margin-left:100px;">늘봄 민간강사 탈퇴</button>
 				</c:when>
 				<c:otherwise>
 					<button type="button" onclick="location.href='/';" class="btn btn-default" title="이전화면">이전화면</button>

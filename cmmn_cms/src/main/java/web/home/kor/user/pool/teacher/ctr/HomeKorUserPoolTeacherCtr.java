@@ -69,7 +69,7 @@ public class HomeKorUserPoolTeacherCtr {
 			}
 		
 		} else {
-			returnURL = "/";	
+			returnURL = "/home/kor/contents.do?menuPos=129";	
 		}
 		model.addAttribute("returnURL", returnURL);			
 	}		

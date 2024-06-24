@@ -100,7 +100,56 @@ function fetchCities(index) {
     }
 }
 
+function fetchProvincesForMain() {
+    fetch("https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=*00000000")
+        .then(response => response.json())
+        .then(data => {
+            var provinceSelect = $("#paramKey9");
+            provinceSelect.empty();
+            provinceSelect.append(new Option("도 선택", ""));
+            data.regcodes.forEach(province => {
+                provinceSelect.append(new Option(province.name, province.code));
+            });
+
+            // 기존 선택된 도가 있다면 설정
+            var existingProvince = $("#paramKey9").attr("data-existing-province");
+            if (existingProvince) {
+                provinceSelect.val(existingProvince).change();
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function fetchCitiesForMain() {
+    var provinceCode = $("#paramKey9").val();
+    if (provinceCode) {
+        var pattern = provinceCode.substring(0, 2) + "*00000";
+        var url = 'https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=' + pattern;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                var citySelect = $("#paramKey10");
+                citySelect.empty();
+                citySelect.append(new Option("시 선택", ""));
+                data.regcodes.forEach(city => {
+                    if (city.code.substring(2, 5) !== "000") { // 시/구 코드 필터링
+                        citySelect.append(new Option(city.name, city.code));
+                    }
+                });
+
+                // 기존 선택된 시가 있다면 설정
+                var existingCity = $("#paramKey10").attr("data-existing-city");
+                if (existingCity) {
+                    citySelect.val(existingCity);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+}
+
 $(document).ready(function () {
+    // 희망 활동 지역 추가 버튼 클릭 이벤트 등록
     $("#addBtnRegion").click(fn_add_Region_Form);
 
     // 기존 데이터에 대해 도/시 초기화
@@ -109,11 +158,11 @@ $(document).ready(function () {
         $("#region_city_${status.count}").data("existingCity", "${list.regionCity}");
         fetchProvinces(${status.count});
     </c:forEach>
+
+    // 메인 지역 선택 초기화
+    fetchProvincesForMain();
+
 });
-
-
-
-
 
 
 
@@ -221,6 +270,23 @@ $(document).ready(function () {
 		
 	}	
 	
+	 function toggleOtherField(checkbox) {
+	        var otherField = document.getElementById("otherField");
+	        if (checkbox.checked) {
+	            otherField.style.display = "inline";
+	        } else {
+	            otherField.style.display = "none";
+	        }
+	    }
+
+	    window.onload = function() {
+	        var otherCheckbox = document.getElementById("hopeEduField5");
+	        if (otherCheckbox.checked) {
+	            document.getElementById("otherField").style.display = "inline";
+	        }
+	    };
+	
+	
 	
 	
 </script>
@@ -316,14 +382,20 @@ $(document).ready(function () {
 			</td>
 		</tr>
 		<tr>
-			<th scope="row"><span class="imp">*</span> 지역</th>
-			<td>
-				<select id="paramKey9" name="paramKey9" class="join_select1" vali-text="지역을 선택해주세요." style="width:150px;">
-					<c:forEach items="${region}" var="list" varStatus="status">
-						<option value="${list.no}"<c:if test="${resultData.departmentPosition eq list.no}">selected="selected"</c:if>>${list.dataName}</option>
-					</c:forEach>
-				</select>
-			</td>
+		    <th scope="row"><span class="imp">*</span> 지역</th>
+		    <td>
+		        <div class="form">
+		            <select id="paramKey9" name="paramKey9" vali-text="지역을 선택해주세요." style="width:150px;" onchange="fetchCitiesForMain()" data-existing-province="${resultData.departmentPosition}">
+		                <option value="">도 선택</option>
+		                <c:forEach items="${region}" var="list" varStatus="status">
+		                    <option value="${list.no}" <c:if test="${resultData.departmentPosition eq list.no}">selected="selected"</c:if>>${list.dataName}</option>
+		                </c:forEach>
+		            </select>
+		            <select id="paramKey10" name="paramKey10" vali-text="시를 선택해주세요." style="width:150px;" data-existing-city="${resultData.acqAt}">
+		                <option value="">시 선택</option>
+		            </select>
+		        </div>
+		    </td>
 		</tr>
 		<tr>
 			<th scope="row"><span class="imp">*</span> 소속(50자이내)</th>
@@ -480,7 +552,7 @@ $(document).ready(function () {
 		</tr>	
 		
 				
-		<tr>
+		<%-- <tr>
 			<th scope="row">희망 강의</th>
 			<td>
 				<span class="radio_area">
@@ -500,7 +572,7 @@ $(document).ready(function () {
 					<label for="classHistory4">기타</label>
 				</span>
 			</td>
-		</tr>					
+		</tr>				 --%>	
 		<tr>
 			<th scope="row">희망 강의 분야</th>
 			<td>
@@ -521,8 +593,11 @@ $(document).ready(function () {
 					<label for="hopeEduField4">지식재산</label>
 				</span>
 				<span class="radio_area">
-					<input type="checkbox" id="hopeEduField5" name="paramKey26" value="기타" <c:if test="${fn:indexOf(resultData.hopeEduField,'기타') ne -1}">checked</c:if>>
+					 <input type="checkbox" id="hopeEduField5" name="paramKey26" value="기타" <c:if test="${fn:indexOf(resultData.hopeEduField,'기타') ne -1}">checked</c:if> onclick="toggleOtherField(this)">
 					<label for="hopeEduField5">기타</label>
+				</span>
+				<span class="radio_area" id="otherField" style="display: none;">
+					<input type="text" id="paramKey11" name="paramKey11" value="${resultData.acqAuthNum}"  placeholder="기타 입력">
 				</span>
 			</td>
 		</tr>					

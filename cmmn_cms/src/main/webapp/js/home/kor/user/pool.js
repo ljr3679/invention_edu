@@ -82,14 +82,20 @@
 			}
 			
 			if($("#paramKey8").val() == ""){
-				alert("소속을(를) 입력해주세요.");
+				alert("소속/직위을(를) 입력해주세요.");
 				$("#departmentCheck").focus();
 				$(event.target).prop('disabled',false);
 				return false;
 			}
 			
 			if($("#paramKey9").val() == ""){
-				alert("직위을(를) 입력해주세요.");
+				alert("지역을(를) 선택해주세요.");
+				$("#paramKey9").focus();
+				$(event.target).prop('disabled',false);
+				return false;
+			}
+			if($("#paramKey10").val() == "" || $("#paramKey10").val() == null){
+				alert("상세 지역을(를) 선택해주세요.");
 				$("#paramKey9").focus();
 				$(event.target).prop('disabled',false);
 				return false;
@@ -158,19 +164,19 @@
 // 				return false;
 // 			}
 			
-			if($("#paramKey10").val() == ""){
-				alert("발명교사 인증제 취득여부을(를) 입력해주세요.");
-				$("#acqAtCheck").focus();
-				$(event.target).prop('disabled',false);
-				return false;
-			}
-			
-			if($("#paramKey11").val() == "" && $("#paramKey12").val() == "" && $("#paramKey13").val() == ""  ){
-				alert("발명교사 인증제 번호을(를) 입력해주세요.");
-				$("#paramKey11").focus();
-				$(event.target).prop('disabled',false);
-				return false;
-			}
+//			if($("#paramKey10").val() == ""){
+//				alert("발명교사 인증제 취득여부을(를) 입력해주세요.");
+//				$("#acqAtCheck").focus();
+//				$(event.target).prop('disabled',false);
+//				return false;
+//			}
+//			
+//			if($("#paramKey11").val() == "" && $("#paramKey12").val() == "" && $("#paramKey13").val() == ""  ){
+//				alert("발명교사 인증제 번호을(를) 입력해주세요.");
+//				$("#paramKey11").focus();
+//				$(event.target).prop('disabled',false);
+//				return false;
+//			}
 			
 			if(countB > 0) {
 				for (var i = 1; i <= countB; i++) {
