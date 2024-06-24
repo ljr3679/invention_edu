@@ -69,7 +69,8 @@ public class HomeKorUserPoolTeacherCtr {
 			}
 		
 		} else {
-			returnURL = "/home/kor/contents.do?menuPos=129";	
+			//운영은 123에 있어서 수정
+			returnURL = "/home/kor/contents.do?menuPos=123";	
 		}
 		model.addAttribute("returnURL", returnURL);			
 	}		
