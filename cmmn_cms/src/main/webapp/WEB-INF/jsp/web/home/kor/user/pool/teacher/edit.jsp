@@ -3,7 +3,9 @@
 <head>
 <script type="text/javascript">
 
-var countRegion = '${fn:length(subArea)}';
+// 희망활동지역 시작
+
+var countRegion = ${fn:length(subArea)};
 
 function fn_add_Region_Form() {
     if (countRegion >= 3) {
@@ -13,18 +15,25 @@ function fn_add_Region_Form() {
 
     countRegion++;
 
+    // 초기 추가 버튼 제거
+    var initialAddButton1 = document.getElementById('initialAddButton1');
+    if (initialAddButton1) {
+        initialAddButton1.remove();
+    }
+
     var html = '';
     html += '<div style="width:100%" class="region_form" id="region_form_' + countRegion + '" data-index="' + countRegion + '">';
     html += '    <div class="form">';
     html += '        <div class="region_chk_wrap">';
-    html += '                <label for="region_province_' + countRegion + '">순위 ' + countRegion + ': </label>';
-    html += '                <select style="width:40%" id="region_province_' + countRegion + '" name="paramKeyList7" onchange="fetchCities(' + countRegion + ')">';
-    html += '                    <option value="">도 선택</option>';
-    html += '                </select>';
-    html += '                <select style="width:40%" id="region_city_' + countRegion + '" name="paramKeyList8">';
-    html += '                    <option value="">시 선택</option>';
-    html += '                </select>';
-    html += '    <button type="button" onclick="fn_line_delete1(' + countRegion + ');" class="btn btn-default">삭제</button>';
+    html += '            <label for="region_province_' + countRegion + '">순위 ' + countRegion + ': </label>';
+    html += '            <select style="width:40%" id="region_province_' + countRegion + '" name="paramKeyList7_' + countRegion + '" onchange="fetchCities(' + countRegion + ')">';
+    html += '                <option value="">도 선택</option>';
+    html += '            </select>';
+    html += '            <select style="width:40%" id="region_city_' + countRegion + '" name="paramKeyList8_' + countRegion + '">';
+    html += '                <option value="">시 선택</option>';
+    html += '            </select>';
+    html += '            <button type="button" onclick="fn_add_Region_Form();" class="btn btn-primary">추가</button>';
+    html += '            <button type="button" onclick="fn_line_delete1(' + countRegion + ');" class="btn btn-default">삭제</button>';
     html += '        </div>';
     html += '    </div>';
     html += '</div>';
@@ -43,12 +52,18 @@ function fn_line_delete1(index) {
         $(this).attr("id", "region_form_" + newIndex);
         $(this).attr("data-index", newIndex);
         $(this).find("label").attr("for", "region_province_" + newIndex).text("순위 " + newIndex + ": ");
-        $(this).find("select[name='paramKeyList7']").attr("id", "region_province_" + newIndex).attr("name", "paramKeyList7").attr("onchange", "fetchCities(" + newIndex + ")");
-        $(this).find("select[name='paramKeyList8']").attr("id", "region_city_" + newIndex).attr("name", "paramKeyList8");
-        $(this).find("button").attr("onclick", "fn_line_delete1(" + newIndex + ")");
+        $(this).find("select[name^='paramKeyList7']").attr("id", "region_province_" + newIndex).attr("name", "paramKeyList7_" + newIndex).attr("onchange", "fetchCities(" + newIndex + ")");
+        $(this).find("select[name^='paramKeyList8']").attr("id", "region_city_" + newIndex).attr("name", "paramKeyList8_" + newIndex);
+        $(this).find("button.btn-default").attr("onclick", "fn_line_delete1(" + newIndex + ")");
+        $(this).find("button.btn-primary").attr("onclick", "fn_add_Region_Form()");
     });
 
     countRegion = $(".region_form").length;
+
+    // countRegion가 0이 되면 초기 추가 버튼을 다시 추가
+    if (countRegion == 0) {
+        $("#addFormRegion").html('<button id="initialAddButton1" type="button" onclick="fn_add_Region_Form();" class="btn btn-primary">추가</button>');
+    }
 }
 
 function fetchProvinces(index) {
@@ -63,9 +78,9 @@ function fetchProvinces(index) {
             });
 
             // 기존 데이터 선택
-            var existingProvince = $("#region_province_" + index).data("existingProvince");
+            var existingProvince = provinceSelect.data("existingProvince");
             if (existingProvince) {
-                $("#region_province_" + index).val(existingProvince).change();
+                provinceSelect.val(existingProvince).change();
             }
         })
         .catch(error => console.error('Error:', error));
@@ -90,16 +105,16 @@ function fetchCities(index) {
                 });
 
                 // 기존 데이터 선택
-                var existingCity = $("#region_city_" + index).data("existingCity");
+                var existingCity = citySelect.data("existingCity");
                 if (existingCity) {
-                    $("#region_city_" + index).val(existingCity);
+                    citySelect.val(existingCity);
                 }
             })
             .catch(error => console.error('Error:', error));
     }
 }
 
-
+//희망활동지역 끝
 
 
 
@@ -239,72 +254,84 @@ $(document).ready(function () {
 		}		
     }	
 	
-	var countA = '${fn:length(subEdu)}';
-	
-	if(countA == '0'){
-		fn_add_Form('A');
-	}
-	
-	var countB = '${fn:length(subCareer)}';
-	function fn_add_Form(type){
-		var html = "";
-		if(type == 'B'){
-			 countB++;
-			 if(countB > 5) {
-					alert("최대 5개까지 가능합니다");
-					countB--;
-					return false;
-				}
-		        var html = '';
-		        html += '<div class="education_from">';
-		        html += '    <div class="form">';
-		        html += '        <div class="agree_chk_wrap">';
-		        html += '            <span class="check_form">';
-		        html += '                <select id="data5_' + countB + '" name="paramKeyList5">';
-		        html += '                    <option value="돌봄">돌봄</option>';
-		        html += '                    <option value="방과후">방과후</option>';
-		        html += '                    <option value="늘봄">늘봄</option>';
-		        html += '                    <option value="기타">기타</option>';
-		        html += '                </select>';
-		        html += '            </span>';
-		        html += '        </div>';
-		        html += '    </div>';
-		        html += '    <textarea maxlength="90" name="paramKeyList6" id="data6_' + countB + '"></textarea>';
-		        html += '    <button type="button" onclick="fn_line_delete(this,\'B\');" class="btn btn-default">삭제</button>';
-		        html += '</div>';
-		        $("#addForm" + type).append(html);
-		}else{
-			countA++;
-			if(countA > 5) {
-				alert("최대 5개까지 가능합니다");
-				countA--;
-				return false;
-			}
-			html += "<div class=\"education_from\">";
-			html += "<div class=\"form\">";
-			html += "	<span class=\"txt\">학위</span>";
-			html += "		<select name=\"paramKeyList2\" id=\"data2_"+countA+"\">";
-			html += "			<option value=\"\">선택</option>";
-			html += "			<option value=\"1\">준학사</option>";
-			html += "			<option value=\"2\">학사</option>";
-			html += "			<option value=\"3\">석사</option>";
-			html += "			<option value=\"4\">박사</option>";
-			html += "		</select>";
-			html += "</div>";
-			html += "<div class=\"form\">";
-			html += "<span class=\"txt\">취득연도</span>";
-			html += " <input type=\"text\" class=\"getYear\" name=\"paramKeyList3\" id=\"data3_" + countA + "\" style=\"width:80px;\" maxlength=\"4\" placeholder=\"연도선택\"  oninput=\"this.value=this.value.replace(/[^0-9]/g, '').substring(0, 4);\"> ";
-			html += "</div>";
-			html += "<div class=\"form\">";
-			html += "	<span class=\"txt\">세부전공</span>";
-			html += "	<input type=\"text\" class=\"major\" name=\"paramKeyList4\" id=\"data4_"+countA+"\" style=\"width:200px;\"> ";
-			html += "</div>";
-			html += "<button type=\"button\" onclick=\"fn_add_Form('A');\" class=\"btn btn-primary\">추가</button>";
-			html += "<button type=\"button\" onclick=\"fn_line_delete(this,'A');\" class=\"btn btn-default\">삭제</button>";
-			html += "</div>";
-			$("#addForm"+type).append(html);
-		}
-	}	
+	  var countA = '${fn:length(subEdu)}';
+	    if (countA == '0') {
+	        fn_add_Form('A');
+	    }
+
+	    var countB = '${fn:length(subCareer)}';
+	    if (countB == '0') {
+	        document.querySelector('#addFormB').innerHTML = '<button id="initialAddButton" type="button" onclick="fn_add_Form(\'B\');" class="btn btn-primary">추가</button>';
+	    }
+
+	    function fn_add_Form(type) {
+	        var html = "";
+	        if (type == 'B') {
+	            countB++;
+	            if (countB > 5) {
+	                alert("최대 5개까지 가능합니다");
+	                countB--;
+	                return false;
+	            }
+
+	            // 추가 버튼을 누르면 초기 추가 버튼을 제거
+	            var initialAddButton = document.getElementById('initialAddButton');
+	            if (initialAddButton) {
+	                initialAddButton.remove();
+	            }
+
+	            html += '<div class="education_from">';
+	            html += '    <div class="form">';
+	            html += '        <div class="agree_chk_wrap">';
+	            html += '            <span class="check_form">';
+	            html += '                <select id="data5_' + countB + '" name="paramKeyList5">';
+	            html += '                    <option value="돌봄">돌봄</option>';
+	            html += '                    <option value="방과후">방과후</option>';
+	            html += '                    <option value="늘봄">늘봄</option>';
+	            html += '                    <option value="기타">기타</option>';
+	            html += '                </select>';
+	            html += '            </span>';
+	            html += '        </div>';
+	            html += '    </div>';
+	            html += '    <textarea maxlength="90" name="paramKeyList6" id="data6_' + countB + '"></textarea>';
+	            html += '    <button type="button" onclick="fn_add_Form(\'B\');" class="btn btn-primary">추가</button>';
+	            html += '    <button type="button" onclick="fn_line_delete(this,\'B\');" class="btn btn-default">삭제</button>';
+	            html += '</div>';
+	            $("#addFormB").append(html);
+	        } else {
+	            countA++;
+	            if (countA > 5) {
+	                alert("최대 5개까지 가능합니다");
+	                countA--;
+	                return false;
+	            }
+	            html += "<div class=\"education_from\">";
+	            html += "<div class=\"form\">";
+	            html += "    <span class=\"txt\">학위</span>";
+	            html += "        <select name=\"paramKeyList2\" id=\"data2_" + countA + "\">";
+	            html += "            <option value=\"\">선택</option>";
+	            html += "            <option value=\"1\">준학사</option>";
+	            html += "            <option value=\"2\">학사</option>";
+	            html += "            <option value=\"3\">석사</option>";
+	            html += "            <option value=\"4\">박사</option>";
+	            html += "        </select>";
+	            html += "</div>";
+	            html += "<div class=\"form\">";
+	            html += "<span class=\"txt\">취득연도</span>";
+	            html += " <input type=\"text\" class=\"getYear\" name=\"paramKeyList3\" id=\"data3_" + countA + "\" style=\"width:80px;\" maxlength=\"4\" placeholder=\"연도선택\"  oninput=\"this.value=this.value.replace(/[^0-9]/g, '').substring(0, 4);\"> ";
+	            html += "</div>";
+	            html += "<div class=\"form\">";
+	            html += "    <span class=\"txt\">세부전공</span>";
+	            html += "    <input type=\"text\" class=\"major\" name=\"paramKeyList4\" id=\"data4_" + countA + "\" style=\"width:200px;\"> ";
+	            html += "</div>";
+	            html += "<button type=\"button\" onclick=\"fn_add_Form('A');\" class=\"btn btn-primary\">추가</button>";
+	            html += "<button type=\"button\" onclick=\"fn_line_delete(this,'A');\" class=\"btn btn-default\">삭제</button>";
+	            html += "</div>";
+	            $("#addFormA").append(html);
+	        }
+	    }
+
+	    
 	
 	
 	 function toggleOtherField(checkbox) {
@@ -602,29 +629,34 @@ $(document).ready(function () {
 					</dd> 
 				</dl>
 				
-<dl>
-    <dt>강의 경력 <a href="javascript:void(0);" id="addBtn2" onclick="fn_add_Form('B');" class="btn btn-primary">추가</a></dt>
-    <dd id="addFormB">
-        <c:forEach varStatus="status" var="list" items="${subCareer}">
-            <div class="education_from">
-                <div class="form">
-                    <div class="agree_chk_wrap">
-                        <span class="check_form">
-                            <select id="data5_${status.count}" name="paramKeyList5">
-                                <option value="돌봄" <c:if test="${list.year == '돌봄'}">selected</c:if>>돌봄</option>
-                                <option value="방과후" <c:if test="${list.year == '방과후'}">selected</c:if>>방과후</option>
-                                <option value="늘봄" <c:if test="${list.year == '늘봄'}">selected</c:if>>늘봄</option>
-                                <option value="기타" <c:if test="${list.year == '기타'}">selected</c:if>>기타</option>
-                            </select>
-                        </span>
-                    </div>
-                </div>
-                <textarea maxlength="90" name="paramKeyList6" id="data6_${status.count}"> <c:out value="${list.program}"/></textarea>
-                <button type="button" onclick="fn_line_delete(this,'B');" class="btn btn-default">삭제</button>
-            </div>
-        </c:forEach>
-    </dd>
-</dl>
+				<dl>
+				    <dt>강의 경력 </dt>
+				    
+				    <dd id="addFormB">
+				        <c:forEach varStatus="status" var="list" items="${subCareer}">
+				            <div class="education_from">
+				                <div class="form">
+				                    <div class="agree_chk_wrap">
+				                        <span class="check_form">
+				                            <select id="data5_${status.count}" name="paramKeyList5">
+				                                <option value="돌봄" <c:if test="${list.year == '돌봄'}">selected</c:if>>돌봄</option>
+				                                <option value="방과후" <c:if test="${list.year == '방과후'}">selected</c:if>>방과후</option>
+				                                <option value="늘봄" <c:if test="${list.year == '늘봄'}">selected</c:if>>늘봄</option>
+				                                <option value="기타" <c:if test="${list.year == '기타'}">selected</c:if>>기타</option>
+				                            </select>
+				                        </span>
+				                    </div>
+				                </div>
+				                <textarea maxlength="90" name="paramKeyList6" id="data6_${status.count}"> <c:out value="${list.program}"/></textarea>
+				                <button type="button" onclick="fn_add_Form('B');" class="btn btn-primary">추가</button>
+				                <button type="button" onclick="fn_line_delete(this,'B');" class="btn btn-default">삭제</button>
+				            </div>
+				        </c:forEach>
+				        <c:if test="${fn:length(subCareer) == 0}">
+				            <button type="button" onclick="fn_add_Form('B');" class="btn btn-primary">추가</button>
+				        </c:if>
+				    </dd>
+				</dl>
 				
 				
 			</div>
@@ -763,26 +795,31 @@ $(document).ready(function () {
 				</dl>	
 				
 				<dl>
-			        <dt>희망 활동 지역  <a href="javascript:void(0);" id="addBtnRegion" class="btn btn-primary">추가</a></dt>
-			        <dd id="addFormRegion">
-			            <c:forEach varStatus="status" var="list" items="${subArea}">
-			                <div style="width:100%" class="region_form" id="region_form_${status.count}" data-index="${status.count}">
-			                    <div class="form">
-			                        <div class="region_chk_wrap">
-			                            <label for="region_province_${status.count}">순위 ${status.count}: </label>
-			                            <select style="width:40%" id="region_province_${status.count}" name="paramKeyList7" onchange="fetchCities(${status.count})">
-			                                <option value="">도 선택</option>
-			                            </select>
-			                            <select style="width:40%" id="region_city_${status.count}" name="paramKeyList8">
-			                                <option value="">시 선택</option>
-			                            </select>
-			                            <button type="button" onclick="fn_line_delete1(${status.count});" class="btn btn-default">삭제</button>
-			                        </div>
-			                    </div>
-			                </div>
-			            </c:forEach>
-			        </dd>
-			    </dl>
+				    <dt>희망 활동 지역 </dt>
+				    <dd id="addFormRegion">
+				        <c:forEach varStatus="status" var="list" items="${subArea}">
+				            <div style="width:100%" class="region_form" id="region_form_${status.count}" data-index="${status.count}">
+				                <div class="form">
+				                    <div class="region_chk_wrap">
+				                        <label for="region_province_${status.count}">순위 ${status.count}: </label>
+				                        <select style="width:40%" id="region_province_${status.count}" name="paramKeyList7_${status.count}" onchange="fetchCities(${status.count})">
+				                            <option value="">도 선택</option>
+				                        </select>
+				                        <select style="width:40%" id="region_city_${status.count}" name="paramKeyList8_${status.count}">
+				                            <option value="">시 선택</option>
+				                        </select>
+				                        <button type="button" onclick="fn_add_Region_Form();" class="btn btn-primary">추가</button>
+				                        <button type="button" onclick="fn_line_delete1(${status.count});" class="btn btn-default">삭제</button>
+				                    </div>
+				                </div>
+				            </div>
+				        </c:forEach>
+				        <c:if test="${fn:length(subArea) == 0}">
+				            <button id="initialAddButton1" type="button" onclick="fn_add_Region_Form();" class="btn btn-primary">추가</button>
+				        </c:if>
+				    </dd>
+				</dl>
+
 				
 			</div>
 	
