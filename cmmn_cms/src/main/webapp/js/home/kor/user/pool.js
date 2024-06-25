@@ -11,20 +11,20 @@
 		
 		
 		
-		function fn_line_delete(obj,type){
-			
-			if(type == 'B') {
-				$(obj).parent().remove();
-				countB--;
-			}
-			else {
-				if(countA != 1){
-					$(obj).parent().remove();
-					countA--;
-				}
-			}
-			
-		}
+		function fn_line_delete(obj, type) {
+	        if (type == 'B') {
+	            $(obj).parent().remove();
+	            countB--;
+	            if (countB == 0) {
+	                $("#addFormB").html('<button id="initialAddButton" type="button" onclick="fn_add_Form(\'B\');" class="btn btn-primary">추가</button>');
+	            }
+	        } else {
+	            if (countA != 1) {
+	                $(obj).parent().remove();
+	                countA--;
+	            }
+	        }
+	    }
 		
 			
 		function formSubmit(event,act) {
