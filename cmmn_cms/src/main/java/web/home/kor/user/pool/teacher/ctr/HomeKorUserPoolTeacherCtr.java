@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -36,8 +35,7 @@ public class HomeKorUserPoolTeacherCtr {
 	}
 	
 	@RequestMapping(value="join.act")
-	public void joinAct(@ModelAttribute("commonVO") CommonVO vo, HttpServletRequest request, ModelMap model, HttpServletResponse response) throws Exception {
-
+	public void joinAct(@ModelAttribute("commonVO") CommonVO vo, HttpServletRequest request, ModelMap model) throws Exception {
 		HttpServletRequest sessRequest = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		HttpSession session = sessRequest.getSession();
 		Object getSession = session.getAttribute(Const.USER_SESSION_SET);	
@@ -71,12 +69,7 @@ public class HomeKorUserPoolTeacherCtr {
 			}
 		
 		} else {
-			//운영은 123에 있어서 수정
-			response.setContentType("text/html");
-	        response.getWriter().println("<script type=\"text/javascript\">");
-	        response.getWriter().println("alert('로그인을 해주세요');");
-	        response.getWriter().println("</script>");
-			returnURL = "/home/kor/contents.do?menuPos=123";	
+			returnURL = "/home/kor/pool/teacher/index.do?menuPos=124";	
 		}
 		model.addAttribute("returnURL", returnURL);			
 	}		

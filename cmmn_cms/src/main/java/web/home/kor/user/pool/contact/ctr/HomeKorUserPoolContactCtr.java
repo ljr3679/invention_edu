@@ -65,7 +65,7 @@ public class HomeKorUserPoolContactCtr {
 			}
 		
 		} else {
-			returnURL = "/";	
+			returnURL = "/home/kor/pool/contact/index.do?menuPos=121";	
 		}
 		model.addAttribute("returnURL", returnURL);			
 	}		
