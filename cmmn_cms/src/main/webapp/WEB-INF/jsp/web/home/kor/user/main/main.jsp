@@ -130,26 +130,30 @@
                     	<c:forEach items="${visualList}" var="list" varStatus="status">
 							<c:choose>
 								<c:when test="${not empty list.attachReName}">
-									<li style="background-image: url('/images/site/${fn:substring(list.attachReName, 0, fn:indexOf(list.attachReName, list.attachExtension)-1)}/${list.attachExtension}/loader.do');">
-										<div class="container">
-											<a href="${list.url}" <c:if test="${list.openAt ne 'A'}">target="_blank"</c:if> class="box" tabindex="-1">
-												<div class="sub_title"><c:out value="${list.typeTitle}"/></div>
-		                                        <div class="title"><c:out value="${list.title}"  escapeXml="false"/></div>
-		                                        <div class="text"><c:out value="${list.content}" escapeXml="false"/></div>
-		                                    </a>
-		                                 </div>
-		                             </li>
+								    <a href="${list.url}" <c:if test="${list.openAt ne 'A'}">target="_blank"</c:if> tabindex="-1">
+								        <li style="background-image: url('/images/site/${fn:substring(list.attachReName, 0, fn:indexOf(list.attachReName, list.attachExtension)-1)}/${list.attachExtension}/loader.do');">
+								            <div class="container">
+								                <div class="box">
+								                    <div class="sub_title"><c:out value="${list.typeTitle}"/></div>
+								                    <div class="title"><c:out value="${list.title}"  escapeXml="false"/></div>
+								                    <div class="text"><c:out value="${list.content}" escapeXml="false"/></div>
+								                </div>
+								            </div>
+								        </li>
+								    </a>
 								</c:when>
 								<c:otherwise>
-									<li style="background-image: url('/images/home/kor/user/main/main_vis.jpg');">
-										<div class="container">
-											<a href="${list.url}" class="box" <c:if test="${list.openAt ne 'A'}">target="_blank"</c:if> tabindex="-1">
-												<div class="sub_title"><c:out value="${list.typeTitle}"/></div>
-		                                        <div class="title"><c:out value="${list.title}"  escapeXml="false"/></div>
-		                                        <div class="text"><c:out value="${list.content}" escapeXml="false"/></div>
-		                                    </a>
-		                                 </div>
-		                             </li>
+								    <a href="${list.url}" <c:if test="${list.openAt ne 'A'}">target="_blank"</c:if> tabindex="-1">
+								        <li style="background-image: url('/images/home/kor/user/main/main_vis.jpg');">
+								            <div class="container">
+								                <div class="box">
+								                    <div class="sub_title"><c:out value="${list.typeTitle}"/></div>
+								                    <div class="title"><c:out value="${list.title}"  escapeXml="false"/></div>
+								                    <div class="text"><c:out value="${list.content}" escapeXml="false"/></div>
+								                </div>
+								            </div>
+								        </li>
+								    </a>
 								</c:otherwise>
 							</c:choose>
                     	</c:forEach>
@@ -378,15 +382,18 @@
                                 <div class="ant_menu_list swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-free-mode">
                                     <ul id="menu_list" class="list swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
                                         <li class="swiper-slide on swiper-slide-active" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('0',this);" class="tit">전체</button></li>
-                                        <li class="swiper-slide swiper-slide-next" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('1',this);" class="tit">직업계고 발명·특허교육지원 사업</button></li>
+                                        <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('8',this);" class="tit">학생발명전시회</button></li>
                                         <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('2',this);" class="tit">창의력챔피언대회</button></li>
-                                        <!-- <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('3',this);" class="tit">차세대영재기업인선발</button></li> -->
-                                        <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('4',this);" class="tit">IP-MEISTER</button></li>
                                         <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('5',this);" class="tit">YIP</button></li>
+                                        <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('4',this);" class="tit">IP-MEISTER</button></li>
+                                        <li class="swiper-slide swiper-slide-next" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('1',this);" class="tit">직업계고 발명·특허교육지원 사업</button></li>
+                                        <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('3',this);" class="tit">차세대영재기업인선발</button></li>
                                         <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('6',this);" class="tit">발명교육대상</button></li>
                                         <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('7',this);" class="tit">전국교원발명연구대회</button></li>
-                                        <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('8',this);" class="tit">학생발명전시회</button></li>
-                                        <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('9',this);" class="tit">지식재산 일반 선도학교 운영사업</button></li>
+                                        
+                                        
+                                        
+                            <!--             <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('9',this);" class="tit">지식재산 일반 선도학교 운영사업</button></li> -->
                                     </ul>
                                     <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
                                 </div>

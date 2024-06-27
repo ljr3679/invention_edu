@@ -5,15 +5,24 @@
 <%@ taglib prefix="validator" uri="http://www.springmodules.org/tags/commons-validator" %>
 <head>
 
+
+<style>
+    body {
+        display: none;
+    }
+</style>
+
 <script> 
 
 
 $(document).ready(function () {
 	
-	if( ${ empty usrSession} ){
-		alert('로그인 후 이용해주세요.');
-		location.href='/home/kor/contents.do?menuPos=120';
-		}
+	if (${empty usrSession}) {
+        alert('로그인 후 이용해주세요.');
+        location.href = '/home/kor/contents.do?menuPos=120';
+    } else {
+        $('body').css('display', 'block');  // Show the page if the user is logged in
+    }
 });
 
 	function formSubmit(event) {
