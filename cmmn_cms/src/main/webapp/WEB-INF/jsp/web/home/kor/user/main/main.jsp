@@ -133,7 +133,7 @@
 								    <a href="${list.url}" <c:if test="${list.openAt ne 'A'}">target="_blank"</c:if> tabindex="-1">
 								        <li style="background-image: url('/images/site/${fn:substring(list.attachReName, 0, fn:indexOf(list.attachReName, list.attachExtension)-1)}/${list.attachExtension}/loader.do');">
 								            <div class="container">
-								                <div class="box">
+								                <div class="box" style="display: none;">
 								                    <div class="sub_title"><c:out value="${list.typeTitle}"/></div>
 								                    <div class="title"><c:out value="${list.title}"  escapeXml="false"/></div>
 								                    <div class="text"><c:out value="${list.content}" escapeXml="false"/></div>
@@ -146,7 +146,7 @@
 								    <a href="${list.url}" <c:if test="${list.openAt ne 'A'}">target="_blank"</c:if> tabindex="-1">
 								        <li style="background-image: url('/images/home/kor/user/main/main_vis.jpg');">
 								            <div class="container">
-								                <div class="box">
+								                <div class="box" style="display: none;>
 								                    <div class="sub_title"><c:out value="${list.typeTitle}"/></div>
 								                    <div class="title"><c:out value="${list.title}"  escapeXml="false"/></div>
 								                    <div class="text"><c:out value="${list.content}" escapeXml="false"/></div>
