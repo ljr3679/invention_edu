@@ -105,10 +105,10 @@ public class UserViewMainCtr extends CMSMappingHandler {
 			else if(board_code.equals("1")) /*[창의발명인재양성] - [직업계고 발명특허교육]*/	
 				vo.setSearchValue1("584go9P5");
 			/*[대회/전시/행사] - [학생창의력챔피언대회]*/
-			/*else if(board_code.equals("2")) 
-				Integer menuPos = CustomTldFunctions.arrIndexOf(menuIdxList, "menuNo");*/
+			else if(board_code.equals("2")) 
+				vo.setSearchValue1("55ahFyCx");
 			else if(board_code.equals("3")) /*[차세대영재기업인선발]*/ 
-				vo.setSearchValue1("");
+				vo.setSearchValue1("x26S2qpI");
 			else if(board_code.equals("4")) /*[창의발명인재양성] - [IP-MeisterProgram]*/ 
 				vo.setSearchValue1("87T63739");
 			else if(board_code.equals("5")) /*[창의발명인재양성] - [YIP(청소년발명가프로그램)]*/
