@@ -26,7 +26,7 @@
 										$('#idx').val(idx);
 										$('#cmmnForm').attr('action', "${vo.selfPath}board.do");
 										$('#cmmnForm').submit();
-									} else {
+									} else {1
 										alert('비밀번호가 틀렸습니다.\n다시 입력해주세요.');
 										return;
 									}
