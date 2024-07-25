@@ -232,7 +232,7 @@
                             </div>
                             <div id="tab02" class="tab_cont">
                                 <div class="main_news_box">
-                                    <a href="${pressList[0].link}" target="_blank" >
+                                    <a href="/${vo.siteCode}/${vo.langCode}${pressList[0].menuUri}?menuPos=${cFn:arrIndexOf(menuIdxList, 'menu'.concat(pressList[0].menuNo))}&act=detail&idx=${pressList[0].no}&pageIndex=1" >
                                         <div class="date">
                                             <div class="date_inner">
                                                 <div class="day"><c:out value="${pressList[0].regDay }"/></div>
@@ -252,7 +252,7 @@
                                     <ul class="list">
 										<c:forEach items="${pressList}" begin="1" var="list" varStatus="status">
 											<li>
-												<a href="${list.link}" target="_blank" >
+												<a href="/${vo.siteCode}/${vo.langCode}${list.menuUri}?menuPos=${cFn:arrIndexOf(menuIdxList, 'menu'.concat(list.menuNo))}&act=detail&idx=${list.no}&pageIndex=1" >
 	                                                <span class="txt"><c:out value="${list.title}"  escapeXml="false"/></span>
 	                                                <span class="date"><c:out value="${list.regDate}" /></span>
 	                                            </a>
@@ -386,8 +386,8 @@
                                         <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('2',this);" class="tit">창의력챔피언대회</button></li>
                                         <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('5',this);" class="tit">YIP</button></li>
                                         <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('4',this);" class="tit">IP-MEISTER</button></li>
-                                        <li class="swiper-slide swiper-slide-next" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('1',this);" class="tit">발명특허 고등학교</button></li>
-                                        <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('3',this);" class="tit">차세대 영재기업인</button></li>
+                                        <li class="swiper-slide swiper-slide-next" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('1',this);" class="tit">직업계고 발명·특허교육지원 사업</button></li>
+                                        <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('3',this);" class="tit">차세대영재기업인선발</button></li>
                                         <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('6',this);" class="tit">발명교육대상</button></li>
                                         <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('7',this);" class="tit">전국교원발명연구대회</button></li>
                                         
