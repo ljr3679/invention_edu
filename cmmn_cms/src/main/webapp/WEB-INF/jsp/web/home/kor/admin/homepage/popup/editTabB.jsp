@@ -58,7 +58,7 @@
 				<input type="hidden" id="fileVali1" name="fileVali1" class="check custom" vali-text="이미지를 업로드해주세요."/>
 				<c:out value="${cFn:kssFileInclude('fileDataList1', 1, 'png,jpg,jpeg', 100, 'MB', true, fileList1)}" escapeXml="false"/>
 				<div style="margin-top:5px; ">
-                    <label for="fileVali1" style="color: gray; font-size: 14px;">※ 이미지 사이즈(가로1903px; 세로 350px;)</label>	
+                    <label for="fileVali1" style="color: gray; font-size: 14px;">※ 이미지 사이즈(가로400px; 세로 265px;)</label>	
                 </div>
 			</td>
 		</tr>
