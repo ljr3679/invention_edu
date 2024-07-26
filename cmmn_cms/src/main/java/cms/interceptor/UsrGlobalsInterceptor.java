@@ -70,7 +70,7 @@ public class UsrGlobalsInterceptor extends HandlerInterceptorAdapter {
 			} else menuSession = (EgovMap) menuSessionCheck;
 			
 			String menuPos = request.getParameter("menuPos");
-			if((stringUtil.isNotEmpty(menuPos) && patternUtil.isNum(menuPos)) || uri.equals(String.format("/%s/%s/main.do", siteCode, langCode)) || uri.indexOf("/judge/") != -1 || uri.indexOf("/award/festival2021") != -1 || uri.indexOf("/award/festival2022") != -1 || uri.indexOf("/award/festival2023") != -1) menuOperation(request, menuTree, depthTree, menuIdxList, menuSession, menuPos);
+			if((stringUtil.isNotEmpty(menuPos) && patternUtil.isNum(menuPos)) || uri.equals(String.format("/%s/%s/main.do", siteCode, langCode)) || uri.indexOf("/judge/") != -1 || uri.indexOf("/award/festival2021") != -1 || uri.indexOf("/award/festival2022") != -1 || uri.indexOf("/award/festival2023") != -1 || uri.indexOf("/award/festival2024") != -1) menuOperation(request, menuTree, depthTree, menuIdxList, menuSession, menuPos);
 			else if((stringUtil.isEmpty(menuPos) || (stringUtil.isNotEmpty(menuPos) && !patternUtil.isNum(menuPos))) && !uri.equals(String.format("/%s/%s/main.do", siteCode, langCode))) accessDenied();
 		}
 		

@@ -12,8 +12,10 @@
 	<mapping path="/home/kor/award/festival2021/**/*.do"  decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/award/festival2021/user_layout.jsp" />
 	<mapping path="/home/kor/award/festival2022/*.do"  decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/award/festival2022/user_layout.jsp" />
 	<mapping path="/home/kor/award/festival2022/**/*.do"  decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/award/festival2022/user_layout.jsp" />
-	<mapping path="/home/kor/award/festival2023/*.do"  decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/award/festival2023/user_layout.jsp" />
-	<mapping path="/home/kor/award/festival2023/**/*.do"  decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/award/festival2023/user_layout.jsp" />
+	<mapping path="/home/kor/award/festival2023/*.do" decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/award/festival2023/user_layout.jsp"/>
+	<mapping path="/home/kor/award/festival2023/**/*.do" decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/award/festival2023/user_layout.jsp"/>
+	<mapping path="/home/kor/award/festival2024/*.do"  decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/award/festival2024/user_layout.jsp" />
+	<mapping path="/home/kor/award/festival2024/**/*.do" decorator="/WEB-INF/jsp/cms/layout/sitemesh/home/kor/award/festival2024/user_layout.jsp"/>
 
 
 	
