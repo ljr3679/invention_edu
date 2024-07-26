@@ -190,20 +190,30 @@
                                         <li data-tab="tab01" class="on"><button type="button" class="btn">공지사항</button></li>
                                         <li data-tab="tab02"><button type="button" class="btn">언론보도</button></li>
                                     </ul>
-                                    <a href="/home/kor/board.do?menuPos=${cFn:arrIndexOf(menuIdxList, 'menu70')}" title="상세페이지 링크 이동">
-                                        <img src="/images/home/kor/user/main/view_icon.png" alt="">
-                                    </a>
+<%--                                     <a href="/home/kor/board.do?menuPos=${cFn:arrIndexOf(menuIdxList, 'menu70')}" title="상세페이지 링크 이1동"> --%>
+<!--                                         <img src="/images/home/kor/user/main/view_icon.png" alt=""> -->
+<!--                                     </a> -->
                                 </div>
                             </div>
                             <div id="tab01" class="tab_cont on">
+	                            <div class="title_area">
+	                            	<div class="tab_box">
+		                       			<ul class="tab_list">
+		                                    <li></li>
+		                                    <li></li>
+		                                </ul>
+		                               
+			                            <a href="/home/kor/board.do?menuPos=${cFn:arrIndexOf(menuIdxList, 'menu70')}" title="상세페이지 링크 이동">
+					                       <img src="/images/home/kor/user/main/view_icon.png" alt="">
+					                   </a>
+					                </div> 
+				                </div>
                                 <div class="main_news_box">
-
-
                                     <a href="/${vo.siteCode}/${vo.langCode}/board.do?menuPos=${cFn:arrIndexOf(menuIdxList, 'menu'.concat(noticeAllList[0].menuNo))}&act=detail&idx=${noticeAllList[0].no}&pageIndex=1">
                                         <div class="date">
                                             <div class="date_inner">
-                                                <div class="day"><c:out value="${noticeAllList[0].regDay}"/></div>
-                                                <div class="year"><c:out value="${noticeAllList[0].regYear}.${noticeAllList[0].regMonth}"/></div>
+                                                <div class="day"><c:out value="${cFn:decrypt('3966d9b2e26d15ce404c82370d0c90e009e79dfa1cd7265ffaceac6976990d764f71583a8c8674ccf6dd7e04367d05f7')}"/></div>
+                                                <div class="year"><c:out value="${cFn:encrypt('jdbc:postgresql://172.25.1.93:5445/kipidb')}"/></div>
                                             </div>
                                         </div>
                                         <div class="txt_box">
@@ -214,8 +224,6 @@
                                             </div>
                                         </div>
                                     </a>
-
-
                                 </div>
                                 <div class="news_list_box">
                                     <ul class="list">
@@ -231,8 +239,19 @@
                                 </div>
                             </div>
                             <div id="tab02" class="tab_cont">
+	                            <div class="title_area">
+	                            	<div class="tab_box">
+		                       			<ul class="tab_list">
+		                                    <li></li>
+		                                    <li></li>
+		                                </ul>
+			                            <a href="/home/kor/board.do?menuPos=${cFn:arrIndexOf(menuIdxList, 'menu71')}" title="상세페이지 링크 이동">
+					                       <img src="/images/home/kor/user/main/view_icon.png" alt="">
+					                   </a>
+					                </div> 
+				                </div>
                                 <div class="main_news_box">
-                                    <a href="/${vo.siteCode}/${vo.langCode}${pressList[0].menuUri}?menuPos=${cFn:arrIndexOf(menuIdxList, 'menu'.concat(pressList[0].menuNo))}&act=detail&idx=${pressList[0].no}&pageIndex=1" >
+                                    <a href="${pressList[0].link}" target="_blank" >
                                         <div class="date">
                                             <div class="date_inner">
                                                 <div class="day"><c:out value="${pressList[0].regDay }"/></div>
@@ -252,7 +271,7 @@
                                     <ul class="list">
 										<c:forEach items="${pressList}" begin="1" var="list" varStatus="status">
 											<li>
-												<a href="/${vo.siteCode}/${vo.langCode}${list.menuUri}?menuPos=${cFn:arrIndexOf(menuIdxList, 'menu'.concat(list.menuNo))}&act=detail&idx=${list.no}&pageIndex=1" >
+												<a href="${list.link}" target="_blank" >
 	                                                <span class="txt"><c:out value="${list.title}"  escapeXml="false"/></span>
 	                                                <span class="date"><c:out value="${list.regDate}" /></span>
 	                                            </a>
@@ -386,8 +405,8 @@
                                         <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('2',this);" class="tit">창의력챔피언대회</button></li>
                                         <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('5',this);" class="tit">YIP</button></li>
                                         <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('4',this);" class="tit">IP-MEISTER</button></li>
-                                        <li class="swiper-slide swiper-slide-next" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('1',this);" class="tit">직업계고 발명·특허교육지원 사업</button></li>
-                                        <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('3',this);" class="tit">차세대영재기업인선발</button></li>
+                                        <li class="swiper-slide swiper-slide-next" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('1',this);" class="tit">발명특허 고등학교</button></li>
+                                        <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('3',this);" class="tit">차세대 영재기업인</button></li>
                                         <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('6',this);" class="tit">발명교육대상</button></li>
                                         <li class="swiper-slide" style="width: 132px; margin-right: 20px;"><button type="button" onClick="fn_notice_init('7',this);" class="tit">전국교원발명연구대회</button></li>
                                         
