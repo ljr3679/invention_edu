@@ -151,9 +151,9 @@
 		<div class="container2">
 			<div class="inner">
 				<div class="link_box">
-					<a href="https://www.kipo.go.kr/kpo/MainApp" target="_blank" title="특허청 바로가기(새창)"><img src="/images/home/kor/user/common/header_top_logo1.jpg" alt="특허청 "></a>
-					<a href="https://www.kipa.org/kipa/index.jsp" target="_blank" title="한국발명진흥회 바로가기(새창)"><img src="/images/home/kor/user/common/header_top_logo2.jpg" alt="한국발명진흥회 "></a>
-					<a href="https://ip-edu.net/eduhall/" target="_blank" title="발명체험교육관 바로가기(새창)"><img src="/images/home/kor/user/common/header_top_logo3.jpg" alt="발명둥지"></a>
+					<a href="//www.kipo.go.kr" target="_blank" title="특허청 바로가기(새창)"><img src="/images/home/kor/user/common/header_top_logo1.jpg" alt="특허청 "></a>
+					<a href="//www.kipa.org/kipa/index.jsp" target="_blank" title="한국발명진흥회 바로가기(새창)"><img src="/images/home/kor/user/common/header_top_logo2.jpg" alt="한국발명진흥회 "></a>
+					<a href="//www.gbe.kr/ieec/main.do" target="_blank" title="발명체험교육관 바로가기(새창)"><img src="/images/home/kor/user/common/header_top_logo3.jpg" alt="발명둥지"></a>
 				</div>
 				<c:choose>
 					<c:when test="${empty usrSession}">
