@@ -220,7 +220,7 @@
 	    TO_CHAR(T3.reg_date, 'MM') AS reg_month, 
 	    TO_CHAR(T3.reg_date, 'DD') AS reg_day
 	FROM 
-			cms_board_data T3
+			cms_board_data_view T3
 	LEFT OUTER JOIN
 			cms_menu T1
 	ON 
