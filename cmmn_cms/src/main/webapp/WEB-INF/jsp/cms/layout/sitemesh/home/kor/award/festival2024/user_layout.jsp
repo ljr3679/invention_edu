@@ -193,35 +193,6 @@ $(document).ready(function() {
 				<c:when test="${vo.tabPos eq '4'}">
 					<div class="menu_box">
 						<div class="container">
-							<ul class="menu_list">
-								<li <c:if test="${vo.tabPos2 eq '1'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('1');"><span class="text">창의발명 교육정보관</span></a></li>
-								<li <c:if test="${vo.tabPos2 eq '2'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('2');"><span class="text">YIP(청소년발명프로그램)</span></a></li>
-								<li <c:if test="${vo.tabPos2 eq '3'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('3');"><span class="text">발명교육센터 및 찾아가는<br> 발명체험교실 홍보관</span></a></li>
-							</ul>
-							<div class="m_slt_cont" style="position: relative;">
-							    <div class="slt_tit mobile-dropdown" style="cursor: pointer; padding: 10px; background-color: #000000; color: #ffffff; border: 1px solid #333333; display: flex; justify-content: space-between; align-items: center;">
-							        <span id="currentTab">창의발명 교육정보관</span>
-							    </div>
-							    <div class="slt_menu_list" id="menuList" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background-color: #ffffff; border: 1px solid #ddd; z-index: 1000;">
-							        <ul class="list" style="list-style-type: none; padding: 0; margin: 0;">
-							            <li <c:if test="${vo.tabPos2 eq '1'}">class="on"</c:if> style="padding: 10px; border-bottom: 1px solid #eee;">
-							                <a href="javascript:void(0);" onclick="fn_tab('1');" style="text-decoration: none; color: #000000;">
-							                    <span class="text">창의발명 교육정보관</span>
-							                </a>
-							            </li>
-							            <li <c:if test="${vo.tabPos2 eq '2'}">class="on"</c:if> style="padding: 10px; border-bottom: 1px solid #eee;">
-							                <a href="javascript:void(0);" onclick="fn_tab('2');" style="text-decoration: none; color: #000000;">
-							                    <span class="text">YIP(청소년발명프로그램)</span>
-							                </a>
-							            </li>
-							            <li <c:if test="${vo.tabPos2 eq '3'}">class="on"</c:if> style="padding: 10px;">
-							                <a href="javascript:void(0);" onclick="fn_tab('3');" style="text-decoration: none; color: #000000;">
-							                    <span class="text">발명교육센터 및 찾아가는 발명체험교실 홍보관</span>
-							                </a>
-							            </li>
-							        </ul>
-							    </div>
-							</div>
 						</div>
 					</div>
 				</c:when>

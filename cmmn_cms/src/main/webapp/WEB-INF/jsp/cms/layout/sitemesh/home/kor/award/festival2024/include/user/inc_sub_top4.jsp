@@ -5,13 +5,13 @@
 	<div class="container">
 		<div class="title_area">
 			<div class="title">
-				<span class="text">창의발명교육사업 홍보관</span>
+				<span class="text">창의발명 교육정보관</span>
 			</div>
 		</div>
 		<ul class="breadcrumb clearfix">
 			<li class="home"><a href="/home/kor/award/festival2024/main.do?menuPos=1"><img src="/images/home/kor/user/award/common/home.png?t=20220907160821" alt="홈으로"></a></li>
 			<li>
-				창의발명교육사업 홍보관
+				창의발명 교육정보관
 			</li>
 <!-- 			<li>발명체험교육관 홍보관</li> -->
 		</ul>

@@ -132,34 +132,34 @@
 			<img id="img" class="bg_img_mob" src="/images/home/kor/user/award/main/main_img2.png" style="width: 100%;" alt="" usemap="#main_mob">
 			<img src="/images/home/kor/user/award/main/ballon_m.png?t=20220907151453" alt="" class="ballon_m">
 			<div class="bubble_box" style="top: 13%;">
-					<div class="text" style=" font-size: 10px; line-height: 25px; background-color: #F5AA8C;  animation: top_btm 3.3s infinite;" >
+					<div class="text" style=" font-size: 7px; line-height: 12px; background-color: #F5AA8C;  animation: top_btm 3.3s infinite;" >
 						2024년도 수상작 온라인 전시는</br> 8.7(수) 10시에 시작됩니다!
 						<span style="
             content: '';
             position: absolute;
-            bottom: -30px;
+            bottom: -15px;
             left: 50px;
             width: 0;
             height: 0;
             border-style: solid;
-            border-width: 30px 0 0 30px;
+            border-width: 15px 0 0 12px;
             border-color: #F5AA8C transparent transparent transparent;
             transform: skew(-50deg);
         "></span>
 					</div>
 				</div>
-				<div class="bubble_box" style=" z-index: 1;top: 0%; left: 78%">
-					<div class="text" style=" font-size: 10px;  line-height: 15px; background-color: #3faaee;  animation: top_btm 3.3s infinite;" >
+				<div class="bubble_box" style=" z-index: 1;top: -4%; left: 78%">
+					<div class="text" style=" font-size: 7px;  line-height: 12px; background-color: #3faaee;  animation: top_btm 3.3s infinite;" >
 						우리아이 발명체험 미리 둘러보고</br> 현장등록 후 이용하세요!
 						 <span style="
             content: '';
             position: absolute;
-            bottom: -30px;
-            left: 80px;
+            bottom: -15px;
+            left: 50px;
             width: 0;
             height: 0;
             border-style: solid;
-            border-width: 30px 0 0 30px;
+            border-width: 15px 0 0 12px;
             border-color: #3faaee transparent transparent transparent;
             transform: skew(30deg);
         "></span>

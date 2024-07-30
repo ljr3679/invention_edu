@@ -85,7 +85,7 @@
 				<img src="/images/home/kor/user/award/main/box06_img02.png?t=20220907151453" alt="" class="box06_img02">
 				<img src="/images/home/kor/user/award/main/box06_img03.png?t=20220907151453" alt="" class="box06_img03">
 				<div class="bubble_box">
-					<div class="text">창의발명교육 <span class="ft_c">홍보관</span></div>
+					<div class="text">창의발명 교육정보관</span></div>
 				</div>
 			</a>
 			<!-- 홍보관 -->
