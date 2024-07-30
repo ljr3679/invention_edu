@@ -11,47 +11,17 @@ function fn_tab_menu(type) {
 </script>
 </head>
 <body>
+<style>
+  table th, table td {
+    text-align: center;
+    vertical-align: middle;
+  }
+</style>
 <form:form commandName="commonVO" name="cmmnForm" id="cmmnForm" method="post">
 <input type="hidden" id="menuPos" name="menuPos" value="${vo.menuPos}">
 <form:hidden path="tabPos"/>
 <form:hidden path="tabPos2"/>
-	<div class="program_box">
-		<ul class="list">
-			<li class="bg01">
-				<a href="javascript:void(0);" onclick="fn_tab_menu('A');" class="box">
-					<div class="info_text">
-						<div class="title">가상현실콘텐츠</div>
-						<div class="text"> (VR Attracion)</div>
-					</div>
-				</a>
-			</li>
-			<li class="bg02">
-				<a href="javascript:void(0);" onclick="fn_tab_menu('B');" class="box">
-					<div class="img_box">
-					</div>
-					<div class="info_text">
-						<div class="title">동작인식 커넥트</div>
-						<div class="text">(Complete the Inventions!)</div>
-					</div>
-				</a>
-			</li>
-			<li class="bg03">
-				<a href="javascript:void(0);" onclick="fn_tab_menu('C');" class="box">
-					<div class="info_text">
-						<div class="title">증강현실 콘텐츠</div>
-						<div class="text">(AR 보물찾기)</div>
-					</div>
-				</a>
-			</li>
-			<li class="bg04">
-				<a href="javascript:void(0);" onclick="fn_tab_menu('D');" class="box">
-					<div class="info_text">
-						<div class="title">기타 체험프로그램</div>
-						<div class="text">(가상터치, 코딩체험 등)</div>
-					</div>
-				</a>
-			</li>
-		</ul>
-	</div>
+	<img src="/images/home/kor/user/award/festival2024/program.jpg" alt="" style="width: 100%">
+</table>
 </form:form>
 </body>

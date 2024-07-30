@@ -25,6 +25,11 @@
 				<img src="/images/home/kor/user/award/main/box01_img04.png?t=20220907151453" alt="" class="box01_img04">
 				<img src="/images/home/kor/user/award/main/box01_img05.png?t=20220907151453" alt="" class="box01_img05">
 				<img src="/images/home/kor/user/award/main/box01_img06.png?t=20220907151453" alt="" class="box01_img06">
+				<div class="bubble_box" style="top: -60px;">
+					<div class="text" style=" font-size: 15px; line-height: 35px; background-color: #F5AA8C;  animation: top_btm 3.3s infinite;" >
+						2024년도 수상작 온라인 전시는 8.7(수) 10시에 시작됩니다!
+					</div>
+				</div>
 				<div class="bubble_box">
 					<div class="text">대한민국<span class="ft_c">학생발명전시회 </span></div>
 				</div>

@@ -22,7 +22,7 @@ public class HomeKorUserAwardFestival2024CompetitionCtr extends CMSMappingHandle
 			HttpServletRequest request,
 			ModelMap model
 			) throws Exception {
-		
+		if(stringUtil.isEmpty(vo.getTabPos2())) vo.setTabPos2("1");
 		model.addAttribute("layout_option", "sub");
 	}
 	

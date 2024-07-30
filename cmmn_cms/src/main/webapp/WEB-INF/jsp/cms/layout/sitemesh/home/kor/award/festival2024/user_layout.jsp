@@ -52,19 +52,45 @@
 </form>
 
 <script type="text/javascript">
-	function fn_tab(tab) {
-		$('#pageIndex').remove();
-		$("#searchValue3").val("");
-		$("#tabPos2").val(tab);
-		$('#cmmnForm').attr('action', '${selfPath}index.do');
-		$('#cmmnForm').submit();
-	}
-	
-	function fn_back() {
-		$("#tabPos2").val("");
-		$('#cmmnForm').attr('action', '${selfPath}index.do');
-		$('#cmmnForm').submit();
-	}
+function fn_tab(tab) {
+    $('#pageIndex').remove();
+    $("#searchValue3").val("");
+    $("#tabPos2").val(tab);
+    $('#cmmnForm').attr('action', '${selfPath}index.do');
+    $('#cmmnForm').submit();
+}
+
+function fn_back() {
+    $("#tabPos2").val("");
+    $('#cmmnForm').attr('action', '${selfPath}index.do');
+    $('#cmmnForm').submit();
+}
+
+// 새로운 모바일 대응 스크립트
+$(document).ready(function() {
+    // 모바일 드롭다운 토글
+    $('.mobile-dropdown').click(function() {
+        $('#menuList').slideToggle();
+    });
+
+    // 화면 크기에 따라 스타일 조정
+    function adjustStyles() {
+        var width = $(window).width();
+        if (width <= 768) { // 모바일 화면
+            $('.slt_tit.mobile-dropdown').show();
+            $('#menuList').hide();
+        } else { // 데스크톱 화면
+            $('.slt_tit.mobile-dropdown').hide();
+            $('#menuList').show();
+        }
+    }
+
+    // 페이지 로드 시와 화면 크기 변경 시 스타일 조정
+    $(window).on('load resize', adjustStyles);
+
+    // 초기 스타일 적용
+    adjustStyles();
+});
 </script>
 
 <!-- wrapper -->
@@ -102,17 +128,65 @@
 								<li <c:if test="${vo.tabPos2 eq '3'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('3');"><span class="text">동상 및 장려상수상작 전시관</span></a></li>
 								<li <c:if test="${vo.tabPos2 eq '4'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('4');"><span class="text">전국교원발명경진대회 수상작 전시관</span></a></li>
 							</ul>
-							<div class="m_slt_cont">
-								<div class="slt_tit">역대대통령상 전시관</div>
-								<div class="slt_menu_list">
-									<ul class="list">
-										<li <c:if test="${vo.tabPos2 eq '1'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('1');"><span class="text">역대대통령상 전시관</span></a></li>
-										<li <c:if test="${vo.tabPos2 eq '2'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('2');"><span class="text">우수상격 전시관</span></a></li>
-										<li <c:if test="${vo.tabPos2 eq '3'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('3');"><span class="text">동상 및 장려상수상작 전시관</span></a></li>
-										<li <c:if test="${vo.tabPos2 eq '4'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('4');"><span class="text">전국교원발명경진대회 수상작 전시관</span></a></li>
-									</ul>
-								</div>
+							<div class="m_slt_cont" style="position: relative;">
+							    <div class="slt_tit mobile-dropdown" style="cursor: pointer; padding: 10px; background-color: #000000; color: #ffffff; border: 1px solid #333333; display: flex; justify-content: space-between; align-items: center;">
+							        <span id="currentTab">역대대통령상 전시관</span>
+							    </div>
+							    <div class="slt_menu_list" id="menuList" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background-color: #ffffff; border: 1px solid #ddd; z-index: 1000;">
+							        <ul class="list" style="list-style-type: none; padding: 0; margin: 0;">
+							            <li <c:if test="${vo.tabPos2 eq '1'}">class="on"</c:if> style="padding: 10px; border-bottom: 1px solid #eee;">
+							                <a href="javascript:void(0);" onclick="fn_tab('1');" style="text-decoration: none; color: #000000;">
+							                    <span class="text">역대대통령상 전시관</span>
+							                </a>
+							            </li>
+							            <li <c:if test="${vo.tabPos2 eq '2'}">class="on"</c:if> style="padding: 10px; border-bottom: 1px solid #eee;">
+							                <a href="javascript:void(0);" onclick="fn_tab('2');" style="text-decoration: none; color: #000000;">
+							                    <span class="text">우수상격 전시관</span>
+							                </a>
+							            </li>
+							            <li <c:if test="${vo.tabPos2 eq '3'}">class="on"</c:if> style="padding: 10px; border-bottom: 1px solid #eee;">
+							                <a href="javascript:void(0);" onclick="fn_tab('3');" style="text-decoration: none; color: #000000;">
+							                    <span class="text">동상 및 장려상수상작 전시관</span>
+							                </a>
+							            </li>
+							            <li <c:if test="${vo.tabPos2 eq '4'}">class="on"</c:if> style="padding: 10px;">
+							                <a href="javascript:void(0);" onclick="fn_tab('4');" style="text-decoration: none; color: #000000;">
+							                    <span class="text">전국교원발명경진대회 수상작 전시관</span>
+							                </a>
+							            </li>
+							        </ul>
+							    </div>
 							</div>
+						</div>
+					</div>
+				</c:when>
+				<c:when test="${vo.tabPos eq '2'}">
+					<div class="menu_box">
+						<div class="container">
+							<ul class="menu_list">
+								<li <c:if test="${vo.tabPos2 eq '1'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('1');"><span class="text">IP 마이스터 프로그램</span></a></li>
+								<li <c:if test="${vo.tabPos2 eq '2'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('2');"><span class="text">YIP(청소년발명프로그램)</span></a></li>
+							</ul>
+							<div class="m_slt_cont" style="position: relative;">
+							    <div class="slt_tit mobile-dropdown" style="cursor: pointer; padding: 10px; background-color: #000000; color: #ffffff; border: 1px solid #333333; display: flex; justify-content: space-between; align-items: center;">
+							        <span id="currentTab">IP 마이스터 프로그램</span> 
+							    </div>
+							    <div class="slt_menu_list" id="menuList" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background-color: #ffffff; border: 1px solid #ddd; z-index: 1000;">
+							        <ul class="list" style="list-style-type: none; padding: 0; margin: 0;">
+							            <li <c:if test="${vo.tabPos2 eq '1'}">class="on"</c:if> style="padding: 10px; border-bottom: 1px solid #eee;">
+							                <a href="javascript:void(0);" onclick="fn_tab('1');" style="text-decoration: none; color: #000000;">
+							                    <span class="text">IP 마이스터 프로그램</span>
+							                </a>
+							            </li>
+							            <li <c:if test="${vo.tabPos2 eq '2'}">class="on"</c:if> style="padding: 10px;">
+							                <a href="javascript:void(0);" onclick="fn_tab('2');" style="text-decoration: none; color: #000000;">
+							                    <span class="text">YIP(청소년발명프로그램)</span>
+							                </a>
+							            </li>
+							        </ul>
+							    </div>
+							</div>
+
 						</div>
 					</div>
 				</c:when>
@@ -120,19 +194,33 @@
 					<div class="menu_box">
 						<div class="container">
 							<ul class="menu_list">
-								<li <c:if test="${vo.tabPos2 eq '1'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('1');"><span class="text">발명체험교육관 홍보관</span></a></li>
+								<li <c:if test="${vo.tabPos2 eq '1'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('1');"><span class="text">창의발명 교육정보관</span></a></li>
 								<li <c:if test="${vo.tabPos2 eq '2'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('2');"><span class="text">YIP(청소년발명프로그램)</span></a></li>
 								<li <c:if test="${vo.tabPos2 eq '3'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('3');"><span class="text">발명교육센터 및 찾아가는<br> 발명체험교실 홍보관</span></a></li>
 							</ul>
-							<div class="m_slt_cont">
-								<div class="slt_tit">발명체험교육관 홍보관</div>
-								<div class="slt_menu_list">
-									<ul class="list">
-										<li <c:if test="${vo.tabPos2 eq '1'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('1');"><span class="text">발명체험교육관 홍보관</span></a></li>
-										<li <c:if test="${vo.tabPos2 eq '2'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('2');"><span class="text">YIP(청소년발명프로그램)</span></a></li>
-										<li <c:if test="${vo.tabPos2 eq '3'}">class="on"</c:if>><a href="javascript:void(0);" onclick="fn_tab('3');"><span class="text">발명교육센터 및 찾아가는<br> 발명체험교실 홍보관</span></a></li>
-									</ul>
-								</div>
+							<div class="m_slt_cont" style="position: relative;">
+							    <div class="slt_tit mobile-dropdown" style="cursor: pointer; padding: 10px; background-color: #000000; color: #ffffff; border: 1px solid #333333; display: flex; justify-content: space-between; align-items: center;">
+							        <span id="currentTab">창의발명 교육정보관</span>
+							    </div>
+							    <div class="slt_menu_list" id="menuList" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background-color: #ffffff; border: 1px solid #ddd; z-index: 1000;">
+							        <ul class="list" style="list-style-type: none; padding: 0; margin: 0;">
+							            <li <c:if test="${vo.tabPos2 eq '1'}">class="on"</c:if> style="padding: 10px; border-bottom: 1px solid #eee;">
+							                <a href="javascript:void(0);" onclick="fn_tab('1');" style="text-decoration: none; color: #000000;">
+							                    <span class="text">창의발명 교육정보관</span>
+							                </a>
+							            </li>
+							            <li <c:if test="${vo.tabPos2 eq '2'}">class="on"</c:if> style="padding: 10px; border-bottom: 1px solid #eee;">
+							                <a href="javascript:void(0);" onclick="fn_tab('2');" style="text-decoration: none; color: #000000;">
+							                    <span class="text">YIP(청소년발명프로그램)</span>
+							                </a>
+							            </li>
+							            <li <c:if test="${vo.tabPos2 eq '3'}">class="on"</c:if> style="padding: 10px;">
+							                <a href="javascript:void(0);" onclick="fn_tab('3');" style="text-decoration: none; color: #000000;">
+							                    <span class="text">발명교육센터 및 찾아가는 발명체험교실 홍보관</span>
+							                </a>
+							            </li>
+							        </ul>
+							    </div>
 							</div>
 						</div>
 					</div>

@@ -78,7 +78,7 @@
 				<!-- sitemap -->
 				<ul class="sitemap clearfix">
 					<li><a href="/home/kor/award/festival2024/exhibition/index.do?menuPos=1&tabPos=1"><span class="text">대한민국학생발명전시회</span></a></li>
-					<li><a href="/home/kor/award/festival2024/promotion/index.do?menuPos=1&tabPos=4"><span class="text">창의발명교육 홍보관</span></a></li>
+					<li><a href="/home/kor/award/festival2024/promotion/index.do?menuPos=1&tabPos=4"><span class="text">창의발명 교육정보관</span></a></li>
 					<li><a href="/home/kor/award/festival2024/champion/index.do?menuPos=1&tabPos=3"><span class="text">대한민국 학생창의력 챔피언대회</span></a></li>
 					<li><a href="/home/kor/award/festival2024/competition/index.do?menuPos=1&tabPos=2"><span class="text">청소년 발명가 프로그램</span></a></li>
 					<li><a href="/home/kor/award/festival2024/program/index.do?menuPos=1&tabPos=5"><span class="text">창의발명 체험프로그램</span></a></li>

@@ -5,7 +5,7 @@
 	<div class="container">
 		<div class="title_area">
 			<div class="title">
-				<span class="text">청소년 발명가 프로그램 <span>(YIP)</span></span>
+				<span class="text">YIP(청소년 발명가 프로그램) </br>IP 마이스터 프로그램 </span>
 			</div>
 		</div>
 		<ul class="breadcrumb clearfix">

@@ -25,7 +25,24 @@
 				<img src="/images/home/kor/user/award/main/box01_img04.png?t=20220907151453" alt="" class="box01_img04">
 				<img src="/images/home/kor/user/award/main/box01_img05.png?t=20220907151453" alt="" class="box01_img05">
 				<img src="/images/home/kor/user/award/main/box01_img06.png?t=20220907151453" alt="" class="box01_img06">
-				<div class="bubble_box">
+<div class="bubble_box" style="top: -60px; position: relative; padding-bottom: 15px; z-index: 1">
+    <div class="text" style="font-size: 15px; line-height: 25px; background-color: #F5AA8C; animation: top_btm 3.3s infinite; padding: 5px 20px; border-radius: 20px; position: relative;">
+        2024년도 수상작 온라인 전시는 </br> 8.7(수) 10시에 시작됩니다!
+        <span style="
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 50px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 30px 0 0 30px;
+            border-color: #F5AA8C transparent transparent transparent;
+            transform: skew(-50deg);
+        "></span>
+    </div>
+</div>
+				<div class="bubble_box" style="top: 40px; z-index: 0" >
 					<div class="text">대한민국<span class="ft_c">학생발명전시회 </span></div>
 				</div>
 			</a>
@@ -44,7 +61,7 @@
 				<img src="/images/home/kor/user/award/main/box03_img02.png?t=20220907151453" alt="" class="box03_img02">
 				<img src="/images/home/kor/user/award/main/box03_img03.png?t=20220907151453" alt="" class="box03_img03">
 				<div class="bubble_box">
-					<div class="text">IP <span class="ft_c">마이스터프로그램</span> </div>
+					<div class="text" style="line-height: 25px;padding: 15px;">YIP  <span class="ft_c"> (청소년 발명가 프로그램)</span></br> IP <span class="ft_c"> 마이스터 프로그램</span></div>
 				</div>
 			</a>
 			<!-- YIP -->
@@ -55,6 +72,24 @@
 				<img src="/images/home/kor/user/award/main/box04_img01.png?t=20220907151453" alt="" class="box04_img01">
 				<img src="/images/home/kor/user/award/main/box04_img02.png?t=20220907151453" alt="" class="box04_img02">
 				<img src="/images/home/kor/user/award/main/box04_img03.png?t=20220907151453" alt="" class="box04_img03">
+				<div class="bubble_box" style=" z-index: 1;top: -110px;">
+					<div class="text" style=" font-size: 15px; line-height: 35px; line-height: 25px; background-color: #3faaee;  animation: top_btm 3.3s infinite;" >
+						우리아이 발명체험 미리 둘러보고</br> 현장등록 후 이용하세요!
+						 <span style="
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 80px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 30px 0 0 30px;
+            border-color: #3faaee transparent transparent transparent;
+            transform: skew(30deg);
+        "></span>
+					</div>
+					
+				</div>
 				<div class="bubble_box">
 					<div class="text">창의발명 <span class="ft_c">체험프로그램</div>
 				</div>
@@ -80,14 +115,14 @@
 				<img src="/images/home/kor/user/award/main/box06_img02.png?t=20220907151453" alt="" class="box06_img02">
 				<img src="/images/home/kor/user/award/main/box06_img03.png?t=20220907151453" alt="" class="box06_img03">
 				<div class="bubble_box">
-					<div class="text">창의발명교육 <span class="ft_c">홍보관</span></div>
+					<div class="text">창의발명 <span class="ft_c">교육정보관</span></div>
 				</div>
 			</a>
 			<!-- 홍보관 -->
 
 			<!-- 열기구 -->
 			<div class="box box07">
-				<img id="img" src="/images/home/kor/user/award/main/ballon.png" alt="" class="box07_bg">
+				<img id="img" src="/images/home/kor/user/award/main/ballon.png" alt="" class="box07_bg" style="z-index: 0">
 			</div>
 			<!-- //열기구 -->
 		</div>
@@ -96,6 +131,40 @@
 			<script src="/js/home/kor/user/award/map.js"></script>
 			<img id="img" class="bg_img_mob" src="/images/home/kor/user/award/main/main_img2.png" style="width: 100%;" alt="" usemap="#main_mob">
 			<img src="/images/home/kor/user/award/main/ballon_m.png?t=20220907151453" alt="" class="ballon_m">
+			<div class="bubble_box" style="top: 13%;">
+					<div class="text" style=" font-size: 10px; line-height: 25px; background-color: #F5AA8C;  animation: top_btm 3.3s infinite;" >
+						2024년도 수상작 온라인 전시는</br> 8.7(수) 10시에 시작됩니다!
+						<span style="
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 50px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 30px 0 0 30px;
+            border-color: #F5AA8C transparent transparent transparent;
+            transform: skew(-50deg);
+        "></span>
+					</div>
+				</div>
+				<div class="bubble_box" style=" z-index: 1;top: 0%; left: 78%">
+					<div class="text" style=" font-size: 10px;  line-height: 15px; background-color: #3faaee;  animation: top_btm 3.3s infinite;" >
+						우리아이 발명체험 미리 둘러보고</br> 현장등록 후 이용하세요!
+						 <span style="
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 80px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 30px 0 0 30px;
+            border-color: #3faaee transparent transparent transparent;
+            transform: skew(30deg);
+        "></span>
+					</div>
+				</div>
 			<a href="/home/kor/award/festival2024/competition/index.do?menuPos=1&tabPos=2" class="mob_btn01"></a>
 			<a href="/home/kor/award/festival2024/program/index.do?menuPos=1&tabPos=5" class="mob_btn02"></a>
 			<a href="/home/kor/award/festival2024/exhibition/index.do?menuPos=1&tabPos=1" class="mob_btn03"></a>
