@@ -13,6 +13,8 @@ function fn_tab_menu(type) {
 <body>
 <style>
   table th, table td {
+						2024년도 수상작 온라인 전시는 8.7(수) 10시에 시작됩니다!
+					
     text-align: center;
     vertical-align: middle;
   }
