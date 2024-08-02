@@ -42,6 +42,25 @@
 .promotion_cont .design_img_list_area .list_box.box2 > ul > li {display: inline-block; width: calc(33.3333% - 10.6666px); margin: 0 16px 0 0;}
 .promotion_cont .design_img_list_area .list_box.box2 > ul > li:last-child {margin: 0;}
 
+.promotion_cont{
+	position: relative;
+	width: 1280px;
+	height: 480.27px;
+} 
+.promotion_cont_1 a{
+	left: 242px;
+} 
+.promotion_cont_2 a{
+	left: 648px;
+} 
+.promotion_cont_3 a{
+	left: 441px;
+} 
+.promotion_cont_4 a{
+	left: 869px;
+	width: 170px
+} 
+
 /* 공통 틀 */
 .com_cont {overflow: hidden;}
 .com_cont .title_cont {}

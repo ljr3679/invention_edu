@@ -229,6 +229,24 @@
 	.promotion_cont .design_img_list_area .title {font-size: 14px; line-height: 21px;}
 	.promotion_cont .design_img_list_area .list_box {margin: 10px 0 0;}
 	
+	.promotion_cont{
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+	} 
+	.promotion_cont_1 a{
+		left: 140px;
+	}
+	.promotion_cont_2 a{
+		left: 385px;
+	} 
+	.promotion_cont_3 a{
+		left: 260px;
+	}
+	.promotion_cont_4 a{
+		left: 530px;
+		width: 70px
+	}
 
 	/* 공통 틀 */
 	.com_cont .title_cont .box {padding: 0;}
@@ -440,6 +458,25 @@
 	.com_list_cont .com_list_box2 > .list > li .box .img_wrap .img_box .inner_box {height: 100px;}
 	/* // 10-05 */
 	
+	.promotion_cont{
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+	} 
+	.promotion_cont_1 a{
+		left: 120px;
+	}
+	.promotion_cont_2 a{
+		left: 320px;
+	} 
+	.promotion_cont_3 a{
+		left: 220px;
+	}
+	.promotion_cont_4 a{
+		left: 430px;
+		width: 70px
+	}
+	
 }
 
 
@@ -452,6 +489,25 @@
 	.promotion_cont .info_list_area .list li .box .img_box {width: 73px; height: 73px; background-size: 38px 32px;}
 	.promotion_cont .design_img_list_area {margin: 15px 0 0;}
 	.promotion_cont .design_img_list_area .list_box.box2 > ul > li {width: calc(33.3333% - 6.6666px); margin: 0 10px 0 0;}
+
+	.promotion_cont{
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+	} 
+	.promotion_cont_1 a{
+		left: 80px;
+	}
+	.promotion_cont_2 a{
+		left: 220px;
+	} 
+	.promotion_cont_3 a{
+		left: 120px;
+	}
+	.promotion_cont_4 a{
+		left: 290px;
+		width: 70px
+	}
 
 	.com_cont .info_list_cont > .list > li .box .com_list_area > .list > li .area .video_box iframe {height: 270px;}
 	
