@@ -33,7 +33,7 @@ public class HomeKorUserAwardFestival2024ExhibitionCtr extends CMSMappingHandler
 			HttpServletRequest request,
 			ModelMap model
 			) throws Exception {
-		if(stringUtil.isEmpty(vo.getSearchValue1())) vo.setSearchValue1("2024");
+		if(stringUtil.isEmpty(vo.getSearchValue1())) vo.setSearchValue1("2023");
 		if(stringUtil.isEmpty(vo.getTabPos2())) vo.setTabPos2("1");
 		if(stringUtil.isEmpty(vo.getSearchValue3())) vo.setSearchValue3("");
 		
