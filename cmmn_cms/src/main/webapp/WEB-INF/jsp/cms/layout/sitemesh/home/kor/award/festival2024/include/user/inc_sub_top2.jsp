@@ -3,17 +3,18 @@
 
 <div class="bread_box bg04">
 	<div class="container">
-		<div class="title_area">
-			<div class="title">
+		<div class="title_area" style="">
+			<div class="title" style="display: flex; flex-direction: column; align-items: center;">
 				<span class="text">YIP(청소년 발명가 프로그램) </br>IP 마이스터 프로그램 </span>
 			</div>
 		</div>
-		<ul class="breadcrumb clearfix">
-			<li class="home"><a href="/home/kor/award/festival2024/main.do?menuPos=1"><img src="/images/home/kor/user/award/common/home.png?t=20220907160719" alt="홈으로"></a></li>
-			<li>
-				청소년 발명가 프로그램 <span>(YIP)</span>
+		<ul class="breadcrumb clearfix" style="list-style: none; padding: 0; margin: 0; display: flex; align-items: center; justify-content: center;">
+			<li class="home"><a href="/home/kor/award/festival2024/main.do?menuPos=1" style=""><img src="/images/home/kor/user/award/common/home.png?t=20220907160719" alt="홈으로"></a>
+				<li>
+					 YIP<span>(청소년 발명가 프로그램)</span></br>
+					 IP <span>마이스터 프로그램</span>
+				</li>
 			</li>
-			
 		</ul>
 		<ul class="btn_list">
 			<li class="share">
