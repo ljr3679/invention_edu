@@ -16,7 +16,7 @@ $(document).ready(function () {
 	
 	if (${empty usrSession}) {
         alert('로그인 후 이용해주세요.');
-        location.href = '/home/kor/contents.do?menuPos=123';
+        location.href = '/home/kor/contents.do?menuPos=124';
     } else {
         $('body').css('display', 'block');  // Show the page if the user is logged in
     }
